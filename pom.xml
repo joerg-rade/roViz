@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.ro.viz</groupId>
+    <artifactId>roViz</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <packaging>swf</packaging>
+
+    <name>Restful Objects - Visualizer</name>
+
+    <properties>
+        <flexmojos.version>7.1.1</flexmojos.version>
+        <flex.version>4.1.0.16076</flex.version>
+        <playerglobal.version>27.0</playerglobal.version>
+        <flashplayer.version>27.0</flashplayer.version>
+        <flex.debug>true</flex.debug>
+    </properties>
+
+    <build>
+        <sourceDirectory>src</sourceDirectory>
+        <testSourceDirectory>test</testSourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>net.flexmojos.oss</groupId>
+                <artifactId>flexmojos-maven-plugin</artifactId>
+                <version>${flexmojos.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <storepass/>
+                    <targetPlayer>${flashplayer.version}</targetPlayer>
+                    <debug>${flex.debug}</debug>
+                    <defines>
+                        <property>
+                            <name>CONFIG::debugging</name>
+                            <value>${flex.debug}</value>
+                        </property>
+                        <property>
+                            <name>CONFIG::versionNumber</name>
+                            <value>'${project.version}'</value>
+                        </property>
+                    </defines>
+                    <sourceFile>org/ro/Main.mxml</sourceFile>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.adobe.flex</groupId>
+                        <artifactId>compiler</artifactId>
+                        <version>${flex.version}</version>
+                        <type>pom</type>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <!--dependency>
+            <groupId>com.adobe.flex.framework.themes</groupId>
+            <artifactId>halo</artifactId>
+            <version>${flex.version}</version>
+            <scope>theme</scope>
+            <type>swc</type>
+        </dependency-->
+
+        <dependency>
+            <groupId>com.adobe.flash.framework</groupId>
+            <artifactId>playerglobal</artifactId>
+            <version>${playerglobal.version}</version>
+            <type>swc</type>
+        </dependency>
+        <dependency>
+            <groupId>com.adobe.flash.framework</groupId>
+            <artifactId>playerglobal</artifactId>
+            <version>${playerglobal.version}</version>
+            <type>rb.swc</type>
+        </dependency>
+        <dependency>
+            <groupId>com.adobe.flex.framework</groupId>
+            <artifactId>flash-integration</artifactId>
+            <version>${flex.version}</version>
+            <type>swc</type>
+        </dependency>
+        <dependency>
+            <groupId>com.adobe.flex.framework</groupId>
+            <artifactId>flex-framework</artifactId>
+            <version>${flex.version}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>com.adobe.flex.framework</groupId>
+            <artifactId>flash-integration</artifactId>
+            <version>${flex.version}</version>
+            <type>rb.swc</type>
+        </dependency>
+        <dependency>
+            <groupId>org.flexunit</groupId>
+            <artifactId>flexunit</artifactId>
+            <version>4.1.0</version>
+            <classifier>as3</classifier>
+            <type>swc</type>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-as3</artifactId>
+            <version>1.1</version>
+            <type>swc</type>
+        </dependency>
+        <dependency>
+            <groupId>org.mockolate</groupId>
+            <artifactId>mockolate</artifactId>
+            <version>0.12.4</version>
+            <classifier>as3</classifier>
+            <type>swc</type>
+        </dependency>
+    </dependencies>
+    <repositories>
+        <repository>
+            <id>artifactory-libs</id>
+            <name>artifactory-libs-release</name>
+            <url>http://artifactory/artifactory/libs-release-local</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>artifactory-snapshots</id>
+            <name>artifactory-libs-snapshots</name>
+            <url>http://artifactory/artifactory/libs-snapshot-local</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>artifactory-ext</id>
+            <name>artifactory-ext-release</name>
+            <url>http://artifactory/artifactory/ext-release-local</url>
+        </repository>
+        <repository>
+            <id>flex-mojos-repository</id>
+            <name>flex-mojos-repository</name>
+            <url>http://repository.sonatype.org/content/groups/flexgroup</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>flex-mojos-plugin-repository</id>
+            <url>http://repository.sonatype.org/content/groups/flexgroup</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>flexpmd.opensource.adobe</id>
+            <name>FlexPMD repository on opensource.adobe.com</name>
+            <url>http://opensource.adobe.com/svn/opensource/flexpmd/maven-repository/release/</url>
+        </pluginRepository>
+    </pluginRepositories>
+    
+</project>
