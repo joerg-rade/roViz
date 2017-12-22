@@ -6,7 +6,7 @@ An [Apache Isis] application with the restful objects interface enabled
 
 A [Naked Objects for .NET] application should work as well, but is not tested yet.
 
-image::images/roViz-0.1.0.png[Preview]
+image::./images/roViz-0.1.0.png[Preview]
 
 ## References
 * [Restful Objects] http://www.restfulobjects.org/
@@ -15,7 +15,7 @@ image::images/roViz-0.1.0.png[Preview]
 * [SimpleApp]  https://github.com/apache/isis/tree/master/example/application/simpleapp
 * [ToDoApp] https://github.com/isisaddons/isis-app-todoapp
 
-##TODO's for the PoC
+## TODO's for the PoC
 * Load and render single object 
 * Parse and transform layout.xml 
 * Implement Filtered Table (see: 
