@@ -1,6 +1,9 @@
 package org.ro {
 
+import mx.collections.ArrayCollection;
+
 import org.flexunit.Assert;
+import org.ro.to.Link;
 import org.ro.to.Member;
 import org.ro.to.Service;
 
@@ -28,12 +31,18 @@ public class ServiceTest {
         //Assert.assertEquals("listAll", actions[0]);
         //Assert.assertEquals("findByName", actions[1]);
         //Assert.assertEquals("create", actions[2]);
-
-        for each (var a:Member in actions) {
-            var s:String = a.getServiceName();
-            trace(a as String);
-        }
     }
+
+    [Test(description="parse result of invoking http://localhost:8080/restful/services/")]
+    public function testParse():void {
+        var svcLinks:ArrayCollection = Link.parse(json.value);
+        var menu:Menu = new Menu();
+        menu.init(svcLinks);
+
+        Assert.assertEquals(menu != null, true);
+    }
+
+
 
     private var json:Object = {
         "links": [

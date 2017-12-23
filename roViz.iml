@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="Flex" version="4">
-  <component name="FlexBuildConfigurationManager" active="RestfulObjectsViewer">
+  <component name="FlexBuildConfigurationManager" active="roViz">
     <configurations>
-      <configuration name="RestfulObjectsViewer" main-class="Main" output-file="Main.swf" output-folder="$MODULE_DIR$/out/production/RestfulObjectsViewer" use-html-wrapper="true" wrapper-template-path="$MODULE_DIR$/html-template">
+      <configuration name="roViz" main-class="Main" output-file="Main.swf" output-folder="$MODULE_DIR$/out/production/RestfulObjectsViewer" use-html-wrapper="true" wrapper-template-path="$MODULE_DIR$/html-template">
         <dependencies target-player="23.0">
           <entries>
             <entry library-id="1d374723-b09e-40f3-8d5c-c812ef146837">

@@ -41,43 +41,28 @@ public class Dispatcher {
     }
 
     private function handleServices(jsonObj:Object):void {
-        var svcLinks:ArrayCollection = parseLinks(jsonObj.value);
-        menu = new Menu(svcLinks);
+        var svcLinks:ArrayCollection = Link.parse(jsonObj.value);
+        menu = new Menu();
         for each (var l:Link in svcLinks) {
+            // invoking each link (http://**Menu) asynchronously invokes
+            // -> handMembers which adds each service.members as MenuEntry to Menu which 
+            // -> finally updates menuBar
             l.invoke();
         }
+        //TODO to be omitted after menuBar works
         getView().body.addTab(svcLinks, "Services", serviceIcon);
         getView().menuBar.amend(svcLinks);
     }
 
-    //FIXME handle members should not (only) be invoked via the context menu, but directly when 'services' are read.
     private function handleMembers(jsonObj:Object):void {
-        var members:ArrayCollection = parseMembers(jsonObj.members);
+        var members:ArrayCollection = Member.parse(jsonObj.members);
+        menu.init(members);
+        //TODO to be omitted after menuBar works
         getView().body.addTab(members, "Actions", actionIcon);
     }
 
     private static function getView():RoView {
         return FlexGlobals.topLevelApplication.view;
-    }
-
-    //TODO refactor parseLink/Member into single function where the constructor is passed in as arg
-    // public for test
-    public static function parseLinks(objArray:Object):ArrayCollection {
-        var links:Array = [];
-
-        for each (var v:Object in objArray) {
-            links.push(new Link(v));
-        }
-        return new ArrayCollection(links);
-    }
-
-    private static function parseMembers(objArray:Object):ArrayCollection {
-        var members:Array = [];
-
-        for each (var v:Object in objArray) {
-            members.push(new Member(v));
-        }
-        return new ArrayCollection(members);
     }
     
 }

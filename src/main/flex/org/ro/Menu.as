@@ -10,23 +10,23 @@ public class Menu {
 
     internal var menuItems:Array = [];
 
-    public function Menu(services:ArrayCollection = null) {
-        if (services != null) {
-            this.init(services);
-        }
+    public function Menu() {
     }
 
-    private function init(services:ArrayCollection):void {
-        for each (var i:Object in services) {
-            var title:String = i.title;
-            var id:String = extractServiceId(i.rel);
-            var item:String;
-            var action:Member;
+    //FIXME this needs to be invoked after each call to a Menu-URL like 
+    // http://localhost:8080/restful/services/simple.SimpleObjectMenu
+    internal function init(service:Service, members:ArrayCollection):void {
+        for each (var m:Member in members) {
+            var title:String = service.title;
+            var id:String = service.serviceId;
+            var item:String = m.getServiceName();
+            var action:Member = m;           
             var me:MenuEntry = new MenuEntry(title, id, item, action);
             menuItems.push(me);
         }
     }
     
+    //obsolete?
     private function extractServiceId(rel:String):String {
         var id:String = rel.split("=")[1];
         var l:int = id.length;

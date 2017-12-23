@@ -1,4 +1,5 @@
 package org.ro.to {
+import mx.collections.ArrayCollection;
 
 public class Member extends AbstractTransferObject implements IInvokeable {
     public static const ACTION:String = "action";
@@ -15,6 +16,14 @@ public class Member extends AbstractTransferObject implements IInvokeable {
             this.fromObject(jsonObj);
             this.init();
         }
+    }
+
+    public static function parse(objArray:Object):ArrayCollection {
+        var members:Array = [];
+        for each (var v:Object in objArray) {
+            members.push(new Member(v));
+        }
+        return new ArrayCollection(members);
     }
 
     private function init():void {
