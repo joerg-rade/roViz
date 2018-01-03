@@ -1,4 +1,4 @@
-package main.flex.org.ro.mo {
+package org.ro.mo {
 public class Collection {
     public function Collection() {
     }

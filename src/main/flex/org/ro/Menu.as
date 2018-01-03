@@ -1,38 +1,78 @@
 package org.ro {
+import flash.utils.Dictionary;
 
 import mx.collections.ArrayCollection;
 
-import org.ro.to.*;
+import org.ro.to.Member;
+import org.ro.to.Service;
 
-//FIXME collect all members of type action  and add them under the right title. 
-// Multiple Services under the same title need to be grouped and separated .
 public class Menu {
 
+    private var limit:int;
+    private var count:int;
     internal var menuItems:Array = [];
 
-    public function Menu() {
+    public function Menu(limit:int) {
+        this.limit = limit;
     }
 
-    //FIXME this needs to be invoked after each call to a Menu-URL like 
-    // http://localhost:8080/restful/services/simple.SimpleObjectMenu
-    internal function init(service:Service, members:ArrayCollection):void {
+    public function init(service:Service, members:ArrayCollection):Boolean {
         for each (var m:Member in members) {
             var title:String = service.title;
             var id:String = service.serviceId;
-            var item:String = m.getServiceName();
-            var action:Member = m;           
-            var me:MenuEntry = new MenuEntry(title, id, item, action);
+            var action:Member = m;
+            var me:MenuEntry = new MenuEntry(title, id, action);
             menuItems.push(me);
         }
-    }
-    
-    //obsolete?
-    private function extractServiceId(rel:String):String {
-        var id:String = rel.split("=")[1];
-        var l:int = id.length;
-        return id.substring(1, l - 1);
+        count = count + 1;
+        return (count >= limit);
     }
 
+    public function uniqueMenuTitles():Array {
+        var titles:Array = [];
+        for each(var me:MenuEntry in menuItems) {
+            titles.push(me.title);
+
+        }
+        var result:Array = collectUnique(titles);
+        return result;
+
+        //private 
+        function collectUnique(titles:Array):Array {
+            var result:Array = [];
+            var dict:Dictionary = new Dictionary();
+            for each(var t:String in titles) {
+                if (dict[t] == null) {
+                    dict[t] = t;
+                    result.push(t);
+                }
+            }
+            return result;
+        }
+    }
+
+    public function findEntriesByTitle(title:String):Array {
+        var result:Array = [];
+        for each(var me:MenuEntry in menuItems) {
+            if (me.title == title) {
+                result.push(me);
+            }
+        }
+        return result;
+    }
+
+    public function findAction(url:String):Member {
+        for each(var me:MenuEntry in menuItems) {
+            if (me.itemId == url) {
+                return me.action;
+            }
+        }
+        return null;
+    }
+
+    public function getItems():Array {
+        return menuItems;
+    }
 
 }
 }

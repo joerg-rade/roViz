@@ -1,7 +1,6 @@
-package main.flex.org.ro.mo {
-import main.flex.org.ro.to.Service;
+package org.ro.mo {
 
-public class Object extends Service {
+public class Object {
     public function Object() {
     }
 

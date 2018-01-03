@@ -8,6 +8,7 @@
         public var MenuIcon:Class;
         ]]></fx:Script>
 
+    <fx:Style source="../resources/css/styles.css"/>
     <ro:RoView id="view"/>
 
 </mx:Application>

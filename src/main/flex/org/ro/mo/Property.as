@@ -1,8 +1,6 @@
-package main.flex.org.ro.mo {
-import main.flex.ro.xfer.*;
-import main.flex.org.ro.to.Member;
+package org.ro.mo {
 
-public class Property extends Member {
+public class Property {
     public function Property() {
     }
 }

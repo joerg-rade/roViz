@@ -1,69 +1,43 @@
 package org.ro {
-
-import mx.collections.ArrayCollection;
-import mx.core.FlexGlobals;
-
-import org.ro.mx.RoView;
-import org.ro.to.*;
+import org.ro.ctrl.ActionHandler;
+import org.ro.ctrl.DefaultHandler;
+import org.ro.ctrl.IHandler;
+import org.ro.ctrl.ListHandler;
+import org.ro.ctrl.MemberHandler;
+import org.ro.ctrl.ServiceHandler;
 
 /**
- * responsible for invoking urls, parsing results, and constructing data structures e.g for menus and tables.
+ * Aka: Controller
+ * - keeps track of connected server,
+ * - the menu and
+ * - delegates responses to handlers.
  */
 public class Dispatcher {
 
-    [Embed(source='../../../resources/images/handshake.svg')]
-    [Bindable]
-    public var serviceIcon:Class;
-
-    [Embed('../../../resources/images/exclamation-triangle.svg')]
-    [Bindable]
-    public var actionIcon:Class;
-    
     public var credentials:String;
     public var user:String;
     public var url:String;
     public var menu:Menu;
+    private var delegate:IHandler;
 
     public function Dispatcher() {
+        var first:ServiceHandler = new ServiceHandler();
+        var second:ActionHandler = new ActionHandler();
+        var third:MemberHandler = new MemberHandler();
+        var forth:ListHandler = new ListHandler();
+        var last:DefaultHandler = new DefaultHandler();
+
+        first.successor = second;
+        second.successor = third;
+        third.successor = forth;
+        forth.successor = last;
+
+        delegate = first;
     }
 
     public function handle(jsonObj:Object):void {
-        if (isEmptyObject(jsonObj.extensions)) {
-            handleServices(jsonObj)
-        } else {
-            handleMembers(jsonObj)
-        }
-
-        //private 
-        function isEmptyObject(obj:Object):Boolean {
-            return JSON.stringify(obj) === '{}';
-        }
+        delegate.handle(jsonObj);
     }
 
-    private function handleServices(jsonObj:Object):void {
-        var svcLinks:ArrayCollection = Link.parse(jsonObj.value);
-        menu = new Menu();
-        for each (var l:Link in svcLinks) {
-            // invoking each link (http://**Menu) asynchronously invokes
-            // -> handMembers which adds each service.members as MenuEntry to Menu which 
-            // -> finally updates menuBar
-            l.invoke();
-        }
-        //TODO to be omitted after menuBar works
-        getView().body.addTab(svcLinks, "Services", serviceIcon);
-        getView().menuBar.amend(svcLinks);
-    }
-
-    private function handleMembers(jsonObj:Object):void {
-        var members:ArrayCollection = Member.parse(jsonObj.members);
-        menu.init(members);
-        //TODO to be omitted after menuBar works
-        getView().body.addTab(members, "Actions", actionIcon);
-    }
-
-    private static function getView():RoView {
-        return FlexGlobals.topLevelApplication.view;
-    }
-    
 }
 }

@@ -80,22 +80,22 @@
 
 
 
-legend {
+.legend {
     background-color: white;
 }
 
-fieldset {
+.fieldset {
     padding-bottom: 10px;
 }
 
-span,li {
+.span,.li {
     color: white;
 }
-span {
+.span {
     font-weight: bold;
 }
 
-li {
+.li {
     padding-bottom: 10px;
     margin-bottom: 10px;
 }
@@ -118,7 +118,7 @@ li {
     vertical-align: bottom;
 }
 
-.isis-header div.isis-actions span {
+.isis-header .div.isis-actions span {
     font-size: large;
     padding: 5px 5px 5px 5px;
     display: inline-table;

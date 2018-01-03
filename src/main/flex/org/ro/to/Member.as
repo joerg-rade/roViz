@@ -6,12 +6,16 @@ public class Member extends AbstractTransferObject implements IInvokeable {
     public static const PROPERTY:String = "property";
 
     public var id:String;
-    public var memberType:String;  //TODO use enumeration 
+    public var memberType:String;
     public var links:Array;
+    public var value:Object;
+    public var format:Object;
+    public var extensions:Object;
+    public var disabledReason:String;
     public var href:String;
     public var method:String;       //TODO use enumeration e.g. Method.GET
 
-    public function Member(jsonObj:Object=null) {
+    public function Member(jsonObj:Object = null) {
         if (jsonObj != null) {
             this.fromObject(jsonObj);
             this.init();
@@ -26,16 +30,18 @@ public class Member extends AbstractTransferObject implements IInvokeable {
         return new ArrayCollection(members);
     }
 
+    public static function create(members:ArrayCollection):Object {
+        var result:Object = {};
+        for each(var m:Member in members) {
+            result[m.id] = m.value;
+        }
+        return result;
+    }
+
     private function init():void {
         var link:Link = new Link(links[0]);
         href = link.getHref();
         method = link.getMethod();
-    }
-
-    public function getServiceName():String {
-        var a1:Array = href.split("/");
-        var a2:Array = a1[5].split(".");
-        return a2[a2.length - 1];
     }
 
     public function getHref():String {
@@ -54,5 +60,14 @@ public class Member extends AbstractTransferObject implements IInvokeable {
         this.method = method;
     }
 
+    public static function filterProperties(members:ArrayCollection):ArrayCollection {
+        var result:Array = [];
+        for each(var m:Member in members) {
+            if (m.memberType == PROPERTY) {
+                result.push(m);
+            }
+        }
+        return new ArrayCollection(result);
+    }
 }
 }

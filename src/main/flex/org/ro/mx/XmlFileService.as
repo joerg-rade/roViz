@@ -21,6 +21,13 @@ public class XmlFileService extends HTTPService {
                              path="/restful/services/"
                              user="todoapp-admin"
                              password="pass"/>
+                    <submenu type="separator"/>
+                    <submenu id="play" label="SEMAT (http://semat.ofbizian.com/:80)"
+                             url="http://semat.ofbizian.com/"
+                             path="/restful/services/"
+                             user="user"
+                             password="user"/>
+                    <submenu type="separator"/>
                     <submenu id="play" label="KNIfe (localhost:8080)"
                              url="http://localhost:8080"
                              path="/restful/services/"

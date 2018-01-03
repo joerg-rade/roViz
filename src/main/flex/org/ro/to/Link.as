@@ -7,6 +7,7 @@ public class Link extends AbstractTransferObject implements IInvokeable{
     public var href:String;
     public var method:String;  //TODO enumeration?
     public var type:String;
+    public var arguments:Object;
 
     public function Link(jsonObj:Object=null) {
         if (jsonObj != null) {

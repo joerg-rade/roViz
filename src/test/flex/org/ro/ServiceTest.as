@@ -4,7 +4,6 @@ import mx.collections.ArrayCollection;
 
 import org.flexunit.Assert;
 import org.ro.to.Link;
-import org.ro.to.Member;
 import org.ro.to.Service;
 
 public class ServiceTest {
@@ -35,13 +34,13 @@ public class ServiceTest {
 
     [Test(description="parse result of invoking http://localhost:8080/restful/services/")]
     public function testParse():void {
+        var svc:Service = new Service(json);
         var svcLinks:ArrayCollection = Link.parse(json.value);
-        var menu:Menu = new Menu();
-        menu.init(svcLinks);
+        var menu:Menu = new Menu(1);
+        menu.init(svc, svcLinks);
 
         Assert.assertEquals(menu != null, true);
     }
-
 
 
     private var json:Object = {
