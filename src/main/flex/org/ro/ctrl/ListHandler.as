@@ -1,13 +1,11 @@
 package org.ro.ctrl {
 import mx.collections.ArrayCollection;
 
+import org.ro.ObjectList;
+
 import org.ro.to.Link;
 
 public class ListHandler extends AbstractHandler implements IHandler {
-    [Embed('../../../../resources/images/cubes.svg')]
-    [Bindable]
-    public var objectsIcon:Class;
-
     public function ListHandler() {
     }
 
@@ -24,10 +22,11 @@ public class ListHandler extends AbstractHandler implements IHandler {
     }
 
     public override function doHandle(jsonObj:Object):void {
-        //TODO invoke for all values, collect results (cf. menu handling, services, members)
-        // and open tab with list of objects
-        var objectList:ArrayCollection = Link.parse(jsonObj.result.value);
-        getView().body.addTab(objectList, "Objects", objectsIcon);
+        var members:ArrayCollection = Link.parse(jsonObj.result.value);
+        setObjectList(new ObjectList(members.length));
+        for each (var l:Link in members) {
+            l.invoke();
+        }
     }
 
 }

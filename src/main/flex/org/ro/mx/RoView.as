@@ -1,6 +1,6 @@
 package org.ro.mx {
 
-import org.ro.Dispatcher;
+import org.ro.ctrl.Dispatcher;
 
 import spark.components.VGroup;
 

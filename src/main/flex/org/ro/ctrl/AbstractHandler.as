@@ -2,8 +2,8 @@ package org.ro.ctrl {
 
 import mx.core.FlexGlobals;
 
-import org.ro.Dispatcher;
 import org.ro.Menu;
+import org.ro.ObjectList;
 import org.ro.mx.RoView;
 import org.ro.to.Extensions;
 
@@ -53,6 +53,14 @@ public class AbstractHandler implements IHandler {
 
     internal static function setMenu(menu:Menu):void {
         getView().dsp.menu = menu;
+    }
+
+    internal static function getObjectList():ObjectList {
+        return getView().dsp.list;
+    }
+
+    internal static function setObjectList(objectList:ObjectList):void {
+        getView().dsp.list = objectList;
     }
 
     internal static function isEmptyObject(obj:Object):Boolean {

@@ -9,7 +9,7 @@ public class MemberHandler extends AbstractHandler implements IHandler {
     }
 
     public override function canHandle(jsonObj:Object):Boolean {
-        return jsonObj.members != null;
+        return (jsonObj.members != null) && (jsonObj.extensions.isService);
     }
 
     public override function doHandle(jsonObj:Object):void {

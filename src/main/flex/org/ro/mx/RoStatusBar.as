@@ -1,29 +1,55 @@
 package org.ro.mx {
+
+import flash.events.MouseEvent;
+
+import mx.collections.ArrayCollection;
 import mx.containers.HBox;
+import mx.controls.Button;
 import mx.controls.Label;
-import mx.controls.ProgressBar;
+import mx.controls.LinkButton;
+import mx.core.FlexGlobals;
+
+import org.ro.xhr.XhrLog;
 
 public class RoStatusBar extends HBox {
 
-    public var user:Label;
-    public var host:Label;
+    [Embed('../../../../resources/images/history.svg')]
+    [Bindable]
+    public var LogIcon:Class;
+
+    private var statusIcon:LinkButton = new LinkButton();
+    public var url:Label = new Label();
+    public var duration:Label = new Label();
+    public var user:Label = new Label();
+    public var host:Label = new Label();
 
     public function RoStatusBar() {
         percentWidth = 100;
         height = 20;
+        
+        statusIcon.width = 16;
+        statusIcon.height = 16;
+        statusIcon.enabled = false;
 
-        user = new Label();
+        addChild(statusIcon);
+        addChild(url);
+        addChild(duration);
+        addChild(host);
         addChild(user);
 
-        host = new Label();
-        addChild(host);
-
-        var progressBar:ProgressBar = new ProgressBar();
-        progressBar.percentWidth = 100;
-        progressBar.height = 2;
-        progressBar.label = "";
-        //progressBar.color="0xF79646"
-        addChild(progressBar);
+        addEventListener(MouseEvent.CLICK, clickHandler);
     }
+    
+    public function setIcon(cls:Class):void {
+        statusIcon.setStyle("icon", cls);
+    }
+
+    public function clickHandler(event:MouseEvent):void {
+        var view:RoView = FlexGlobals.topLevelApplication.view;
+        var log:XhrLog = view.dsp.log;
+        var list:ArrayCollection = log.getEntries();
+        view.body.addTab(list, "Log Enties (" + list.length + ")", LogIcon);
+    }
+
 }
 }

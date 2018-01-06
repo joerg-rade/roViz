@@ -16,8 +16,8 @@ public class SimpleObjectTest {
 
         var properties:ArrayCollection = Member.filterProperties(members);
         Assert.assertEquals(4, properties.length);
-        
-        var object:Object = Member.create(properties);
+
+        var object:Object = ObjectList.create(properties);
         Assert.assertTrue(object.name == "Foo");
         Assert.assertTrue(object.notes == null);
         Assert.assertTrue(object.datanucleusIdLong == 0);

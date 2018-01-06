@@ -13,7 +13,7 @@ public class Member extends AbstractTransferObject implements IInvokeable {
     public var extensions:Object;
     public var disabledReason:String;
     public var href:String;
-    public var method:String;       //TODO use enumeration e.g. Method.GET
+    public var method:String;
 
     public function Member(jsonObj:Object = null) {
         if (jsonObj != null) {
@@ -28,14 +28,6 @@ public class Member extends AbstractTransferObject implements IInvokeable {
             members.push(new Member(v));
         }
         return new ArrayCollection(members);
-    }
-
-    public static function create(members:ArrayCollection):Object {
-        var result:Object = {};
-        for each(var m:Member in members) {
-            result[m.id] = m.value;
-        }
-        return result;
     }
 
     private function init():void {

@@ -23,6 +23,7 @@ public class RoTab extends VBox {
         dg.dataProvider = dataProvider;
         dg.doubleClickEnabled = true;
         dg.addEventListener(MouseEvent.DOUBLE_CLICK, doubleClickHandler);
+        dg.horizontalScrollPolicy = "auto";
         this.addChild(dg);
         resizeColumns();
     }
@@ -39,8 +40,9 @@ public class RoTab extends VBox {
         var item:Object = dg.selectedItem;
         if (item == null) {
             doubleClickHandlerMenu(event);
+        } else {
+            FlexGlobals.topLevelApplication.view.dsp.invoke(item)
         }
-        FlexGlobals.topLevelApplication.view.dsp.invoke(item)
     }
 
     protected function doubleClickHandlerMenu(event:MouseEvent):void {
@@ -50,11 +52,6 @@ public class RoTab extends VBox {
                     <menuitem label="Open" action="{open}"/>
                     <menuitem label="MenuItem B" type="check" toggled="true"/>
                     <menuitem label="MenuItem C" type="check" toggled="false"/>
-                    <menuitem type="separator"/>
-                    <menuitem label="MenuItem D">
-                        <menuitem label="SubMenuItem D-1" type="radio"
-                                  groupName="one"/>
-                    </menuitem>
                 </root>;
 
         var myMenu:Menu = Menu.createMenu(null, myMenuData, false);
