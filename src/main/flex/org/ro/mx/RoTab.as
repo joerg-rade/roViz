@@ -26,6 +26,7 @@ public class RoTab extends VBox {
         dg.horizontalScrollPolicy = "auto";
         this.addChild(dg);
         resizeColumns();
+        toolTip="Double click (label) to close or invoke menu on selected item."
     }
 
     private function resizeColumns():void {

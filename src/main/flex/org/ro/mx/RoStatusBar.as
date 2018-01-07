@@ -38,6 +38,7 @@ public class RoStatusBar extends HBox {
         addChild(user);
 
         addEventListener(MouseEvent.CLICK, clickHandler);
+        toolTip="Shows last request status. Click to see details."
     }
     
     public function setIcon(cls:Class):void {

@@ -23,8 +23,9 @@ public class RoMenuBar extends MenuBar {
         top = "0";
         percentWidth = 100;
         addEventListener(MenuEvent.ITEM_CLICK, itemClickHandler);
+        toolTip = "Click icon to select server (populates menu), configure, etc.."
     }
-
+    
     protected function itemClickHandler(event:MenuEvent):void {
         //TODO take different types of menuitems into account: host/user, settings, ...
         if (event.item.@id == "play") {
@@ -53,7 +54,7 @@ public class RoMenuBar extends MenuBar {
         dsp.credentials = credentials;
         dsp.user = user;
         dsp.url = event.item.@url;
-        
+
         var statusBar:RoStatusBar = FlexGlobals.topLevelApplication.view.statusBar;
         statusBar.user.text = user;
         statusBar.host.text = url;
