@@ -17,7 +17,7 @@ public class RoMenuBar extends MenuBar {
     private var menu:Menu;
 
     public function RoMenuBar() {
-        dataProvider = XmlFileService.getDefaultMenuItems();
+        dataProvider = getDefaultMenuItems();
         labelField = "@label";
         iconField = "@icon";
         top = "0";
@@ -25,7 +25,7 @@ public class RoMenuBar extends MenuBar {
         addEventListener(MenuEvent.ITEM_CLICK, itemClickHandler);
         toolTip = "Click icon to select server (populates menu), configure, etc.."
     }
-    
+
     protected function itemClickHandler(event:MenuEvent):void {
         //TODO take different types of menuitems into account: host/user, settings, ...
         if (event.item.@id == "play") {
@@ -57,7 +57,6 @@ public class RoMenuBar extends MenuBar {
 
         var statusBar:RoStatusBar = FlexGlobals.topLevelApplication.view.statusBar;
         statusBar.user.text = user;
-        statusBar.host.text = url;
 
         var link:Link = new Link();
         link.setHref(url + event.item.@path);
@@ -84,6 +83,36 @@ public class RoMenuBar extends MenuBar {
         }
 //        newMenuItems.removeItemAt(newMenuItems.length - 1);
         dataProvider = newMenuItems;
+    }
+
+    public static function getDefaultMenuItems():XML {
+        //TODO store encoded with master pw in sqllite, add dialog for appending more entries and input of master pw
+        var menuItems:XML =
+                <topmenu label="" icon="MenuIcon">
+                    <submenu id="play" label="SimpleApp (localhost:8080)"
+                             url="http://localhost:8080"
+                             path="/restful/services/"
+                             user="sven"
+                             password="pass"/>
+                    <submenu id="play" label="ToDoApp (localhost:8080)"
+                             url="http://localhost:8080"
+                             path="/restful/services/"
+                             user="todoapp-admin"
+                             password="pass"/>
+                    <submenu type="separator"/>
+                    <submenu id="play" label="SEMAT (http://semat.ofbizian.com/:80)"
+                             url="http://semat.ofbizian.com/"
+                             path="/restful/services/"
+                             user="user"
+                             password="user"/>
+                    <submenu type="separator"/>
+                    <submenu id="play" label="KNIfe (localhost:8080)"
+                             url="http://localhost:8080"
+                             path="/restful/services/"
+                             user="sven"
+                             password="pass"/>
+                </topmenu>;
+        return menuItems;
     }
 
 }

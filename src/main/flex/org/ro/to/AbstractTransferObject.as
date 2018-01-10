@@ -1,5 +1,5 @@
 package org.ro.to {
-import org.ro.mx.XmlHttpRequest;
+import org.ro.xhr.XmlHttpRequest;
 
 /**
  *  Common 'abstract' superclass of Transfer Objects.

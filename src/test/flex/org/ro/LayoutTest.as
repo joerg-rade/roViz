@@ -22,6 +22,8 @@ public class LayoutTest {
         var c:Object = r.children()[0];
         var s:String = c.@span;
         Assert.assertEquals("12", s);
+        var actions:Object = c.children();
+        Assert.assertEquals("listAll", actions[1].@id);
     }
 
 }

@@ -24,9 +24,18 @@ public class RoTab extends VBox {
         dg.doubleClickEnabled = true;
         dg.addEventListener(MouseEvent.DOUBLE_CLICK, doubleClickHandler);
         dg.horizontalScrollPolicy = "auto";
+        dg.addEventListener(MouseEvent.MOUSE_WHEEL,mouseWheelHandler);
         this.addChild(dg);
         resizeColumns();
-        toolTip="Double click (label) to close or invoke menu on selected item."
+        toolTip = "Double click (label) to close or invoke menu on selected item."
+    }
+
+    private function mouseWheelHandler():void {
+        systemManager.addEventListener("mouseWheel", bumpDelta, true);
+        //inner
+        function bumpDelta(event:MouseEvent):void {
+            event.delta *= 20;
+        }
     }
 
     private function resizeColumns():void {

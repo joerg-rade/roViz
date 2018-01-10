@@ -17,8 +17,15 @@ public class RoTabBar extends TabNavigator {
     public function addTab(list:ArrayCollection, title:String, icon:Class):void {
         var tab:RoTab = new RoTab();
         tab.init(list, title, icon);
+        tab.setFocus();
         this.addChild(tab);
-        this.selectedIndex = selectedIndex++;
+    }
+
+    public function addGanttTab(list:ArrayCollection, title:String, icon:Class):void {
+        var tab:RoDataGrid = new RoDataGrid();
+        tab.init(list, title, icon);
+        tab.setFocus();
+        this.addChild(tab);
     }
 
     public function removeTab(event:MouseEvent):void {

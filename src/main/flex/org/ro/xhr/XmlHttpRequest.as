@@ -1,6 +1,5 @@
-package org.ro.mx {
+package org.ro.xhr {
 
-import mx.controls.Alert;
 import mx.core.FlexGlobals;
 import mx.rpc.events.FaultEvent;
 import mx.rpc.events.ResultEvent;
@@ -8,20 +7,20 @@ import mx.rpc.http.mxml.HTTPService;
 
 import org.ro.ctrl.Dispatcher;
 import org.ro.to.IInvokeable;
-import org.ro.xhr.XhrLog;
 
+/**
+ * The name is somewhat misleading, see: https://en.wikipedia.org/wiki/XMLHttpRequest
+ */
 public class XmlHttpRequest extends HTTPService {
 
     protected function xhrFaultHandler(event:FaultEvent):void {
         getLog().fault(url, event.fault.faultString);
-//TODO remove Alert
-        Alert.show("XHR Fault");
     }
 
     protected function xhrResultHandler(event:ResultEvent):void {
-        var jsonObj:Object = JSON.parse(event.result.toString());
-        var size:int = new String(jsonObj).length;
-        getLog().end(url, size);
+        var jsonString:String = event.result.toString();
+        var jsonObj:Object = JSON.parse(jsonString);
+        getLog().end(url, jsonString.length);
         getDsp().handle(jsonObj);
     }
 
