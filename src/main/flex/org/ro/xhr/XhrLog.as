@@ -1,8 +1,7 @@
 package org.ro.xhr {
 import mx.collections.ArrayCollection;
-import mx.core.FlexGlobals;
 
-import org.ro.mx.RoStatusBar;
+import org.ro.Globals;
 
 public class XhrLog {
 
@@ -31,7 +30,7 @@ public class XhrLog {
     }
 
     private static function updateStatus(entry:XhrLogEntry):void {
-        var statusBar:RoStatusBar = FlexGlobals.topLevelApplication.view.statusBar.update(entry);
+        Globals.getStatusBar().update(entry);
     }
 
     public function fault(url:String, fault:String):void {
@@ -52,7 +51,7 @@ public class XhrLog {
     }
 
     public function getLogStartTime():int {
-        var first:XhrLogEntry =log[0];
+        var first:XhrLogEntry = log[0];
         return first.start.time;
     }
 }

@@ -1,11 +1,10 @@
 package org.ro.xhr {
 
-import mx.core.FlexGlobals;
 import mx.rpc.events.FaultEvent;
 import mx.rpc.events.ResultEvent;
 import mx.rpc.http.mxml.HTTPService;
 
-import org.ro.ctrl.Dispatcher;
+import org.ro.Globals;
 import org.ro.to.IInvokeable;
 
 /**
@@ -21,7 +20,7 @@ public class XmlHttpRequest extends HTTPService {
         var jsonString:String = event.result.toString();
         var jsonObj:Object = JSON.parse(jsonString);
         getLog().end(url, jsonString.length);
-        getDsp().handle(jsonObj);
+        Globals.getDsp().handle(jsonObj);
     }
 
     public function XmlHttpRequest() {
@@ -32,7 +31,7 @@ public class XmlHttpRequest extends HTTPService {
 
     public function invoke(inv:IInvokeable):void {
         cancel();
-        var credentials:String = getDsp().credentials;
+        var credentials:String = Globals.getDsp().credentials;
         super.headers = {Authorization: "Basic " + credentials};
         super.url = inv.getHref();
         super.method = inv.getMethod();
@@ -41,11 +40,7 @@ public class XmlHttpRequest extends HTTPService {
     }
 
     private function getLog():XhrLog {
-        return getDsp().log;
-    }
-
-    private function getDsp():Dispatcher {
-        return FlexGlobals.topLevelApplication.view.dsp;
+        return Globals.getDsp().log;
     }
 
 }

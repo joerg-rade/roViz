@@ -1,6 +1,7 @@
 package org.ro.ctrl {
 import mx.collections.ArrayCollection;
 
+import org.ro.Globals;
 import org.ro.to.Member;
 import org.ro.to.Service;
 
@@ -17,7 +18,7 @@ public class MemberHandler extends AbstractHandler implements IHandler {
         var members:ArrayCollection = Member.parse(jsonObj.members);
         var done:Boolean = getMenu().init(service, members);
         if (done) {
-            getView().menuBar.amend(getMenu());
+            Globals.amendMenu(getMenu());
         }
     }
 

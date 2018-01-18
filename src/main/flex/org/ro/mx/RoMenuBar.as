@@ -2,10 +2,10 @@ package org.ro.mx {
 
 import mx.collections.XMLListCollection;
 import mx.controls.MenuBar;
-import mx.core.FlexGlobals;
 import mx.events.MenuEvent;
 import mx.utils.Base64Encoder;
 
+import org.ro.Globals;
 import org.ro.Menu;
 import org.ro.MenuEntry;
 import org.ro.ctrl.Dispatcher;
@@ -30,8 +30,22 @@ public class RoMenuBar extends MenuBar {
         //TODO take different types of menuitems into account: host/user, settings, ...
         if (event.item.@id == "play") {
             handleHostSelection(event);
+        } else if (event.item.@id == "next") {
+            new KitchenSink("Next");
+        } else if (event.item.@id == "dock") {
+            toggleDock(event);
         } else {
             handleActionSelection(event);
+        }
+    }
+
+    private function toggleDock(event:MenuEvent):void {
+        var show:Boolean = event.item.@toggled;
+        var dock:Dock = Globals.getDock();
+        if (show) {
+            dock.show();
+        } else {
+            dock.hide();
         }
     }
 
@@ -50,12 +64,12 @@ public class RoMenuBar extends MenuBar {
         encoder.encode(credentials);
         credentials = encoder.toString();
 
-        var dsp:Dispatcher = FlexGlobals.topLevelApplication.view.dsp;
+        var dsp:Dispatcher = Globals.getDsp();
         dsp.credentials = credentials;
         dsp.user = user;
         dsp.url = event.item.@url;
 
-        var statusBar:RoStatusBar = FlexGlobals.topLevelApplication.view.statusBar;
+        var statusBar:RoStatusBar = Globals.getStatusBar();
         statusBar.user.text = user;
 
         var link:Link = new Link();
@@ -111,6 +125,11 @@ public class RoMenuBar extends MenuBar {
                              path="/restful/services/"
                              user="sven"
                              password="pass"/>
+                    <submenu type="separator"/>
+                    <submenu id="config" label="Settings">
+                        <submenu id="dock" label="Dock" type="check" toggled="true"/>
+                    </submenu>
+                    <submenu id="next" label="KitchenSink"/>
                 </topmenu>;
         return menuItems;
     }

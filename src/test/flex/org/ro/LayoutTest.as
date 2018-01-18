@@ -1,29 +1,259 @@
 package org.ro {
 
 import org.flexunit.Assert;
+import org.ro.viz.Layout;
 
 public class LayoutTest {
     public function LayoutTest() {
     }
 
-    // string was amended by xsi:schemaLocation="http://isis.apache.org/applib/layout/component http://isis.apache.org/applib/layout/component/component.xsd http://isis.apache.org/applib/layout/grid/bootstrap3 http://isis.apache.org/applib/layout/grid/bootstrap3/bootstrap3.xsd" xmlns:c="http://isis.apache.org/applib/layout/component" xmlns:bs3="http://isis.apache.org/applib/layout/grid/bootstrap3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    // in order to avoid error: 
-    private var xmlNs:String = " xmlns:cpt=\"isis-component\" xmlns:bs3=\"bootstrap3\"";
-    private var full:String = " xsi:schemaLocation=\"http://isis.apache.org/applib/layout/component http://isis.apache.org/applib/layout/component/component.xsd http://isis.apache.org/applib/layout/grid/bootstrap3 http://isis.apache.org/applib/layout/grid/bootstrap3/bootstrap3.xsd\" xmlns:cpt=\"http://isis.apache.org/applib/layout/component\" xmlns:bs3=\"http://isis.apache.org/applib/layout/grid/bootstrap3\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"";
     private var xmlStr:String = "<bs3:grid><bs3:row><bs3:col span=\"12\" unreferencedActions=\"true\"><cpt:domainObject/><cpt:action id=\"listAll\"/><cpt:action id=\"findByName\"/><cpt:action id=\"create\"/></bs3:col></bs3:row><bs3:row><bs3:col span=\"4\"><cpt:fieldSet name=\"General\" id=\"general\" unreferencedProperties=\"true\"/></bs3:col><bs3:col span=\"8\" unreferencedCollections=\"true\"/></bs3:row></bs3:grid>";
 
     [Test(description="parse result of invoking http://localhost:8080/restful/domain-types/simple.SimpleObjectMenu/layout")]
-    public function testParse():void {
-        var xmlWithNamespace:String = xmlStr.substring(0, 9) + xmlNs + xmlStr.substring(9, xmlStr.length);
-        var xml:XML = new XML(xmlWithNamespace);
-        var rows:Object = xml.children();
-        var row0col0:Object = rows[0][0];
-        var r:Object = row0col0[0];
-        var c:Object = r.children()[0];
-        var s:String = c.@span;
-        Assert.assertEquals("12", s);
-        var actions:Object = c.children();
-        Assert.assertEquals("listAll", actions[1].@id);
+    public function testXmlMenuLayout():void {
+        //when
+        var lo:Layout = new Layout();
+        lo.parseXml(xmlStr);
+        // then
+        var actions = lo.getActions();
+        Assert.assertEquals(3, actions.length);
+        Assert.assertEquals("listAll", actions[0]);
+    }
+
+    [Test(description="parse result of invoking http://localhost:8080/restful/objects/ife.cfg.vm.ReleaseComparisons/1/object-layout")]
+    public function testObjectLayout():void {
+        //when
+        var lo:Layout = new Layout();
+        lo.parse(json);
+        // then
+        var actions = lo.getActions();
+        Assert.assertEquals(7, actions.length);
+        Assert.assertEquals("listAll", actions[0]);
+    }
+
+    private var json:Object = {
+
+        "row": [
+            {
+                "cols": [
+                    {
+                        "col": {
+                            "domainObject": {
+                                "named": null,
+                                "describedAs": null,
+                                "plural": null,
+                                "metadataError": null,
+                                "link": {
+                                    "rel": "urn:org.restfulobjects:rels/element",
+                                    "method": "GET",
+                                    "href": "http://localhost:8080/restful/objects/ife.cfg.vm.ReleaseComparisons/1",
+                                    "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object\""
+                                },
+                                "bookmarking": null,
+                                "cssClass": null,
+                                "cssClassFa": null,
+                                "cssClassFaPosition": null,
+                                "namedEscaped": null
+                            },
+                            "action": [
+                                {
+                                    "named": null,
+                                    "describedAs": null,
+                                    "metadataError": null,
+                                    "link": {
+                                        "rel": "urn:org.restfulobjects:rels/action",
+                                        "method": "GET",
+                                        "href": "http://localhost:8080/restful/objects/ife.cfg.vm.ReleaseComparisons/1/actions/listAll",
+                                        "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object-action\""
+                                    },
+                                    "id": "listAll",
+                                    "bookmarking": null,
+                                    "cssClass": null,
+                                    "cssClassFa": null,
+                                    "cssClassFaPosition": null,
+                                    "hidden": null,
+                                    "namedEscaped": null,
+                                    "position": null,
+                                    "promptStyle": null
+                                },
+                                {
+                                    "named": null,
+                                    "describedAs": null,
+                                    "metadataError": null,
+                                    "link": {
+                                        "rel": "urn:org.restfulobjects:rels/action",
+                                        "method": "GET",
+                                        "href": "http://localhost:8080/restful/objects/ife.cfg.vm.ReleaseComparisons/1/actions/createCurrent",
+                                        "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object-action\""
+                                    },
+                                    "id": "createCurrent",
+                                    "bookmarking": null,
+                                    "cssClass": null,
+                                    "cssClassFa": null,
+                                    "cssClassFaPosition": null,
+                                    "hidden": null,
+                                    "namedEscaped": null,
+                                    "position": null,
+                                    "promptStyle": null
+                                },
+                                {
+                                    "named": null,
+                                    "describedAs": null,
+                                    "metadataError": null,
+                                    "link": {
+                                        "rel": "urn:org.restfulobjects:rels/action",
+                                        "method": "GET",
+                                        "href": "http://localhost:8080/restful/objects/ife.cfg.vm.ReleaseComparisons/1/actions/createSalogCurrent",
+                                        "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object-action\""
+                                    },
+                                    "id": "createSalogCurrent",
+                                    "bookmarking": null,
+                                    "cssClass": null,
+                                    "cssClassFa": null,
+                                    "cssClassFaPosition": null,
+                                    "hidden": null,
+                                    "namedEscaped": null,
+                                    "position": null,
+                                    "promptStyle": null
+                                },
+                                {
+                                    "named": null,
+                                    "describedAs": null,
+                                    "metadataError": null,
+                                    "link": {
+                                        "rel": "urn:org.restfulobjects:rels/action",
+                                        "method": "GET",
+                                        "href": "http://localhost:8080/restful/objects/ife.cfg.vm.ReleaseComparisons/1/actions/createQTSeaCurrent",
+                                        "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object-action\""
+                                    },
+                                    "id": "createQTSeaCurrent",
+                                    "bookmarking": null,
+                                    "cssClass": null,
+                                    "cssClassFa": null,
+                                    "cssClassFaPosition": null,
+                                    "hidden": null,
+                                    "namedEscaped": null,
+                                    "position": null,
+                                    "promptStyle": null
+                                },
+                                {
+                                    "named": null,
+                                    "describedAs": null,
+                                    "metadataError": null,
+                                    "link": {
+                                        "rel": "urn:org.restfulobjects:rels/action",
+                                        "method": "GET",
+                                        "href": "http://localhost:8080/restful/objects/ife.cfg.vm.ReleaseComparisons/1/actions/createQTAirCurrent",
+                                        "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object-action\""
+                                    },
+                                    "id": "createQTAirCurrent",
+                                    "bookmarking": null,
+                                    "cssClass": null,
+                                    "cssClassFa": null,
+                                    "cssClassFaPosition": null,
+                                    "hidden": null,
+                                    "namedEscaped": null,
+                                    "position": null,
+                                    "promptStyle": null
+                                },
+                                {
+                                    "named": null,
+                                    "describedAs": null,
+                                    "metadataError": null,
+                                    "link": {
+                                        "rel": "urn:org.restfulobjects:rels/action",
+                                        "method": "GET",
+                                        "href": "http://localhost:8080/restful/objects/ife.cfg.vm.ReleaseComparisons/1/actions/create",
+                                        "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object-action\""
+                                    },
+                                    "id": "create",
+                                    "bookmarking": null,
+                                    "cssClass": null,
+                                    "cssClassFa": null,
+                                    "cssClassFaPosition": null,
+                                    "hidden": null,
+                                    "namedEscaped": null,
+                                    "position": null,
+                                    "promptStyle": null
+                                },
+                                {
+                                    "named": null,
+                                    "describedAs": null,
+                                    "metadataError": null,
+                                    "link": {
+                                        "rel": "urn:org.restfulobjects:rels/action",
+                                        "method": "GET",
+                                        "href": "http://localhost:8080/restful/objects/ife.cfg.vm.ReleaseComparisons/1/actions/openDependencyDiagramForChanges",
+                                        "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object-action\""
+                                    },
+                                    "id": "openDependencyDiagramForChanges",
+                                    "bookmarking": null,
+                                    "cssClass": null,
+                                    "cssClassFa": null,
+                                    "cssClassFaPosition": null,
+                                    "hidden": null,
+                                    "namedEscaped": null,
+                                    "position": null,
+                                    "promptStyle": null
+                                }
+                            ],
+                            "metadataError": null,
+                            "cssClass": null,
+                            "size": null,
+                            "id": null,
+                            "span": 12,
+                            "unreferencedActions": true,
+                            "unreferencedCollections": null
+                        }
+                    }
+                ],
+                "metadataError": null,
+                "cssClass": null,
+                "id": null
+            },
+            {
+                "cols": [
+                    {
+                        "col": {
+                            "domainObject": null,
+                            "fieldSet": [
+                                {
+                                    "name": "General",
+                                    "metadataError": null,
+                                    "id": "general",
+                                    "unreferencedActions": null,
+                                    "unreferencedProperties": true
+                                }
+                            ],
+                            "metadataError": null,
+                            "cssClass": null,
+                            "size": null,
+                            "id": null,
+                            "span": 4,
+                            "unreferencedActions": null,
+                            "unreferencedCollections": null
+                        }
+                    },
+                    {
+                        "col": {
+                            "domainObject": null,
+                            "metadataError": null,
+                            "cssClass": null,
+                            "size": null,
+                            "id": null,
+                            "span": 8,
+                            "unreferencedActions": null,
+                            "unreferencedCollections": true
+                        }
+                    }
+                ],
+                "metadataError": null,
+                "cssClass": null,
+                "id": null
+            }
+        ],
+        "cssClass": null
+
     }
 
 }

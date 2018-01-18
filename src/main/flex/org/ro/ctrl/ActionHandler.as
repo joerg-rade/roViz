@@ -21,7 +21,7 @@ public class ActionHandler extends AbstractHandler implements IHandler {
         } else {
             //TODO in case of a POST or PUT parameters may be required and a dialog is to be opened.
             // eventually in case of a DELETE, a confirmation needs to be shown
-            new Dialog();
+            new Dialog("Link Method is POST, PUT, or DELETE");
         }
     }
 }

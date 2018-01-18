@@ -6,6 +6,58 @@
         [Embed('../resources/images/bars.svg')]
         [Bindable]
         public var MenuIcon:Class;
+
+        [Embed('../resources/images/history.svg')]
+        [Bindable]
+        public var LogIcon:Class;
+
+        [Embed('../resources/images/check-circle.svg')]
+        [Bindable]
+        public var GreenIcon:Class;
+
+        [Embed('../resources/images/question-circle.svg')]
+        [Bindable]
+        public var YellowIcon:Class;
+
+        [Embed('../resources/images/times-circle.svg')]
+        [Bindable]
+        public var RedIcon:Class;
+
+        [Embed('../resources/images/cubes.svg')]
+        [Bindable]
+        public var ObjectsIcon:Class;
+
+        [Embed("../resources/images/pencil-alt.svg")]
+        [Bindable]
+        public var PencilIcon:Class;
+
+        [Embed("../resources/images/Magere_Brug_isis.png")]
+        [Bindable]
+        public var AboutImage:Class;
+
+        [Embed("../resources/images/calendar.svg")]
+        [Bindable]
+        public var CalendarIcon:Class;
+
+        [Embed("../resources/images/check.svg")]
+        [Bindable]
+        public var CheckIcon:Class;
+
+        [Embed("../resources/images/times.svg")]
+        [Bindable]
+        public var TimesIcon:Class;
+
+        [Embed("../resources/images/times_red.svg")]
+        [Bindable]
+        public var TimesRedIcon:Class;
+
+        [Embed("../resources/images/step-forward.svg")]
+        [Bindable]
+        public var StepForwardIcon:Class;
+
+        [Embed("../resources/images/step-backward.svg")]
+        [Bindable]
+        public var StepBackwardIcon:Class;
         ]]></fx:Script>
 
     <!--fx:Style source="../resources/css/styles.css"/-->

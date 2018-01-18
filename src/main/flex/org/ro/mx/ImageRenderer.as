@@ -19,7 +19,7 @@ public class ImageRenderer extends GridItemRenderer {
         if (super.data != value) {
             super.data = value;
         }
-        image.source = new IconRepository.Pencil();
+        image.source = new ImageRepository.Pencil();
     }
 }
 }

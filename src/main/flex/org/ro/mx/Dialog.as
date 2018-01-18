@@ -1,9 +1,10 @@
 package org.ro.mx {
 import mx.containers.TitleWindow;
 import mx.controls.Label;
-import mx.core.FlexGlobals;
 import mx.events.CloseEvent;
 import mx.managers.PopUpManager;
+
+import org.ro.Globals;
 
 /**
  * Build a dialog, possibly using form and specification from Action.parameters
@@ -19,10 +20,10 @@ public class Dialog extends TitleWindow {
 
         //TODO replace with Form constructed from paramters/arguments
         var lbl:Label = new Label();
-        lbl.text = "Hello world";
+        lbl.text = title;
         addChild(lbl);
 
-        PopUpManager.addPopUp(this, FlexGlobals.topLevelApplication.view, true);
+        PopUpManager.addPopUp(this, Globals.getView(), true);
         PopUpManager.centerPopUp(this);
     }
 

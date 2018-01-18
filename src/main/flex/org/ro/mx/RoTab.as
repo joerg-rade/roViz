@@ -5,9 +5,8 @@ import mx.containers.VBox;
 import mx.controls.AdvancedDataGrid;
 import mx.controls.Menu;
 import mx.controls.advancedDataGridClasses.AdvancedDataGridColumn;
-import mx.core.FlexGlobals;
 
-public class RoTab extends VBox {
+public class RoTab extends VBox implements IDockable {
     //TODO allow for Objects as well -> AS Forms: https://help.adobe.com/en_US/flex/using/WS2db454920e96a9e51e63e3d11c0bf69084-7e53.html
     internal var dg:AdvancedDataGrid = new AdvancedDataGrid();
 
@@ -24,7 +23,7 @@ public class RoTab extends VBox {
         dg.doubleClickEnabled = true;
         dg.addEventListener(MouseEvent.DOUBLE_CLICK, doubleClickHandler);
         dg.horizontalScrollPolicy = "auto";
-        dg.addEventListener(MouseEvent.MOUSE_WHEEL,mouseWheelHandler);
+        dg.addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler);
         this.addChild(dg);
         resizeColumns();
         toolTip = "Double click (label) to close or invoke menu on selected item."
@@ -32,6 +31,7 @@ public class RoTab extends VBox {
 
     private function mouseWheelHandler():void {
         systemManager.addEventListener("mouseWheel", bumpDelta, true);
+
         //inner
         function bumpDelta(event:MouseEvent):void {
             event.delta *= 20;
@@ -51,7 +51,8 @@ public class RoTab extends VBox {
         if (item == null) {
             doubleClickHandlerMenu(event);
         } else {
-            FlexGlobals.topLevelApplication.view.dsp.invoke(item)
+//            FlexGlobals.topLevelApplication.view.dsp.invoke(item)
+            //TODO           Globals.getDsp().invoke(item);
         }
     }
 
@@ -67,6 +68,10 @@ public class RoTab extends VBox {
         var myMenu:Menu = Menu.createMenu(null, myMenuData, false);
         myMenu.labelField = "@label";
         myMenu.show(mouseX, mouseY);
+    }
+    
+    public function getIcon():Class {
+        return icon;
     }
 
 }

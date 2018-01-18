@@ -1,7 +1,6 @@
 package org.ro.xhr {
-import mx.core.FlexGlobals;
-
-import org.ro.mx.IconRepository;
+import org.ro.Globals;
+import org.ro.mx.ImageRepository;
 
 public class XhrLogEntry {
     public var icon:Class;
@@ -15,26 +14,26 @@ public class XhrLogEntry {
     public function XhrLogEntry(url:String) {
         this.start = new Date();
         this.url = url;
-        this.icon = IconRepository.YellowIcon;
+        this.icon = ImageRepository.YellowIcon;
     }
 
     private function calculate():void {
         this.duration = new Date().time - start.time;
-        var logStartTime:int = FlexGlobals.topLevelApplication.view.dsp.log.getLogStartTime();
+        var logStartTime:int = Globals.getDsp().log.getLogStartTime();
         this.offset = start.time - logStartTime;
     }
 
     public function setError(fault:String):void {
         this.calculate();
         this.fault = fault;
-        this.icon = IconRepository.RedIcon;
+        this.icon = ImageRepository.RedIcon;
     }
 
     public function setSuccess(size:int):void {
         this.calculate();
         this.size = size;
-        this.icon = IconRepository.GreenIcon;
+        this.icon = ImageRepository.GreenIcon;
     }
-    
+
 }
 }

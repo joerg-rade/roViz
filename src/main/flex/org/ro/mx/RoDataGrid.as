@@ -1,13 +1,21 @@
 package org.ro.mx {
+import flash.events.MouseEvent;
+
 import mx.collections.ArrayCollection;
 import mx.collections.ArrayList;
 import mx.containers.VBox;
+import mx.controls.Alert;
+import mx.controls.Menu;
 import mx.core.ClassFactory;
+import mx.events.MenuEvent;
 
 import spark.components.DataGrid;
 import spark.components.gridClasses.GridColumn;
 
-public class RoDataGrid extends VBox {
+public class RoDataGrid extends VBox implements IDockable {
+    var roContextMenu:Menu;
+    var dataProvider:ArrayCollection;
+    var dg:DataGrid;
 
     public function RoDataGrid() {
     }
@@ -17,8 +25,12 @@ public class RoDataGrid extends VBox {
         this.label = title;
         this.icon = icon;
         this.horizontalScrollPolicy = "auto";
-        var dg:DataGrid = buildDataGrid();
-        dg.dataProvider = dataProvider;
+        dg = buildDataGrid();
+        this.dataProvider = dataProvider;
+        dg.dataProvider = this.dataProvider;
+        this.roContextMenu = buildContextMenu();
+        addEventListener(MouseEvent.RIGHT_CLICK, contextMenuHandler);
+        addEventListener(MenuEvent.MENU_HIDE, hideContextMenu);
         this.addChild(dg);
     }
 
@@ -27,6 +39,7 @@ public class RoDataGrid extends VBox {
         grid.percentWidth = 100;
         grid.percentHeight = 100;
         grid.doubleClickEnabled = true;
+        grid.selectionMode = "multipleRows";
 
         var nameCol:GridColumn = new GridColumn("Url");
         nameCol.percentWidth = 30;
@@ -62,6 +75,42 @@ public class RoDataGrid extends VBox {
         grid.columns = cols;
 
         return grid;
+    }
+
+    public function buildContextMenu():Menu {
+        var xml:XML =
+                <root>
+                    <menuitem id="delete" icon="TimesRedIcon" label="Delete"/>
+                </root>;
+        var result:Menu = Menu.createMenu(null, xml, false);
+        result.labelField = "@label";
+        result.iconField = "@icon";
+        //m.setStyle("color", "0xC0504D");  text can be colored, but not the menu background
+        result.addEventListener(MenuEvent.ITEM_CLICK, itemClickHandler);
+        return result;
+    }
+
+    public function contextMenuHandler(event:MouseEvent):void {
+        roContextMenu.show(mouseX, mouseY);
+    }
+
+    public function hideContextMenu(event:MouseEvent):void {
+        roContextMenu.hide();
+    }
+
+    public function itemClickHandler(event:MenuEvent):void {
+        if (event.item.@id == "delete") {
+            var selectedItems:Vector.<Object> = dg.selectedItems;
+            for each (var o:Object in selectedItems) {
+                dataProvider.removeItem(o);
+            }
+        } else {
+            Alert.show(event.toString());
+        }
+    }
+
+    public function getIcon():Class {
+        return icon;
     }
     
 }

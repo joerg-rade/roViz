@@ -7,8 +7,8 @@ import mx.containers.HBox;
 import mx.controls.Label;
 import mx.controls.LinkButton;
 import mx.controls.Spacer;
-import mx.core.FlexGlobals;
 
+import org.ro.Globals;
 import org.ro.xhr.XhrLog;
 import org.ro.xhr.XhrLogEntry;
 
@@ -48,12 +48,12 @@ public class RoStatusBar extends HBox {
         this.duration.text = entry.duration + "ms";
         this.setIcon(entry.icon);
     }
-    
+
     public function clickHandler(event:MouseEvent):void {
-        var view:RoView = FlexGlobals.topLevelApplication.view;
+        var view:RoView = Globals.getView();
         var log:XhrLog = view.dsp.log;
         var list:ArrayCollection = log.getEntries();
-        view.body.addGanttTab(list, "Log Entries (" + list.length + ")", IconRepository.LogIcon);
+        view.tabs.addGanttTab(list, "Log Entries (" + list.length + ")", ImageRepository.LogIcon);
     }
 
 }
