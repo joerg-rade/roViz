@@ -1,4 +1,5 @@
-package org.ro.ctrl {
+package org.ro.core {
+import org.ro.ctrl.*;
 import org.ro.Menu;
 import org.ro.ObjectList;
 import org.ro.xhr.XhrLog;

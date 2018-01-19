@@ -91,6 +91,7 @@ public class RoDataGrid extends VBox implements IDockable {
     }
 
     public function contextMenuHandler(event:MouseEvent):void {
+        event.stopPropagation();
         roContextMenu.show(mouseX, mouseY);
     }
 
@@ -112,6 +113,6 @@ public class RoDataGrid extends VBox implements IDockable {
     public function getIcon():Class {
         return icon;
     }
-    
+
 }
 }

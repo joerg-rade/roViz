@@ -15,7 +15,6 @@ public class Dock extends VGroup {
     public function Dock() {
         verticalAlign = "baseline";
         percentHeight = 100;
-//        this.roContextMenu = buildContextMenu();
         addEventListener(MouseEvent.RIGHT_CLICK, contextMenuHandler);
         addEventListener(MenuEvent.MENU_HIDE, hideContextMenu);
         this.hide();

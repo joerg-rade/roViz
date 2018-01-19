@@ -16,7 +16,7 @@ TIP: Clicking on the StatusBar at the bottom will create another tab showing log
 
 image::./images/LogEntries.png[Preview2]
 
-TIP: Remote applications here http://semat.ofbizian.com/[SEMAT] can be used as well, and even mixed with local apps. 
+TIP: Remote applications (here: http://semat.ofbizian.com/[SEMAT]) can be used as well, and even mixed with local apps. 
 
 image::./images/SEMAT.png[Remote Application]
 
@@ -35,23 +35,22 @@ CAUTION: When there are many Menu entries, a horizontal ScrollBar is added at th
 CAUTION: Order is not obeyed with Menu entries
 
 ## TODO's for the PoC
+* 'collapse' tabs into 'dock'
+* drag & drop (eg. tab to dock) 
 * Use layout / object-layout for menu, tables and tabs 
 * Implement PUT, POST, DELETE (alongside GET)
 * Load and render single object 
 * Transpile to Javascript via Maven using https://cwiki.apache.org/confluence/display/FLEX/FlexJS[FlexJS]
 * Implement Filtered Table 
-* 'collapse' tabs into right area (dock)
-* drag & drop (eg. tab to dock) 
 
 ## Next 
 * Integrate Calendar View (for ToDo App)
 * Fullblown GanttChart (incl. birds eye view)
-* measure code coverage
-* Visualize Geolocations like in Google Maps, see: 
-** https://cohaesus.co.uk/finding-a-new-way-six-alternatives-to-google-maps/
-** http://wiki.openstreetmap.org/wiki/Potlatch_2
-* Use Cairngorm FW to decouple data loading from rendering: http://svn.code.sf.net/adobe/cairngorm/code/
-* scale svg's: https://stackoverflow.com/questions/5388290/how-to-display-svg-in-flex/5388543#5388543
+* Measure code coverage
+* Visualize Geolocations eg. with https://wiki.openstreetmap.org/wiki/Halcyon[Halcyon]
+* Use http://svn.code.sf.net/adobe/cairngorm/code/[Cairngorm FW] to decouple data loading from rendering
+* https://stackoverflow.com/questions/5388290/how-to-display-svg-in-flex/5388543#5388543[SVG limitations and libs]
 * FlatSpark skins: do not support Menubar icons right now, see: https://cwiki.apache.org/confluence/display/FLEX/Using+FlatSpark+skins
-* use SQL lite as store for url/credentials
-* Vizualize DomainModel (reconstruct from DomainObjects, Attributes, etc.)
+* Use SQL lite as store for url/credentials
+* Visualize DomainModel (reconstruct from DomainObjects, Attributes, etc.)
+* Hook up to the internal event bus of the server to have change notifications pushed. Eventually call server for data. See https://github.com/Lightstreamer/Lightstreamer-example-StockList-client-flex#basic-stock-list-demo---flex-client[Lightstreamer]

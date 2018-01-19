@@ -8,7 +8,7 @@ import mx.utils.Base64Encoder;
 import org.ro.Globals;
 import org.ro.Menu;
 import org.ro.MenuEntry;
-import org.ro.ctrl.Dispatcher;
+import org.ro.core.Dispatcher;
 import org.ro.to.Link;
 import org.ro.to.Member;
 
