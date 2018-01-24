@@ -8,7 +8,8 @@ An https://isis.apache.org/[Apache Isis] application with the restful objects in
 A http://nakedobjects.net/home/index.shtml[Naked Objects for .NET] application should work as well, but is not tested yet.
 
 ## How does it look like?
-TIP: After selecting one of the preconfigured applications, the menu gets populated. Actions, here: listAll can be selected and a Tab with a table is displayed:
+
+TIP: After selecting one of the preconfigured applications, the menu gets populated. Actions (here: SimpleObjects.listAll) can be selected and a Tab with a table is displayed:
 
 image::./images/SimpleObjects.png[Preview]
 
@@ -21,9 +22,24 @@ TIP: Remote applications (here: http://semat.ofbizian.com/[SEMAT]) can be used a
 image::./images/SEMAT.png[Remote Application]
 
 ## Where is the Action?
-Probably in a PopUpMenu. Press right mouse button.
+Probably in a ContextMenu. Press right mouse button.
+UI specific (ie. non domain) actions supported on 
+
+* Tabs (Label)
+** Close
+** Dock
+
+* LogEntries Table
+** Delete (multiple selection possible)
+
+* Status Bar
+** Left click opens LogEntries tab
+
+Domain Actions will be made available in ContextMenus as well.
 
 ## Bugs
+CAUTION: hidden Dock steals a couple of pixels
+
 CAUTION: Newly created Tabs are not focused
 
 CAUTION: Menu items (Actions) are not ordered
@@ -35,9 +51,13 @@ CAUTION: When there are many Menu entries, a horizontal ScrollBar is added at th
 CAUTION: Order is not obeyed with Menu entries
 
 ## TODO's for the PoC
+* Invoke (object-)layout
+* LogEnties tab: extract protocol/host:port into column header
+* add title of the action to the tab title
 * 'collapse' tabs into 'dock'
-* drag & drop (eg. tab to dock) 
-* Use layout / object-layout for menu, tables and tabs 
+* 'revive' tabs from dock
+* drag & drop (eg. object onto docked tab, invoke method / open dialog to select matching actions) 
+* Use layout / object-layout for objects, lists, and menus, honor link type  (application/xml vs. application/json) 
 * Implement PUT, POST, DELETE (alongside GET)
 * Load and render single object 
 * Transpile to Javascript via Maven using https://cwiki.apache.org/confluence/display/FLEX/FlexJS[FlexJS]
@@ -53,4 +73,5 @@ CAUTION: Order is not obeyed with Menu entries
 * FlatSpark skins: do not support Menubar icons right now, see: https://cwiki.apache.org/confluence/display/FLEX/Using+FlatSpark+skins
 * Use SQL lite as store for url/credentials
 * Visualize DomainModel (reconstruct from DomainObjects, Attributes, etc.)
-* Hook up to the internal event bus of the server to have change notifications pushed. Eventually call server for data. See https://github.com/Lightstreamer/Lightstreamer-example-StockList-client-flex#basic-stock-list-demo---flex-client[Lightstreamer]
+* Hook up to the internal event bus of the server to have change notifications pushed. 
+Callback server before display/edit. See https://github.com/Lightstreamer/Lightstreamer-example-StockList-client-flex#basic-stock-list-demo---flex-client[Lightstreamer]

@@ -31,10 +31,9 @@
 
     <properties>
         <flexmojos.version>7.1.1</flexmojos.version>
-        <flex.version>3.4.0.9271</flex.version>
-        <!--<flex.version>4.16.0</flex.version>-->
+        <!--<flex.version>3.4.0.9271</flex.version>-->
+        <flex.version>4.16.1</flex.version>
         <playerglobal.version>23.0</playerglobal.version>
-        <flashplayer.version>23.0</flashplayer.version>
         <flex.debug>true</flex.debug>
     </properties>
 
@@ -61,7 +60,7 @@
                             <value>'${project.version}'</value>
                         </property>
                     </defines>
-                    <sourceFile>Main.mxml</sourceFile>
+                    <sourceFile>App.mxml</sourceFile>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -84,34 +83,11 @@
             <type>swc</type>
         </dependency>
         <dependency>
-            <groupId>com.adobe.flex.framework</groupId>
-            <artifactId>flash-integration</artifactId>
-            <version>${flex.version}</version>
-            <type>swc</type>
-        </dependency>
-        <dependency>
-            <groupId>com.adobe.flex.framework</groupId>
-            <artifactId>flex-framework</artifactId>
-            <version>${flex.version}</version>
-            <type>pom</type>
-        </dependency>
-        <dependency>
-            <groupId>com.adobe.flex.framework</groupId>
-            <artifactId>flash-integration</artifactId>
-            <version>${flex.version}</version>
-            <type>rb.swc</type>
-        </dependency>
-        <dependency>
             <groupId>org.flexunit</groupId>
             <artifactId>flexunit</artifactId>
             <version>4.1.0</version>
             <classifier>as3</classifier>
             <type>swc</type>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.flexlib</groupId>
-            <artifactId>flexlib</artifactId>
-            <version>2.6</version>
         </dependency>
 
     </dependencies>
