@@ -4,7 +4,7 @@ import mx.controls.Label;
 import mx.events.CloseEvent;
 import mx.managers.PopUpManager;
 
-import org.ro.Globals;
+import org.ro.core.Globals;
 
 /**
  * Build a dialog, possibly using form and specification from Action.parameters

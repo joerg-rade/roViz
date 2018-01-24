@@ -5,9 +5,9 @@ import mx.controls.MenuBar;
 import mx.events.MenuEvent;
 import mx.utils.Base64Encoder;
 
-import org.ro.Globals;
-import org.ro.Menu;
-import org.ro.MenuEntry;
+import org.ro.core.Globals;
+import org.ro.core.Menu;
+import org.ro.core.MenuEntry;
 import org.ro.core.Dispatcher;
 import org.ro.to.Link;
 import org.ro.to.Member;

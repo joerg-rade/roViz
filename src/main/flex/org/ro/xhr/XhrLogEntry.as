@@ -1,5 +1,5 @@
 package org.ro.xhr {
-import org.ro.Globals;
+import org.ro.core.Globals;
 import org.ro.mx.ImageRepository;
 
 public class XhrLogEntry {

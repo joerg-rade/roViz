@@ -4,7 +4,7 @@ import mx.rpc.events.FaultEvent;
 import mx.rpc.events.ResultEvent;
 import mx.rpc.http.mxml.HTTPService;
 
-import org.ro.Globals;
+import org.ro.core.Globals;
 import org.ro.to.IInvokeable;
 
 /**

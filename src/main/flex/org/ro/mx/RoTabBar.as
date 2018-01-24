@@ -8,10 +8,10 @@ import mx.controls.Alert;
 import mx.controls.Menu;
 import mx.events.MenuEvent;
 
-import org.ro.Globals;
+import org.ro.core.Globals;
 
 public class RoTabBar extends TabNavigator {
-    var roContextMenu:Menu;
+    private var roContextMenu:Menu;
 
     public function RoTabBar() {
         percentWidth = 100;

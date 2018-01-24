@@ -10,7 +10,7 @@ import mx.events.MenuEvent;
 import spark.components.VGroup;
 
 public class Dock extends VGroup {
-    var roContextMenu:Menu;
+    private var roContextMenu:Menu;
 
     public function Dock() {
         verticalAlign = "baseline";
@@ -20,7 +20,7 @@ public class Dock extends VGroup {
         this.hide();
     }
 
-    public function addView(tab:IDockable) {
+    public function addView(tab:IDockable):void {
         var spc:Spacer = new Spacer();
         spc.percentWidth = 100;
         this.addElement(spc);

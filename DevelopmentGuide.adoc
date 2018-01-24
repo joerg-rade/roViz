@@ -60,8 +60,11 @@ SimpleObjects.listAll, which in turn leads to invoking ~listAll/invoke and retri
 
 ### core
 
-### ctrl
+### handler
 Handlers for HttpResponses. Chain of Responsibility pattern is defined in 'core.Dispatcher'.
+
+### layout
+Classes related to layout parsing and view construction.
 
 ### mo
 Meta Objects: unused right now
@@ -71,9 +74,6 @@ Views derived from standard classes, usually from mx.*
 
 ### to
 Transfer Objects - represent JSON structures from responses.
-
-### viz
-Classes related to layout parsing and view construction.
 
 ### xhr
 XmlHttpRequest and logging utilities

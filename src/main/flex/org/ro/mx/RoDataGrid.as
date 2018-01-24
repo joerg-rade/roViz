@@ -9,13 +9,15 @@ import mx.controls.Menu;
 import mx.core.ClassFactory;
 import mx.events.MenuEvent;
 
+import org.ro.core.Globals;
+
 import spark.components.DataGrid;
 import spark.components.gridClasses.GridColumn;
 
 public class RoDataGrid extends VBox implements IDockable {
-    var roContextMenu:Menu;
-    var dataProvider:ArrayCollection;
-    var dg:DataGrid;
+    private var roContextMenu:Menu;
+    private var dataProvider:ArrayCollection;
+    private var dg:DataGrid;
 
     public function RoDataGrid() {
     }
@@ -32,6 +34,7 @@ public class RoDataGrid extends VBox implements IDockable {
         addEventListener(MouseEvent.RIGHT_CLICK, contextMenuHandler);
         addEventListener(MenuEvent.MENU_HIDE, hideContextMenu);
         this.addChild(dg);
+        Globals.getViewRegistry().add("1", this);
     }
 
     private static function buildDataGrid():DataGrid {

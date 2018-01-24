@@ -1,7 +1,7 @@
 package org.ro.xhr {
 import mx.collections.ArrayCollection;
 
-import org.ro.Globals;
+import org.ro.core.Globals;
 
 public class XhrLog {
 

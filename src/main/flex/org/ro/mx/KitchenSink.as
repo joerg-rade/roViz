@@ -1,8 +1,7 @@
 package org.ro.mx {
-import com.flexponential.ResizeableTitleWindow;
-
 import mx.containers.HBox;
 import mx.containers.TabNavigator;
+import mx.containers.TitleWindow;
 import mx.controls.DateChooser;
 import mx.controls.Image;
 import mx.controls.RichTextEditor;
@@ -10,9 +9,10 @@ import mx.core.UITextField;
 import mx.events.CloseEvent;
 import mx.managers.PopUpManager;
 
-import org.ro.Globals;
+import org.ro.core.Globals;
 
-public class KitchenSink extends ResizeableTitleWindow {
+//TODO Windows should always be resizeable
+public class KitchenSink extends TitleWindow {
 
     public function KitchenSink(title:String = null) {
         this.title = title;

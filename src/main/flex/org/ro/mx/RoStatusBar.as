@@ -8,7 +8,7 @@ import mx.controls.Label;
 import mx.controls.LinkButton;
 import mx.controls.Spacer;
 
-import org.ro.Globals;
+import org.ro.core.Globals;
 import org.ro.xhr.XhrLog;
 import org.ro.xhr.XhrLogEntry;
 
