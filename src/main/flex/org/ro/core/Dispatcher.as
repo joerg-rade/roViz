@@ -1,7 +1,7 @@
 package org.ro.core {
-import org.ro.ctrl.*;
-import org.ro.Menu;
-import org.ro.ObjectList;
+import org.ro.handler.*;
+import org.ro.core.Menu;
+import org.ro.core.ObjectList;
 import org.ro.xhr.XhrLog;
 
 /**
@@ -20,9 +20,11 @@ public class Dispatcher {
     public var list:ObjectList;
     private var delegate:IHandler;
     public var log:XhrLog;
+    public var viewRegistry:ViewRegistry;
 
     public function Dispatcher() {
         log = new XhrLog();
+        viewRegistry = new ViewRegistry();
         //TODO sequence of handlers should follow frequency of invocation in order minimize the time taken by unneeded 'canHandle()'
         var first:ServiceHandler = new ServiceHandler();
         var second:ActionHandler = new ActionHandler();

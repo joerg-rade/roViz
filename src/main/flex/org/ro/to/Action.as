@@ -4,9 +4,7 @@ public class Action extends Member {
 
     public function Action(jsonObj:Object = null) {
         memberType = Member.ACTION;
-        if (jsonObj != null) {
-            this.fromObject(jsonObj);
-        }
+        super(jsonObj);
     }
 }
 }
