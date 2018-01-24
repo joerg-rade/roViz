@@ -1,4 +1,4 @@
-package org.ro.ctrl {
+package org.ro.handler {
 import org.ro.mx.Dialog;
 import org.ro.to.Action;
 import org.ro.to.Link;
@@ -19,7 +19,7 @@ public class ActionHandler extends AbstractHandler implements IHandler {
         if (l.getMethod() == Method.GET) {
             l.invoke();
         } else {
-            //TODO in case of a POST or PUT parameters may be required and a dialog is to be opened.
+            //TODO in case of a GET, POST, or PUT parameters may be required and a dialog is to be opened.
             // eventually in case of a DELETE, a confirmation needs to be shown
             new Dialog("Link Method is POST, PUT, or DELETE");
         }

@@ -1,4 +1,4 @@
-package org.ro {
+package org.ro.core {
 import mx.collections.ArrayCollection;
 
 import org.ro.to.Member;

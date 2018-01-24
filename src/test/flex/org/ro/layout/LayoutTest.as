@@ -1,7 +1,6 @@
-package org.ro {
+package org.ro.layout {
 
 import org.flexunit.Assert;
-import org.ro.viz.Layout;
 
 public class LayoutTest {
     public function LayoutTest() {
@@ -15,7 +14,7 @@ public class LayoutTest {
         var lo:Layout = new Layout();
         lo.parseXml(xmlStr);
         // then
-        var actions = lo.getActions();
+        var actions:Vector.<String> = lo.getActions();
         Assert.assertEquals(3, actions.length);
         Assert.assertEquals("listAll", actions[0]);
     }
@@ -26,7 +25,7 @@ public class LayoutTest {
         var lo:Layout = new Layout();
         lo.parse(json);
         // then
-        var actions = lo.getActions();
+        var actions:Vector.<String> = lo.getActions();
         Assert.assertEquals(7, actions.length);
         Assert.assertEquals("listAll", actions[0]);
     }

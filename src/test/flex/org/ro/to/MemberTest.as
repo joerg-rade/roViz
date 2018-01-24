@@ -1,12 +1,14 @@
-package org.ro {
+package org.ro.to {
+import org.ro.*;
 
 import mx.collections.ArrayCollection;
 
 import org.flexunit.Assert;
+import org.ro.core.ObjectList;
 import org.ro.to.Member;
 
-public class SimpleObjectTest {
-    public function SimpleObjectTest() {
+public class MemberTest {
+    public function MemberTest() {
     }
 
     [Test(description="parse result of invoking http://localhost:8080/restful/objects/simple.SimpleObject/0")]

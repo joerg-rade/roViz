@@ -1,4 +1,4 @@
-package org.ro.viz {
+package org.ro.layout {
 import mx.containers.HBox;
 
 public class Row {

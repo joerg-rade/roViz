@@ -1,7 +1,7 @@
-package org.ro.ctrl {
+package org.ro.handler {
 import mx.collections.ArrayCollection;
 
-import org.ro.Menu;
+import org.ro.core.Menu;
 import org.ro.to.Link;
 
 public class ServiceHandler extends AbstractHandler implements IHandler {

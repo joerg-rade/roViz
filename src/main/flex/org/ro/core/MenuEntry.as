@@ -1,4 +1,4 @@
-package org.ro {
+package org.ro.core {
 import org.ro.to.Member;
 
 public class MenuEntry {

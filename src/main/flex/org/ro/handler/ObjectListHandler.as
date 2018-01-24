@@ -1,7 +1,7 @@
-package org.ro.ctrl {
+package org.ro.handler {
 import mx.collections.ArrayCollection;
 
-import org.ro.Globals;
+import org.ro.core.Globals;
 import org.ro.mx.ImageRepository;
 import org.ro.to.Member;
 
@@ -12,7 +12,7 @@ public class ObjectListHandler extends AbstractHandler implements IHandler {
 
     public override function canHandle(jsonObj:Object):Boolean {
         //return (jsonObj.resulttype != null && jsonObj.resulttype === "list");
-        // TODO in case of an empty list not tab is opened, no message displayed though ...
+        // TODO in case of an empty list no tab is opened, no message displayed though ...
         return (jsonObj.members != null) && (!jsonObj.extensions.isService);
     }
 

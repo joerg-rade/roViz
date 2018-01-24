@@ -1,4 +1,4 @@
-package org.ro.viz {
+package org.ro.layout {
 import flash.display.DisplayObject;
 
 import mx.containers.HBox;

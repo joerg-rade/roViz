@@ -1,10 +1,9 @@
-package org.ro {
+package org.ro.to {
 
 import mx.collections.ArrayCollection;
 
 import org.flexunit.Assert;
-import org.ro.to.Link;
-import org.ro.to.Service;
+import org.ro.core.Menu;
 
 public class ServiceTest {
     public function ServiceTest() {

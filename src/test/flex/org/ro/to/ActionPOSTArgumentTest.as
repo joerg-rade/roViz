@@ -1,10 +1,9 @@
-package org.ro {
+package org.ro.to {
 
 import org.flexunit.Assert;
-import org.ro.to.Action;
 
-public class ActionTest {
-    public function ActionTest() {
+public class ActionPOSTArgumentTest {
+    public function ActionPOSTArgumentTest() {
     }
 
     [Test(description="parse result of invoking http://localhost:8080/restful/services/simple.SimpleObjectMenu/actions/create")]
@@ -13,7 +12,7 @@ public class ActionTest {
         var links:Array = actual.links;
         Assert.assertEquals(4, links.length);
     }
-    
+
     private var json:Object = {
         "id": "create",
         "memberType": "action",

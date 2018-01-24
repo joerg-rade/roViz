@@ -1,4 +1,4 @@
-package org.ro.viz {
+package org.ro.layout {
 import mx.containers.VBox;
 
 /**
@@ -48,7 +48,6 @@ public class Layout {
         }
         return result;
     }
-
 
 }
 }

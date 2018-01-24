@@ -1,9 +1,9 @@
-package org.ro.ctrl {
+package org.ro.handler {
 import mx.controls.Alert;
 
-import org.ro.ctrl.AbstractHandler;
+import org.ro.handler.AbstractHandler;
 
-import org.ro.ctrl.IHandler;
+import org.ro.handler.IHandler;
 
 public class DefaultHandler extends AbstractHandler implements IHandler {
 

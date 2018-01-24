@@ -1,1 +1,0 @@
-This package contains transfer object types constructed from JSON responses.

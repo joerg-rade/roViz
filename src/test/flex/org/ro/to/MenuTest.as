@@ -1,8 +1,9 @@
-package org.ro {
+package org.ro.to {
 
 import mx.collections.ArrayCollection;
 
 import org.flexunit.Assert;
+import org.ro.core.Menu;
 import org.ro.to.Member;
 import org.ro.to.Service;
 
