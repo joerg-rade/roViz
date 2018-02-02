@@ -1,4 +1,4 @@
-package org.ro.mx {
+package org.ro.xhr {
 import flash.display.Shape;
 
 import org.ro.xhr.XhrLogEntry;
