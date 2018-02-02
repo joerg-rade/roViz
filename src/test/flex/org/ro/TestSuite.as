@@ -1,7 +1,9 @@
 package org.ro {
 import org.ro.layout.LayoutTest;
 import org.ro.to.ActionGETArgumentTest;
+import org.ro.to.ActionPOSTArgumentFSTest;
 import org.ro.to.ActionPOSTArgumentTest;
+import org.ro.to.ActionPOSTDeleteTest;
 import org.ro.to.ListTest;
 import org.ro.to.MemberTest;
 import org.ro.to.MenuTest;
@@ -18,5 +20,7 @@ public class TestSuite {
     public var t5:ServiceTest;
     public var t6:MemberTest;
     public var t7:ActionPOSTArgumentTest;
+    public var t8:ActionPOSTArgumentFSTest;
+    public var t9:ActionPOSTDeleteTest;
 }
 }

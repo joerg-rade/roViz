@@ -6,16 +6,18 @@ public class Extensions extends AbstractTransferObject {
     public static const NON_IDEMPOTENT:String = "nonIdempotent";
     public static const NON_IDEMPOTENT_ARE_YOU_SURE:String = "nonIdempotentAreYouSure";
 
+    internal var oid:String;
+    internal var isService:Boolean;
+    internal var isPersistent:Boolean;
+    internal var menuBar:String; // TODO use constants [PRIMARY, , etc.]
+    internal var actionSemantics:String; //enum? nonIdempotent, idempotent, nonIdempotentAreYouSure, etc.
+    public var actionType:String;
+
     public function Extensions(jsonObj:Object = null) {
         if (jsonObj != null) {
             this.fromObject(jsonObj);
         }
     }
-    public var oid:String;
-    public var isService:Boolean;
-    public var isPersistent:Boolean;
-    public var menuBar:String; // TODO use constants [PRIMARY, , etc.]
-    public var actionSemantics:String; //enum? nonIdempotent, idempotent, nonIdempotentAreYouSure, etc.
-    public var actionType:String;
+
 }
 }

@@ -5,8 +5,8 @@ import mx.rpc.events.ResultEvent;
 import mx.rpc.http.mxml.HTTPService;
 
 import org.ro.core.Globals;
+import org.ro.to.AbstractTransferObject;
 import org.ro.to.IInvokeable;
-import org.ro.to.Method;
 
 /**
  * The name is somewhat misleading, see: https://en.wikipedia.org/wiki/XMLHttpRequest
@@ -39,7 +39,7 @@ public class XmlHttpRequest extends HTTPService {
         super.headers["Accept"] = "application/json";
         super.contentType = "application/json";
         var len:uint = 0;
-        if (super.method == Method.POST) {
+        if (super.method == AbstractTransferObject.POST) {
             var body:String = getBody(inv);
             len = body.length;
             send(body);
@@ -48,7 +48,7 @@ public class XmlHttpRequest extends HTTPService {
         }
         getLog().start(url, method, len);
     }
-    
+
     private function getBody(inv:IInvokeable):String {
         //FIXME use values selected in Prompt
         return JSON.stringify(json);

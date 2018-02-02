@@ -5,7 +5,12 @@ import org.ro.xhr.XmlHttpRequest;
  *  Common 'abstract' superclass of Transfer Objects.
  *  Constructor should not be called.
  */
-internal class AbstractTransferObject {
+public class AbstractTransferObject {
+    // eventually put into common superclass of Link and Member
+    public static const GET:String = "GET";
+    public static const PUT:String = "PUT";
+    public static const POST:String = "POST";
+    public static const DELETE:String = "DELETE";
 
     public function fromObject(obj:Object):void {
         for (var prop:String in obj) {

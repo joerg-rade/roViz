@@ -1,9 +1,9 @@
 package org.ro.handler {
 import org.ro.mx.Dialog;
 import org.ro.mx.Prompt;
+import org.ro.to.AbstractTransferObject;
 import org.ro.to.Action;
 import org.ro.to.Link;
-import org.ro.to.Method;
 
 public class ActionHandler extends AbstractHandler implements IHandler {
     public function ActionHandler() {
@@ -17,9 +17,9 @@ public class ActionHandler extends AbstractHandler implements IHandler {
         var a:Action = new Action(jsonObj);
         var l:Link = a.getInvokeLink();
         var m:String = l.getMethod();
-        if (m == Method.GET) {
+        if (m == AbstractTransferObject.GET) {
             l.invoke();
-        } else if (m == Method.POST) {
+        } else if (m == AbstractTransferObject.POST) {
             new Prompt(a);
         } else {
             //TODO handle PUT / DELETE

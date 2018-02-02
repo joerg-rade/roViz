@@ -1,5 +1,6 @@
 package org.ro.to {
 public class Action extends Member {
+
     internal var parameters:Object;
     public var parameterList:Vector.<Parameter>;
 
@@ -8,16 +9,15 @@ public class Action extends Member {
         var json:Object = fixDefault(jsonObj);
         super(json);
         init();
-        
-        function init():void {
-            parameterList = new Vector.<Parameter>();
-            for each(var o:Object in this.parameters) {
-                parameterList.push(new Parameter(o));
-            }
-        }
     }
 
-
+    private function init():void {
+        parameterList = new Vector.<Parameter>();
+        for each(var o:Object in this.parameters) {
+            parameterList.push(new Parameter(o));
+        }
+    }
+    
     public function getInvokeLink():Link {
         for each(var l:Link in linkList) {
             if (l.rel.indexOf(this.id) > 0) {

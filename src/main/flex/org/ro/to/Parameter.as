@@ -1,12 +1,12 @@
 package org.ro.to {
 public class Parameter extends AbstractTransferObject {
-    public var num:int;
-    public var id:String;
-    public var description:String;
+    internal var num:int;
+    internal var id:String;
+    internal var description:String;
     public var name:String;
-    public var choices:Object;
-    public var choiceList:Vector.<Link>;
-    public var defaultChoice:Object;
+    internal var choices:Object;
+    internal var choiceList:Vector.<Link>;
+    internal var defaultChoice:Object;
 
     public function Parameter(jsonObj:Object = null) {
         if (jsonObj != null) {

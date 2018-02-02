@@ -18,6 +18,7 @@ public class KitchenSink extends TitleWindow {
 
     public function KitchenSink(title:String = null) {
         this.title = title;
+        this.showCloseButton = true;
         addEventListener(CloseEvent.CLOSE, close);
 
         var tn:TabNavigator = new TabNavigator();

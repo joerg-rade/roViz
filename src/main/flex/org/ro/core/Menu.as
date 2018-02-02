@@ -1,6 +1,4 @@
 package org.ro.core {
-import org.ro.*;
-
 import flash.utils.Dictionary;
 
 import mx.collections.ArrayCollection;

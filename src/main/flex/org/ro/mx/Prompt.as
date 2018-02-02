@@ -69,7 +69,7 @@ public class Prompt extends TitleWindow {
 
     private function invokeHandler(evt:MouseEvent):void {
         var l:Link = this.action.getInvokeLink();
-        var args:Object = l.arguments;
+        var args:Object = l.argumentList;
         // for each(var )
         //TODO iterate over TextInputs and set values into matching (id,num) args
         l.invoke();
@@ -83,9 +83,6 @@ public class Prompt extends TitleWindow {
     private function buildButton(label:String, iconClass:Class):Button {
         var btn:Button = new Button();
         btn.label = label;
-//        var img:Image = new Image();
-//        img.source = new iconClass();
-//        btn.addChild(image);
         return btn;
     }
 

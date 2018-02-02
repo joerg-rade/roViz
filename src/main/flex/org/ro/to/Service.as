@@ -4,9 +4,9 @@ public class Service extends AbstractTransferObject {
     public var serviceId:String;
     public var title:String;
     internal var links:Array;
-    public var linkList:Vector.<Link>; //TODO convert links during init()?
-    public var members:Object;
-    public var extensions:Object;
+    public var linkList:Vector.<Link>; 
+    internal var members:Object;
+    internal var extensions:Object;
     public var memberList:Vector.<Member>;
 
     public function Service(jsonObj:Object = null) {

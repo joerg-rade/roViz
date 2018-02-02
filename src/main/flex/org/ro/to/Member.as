@@ -6,15 +6,15 @@ public class Member extends AbstractTransferObject implements IInvokeable {
     public static const PROPERTY:String = "property";
 
     public var id:String;
-    public var memberType:String;
+    internal var memberType:String;
     internal var links:Array;
-    public var linkList:Vector.<Link>; //TODO convert links during init()?
+    public var linkList:Vector.<Link>;
     public var value:Object;
-    public var format:Object;
-    public var extensions:Object;
-    public var disabledReason:String;
-    public var href:String;
-    public var method:String;
+    internal var format:Object;
+    internal var extensions:Object;
+    internal var disabledReason:String;
+    internal var href:String;
+    internal var method:String;
 
     public function Member(jsonObj:Object = null) {
         if (jsonObj != null) {

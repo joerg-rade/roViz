@@ -1,5 +1,6 @@
 package org.ro.to {
 public class Argument extends AbstractTransferObject {
+
     internal var key:String;
     internal var value:Object;
 
@@ -8,6 +9,6 @@ public class Argument extends AbstractTransferObject {
             this.fromObject(jsonObj);
         }
     }
-    
+
 }
 }
