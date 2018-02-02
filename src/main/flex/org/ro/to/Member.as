@@ -7,7 +7,8 @@ public class Member extends AbstractTransferObject implements IInvokeable {
 
     public var id:String;
     public var memberType:String;
-    public var links:Array;
+    internal var links:Array;
+    public var linkList:Vector.<Link>; //TODO convert links during init()?
     public var value:Object;
     public var format:Object;
     public var extensions:Object;
@@ -18,7 +19,19 @@ public class Member extends AbstractTransferObject implements IInvokeable {
     public function Member(jsonObj:Object = null) {
         if (jsonObj != null) {
             this.fromObject(jsonObj);
-            this.init();
+            init();
+        }
+        
+        function init():void {
+            linkList = new Vector.<Link>();
+            var l:Link;
+            for each (var o:Object in links) {
+                l = new Link(o);
+                linkList.push(l);
+            }
+            var link:Link = linkList[0];
+            href = link.getHref();
+            method = link.getMethod();
         }
     }
 
@@ -29,13 +42,7 @@ public class Member extends AbstractTransferObject implements IInvokeable {
         }
         return new ArrayCollection(members);
     }
-
-    private function init():void {
-        var link:Link = new Link(links[0]);
-        href = link.getHref();
-        method = link.getMethod();
-    }
-
+    
     public function getHref():String {
         return href;
     }

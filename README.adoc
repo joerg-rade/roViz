@@ -7,7 +7,7 @@ An https://isis.apache.org/[Apache Isis] application with the restful objects in
 
 A http://nakedobjects.net/home/index.shtml[Naked Objects for .NET] application should work as well, but is not tested yet.
 
-## How does it look like?
+## How does the UI look like?
 
 TIP: After selecting one of the preconfigured applications, the menu gets populated. Actions (here: SimpleObjects.listAll) can be selected and a Tab with a table is displayed:
 
@@ -21,8 +21,8 @@ TIP: Remote applications (here: http://semat.ofbizian.com/[SEMAT]) can be used a
 
 image::./images/SEMAT.png[Remote Application]
 
-## Where is the Action?
-Probably in a ContextMenu. Press right mouse button.
+### How can it be used?
+You'll likely find Actions in a ContextMenu (right mouse button).
 UI specific (ie. non domain) actions supported on 
 
 * Tabs (Label)
@@ -37,6 +37,21 @@ UI specific (ie. non domain) actions supported on
 
 Domain Actions will be made available in ContextMenus as well.
 
+## TODO's for the PoC
+* Invoke (object-)layout
+* LogEnties tab: extract protocol/host:port into column header
+* add title of the action to the tab title
+* 'collapse' tabs into 'dock'
+* 'revive' tabs from dock
+* drag & drop (eg. object onto docked tab, invoke method / open dialog to select matching actions) 
+* Use layout / object-layout for objects, lists, and menus, honor link type  (application/xml vs. application/json) 
+* Implement PUT, POST, DELETE (alongside GET)
+* Load and render single object 
+* Transpile to Javascript via Maven using https://cwiki.apache.org/confluence/display/FLEX/FlexJS[FlexJS]
+(mvn clean install -Dmaven.source=flexjs.xml / integrate into pom.xml)
+
+* Implement Filtered Table 
+
 ## Bugs
 CAUTION: hidden Dock steals a couple of pixels
 
@@ -50,18 +65,6 @@ CAUTION: When there are many Menu entries, a horizontal ScrollBar is added at th
 
 CAUTION: Order is not obeyed with Menu entries
 
-## TODO's for the PoC
-* Invoke (object-)layout
-* LogEnties tab: extract protocol/host:port into column header
-* add title of the action to the tab title
-* 'collapse' tabs into 'dock'
-* 'revive' tabs from dock
-* drag & drop (eg. object onto docked tab, invoke method / open dialog to select matching actions) 
-* Use layout / object-layout for objects, lists, and menus, honor link type  (application/xml vs. application/json) 
-* Implement PUT, POST, DELETE (alongside GET)
-* Load and render single object 
-* Transpile to Javascript via Maven using https://cwiki.apache.org/confluence/display/FLEX/FlexJS[FlexJS]
-* Implement Filtered Table 
 
 ## Next 
 * Integrate Calendar View (for ToDo App)

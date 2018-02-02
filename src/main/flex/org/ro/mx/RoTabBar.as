@@ -9,6 +9,8 @@ import mx.controls.Menu;
 import mx.events.MenuEvent;
 
 import org.ro.core.Globals;
+import org.ro.xhr.RoDataGrid;
+import org.ro.xhr.XhrLogEntry;
 
 public class RoTabBar extends TabNavigator {
     private var roContextMenu:Menu;
@@ -29,7 +31,7 @@ public class RoTabBar extends TabNavigator {
     }
 
     //TODO depending on list type, different content is to be added
-    public function addGanttTab(list:ArrayCollection, title:String, icon:Class):void {
+    public function addGanttTab(list:Vector.<XhrLogEntry>, title:String, icon:Class):void {
         var tab:RoDataGrid = new RoDataGrid();
         tab.init(list, title, icon);
         tab.setFocus();

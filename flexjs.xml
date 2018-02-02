@@ -30,9 +30,10 @@
     <name>Restful Objects - Visualizer</name>
 
     <properties>
+        <flexmojos.version>7.1.0</flexmojos.version>
         <flex.version>1.16.0</flex.version>
         <flexjs.version>0.8.0</flexjs.version>
-        <playerglobal.version>20.0</playerglobal.version>
+        <playerglobal.version>23.0</playerglobal.version>
         <compiler.debug>true</compiler.debug>
     </properties>
 
@@ -132,13 +133,6 @@
             <type>swc</type>
         </dependency>
 
-        <!--<dependency>-->
-        <!--<groupId>org.apache.flex.flexjs.framework</groupId>-->
-        <!--<artifactId>spriteflexjs</artifactId>-->
-        <!--<version>${flexjs.version}</version>-->
-        <!--<type>swc</type>-->
-        <!--</dependency>-->
-
         <!-- Needed for Flash compilation -->
         <dependency>
             <groupId>com.adobe.flash.framework</groupId>
@@ -176,11 +170,6 @@
             <type>swc</type>
             <classifier>typedefs</classifier>
         </dependency>
-        <!--        <dependency>
-                    <groupId>com.google.code.flexlib</groupId>
-                    <artifactId>flexlib</artifactId>
-                    <version>2.6</version>
-                </dependency> -->
     </dependencies>
 
     <repositories>

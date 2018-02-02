@@ -12,17 +12,15 @@ import mx.managers.PopUpManager;
 import org.ro.core.Globals;
 
 //TODO Windows should always be resizeable
+//TODO add FileSystemDataGrid
+//TODO add FileSystemTree
 public class KitchenSink extends TitleWindow {
 
     public function KitchenSink(title:String = null) {
         this.title = title;
-        width = 640;
-        height = 480;
         addEventListener(CloseEvent.CLOSE, close);
 
         var tn:TabNavigator = new TabNavigator();
-        tn.percentWidth = 100;
-        tn.percentHeight = 100;
         this.addElement(tn);
 
         tn.addElement(rte());

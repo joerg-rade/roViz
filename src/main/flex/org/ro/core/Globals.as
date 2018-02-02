@@ -1,14 +1,11 @@
 package org.ro.core {
-import org.ro.*;
-
 import mx.collections.ArrayCollection;
 import mx.core.FlexGlobals;
 
-import org.ro.core.Dispatcher;
-import org.ro.core.ViewRegistry;
 import org.ro.mx.Dock;
 import org.ro.mx.RoStatusBar;
 import org.ro.mx.RoView;
+import org.ro.xhr.XhrLog;
 
 public class Globals {
 
@@ -39,5 +36,10 @@ public class Globals {
     public static function getViewRegistry():ViewRegistry {
         return getDsp().viewRegistry;
     }
+
+    public function getLog():XhrLog {
+        return getDsp().log;
+    }
+    
 }
 }

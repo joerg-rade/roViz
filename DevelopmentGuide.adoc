@@ -5,6 +5,7 @@
 * FlexJS 0.8.0 
 * IntelliJ 2017.3 (Ultimate)
 * Moz://a FireFox 52 ESR
+** RestClient
 * Adobe FlashDebugger 27
 * Windows 7
 
@@ -81,14 +82,16 @@ XmlHttpRequest and logging utilities
 ## Why Actionscript?
 
 The Flashplayer is known for many security issues and Adobe probably didn't take complaints seriously.
-This together with  https://en.wikipedia.org/wiki/Thoughts_on_Flash[Steve Jobs criticism of Flash] made AS less attractive to developers.
+This together with  https://en.wikipedia.org/wiki/Thoughts_on_Flash[Steve Jobs criticism of Flash] 
+made AS less attractive to developers.
+As a consequence https://stackoverflow.blog/2017/08/01/flash-dead-technologies-might-next/[the interest in Flash/Flex declined].
 
 On the other hand the AS ecosystem has a long history and it's class library is mature.
 Together with Apache Flex and Flex JS there is the possibility to get rid of some of the limitations.
 
 IMO AS is still a valid approach and one should not throw out the baby (AS) with the water (Flash),
 
-[verse, Reinhard May, Der Mörder ist immer der Gärtner]
+[verse, Reinhard Mey, Der Mörder ist immer der Gärtner]
 ____
 Den Freund aller Blumen und Gräser,
 verfolgte ein fortschrittlicher Schuft,
@@ -100,3 +103,27 @@ und erschlägt ihn mit seinem Gartenschlauch,
 und dann schreibt seine Hand in das rinnende Blut,
 auch althergebrachte Methoden sind gut.
 ____
+
+[verse, Google Translate, The Killer is always the Gardener]
+____
+The friend of all flowers and grasses,
+pursued an advanced villain,
+the man just drilled with the laser,
+Holes in people and air.
+
+But the gardener lurking in a shrub,
+killed him with his garden hose,
+and then his hand writes in the running blood,
+even traditional methods are good.
+____
+
+## Are used Classes supported by Apache Flex?
+mx.containers.TitleWindow (/)
+mx.events.CloseEvent (Fx3)
+mx.managers.PopUpManager;
+HTTPService  (FX3)
+
+Potential limitations and workarounds regarding PUT, DELETE
+* https://forums.adobe.com/thread/721464[Gary 2012 on lifting of the limitation and as3httpclientlib]
+* https://stackoverflow.com/questions/223312/custom-headers-possible-with-urlrequest-urlstream-using-method-get/695890#695890[hasseg / Chris W. Rea]
+* https://cambiatablog.wordpress.com/2010/08/10/287/[X-HTTP-Method-Override 2010]

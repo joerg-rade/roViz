@@ -24,7 +24,32 @@ limitations under the License.
         [Embed('../resources/images/bars.svg')]
         [Bindable]
         public var MenuIcon:Class;
-        ]]></fx:Script>
+
+        [Embed("../resources/images/times_red.svg")]
+        [Bindable]
+        public var TimesRedIcon:Class;
+
+        [Embed("../resources/images/times_yellow.svg")]
+        [Bindable]
+        public var TimesYellowIcon:Class;
+
+        [Embed("../resources/images/step-forward.svg")]
+        [Bindable]
+        public var StepForwardIcon:Class;
+
+        [Embed("../resources/images/step-backward.svg")]
+        [Bindable]
+        public var StepBackwardIcon:Class;
+
+        [Embed("../resources/images/eye.svg")]
+        [Bindable]
+        public var EyeIcon:Class;
+
+        [Embed("../resources/images/eye-slash.svg")]
+        [Bindable]
+        public var EyeSlashIcon:Class;
+        
+       ]]></fx:Script>
 
     <!--fx:Style source="../resources/css/styles.css"/-->
     <ro:RoView id="view"/>

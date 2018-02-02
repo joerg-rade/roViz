@@ -30,5 +30,6 @@ public class Dialog extends TitleWindow {
     private function close(evt:CloseEvent):void {
         PopUpManager.removePopUp(this);
     }
+    
 }
 }

@@ -49,10 +49,10 @@ public class RoStatusBar extends HBox {
         this.setIcon(entry.icon);
     }
 
-    public function clickHandler(event:MouseEvent):void {
+    public static function clickHandler(event:MouseEvent):void {
         var view:RoView = Globals.getView();
         var log:XhrLog = view.dsp.log;
-        var list:ArrayCollection = log.getEntries();
+        var list:Vector.<XhrLogEntry> = log.getEntries();
         view.tabs.addGanttTab(list, "Log Entries (" + list.length + ")", ImageRepository.LogIcon);
     }
 

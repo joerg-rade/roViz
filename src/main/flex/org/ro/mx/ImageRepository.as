@@ -39,16 +39,10 @@ public class ImageRepository {
 
     [Embed("../../../../resources/images/times.svg")]
     [Bindable]
-    public var TimesIcon:Class;
+    public static var TimesIcon:Class;
 
-    [Embed("../../../../resources/images/step-forward.svg")]
-    [Bindable]
-    public static var StepForwardIcon:Class;
-
-    [Embed("../../../../resources/images/step-backward.svg")]
-    [Bindable]
-    public static var StepBackwardIcon:Class;
-
+ //TODO check when App.mxml is the right palce for icons ...
+    
     public function ImageRepository() {
     }
 }

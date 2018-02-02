@@ -30,9 +30,8 @@
     <name>Restful Objects - Visualizer</name>
 
     <properties>
-        <flexmojos.version>7.1.1</flexmojos.version>
-        <!--<flex.version>3.4.0.9271</flex.version>-->
-        <flex.version>4.16.1</flex.version>
+        <flexmojos.version>7.1.0</flexmojos.version>
+        <flex.version>4.16.0</flex.version>
         <playerglobal.version>23.0</playerglobal.version>
         <flex.debug>true</flex.debug>
     </properties>
@@ -64,8 +63,7 @@
                 </configuration>
                 <dependencies>
                     <dependency>
-                        <!--<groupId>org.apache.flex</groupId>-->
-                        <groupId>com.adobe.flex</groupId>
+                        <groupId>org.apache.flex</groupId>
                         <artifactId>compiler</artifactId>
                         <version>${flex.version}</version>
                         <type>pom</type>
@@ -104,33 +102,6 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-        <!--repository>
-            <id>artifactory-libs</id>
-            <name>artifactory-libs-release</name>
-            <url>http://artifactory/artifactory/libs-release-local</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>artifactory-snapshots</id>
-            <name>artifactory-libs-snapshots</name>
-            <url>http://artifactory/artifactory/libs-snapshot-local</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>artifactory-ext</id>
-            <name>artifactory-ext-release</name>
-            <url>http://artifactory/artifactory/ext-release-local</url>
-        </repository-->
         <repository>
             <id>flex-mojos-repository</id>
             <name>flex-mojos-repository</name>
