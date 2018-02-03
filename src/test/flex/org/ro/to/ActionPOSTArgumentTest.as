@@ -9,7 +9,7 @@ public class ActionPOSTArgumentTest {
     [Test(description="parse result of invoking http://localhost:8080/restful/services/simple.SimpleObjectMenu/actions/create")]
     public function testParseService():void {
         var actual:Action = new Action(json);
-        var links:Array = actual.links;
+        var links:Vector.<Link> = actual.linkList;
         Assert.assertEquals(4, links.length);
     }
 

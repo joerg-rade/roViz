@@ -6,15 +6,19 @@ import mx.containers.Form;
 import mx.containers.FormItem;
 import mx.containers.TitleWindow;
 import mx.core.IVisualElement;
+import mx.core.UIComponent;
 import mx.events.CloseEvent;
 import mx.managers.PopUpManager;
 
+import org.apache.flex.collections.VectorList;
 import org.ro.core.Globals;
 import org.ro.to.Action;
+import org.ro.to.Argument;
 import org.ro.to.Link;
 import org.ro.to.Parameter;
 
 import spark.components.Button;
+import spark.components.DropDownList;
 import spark.components.HGroup;
 import spark.components.TextInput;
 
@@ -40,13 +44,19 @@ public class Prompt extends TitleWindow {
         form = new Form();
         form.defaultButton = confirmBtn;
 
-        //TODO iterate over paramters
         var params:Vector.<Parameter> = action.parameterList;
         for each(var p:Parameter in params) {
             var fi:FormItem = new FormItem();
             fi.label = p.name;
-            var ti:TextInput = new TextInput();
-            fi.addElement(ti);
+            var input:UIComponent;
+            if (p.hasChoices()) {
+                input = new DropDownList();
+                (input as DropDownList).dataProvider = new VectorList(p.getChoiceList());
+                (input as DropDownList).selectedItem = p.getDefaultChoice();
+            } else {
+                input = new TextInput();
+            }
+            fi.addElement(input);
             form.addElement(fi);
         }
 
@@ -69,9 +79,26 @@ public class Prompt extends TitleWindow {
 
     private function invokeHandler(evt:MouseEvent):void {
         var l:Link = this.action.getInvokeLink();
-        var args:Object = l.argumentList;
-        // for each(var )
-        //TODO iterate over TextInputs and set values into matching (id,num) args
+        //iterate over FormItems (0,1, but not 2 (buttons)
+        var fi:FormItem;
+        var key:String;
+        var input:UIComponent;
+        var val:String;
+        for (var i:int; i < form.numElements; i++) {
+            fi = form.getElementAt(i) as FormItem;
+            key = fi.label;
+            input = fi.getElementAt(0) as UIComponent;
+            if (input is TextInput) {
+                var ti:TextInput = input as TextInput;
+                val = ti.text;
+                l.setArgument(key,val)
+            } else if (input is DropDownList) {
+                var ddl:DropDownList = input as DropDownList;
+                var link:Link = ddl.selectedItem as Link;
+                val = link.getHref();
+                l.setArgument(key,val)
+            }
+        }
         l.invoke();
         close();
     }
@@ -85,9 +112,6 @@ public class Prompt extends TitleWindow {
         btn.label = label;
         return btn;
     }
-
-    private function getInputs():void {
-    }
-
+    
 }
 }

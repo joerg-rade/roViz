@@ -11,24 +11,30 @@ public class ServiceTest {
 
     [Test(description="parse result of invoking http://localhost:8080/restful/services/simple.SimpleObjectMenu")]
     public function testParseService():void {
-        var actual:Service = new Service(json);
+        var service:Service = new Service(json);
 
-        Assert.assertEquals("Simple Objects", actual.title);
+        Assert.assertEquals("Simple Objects", service.title);
 
-        var actions:Array = actual.actions;
+        var actions:Vector.<Member> = service.memberList;
         Assert.assertEquals(3, actions.length);
 
-        Assert.assertEquals(actual.members["listAll"] != null, true);
-        Assert.assertEquals(actual.members["findByName"] != null, true);
-        Assert.assertEquals(actual.members["create"] != null, true);
+        Assert.assertTrue(includesId(actions, "listAll"));
+        Assert.assertTrue(includesId(actions, "findByName"));
+        Assert.assertTrue(includesId(actions, "create"));
 
         // jsonObj contains '"members": {}' not '"members": []' 
         // in AS this results in an unordered list (Object{}), 
-        // but intended is an ordered lis (Array[])
-        // 3 checks commented out since they (mostly) fail
-        //Assert.assertEquals("listAll", actions[0]);
-        //Assert.assertEquals("findByName", actions[1]);
-        //Assert.assertEquals("create", actions[2]);
+        // but intended is an ordered list (Array[])
+        //TODO use layout.xml
+    }
+
+    private function includesId(list:Vector.<Member>, id:String):Boolean {
+        for  each (var m:Member in list) {
+            if (m.id == id) {
+                return true;
+            }
+        }
+        return false;
     }
 
     [Test(description="parse result of invoking http://localhost:8080/restful/services/")]

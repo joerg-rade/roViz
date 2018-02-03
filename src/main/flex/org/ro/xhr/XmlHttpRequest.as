@@ -50,26 +50,14 @@ public class XmlHttpRequest extends HTTPService {
     }
 
     private function getBody(inv:IInvokeable):String {
-        //FIXME use values selected in Prompt
-        return JSON.stringify(json);
+        var obj:Object = inv.getArguments();
+        var jsonString:String = JSON.stringify(obj);
+        return jsonString;
     }
 
     private static function getLog():XhrLog {
         return Globals.getDsp().log;
     }
-
-//POST Body
-    private var json:Object =
-            {
-                "script": {
-                    "value": {
-                        "href": "http://localhost:8080/restful/objects/domainapp.application.fixture.scenarios.DomainAppDemo/PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPG1lbWVudG8-PHBhdGg-PC9wYXRoPjwvbWVtZW50bz4="
-                    }
-                },
-                "parameters": {
-                    "value": ""
-                }
-            };
 
 }
 }

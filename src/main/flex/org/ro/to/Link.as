@@ -23,7 +23,7 @@ public class Link extends AbstractTransferObject implements IInvokeable {
             argumentList.push(new Argument(o));
         }
     }
-    
+
     public static function parse(objArray:Object):ArrayCollection {
         var links:Array = [];
         for each (var v:Object in objArray) {
@@ -44,8 +44,18 @@ public class Link extends AbstractTransferObject implements IInvokeable {
         return method;
     }
 
-    public function setMethod(method:String):void {
-        this.method = method;
+    public function getArguments():Object {
+        return this.arguments;
+    }
+
+    public function setArgument(key:String, value:String):void {
+        var k:String = key.toLowerCase();
+        if (k == "script") {
+            var href:Object = {"href": value};
+            this.arguments[k].value = href;
+        } else {
+            this.arguments[k].value = value;
+        }
     }
 
 }

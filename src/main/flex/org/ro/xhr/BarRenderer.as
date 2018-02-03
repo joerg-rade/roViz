@@ -29,11 +29,11 @@ public class BarRenderer extends GridItemRenderer {
     }
 
     /**
-     * Calculate the length of the bar proportinal to the length of the available space
+     * Calculate the length of the bar proportional to the length of the available space
      * @return
      */
     private function normalize():int{
-        //FIXME implement
+        //TODO implement
         return 100;
     }
     

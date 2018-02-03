@@ -6,5 +6,7 @@ public interface IInvokeable {
     function setHref(href:String):void;
 
     function getMethod():String;
+    
+    function getArguments():Object;
 }
 }

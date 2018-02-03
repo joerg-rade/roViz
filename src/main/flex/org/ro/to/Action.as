@@ -17,12 +17,19 @@ public class Action extends Member {
             parameterList.push(new Parameter(o));
         }
     }
-    
+
     public function getInvokeLink():Link {
         for each(var l:Link in linkList) {
             if (l.rel.indexOf(this.id) > 0) {
                 return l;
             }
+        }
+        return null;
+    }
+
+    public function findParameterByName(name:String):Parameter {
+        for each (var p:Parameter in parameterList) {
+            if (p.id == name) return p;
         }
         return null;
     }

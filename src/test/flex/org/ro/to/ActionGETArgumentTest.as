@@ -8,18 +8,11 @@ public class ActionGETArgumentTest {
 
     [Test(description="parse result of invoking http://localhost:8080/restful/services/simple.SimpleObjectMenu/actions/findByName")]
     public function testParseService():void {
-        //FIXME parse arguments part (+ fill and invoke ?)
-        var actual:Action = new Action(json);
-        var links:Array = actual.links;
+        var action:Action = new Action(json);
+        var links:Vector.<Link> = action.linkList;
         Assert.assertEquals(4, links.length);
 
-        var invokeLink:Link;
-        for each(var l:Object in links) {
-            if (l.rel.indexOf(actual.id) > 0) {
-                invokeLink = new Link(l);
-            }
-        }
-
+        var invokeLink:Link = action.getInvokeLink();
         var args:Object = invokeLink.arguments;
         Assert.assertNotNull(args);
     }

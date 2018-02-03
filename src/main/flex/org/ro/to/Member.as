@@ -55,8 +55,9 @@ public class Member extends AbstractTransferObject implements IInvokeable {
         return method;
     }
 
-    public function setMethod(method:String):void {
-        this.method = method;
+    public function getArguments():Object {
+        //FIXME member does not have arguments - return nothing ..
+        return null;
     }
 
     public static function filterProperties(members:ArrayCollection):ArrayCollection {
