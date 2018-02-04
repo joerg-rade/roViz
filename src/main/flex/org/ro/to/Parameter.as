@@ -32,8 +32,19 @@ public class Parameter extends AbstractTransferObject {
         return (choiceList != null) && (choiceList.length > 0);
     }
 
-    public function getChoiceList():Vector.<Link> {
-        return choiceList;
+    public function getChoiceListKeys():Vector.<String> {
+        var result:Vector.<String> = new Vector.<String>();
+        for each (var l:Link in choiceList) {
+            result.push(l.title);
+        }
+        return result;
+    }
+
+    public function getHrefByTitle(title:String):String {
+        for each (var l:Link in choiceList) {
+            if (l.title == title) return l.href;
+        }
+        return null;
     }
 }
 }

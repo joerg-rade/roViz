@@ -5,6 +5,7 @@ import flash.events.MouseEvent;
 import mx.containers.Form;
 import mx.containers.FormItem;
 import mx.containers.TitleWindow;
+import mx.controls.ComboBox;
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.events.CloseEvent;
@@ -13,7 +14,6 @@ import mx.managers.PopUpManager;
 import org.apache.flex.collections.VectorList;
 import org.ro.core.Globals;
 import org.ro.to.Action;
-import org.ro.to.Argument;
 import org.ro.to.Link;
 import org.ro.to.Parameter;
 
@@ -50,9 +50,10 @@ public class Prompt extends TitleWindow {
             fi.label = p.name;
             var input:UIComponent;
             if (p.hasChoices()) {
-                input = new DropDownList();
-                (input as DropDownList).dataProvider = new VectorList(p.getChoiceList());
-                (input as DropDownList).selectedItem = p.getDefaultChoice();
+                var cb:ComboBox = new ComboBox();
+                cb.dataProvider = new VectorList(p.getChoiceListKeys());
+                cb.selectedItem = p.getDefaultChoice();
+                input = cb;
             } else {
                 input = new TextInput();
             }
@@ -91,12 +92,13 @@ public class Prompt extends TitleWindow {
             if (input is TextInput) {
                 var ti:TextInput = input as TextInput;
                 val = ti.text;
-                l.setArgument(key,val)
-            } else if (input is DropDownList) {
-                var ddl:DropDownList = input as DropDownList;
-                var link:Link = ddl.selectedItem as Link;
-                val = link.getHref();
-                l.setArgument(key,val)
+                l.setArgument(key, val)
+            } else if (input is ComboBox) {
+                var ddl:ComboBox = input as ComboBox;
+                var selection:String = ddl.selectedLabel;
+                var p:Parameter = this.action.findParameterByName(key.toLowerCase());
+                var href:String = p.getHrefByTitle(selection);
+                l.setArgument(key, href)
             }
         }
         l.invoke();
@@ -112,6 +114,6 @@ public class Prompt extends TitleWindow {
         btn.label = label;
         return btn;
     }
-    
+
 }
 }
