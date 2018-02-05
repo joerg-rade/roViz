@@ -6,6 +6,7 @@ import mx.collections.ArrayCollection;
 import mx.containers.TabNavigator;
 import mx.controls.Alert;
 import mx.controls.Menu;
+import mx.core.UIComponent;
 import mx.events.MenuEvent;
 
 import org.ro.core.Globals;
@@ -18,6 +19,7 @@ public class RoTabBar extends TabNavigator {
     public function RoTabBar() {
         percentWidth = 100;
         percentHeight = 100;
+        tabFocusEnabled = true;
         this.roContextMenu = buildContextMenu();
         addEventListener(MouseEvent.RIGHT_CLICK, contextMenuHandler);
         addEventListener(MenuEvent.MENU_HIDE, hideContextMenu);
@@ -26,16 +28,20 @@ public class RoTabBar extends TabNavigator {
     public function addTab(list:ArrayCollection, title:String, icon:Class):void {
         var tab:RoTab = new RoTab();
         tab.init(list, title, icon);
-        tab.setFocus();
-        this.addChild(tab);
+        open(tab);
     }
 
-    //TODO depending on list type, different content is to be added
     public function addGanttTab(list:Vector.<XhrLogEntry>, title:String, icon:Class):void {
         var tab:RoDataGrid = new RoDataGrid();
         tab.init(list, title, icon);
-        tab.setFocus();
+        open(tab);
+    }
+
+    private function open(tab:UIComponent):void {
         this.addChild(tab);
+        var index:int = this.getItemIndex(tab);
+        this.tabIndex = index;
+        this.selectedIndex = index;
     }
 
     public function buildContextMenu():Menu {

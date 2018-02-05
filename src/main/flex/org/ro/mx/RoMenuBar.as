@@ -5,10 +5,10 @@ import mx.controls.MenuBar;
 import mx.events.MenuEvent;
 import mx.utils.Base64Encoder;
 
+import org.ro.core.Dispatcher;
 import org.ro.core.Globals;
 import org.ro.core.Menu;
 import org.ro.core.MenuEntry;
-import org.ro.core.Dispatcher;
 import org.ro.to.AbstractTransferObject;
 import org.ro.to.Link;
 import org.ro.to.Member;
@@ -28,26 +28,28 @@ public class RoMenuBar extends MenuBar {
     }
 
     protected function itemClickHandler(event:MenuEvent):void {
-        //TODO take different types of menuitems into account: host/user, settings, ...
-        if (event.item.@id == "play") {
+        var id:String = event.item.@id;
+        if (id == "play") {
             handleHostSelection(event);
-        } else if (event.item.@id == "next") {
+        } else if (id == "next") {
             new KitchenSink("Next");
-        } else if (event.item.@id == "dock") {
+        } else if (id == "dock") {
             toggleDock(event);
+        } else if (id == "status") {
+            toggleStatus(event);
         } else {
             handleActionSelection(event);
         }
     }
 
     private function toggleDock(event:MenuEvent):void {
-        var show:Boolean = event.item.@toggled;
-        var dock:Dock = Globals.getDock();
-        if (show) {
-            dock.show();
-        } else {
-            dock.hide();
-        }
+        var toggle:Boolean = event.item.@toggled;
+        Globals.getView().showDock(toggle);
+    }
+
+    private function toggleStatus(event:MenuEvent):void {
+        var toggle:Boolean = event.item.@status;
+        Globals.getView().showStatus(toggle);
     }
 
     private function handleActionSelection(event:MenuEvent):void {
@@ -58,8 +60,10 @@ public class RoMenuBar extends MenuBar {
     private static function handleHostSelection(event:MenuEvent):void {
         var user:String = event.item.@user;
         var url:String = event.item.@url;
-        var credentials:String = user + ":" + event.item.@password;
+        var pw:String = event.item.@password;
+        var path:String = event.item.@path;
 
+        var credentials:String = user + ":" + pw;
         var encoder:Base64Encoder = new Base64Encoder();
         encoder.insertNewLines = false;
         encoder.encode(credentials);
@@ -68,13 +72,13 @@ public class RoMenuBar extends MenuBar {
         var dsp:Dispatcher = Globals.getDsp();
         dsp.credentials = credentials;
         dsp.user = user;
-        dsp.url = event.item.@url;
+        dsp.url = url;
 
         var statusBar:RoStatusBar = Globals.getStatusBar();
         statusBar.user.text = user;
 
         var link:Link = new Link();
-        link.setHref(url + event.item.@path);
+        link.setHref(url + path);
         link.method = AbstractTransferObject.GET;
         link.invoke();
     }
@@ -129,6 +133,7 @@ public class RoMenuBar extends MenuBar {
                     <submenu type="separator"/>
                     <submenu id="config" label="Settings">
                         <submenu id="dock" label="Dock" type="check" toggled="true"/>
+                        <submenu id="status" label="Status Line" type="check" toggled="true"/>
                     </submenu>
                     <submenu id="next" label="KitchenSink"/>
                 </topmenu>;

@@ -10,14 +10,15 @@ import mx.events.MenuEvent;
 import spark.components.VGroup;
 
 public class Dock extends VGroup {
+    private const DOCK_WIDTH:int = 20;
     private var roContextMenu:Menu;
 
     public function Dock() {
         verticalAlign = "baseline";
         percentHeight = 100;
+        width = DOCK_WIDTH;
         addEventListener(MouseEvent.RIGHT_CLICK, contextMenuHandler);
         addEventListener(MenuEvent.MENU_HIDE, hideContextMenu);
-        this.hide();
     }
 
     public function addView(tab:IDockable):void {
@@ -29,17 +30,6 @@ public class Dock extends VGroup {
         image.source = new icon();
         image.baseline = -8;
         this.addElement(image);
-        this.show();
-    }
-
-    public function hide():void {
-        this.width = 0;
-        setVisible(false);
-    }
-
-    public function show():void {
-        this.width = 20;
-        setVisible(true);
     }
 
     public function buildContextMenu():Menu {
