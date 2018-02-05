@@ -32,7 +32,6 @@ public class RoTab extends VBox implements IDockable {
     private function mouseWheelHandler():void {
         systemManager.addEventListener("mouseWheel", bumpDelta, true);
 
-        //inner
         function bumpDelta(event:MouseEvent):void {
             event.delta *= 20;
         }

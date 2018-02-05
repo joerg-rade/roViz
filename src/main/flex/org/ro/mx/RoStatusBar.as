@@ -2,7 +2,6 @@ package org.ro.mx {
 
 import flash.events.MouseEvent;
 
-import mx.collections.ArrayCollection;
 import mx.containers.HBox;
 import mx.controls.Label;
 import mx.controls.LinkButton;
@@ -44,7 +43,13 @@ public class RoStatusBar extends HBox {
     }
 
     public function update(entry:XhrLogEntry):void {
-        this.url.text = entry.url;
+        var href:String = entry.url;
+        //limit length of URL - otherwise statusbar would get a horizontal scrollbar
+        if (href.length > 132) {
+            href = href.substr(0, 132);
+        }
+        this.url.text = href;
+        this.url.toolTip = entry.url;
         this.duration.text = entry.duration + "ms";
         this.setIcon(entry.icon);
     }
