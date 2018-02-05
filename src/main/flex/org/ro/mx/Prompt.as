@@ -52,7 +52,7 @@ public class Prompt extends TitleWindow {
             if (p.hasChoices()) {
                 var cb:ComboBox = new ComboBox();
                 cb.dataProvider = new VectorList(p.getChoiceListKeys());
-                cb.selectedItem = p.getDefaultChoice();
+                cb.selectedIndex = p.findIndexOfDefaultChoice();
                 input = cb;
             } else {
                 input = new TextInput();

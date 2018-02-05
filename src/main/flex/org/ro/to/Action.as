@@ -33,8 +33,8 @@ public class Action extends Member {
         }
         return null;
     }
-
-    //TODO https://issues.apache.org/jira/browse/ISIS-1850 would break RO Spec 1.0
+    
+    //Workaround for https://issues.apache.org/jira/browse/ISIS-1850 would break RO Spec 1.0
     private function fixDefault(json:Object):Object {
         var origin:String = JSON.stringify(json);
         if (origin.indexOf("\"default\":") > 0) {

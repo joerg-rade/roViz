@@ -46,5 +46,17 @@ public class Parameter extends AbstractTransferObject {
         }
         return null;
     }
+
+    public function findIndexOfDefaultChoice():uint {
+        var dcTitle:String = defaultChoice.title;
+        var title:String;
+        for (var i:uint; i < choiceList.length; i++) {
+            title = choiceList[i].title;
+            if (title == dcTitle) return i;
+        }
+        return 0;
+    }
+
+
 }
 }
