@@ -55,8 +55,6 @@ Domain Actions will be made available in ContextMenus as well.
 ## Bugs
 CAUTION: hidden Dock steals a couple of pixels
 
-CAUTION: Newly created Tabs are not focused
-
 CAUTION: Menu items (Actions) are not ordered
 
 CAUTION: LogEntries are not updated automatically
