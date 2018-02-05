@@ -53,6 +53,9 @@ public class Prompt extends TitleWindow {
                 var cb:ComboBox = new ComboBox();
                 cb.dataProvider = new VectorList(p.getChoiceListKeys());
                 cb.selectedIndex = p.findIndexOfDefaultChoice();
+                if (p.getDefaultChoice() != null) {
+                    fi.required = true;
+                }
                 input = cb;
             } else {
                 input = new TextInput();
