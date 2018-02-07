@@ -12,9 +12,10 @@ public class IconRenderer extends GridItemRenderer {
     public function IconRenderer() {
         super();
         icon = new LinkButton();
+        icon.top = 4;
+        icon.left = 4;
         icon.width = 16;
         icon.height = 16;
-        icon.top =
         this.addElement(icon);
     }
 

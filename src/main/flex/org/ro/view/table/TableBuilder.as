@@ -9,7 +9,7 @@ import spark.components.gridClasses.GridColumn;
 
 public class TableBuilder {
 
-    private static var cs0:ColumnSpecification = new ColumnSpecification("icon", 2, "icon", "icon", new ClassFactory(IconRenderer));
+    private static var cs0:ColumnSpecification = new ColumnSpecification("icon", 2, " ", null, new ClassFactory(IconRenderer));
     private static var cs1:ColumnSpecification = new ColumnSpecification("url", 30, "Url");
     private static var cs2:ColumnSpecification = new ColumnSpecification("method", 3);
     private static var cs3:ColumnSpecification = new ColumnSpecification("start", 7, null, "startDate");
