@@ -21,7 +21,7 @@ public class Member extends AbstractTransferObject implements IInvokeable {
             this.fromObject(jsonObj);
             init();
         }
-        
+
         function init():void {
             linkList = new Vector.<Link>();
             var l:Link;
@@ -42,7 +42,7 @@ public class Member extends AbstractTransferObject implements IInvokeable {
         }
         return new ArrayCollection(members);
     }
-    
+
     public function getHref():String {
         return href;
     }
@@ -56,7 +56,7 @@ public class Member extends AbstractTransferObject implements IInvokeable {
     }
 
     public function getArguments():Object {
-        //FIXME member does not have arguments - return nothing ..
+        //members do not have arguments - return nothing.
         return null;
     }
 
@@ -69,5 +69,6 @@ public class Member extends AbstractTransferObject implements IInvokeable {
         }
         return new ArrayCollection(result);
     }
+    
 }
 }

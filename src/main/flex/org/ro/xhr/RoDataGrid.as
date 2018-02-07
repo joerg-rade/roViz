@@ -2,33 +2,32 @@ package org.ro.xhr {
 import flash.events.MouseEvent;
 
 import mx.collections.ArrayCollection;
-import mx.collections.ArrayList;
 import mx.containers.VBox;
 import mx.controls.Alert;
 import mx.controls.Menu;
-import mx.core.ClassFactory;
 import mx.events.MenuEvent;
+import org.ro.view.table.TableBuilder;
 
 import org.ro.core.Globals;
 import org.ro.mx.IDockable;
 
 import spark.components.DataGrid;
-import spark.components.gridClasses.GridColumn;
 
 public class RoDataGrid extends VBox implements IDockable {
     private var roContextMenu:Menu;
     private var dataProvider:ArrayCollection;
     private var dg:DataGrid;
 
-    public function RoDataGrid() {
+    public function RoDataGrid(dataProvider:Vector.<XhrLogEntry>, title:String, icon:Class) {
+        this.init(dataProvider, title, icon);
     }
 
-    public function init(dataProvider:Vector.<XhrLogEntry>, title:String, icon:Class):void {
+    private function init(dataProvider:Vector.<XhrLogEntry>, title:String, icon:Class):void {
         this.id = title;
         this.label = title;
         this.icon = icon;
         this.horizontalScrollPolicy = "auto";
-        dg = buildDataGrid();
+        dg = TableBuilder.buildDataGrid();
         initData(dataProvider);
         this.roContextMenu = buildContextMenu();
         addEventListener(MouseEvent.RIGHT_CLICK, contextMenuHandler);
@@ -49,66 +48,6 @@ public class RoDataGrid extends VBox implements IDockable {
             }
             return ac;
         }
-    }
-
-    private function buildDataGrid():DataGrid {
-        var grid:DataGrid = new DataGrid();
-        grid.percentWidth = 100;
-        grid.percentHeight = 100;
-        grid.doubleClickEnabled = true;
-        grid.selectionMode = "multipleRows";
-
-        var nameCol:GridColumn = new GridColumn("Url");
-        nameCol.percentWidth = 30;
-        nameCol.dataField = "url";
-        nameCol.dataTipField = "url";
-        nameCol.showDataTips = true;
-
-        var methodCol:GridColumn = new GridColumn("method");
-        methodCol.percentWidth = 3;
-        methodCol.dataField = "method";
-
-        var startCol:GridColumn = new GridColumn("start");
-        startCol.percentWidth = 7;
-        startCol.dataField = "start";
-        startCol.dataTipField = "startDate";
-        startCol.showDataTips = true;
-
-        var reqLenCol:GridColumn = new GridColumn("req.len");
-        reqLenCol.percentWidth = 3;
-        reqLenCol.dataField = "requestLength";
-
-        var offsetCol:GridColumn = new GridColumn("offset");
-        offsetCol.percentWidth = 4;
-        offsetCol.dataField = "offset";
-
-        var durationCol:GridColumn = new GridColumn("duration");
-        durationCol.percentWidth = 3;
-        durationCol.dataField = "duration";
-
-        var respLenCol:GridColumn = new GridColumn("resp.len");
-        respLenCol.percentWidth = 5;
-        respLenCol.dataField = "responseLength";
-        respLenCol.dataTipField = "response";
-        respLenCol.showDataTips = true;
-
-        var graphCol:GridColumn = new GridColumn("Chart");
-        graphCol.itemRenderer = new ClassFactory(BarRenderer);
-        graphCol.percentWidth = 60;
-
-        var cols:ArrayList = new ArrayList();
-        cols.addItem(nameCol);
-
-        cols.addItem(methodCol);
-        cols.addItem(reqLenCol);
-        cols.addItem(startCol);
-        cols.addItem(offsetCol);
-        cols.addItem(durationCol);
-        cols.addItem(respLenCol);
-        cols.addItem(graphCol);
-        grid.columns = cols;
-
-        return grid;
     }
 
     public function buildContextMenu():Menu {

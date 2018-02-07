@@ -44,7 +44,7 @@ public class RoStatusBar extends HBox {
 
     public function update(entry:XhrLogEntry):void {
         var href:String = entry.url;
-        //limit length of URL - otherwise statusbar would get a horizontal scrollbar
+        //limit length of URL - otherwise this would get a horizontal scrollbar
         if (href.length > 132) {
             href = href.substr(0, 132);
         }

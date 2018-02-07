@@ -7,18 +7,20 @@ import mx.controls.Menu;
 import mx.controls.advancedDataGridClasses.AdvancedDataGridColumn;
 
 public class RoTab extends VBox implements IDockable {
-    //TODO allow for Objects as well -> AS Forms: https://help.adobe.com/en_US/flex/using/WS2db454920e96a9e51e63e3d11c0bf69084-7e53.html
+
     internal var dg:AdvancedDataGrid = new AdvancedDataGrid();
 
-    public function RoTab() {
+    public function RoTab(dataProvider:Object, title:String, icon:Class) {
+        this.init(dataProvider, title, icon);
     }
 
-    public function init(dataProvider:Object, title:String, icon:Class):void {
+    private function init(dataProvider:Object, title:String, icon:Class):void {
         this.id = title;
         this.label = title;
         this.icon = icon;
         dg.percentWidth = 100;
         dg.percentHeight = 100;
+        //TODO filter out dnAttributes, add icon, render Objects with LinkButton
         dg.dataProvider = dataProvider;
         dg.doubleClickEnabled = true;
         dg.addEventListener(MouseEvent.DOUBLE_CLICK, doubleClickHandler);
@@ -39,7 +41,7 @@ public class RoTab extends VBox implements IDockable {
 
     private function resizeColumns():void {
         dg.validateNow();
-        // forces the columns to size themselves properly
+        // forces columns to size themselves properly
         for each (var column:AdvancedDataGridColumn in dg.columns) {
             column.width = column.width;
         }
@@ -56,12 +58,10 @@ public class RoTab extends VBox implements IDockable {
     }
 
     protected function doubleClickHandlerMenu(event:MouseEvent):void {
-        //TODO how can actions be specified? via id and switch?
+        //see RoDataGrid.buildContextMenu & itemclickHandler
         var myMenuData:XML =
                 <root>
                     <menuitem label="Open" action="{open}"/>
-                    <menuitem label="MenuItem B" type="check" toggled="true"/>
-                    <menuitem label="MenuItem C" type="check" toggled="false"/>
                 </root>;
 
         var myMenu:Menu = Menu.createMenu(null, myMenuData, false);

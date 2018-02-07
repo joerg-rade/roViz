@@ -26,14 +26,12 @@ public class RoTabBar extends TabNavigator {
     }
 
     public function addTab(list:ArrayCollection, title:String, icon:Class):void {
-        var tab:RoTab = new RoTab();
-        tab.init(list, title, icon);
+        var tab:RoTab = new RoTab(list, title, icon);
         open(tab);
     }
 
     public function addGanttTab(list:Vector.<XhrLogEntry>, title:String, icon:Class):void {
-        var tab:RoDataGrid = new RoDataGrid();
-        tab.init(list, title, icon);
+        var tab:RoDataGrid = new RoDataGrid(list, title, icon);
         open(tab);
     }
 
