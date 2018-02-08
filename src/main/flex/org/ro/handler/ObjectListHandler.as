@@ -3,6 +3,7 @@ import mx.collections.ArrayCollection;
 
 import org.ro.core.Globals;
 import org.ro.mx.ImageRepository;
+import org.ro.to.IInvokeable;
 import org.ro.to.Member;
 
 public class ObjectListHandler extends AbstractHandler implements IHandler {
@@ -18,8 +19,8 @@ public class ObjectListHandler extends AbstractHandler implements IHandler {
 
     public override function doHandle(jsonObj:Object):void {
         var domainType:String = jsonObj.domainType;
-        var members:ArrayCollection = Member.parse(jsonObj.members);
-        var properties:ArrayCollection = Member.filterProperties(members);
+        var memberList:Vector.<IInvokeable> = Member.parse(jsonObj.members);
+        var properties:Vector.<IInvokeable> = Member.filterProperties(memberList);
         var done:Boolean = getObjectList().init(properties);
         if (done) {
             var objectList:ArrayCollection = new ArrayCollection(getObjectList().list);

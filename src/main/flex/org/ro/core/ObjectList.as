@@ -1,6 +1,5 @@
 package org.ro.core {
-import mx.collections.ArrayCollection;
-
+import org.ro.to.IInvokeable;
 import org.ro.to.Member;
 
 public class ObjectList {
@@ -14,14 +13,14 @@ public class ObjectList {
         this.list = [];
     }
 
-    public function init(members:ArrayCollection):Boolean {
+    public function init(members:Vector.<IInvokeable>):Boolean {
         var object:Object = create(members);
         list.push(object);
         count = count + 1;
         return (count >= limit);
     }
 
-    public static function create(members:ArrayCollection):Object {
+    public static function create(members:Vector.<IInvokeable>):Object {
         var result:Object = {};
         for each(var m:Member in members) {
             result[m.id] = m.value;

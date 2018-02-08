@@ -1,11 +1,7 @@
 package org.ro.to {
 
-import mx.collections.ArrayCollection;
-
 import org.flexunit.Assert;
 import org.ro.core.Menu;
-import org.ro.to.Member;
-import org.ro.to.Service;
 
 public class MenuTest {
     public function MenuTest() {
@@ -15,9 +11,9 @@ public class MenuTest {
     public function testUnique():void {
         //given:
         var s1:Service = new Service(json1);
-        var m1:ArrayCollection = Member.parse(json1.members);
+        var m1:Vector.<IInvokeable> = Member.parse(json1.members);
         var s2:Service = new Service(json2);
-        var m2:ArrayCollection = Member.parse(json2.members);
+        var m2:Vector.<IInvokeable> = Member.parse(json2.members);
         //when
         var menu:Menu = new Menu(2);
         menu.init(s1, m1);
@@ -30,7 +26,7 @@ public class MenuTest {
     [Test(description="parse result of invoking http://localhost:8080/restful/services/simple.SimpleObjectMenu")]
     public function testParse():void {
         var service:Service = new Service(json);
-        var members:ArrayCollection = Member.parse(json.members);
+        var members:Vector.<IInvokeable> = Member.parse(json.members);
         var menu:Menu = new Menu(1);
         menu.init(service, members);
         Assert.assertTrue(menu != null);

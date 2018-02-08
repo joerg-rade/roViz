@@ -35,12 +35,12 @@ public class Member extends AbstractTransferObject implements IInvokeable {
         }
     }
 
-    public static function parse(objArray:Object):ArrayCollection {
-        var members:Array = [];
+    public static function parse(objArray:Object):Vector.<IInvokeable> {
+        var memberList:Vector.<IInvokeable> = new Vector.<IInvokeable>();
         for each (var v:Object in objArray) {
-            members.push(new Member(v));
+            memberList.push(new Member(v));
         }
-        return new ArrayCollection(members);
+        return memberList;
     }
 
     public function getHref():String {
@@ -60,15 +60,15 @@ public class Member extends AbstractTransferObject implements IInvokeable {
         return null;
     }
 
-    public static function filterProperties(members:ArrayCollection):ArrayCollection {
-        var result:Array = [];
+    public static function filterProperties(members:Vector.<IInvokeable>):Vector.<IInvokeable>{
+        var result:Vector.<IInvokeable>= new Vector.<IInvokeable>();
         for each(var m:Member in members) {
             if (m.memberType == PROPERTY) {
                 result.push(m);
             }
         }
-        return new ArrayCollection(result);
+        return result;
     }
-    
+
 }
 }

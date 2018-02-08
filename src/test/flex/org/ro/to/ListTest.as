@@ -1,9 +1,6 @@
 package org.ro.to {
 
-import mx.collections.ArrayCollection;
-
 import org.flexunit.Assert;
-import org.ro.to.Link;
 
 public class ListTest {
     public function ListTest() {
@@ -11,9 +8,8 @@ public class ListTest {
 
     [Test(description="parse result of invoking http://localhost:8080/restful/services/simple.SimpleObjectMenu/actions/listAll/invoke")]
     public function testParse():void {
-        var objLinks:ArrayCollection = Link.parse(json.result.value);
-
-        Assert.assertEquals(3, objLinks.length);
+        var linkList:Vector.<IInvokeable> = Link.parse(json.result.value);
+        Assert.assertEquals(3, linkList.length);
     }
 
     private var json:Object = {

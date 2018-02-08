@@ -13,10 +13,10 @@ public class MemberTest {
 
     [Test(description="parse result of invoking http://localhost:8080/restful/objects/simple.SimpleObject/0")]
     public function testParse():void {
-        var members:ArrayCollection = Member.parse(json.members);
+        var members:Vector.<IInvokeable>= Member.parse(json.members);
         Assert.assertEquals(10, members.length);
 
-        var properties:ArrayCollection = Member.filterProperties(members);
+        var properties:Vector.<IInvokeable>= Member.filterProperties(members);
         Assert.assertEquals(4, properties.length);
 
         var object:Object = ObjectList.create(properties);

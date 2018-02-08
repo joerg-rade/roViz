@@ -1,9 +1,6 @@
 package org.ro.to {
 
-import mx.collections.ArrayCollection;
-
 import org.flexunit.Assert;
-import org.ro.core.Menu;
 
 public class ServiceTest {
     public function ServiceTest() {
@@ -11,10 +8,8 @@ public class ServiceTest {
 
     [Test(description="parse result of invoking http://localhost:8080/restful/services/simple.SimpleObjectMenu")]
     public function testParseService():void {
-        var service:Service = new Service(json);
-
+        var service:Service = new Service(json_simple_SimpleObjectMenu);
         Assert.assertEquals("Simple Objects", service.title);
-
         var actions:Vector.<Member> = service.memberList;
         Assert.assertEquals(3, actions.length);
 
@@ -39,16 +34,89 @@ public class ServiceTest {
 
     [Test(description="parse result of invoking http://localhost:8080/restful/services/")]
     public function testParse():void {
-        var svc:Service = new Service(json);
-        var svcLinks:ArrayCollection = Link.parse(json.value);
-        var menu:Menu = new Menu(1);
-        menu.init(svc, svcLinks);
-
-        Assert.assertEquals(menu != null, true);
+        var objectArray:Array = json_.value;
+        var linkList:Vector.<IInvokeable> = Link.parse(objectArray);
+        Assert.assertEquals(8, linkList.length);
     }
 
+    private var json_:Object = {
+        "value": [
+            {
+                "rel": "urn:org.restfulobjects:rels/service;serviceId=\"simple.SimpleObjectMenu\"",
+                "href": "http://localhost:8080/restful/services/simple.SimpleObjectMenu",
+                "method": "GET",
+                "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object\"",
+                "title": "Simple Objects"
+            },
+            {
+                "rel": "urn:org.restfulobjects:rels/service;serviceId=\"isisApplib.FixtureScriptsDefault\"",
+                "href": "http://localhost:8080/restful/services/isisApplib.FixtureScriptsDefault",
+                "method": "GET",
+                "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object\"",
+                "title": "Prototyping"
+            },
+            {
+                "rel": "urn:org.restfulobjects:rels/service;serviceId=\"isisApplib.LayoutServiceMenu\"",
+                "href": "http://localhost:8080/restful/services/isisApplib.LayoutServiceMenu",
+                "method": "GET",
+                "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object\"",
+                "title": "Prototyping"
+            },
+            {
+                "rel": "urn:org.restfulobjects:rels/service;serviceId=\"isisApplib.MetaModelServicesMenu\"",
+                "href": "http://localhost:8080/restful/services/isisApplib.MetaModelServicesMenu",
+                "method": "GET",
+                "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object\"",
+                "title": "Prototyping"
+            },
+            {
+                "rel": "urn:org.restfulobjects:rels/service;serviceId=\"isisApplib.SwaggerServiceMenu\"",
+                "href": "http://localhost:8080/restful/services/isisApplib.SwaggerServiceMenu",
+                "method": "GET",
+                "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object\"",
+                "title": "Prototyping"
+            },
+            {
+                "rel": "urn:org.restfulobjects:rels/service;serviceId=\"isisApplib.TranslationServicePoMenu\"",
+                "href": "http://localhost:8080/restful/services/isisApplib.TranslationServicePoMenu",
+                "method": "GET",
+                "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object\"",
+                "title": "Prototyping"
+            },
+            {
+                "rel": "urn:org.restfulobjects:rels/service;serviceId=\"isisApplib.HsqlDbManagerMenu\"",
+                "href": "http://localhost:8080/restful/services/isisApplib.HsqlDbManagerMenu",
+                "method": "GET",
+                "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object\"",
+                "title": "Prototyping"
+            },
+            {
+                "rel": "urn:org.restfulobjects:rels/service;serviceId=\"isisApplib.ConfigurationServiceMenu\"",
+                "href": "http://localhost:8080/restful/services/isisApplib.ConfigurationServiceMenu",
+                "method": "GET",
+                "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object\"",
+                "title": "Configuration Service Menu"
+            }
+        ],
+        "extensions": {},
+        "links": [
+            {
+                "rel": "self",
+                "href": "http://localhost:8080/restful/services",
+                "method": "GET",
+                "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/list\""
+            },
+            {
+                "rel": "up",
+                "href": "http://localhost:8080/restful/",
+                "method": "GET",
+                "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/homepage\""
+            }
+        ]
 
-    private var json:Object = {
+    };
+
+    private var json_simple_SimpleObjectMenu:Object = {
         "links": [
             {
                 "rel": "self",
@@ -122,8 +190,7 @@ public class ServiceTest {
                 ]
             }
         }
-
-    }
+    };
 
 }
 }

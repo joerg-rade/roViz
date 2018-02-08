@@ -1,6 +1,4 @@
 package org.ro.to {
-import mx.collections.ArrayCollection;
-
 public class Link extends AbstractTransferObject implements IInvokeable {
     internal var title:String;
     internal var rel:String;
@@ -24,12 +22,12 @@ public class Link extends AbstractTransferObject implements IInvokeable {
         }
     }
 
-    public static function parse(objArray:Object):ArrayCollection {
-        var links:Array = [];
+    public static function parse(objArray:Object):Vector.<IInvokeable> {
+        var linkList:Vector.<IInvokeable> = new Vector.<IInvokeable>();
         for each (var v:Object in objArray) {
-            links.push(new Link(v));
+            linkList.push(new Link(v));
         }
-        return new ArrayCollection(links);
+        return linkList;
     }
 
     public function getHref():String {
