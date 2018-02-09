@@ -106,8 +106,7 @@ public class MenuTest {
                 ]
             }
         }
-
-    }
+    };
 
     private var json1:Object = {
         "links": [
@@ -212,7 +211,7 @@ public class MenuTest {
                 ]
             }
         }
-
     };
+    
 }
 }

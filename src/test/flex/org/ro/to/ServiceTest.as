@@ -7,7 +7,7 @@ public class ServiceTest {
     }
 
     [Test(description="parse result of invoking http://localhost:8080/restful/services/simple.SimpleObjectMenu")]
-    public function testParseService():void {
+    public function testSimpleObjectMenu():void {
         var service:Service = new Service(json_simple_SimpleObjectMenu);
         Assert.assertEquals("Simple Objects", service.title);
         var actions:Vector.<Member> = service.memberList;
@@ -23,7 +23,7 @@ public class ServiceTest {
         //TODO use layout.xml
     }
 
-    private function includesId(list:Vector.<Member>, id:String):Boolean {
+    private static function includesId(list:Vector.<Member>, id:String):Boolean {
         for  each (var m:Member in list) {
             if (m.id == id) {
                 return true;
@@ -33,7 +33,7 @@ public class ServiceTest {
     }
 
     [Test(description="parse result of invoking http://localhost:8080/restful/services/")]
-    public function testParse():void {
+    public function test_():void {
         var objectArray:Array = json_.value;
         var linkList:Vector.<IInvokeable> = Link.parse(objectArray);
         Assert.assertEquals(8, linkList.length);

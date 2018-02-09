@@ -19,7 +19,9 @@ public class MemberTest {
         var properties:Vector.<IInvokeable>= Member.filterProperties(members);
         Assert.assertEquals(4, properties.length);
 
-        var object:Object = ObjectList.create(properties);
+        var objectList:ObjectList = new ObjectList(1);
+        objectList.addObject(properties);
+        var object:Object = objectList.last();
         Assert.assertTrue(object.name == "Foo");
         Assert.assertTrue(object.notes == null);
         Assert.assertTrue(object.datanucleusIdLong == 0);

@@ -12,6 +12,7 @@ public class Extensions extends AbstractTransferObject {
     internal var menuBar:String; // TODO use constants [PRIMARY, , etc.]
     internal var actionSemantics:String; //enum? nonIdempotent, idempotent, nonIdempotentAreYouSure, etc.
     public var actionType:String;
+    public var xIsisFormat:String; //TODO use workround ISIS-1849
 
     public function Extensions(jsonObj:Object = null) {
         if (jsonObj != null) {

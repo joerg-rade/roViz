@@ -31,7 +31,6 @@ public class LayoutTest {
     }
 
     private var json:Object = {
-
         "row": [
             {
                 "cols": [

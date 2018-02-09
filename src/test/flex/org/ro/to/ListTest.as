@@ -6,8 +6,11 @@ public class ListTest {
     public function ListTest() {
     }
 
-    [Test(description="parse result of invoking http://localhost:8080/restful/services/simple.SimpleObjectMenu/actions/listAll/invoke")]
-    public function testParse():void {
+    /**
+     *  http://localhost:8080/restful/services/simple.SimpleObjectMenu/actions/listAll/invoke
+     */
+    [Test(description="parse result of invoking url")]
+    public function testListAllInvoke():void {
         var linkList:Vector.<IInvokeable> = Link.parse(json.result.value);
         Assert.assertEquals(3, linkList.length);
     }
@@ -57,8 +60,7 @@ public class ListTest {
             ],
             "extensions": {}
         }
-
-    }
+    };
 
 }
 }

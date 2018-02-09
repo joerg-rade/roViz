@@ -20,11 +20,12 @@ public class ObjectListHandler extends AbstractHandler implements IHandler {
     public override function doHandle(jsonObj:Object):void {
         var domainType:String = jsonObj.domainType;
         var memberList:Vector.<IInvokeable> = Member.parse(jsonObj.members);
-        var properties:Vector.<IInvokeable> = Member.filterProperties(memberList);
-        var done:Boolean = getObjectList().init(properties);
-        if (done) {
-            var objectList:ArrayCollection = new ArrayCollection(getObjectList().list);
-            Globals.addTab(objectList, domainType + " (" + objectList.length + ")", ImageRepository.ObjectsIcon);
+        var objProps:Vector.<IInvokeable> = Member.filterProperties(memberList);
+        getObjectList().addObject(objProps);
+        if (getObjectList().isFilled()) {
+            // TODO retrieve layout.xml of the first object and pass in as well - must be triggered on initial call 
+            var objColl:ArrayCollection = getObjectList().forDataGrid();
+            Globals.addTab(objColl, domainType + " (" + objColl.length + ")", ImageRepository.ObjectsIcon);
         }
     }
 
