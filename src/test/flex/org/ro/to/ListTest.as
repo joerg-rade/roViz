@@ -6,15 +6,14 @@ public class ListTest {
     public function ListTest() {
     }
 
-    /**
-     *  http://localhost:8080/restful/services/simple.SimpleObjectMenu/actions/listAll/invoke
-     */
     [Test(description="parse result of invoking url")]
     public function testListAllInvoke():void {
-        var linkList:Vector.<IInvokeable> = Link.parse(json.result.value);
+        var list:List = new List(json);
+        var linkList:Vector.<IInvokeable> = list.getResult().getValues();
         Assert.assertEquals(3, linkList.length);
     }
 
+    // http://localhost:8080/restful/services/simple.SimpleObjectMenu/actions/listAll/invoke
     private var json:Object = {
         "links": [
             {

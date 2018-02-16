@@ -21,7 +21,7 @@ public class Globals {
         return FlexGlobals.topLevelApplication.view;
     }
 
-    public static function addTab(objectList:ArrayCollection, s:String, ObjectsIcon:Class):void {
+    public static function addTab(objectList:ObjectList, s:String, ObjectsIcon:Class):void {
         getView().tabs.addTab(objectList, s, ObjectsIcon);
     }
 

@@ -1,19 +1,36 @@
 package org.ro.xhr {
+import flash.events.Event;
 import flash.events.MouseEvent;
+import flash.system.System;
 
 import mx.collections.ArrayCollection;
 import mx.containers.VBox;
 import mx.controls.Alert;
 import mx.controls.Menu;
+import mx.core.ClassFactory;
 import mx.events.MenuEvent;
-import org.ro.view.table.TableBuilder;
 
 import org.ro.core.Globals;
 import org.ro.mx.IDockable;
+import org.ro.view.table.ColumnSpecification;
+import org.ro.view.table.IconRenderer;
+import org.ro.view.table.TableBuilder;
 
 import spark.components.DataGrid;
 
 public class RoDataGrid extends VBox implements IDockable {
+
+    private static var cs0:ColumnSpecification = new ColumnSpecification("icon", 2, " ", null, new ClassFactory(IconRenderer));
+    private static var cs1:ColumnSpecification = new ColumnSpecification("url", 30, "Url");
+    private static var cs2:ColumnSpecification = new ColumnSpecification("method", 3);
+    private static var cs3:ColumnSpecification = new ColumnSpecification("start", 7, null, "startDate");
+    private static var cs4:ColumnSpecification = new ColumnSpecification("requestLength", 3, "req.len");
+    private static var cs5:ColumnSpecification = new ColumnSpecification("offset", 4);
+    private static var cs6:ColumnSpecification = new ColumnSpecification("duration", 3);
+    private static var cs7:ColumnSpecification = new ColumnSpecification("responseLength", 5, "resp.len", "response");
+    private static var cs8:ColumnSpecification = new ColumnSpecification(null, 45, "Chart", null, new ClassFactory(BarRenderer));
+    private static var CS_LIST:Array = [cs0, cs1, cs2, cs3, cs4, cs5, cs6, cs7, cs8];
+
     private var roContextMenu:Menu;
     private var dataProvider:ArrayCollection;
     private var dg:DataGrid;
@@ -27,11 +44,12 @@ public class RoDataGrid extends VBox implements IDockable {
         this.label = title;
         this.icon = icon;
         this.horizontalScrollPolicy = "auto";
-        dg = TableBuilder.buildDataGrid();
+        dg = TableBuilder.buildDataGrid(CS_LIST);
         initData(dataProvider);
         this.roContextMenu = buildContextMenu();
         addEventListener(MouseEvent.RIGHT_CLICK, contextMenuHandler);
         addEventListener(MenuEvent.MENU_HIDE, hideContextMenu);
+        addEventListener(Event.COPY, onCopy);
         this.addChild(dg);
         Globals.getViewRegistry().add("1", this);
     }
@@ -73,6 +91,12 @@ public class RoDataGrid extends VBox implements IDockable {
         roContextMenu.hide();
     }
 
+    public function onCopy(event:Event):void {
+        var item:Object = dg.selectedItem;
+        var text:String = (item as XhrLogEntry).url;
+        System.setClipboard(text);
+    }
+
     public function itemClickHandler(event:MenuEvent):void {
         var items:Vector.<Object> = dg.selectedItems;
         var id:String = event.item.@id;
@@ -103,7 +127,6 @@ public class RoDataGrid extends VBox implements IDockable {
             dg.validateNow();
         }
     }
-
 
     public function getIcon():Class {
         return icon;

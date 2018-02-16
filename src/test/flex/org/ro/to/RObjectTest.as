@@ -1,27 +1,16 @@
 package org.ro.to {
-import org.flexunit.Assert;
-import org.ro.core.ObjectList;
 
-public class MemberTest {
-    public function MemberTest() {
+import org.flexunit.Assert;
+
+public class RObjectTest {
+    public function RObjectTest() {
     }
 
-    [Test(description="parse result of invoking url")]
+    [Test(description="parse result of invoking object url")]
     public function testParse():void {
         var ro:RObject = new RObject(json);
-        var members:Vector.<IInvokeable> = ro.getMembers();
-        Assert.assertEquals(10, members.length);
-
-        var properties:Vector.<IInvokeable> = ro.getProperties();
-        Assert.assertEquals(4, properties.length);
-
-        var objectList:ObjectList = new ObjectList(1);
-        objectList.addObject(properties);
-        var object:Object = objectList.last();
-        Assert.assertTrue(object.name == "Foo");
-        Assert.assertTrue(object.notes == null);
-        Assert.assertTrue(object.datanucleusIdLong == 0);
-        Assert.assertTrue(object.datanucleusVersionTimestamp == 1514897074953);
+        Assert.assertNotNull(ro);
+        Assert.assertNotNull(ro.getLayoutLink());
     }
 
     // http://localhost:8080/restful/objects/simple.SimpleObject/0
@@ -41,10 +30,11 @@ public class MemberTest {
                 "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/domain-type\""
             },
             {
-                "rel": "urn:org.apache.isis.restfulobjects:rels/layout",
-                "href": "http://localhost:8080/restful/domain-types/simple.SimpleObject/layout",
+                "rel": "urn:org.apache.isis.restfulobjects:rels/object-layout",
+                "href": "http://localhost:8080/restful/objects/simple.SimpleObject/0/object-layout",
                 "method": "GET",
-                "type": "application/xml;profile=\"urn:org.restfulobjects:repr-types/layout-bs3\""
+                "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object\"",
+                "title": "Object: Foo"
             },
             {
                 "rel": "urn:org.restfulobjects:rels/update",
@@ -125,20 +115,20 @@ public class MemberTest {
                         "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object-property\""
                     }
                 ],
-                "value": 1514897074953,
+                "value": 1518074491759,
                 "format": "utc-millisec",
                 "extensions": {
                     "x-isis-format": "javasqltimestamp"
                 },
                 "disabledReason": "Contributed property"
             },
-            "downloadLayoutXml": {
-                "id": "downloadLayoutXml",
+            "downloadJdoMetadata": {
+                "id": "downloadJdoMetadata",
                 "memberType": "action",
                 "links": [
                     {
-                        "rel": "urn:org.restfulobjects:rels/details;action=\"downloadLayoutXml\"",
-                        "href": "http://localhost:8080/restful/objects/simple.SimpleObject/0/actions/downloadLayoutXml",
+                        "rel": "urn:org.restfulobjects:rels/details;action=\"downloadJdoMetadata\"",
+                        "href": "http://localhost:8080/restful/objects/simple.SimpleObject/0/actions/downloadJdoMetadata",
                         "method": "GET",
                         "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object-action\""
                     }
@@ -156,13 +146,25 @@ public class MemberTest {
                     }
                 ]
             },
-            "downloadJdoMetadata": {
-                "id": "downloadJdoMetadata",
+            "openRestApi": {
+                "id": "openRestApi",
                 "memberType": "action",
                 "links": [
                     {
-                        "rel": "urn:org.restfulobjects:rels/details;action=\"downloadJdoMetadata\"",
-                        "href": "http://localhost:8080/restful/objects/simple.SimpleObject/0/actions/downloadJdoMetadata",
+                        "rel": "urn:org.restfulobjects:rels/details;action=\"openRestApi\"",
+                        "href": "http://localhost:8080/restful/objects/simple.SimpleObject/0/actions/openRestApi",
+                        "method": "GET",
+                        "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object-action\""
+                    }
+                ]
+            },
+            "downloadLayoutXml": {
+                "id": "downloadLayoutXml",
+                "memberType": "action",
+                "links": [
+                    {
+                        "rel": "urn:org.restfulobjects:rels/details;action=\"downloadLayoutXml\"",
+                        "href": "http://localhost:8080/restful/objects/simple.SimpleObject/0/actions/downloadLayoutXml",
                         "method": "GET",
                         "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object-action\""
                     }
@@ -205,8 +207,7 @@ public class MemberTest {
                 ]
             }
         }
-
-    }
+    };
 
 }
 }

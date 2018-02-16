@@ -6,11 +6,11 @@ public class ServiceTest {
     public function ServiceTest() {
     }
 
-    [Test(description="parse result of invoking http://localhost:8080/restful/services/simple.SimpleObjectMenu")]
+    [Test(description="parse result of invoking url")]
     public function testSimpleObjectMenu():void {
         var service:Service = new Service(json_simple_SimpleObjectMenu);
         Assert.assertEquals("Simple Objects", service.title);
-        var actions:Vector.<Member> = service.memberList;
+        var actions:Vector.<IInvokeable> = service.getMembers();
         Assert.assertEquals(3, actions.length);
 
         Assert.assertTrue(includesId(actions, "listAll"));
@@ -20,10 +20,10 @@ public class ServiceTest {
         // jsonObj contains '"members": {}' not '"members": []' 
         // in AS this results in an unordered list (Object{}), 
         // but intended is an ordered list (Array[])
-        //TODO use layout.xml
+        //TODO use object-layout / menu layout instead
     }
 
-    private static function includesId(list:Vector.<Member>, id:String):Boolean {
+    private static function includesId(list:Vector.<IInvokeable>, id:String):Boolean {
         for  each (var m:Member in list) {
             if (m.id == id) {
                 return true;
@@ -32,13 +32,14 @@ public class ServiceTest {
         return false;
     }
 
-    [Test(description="parse result of invoking http://localhost:8080/restful/services/")]
+    [Test(description="parse result of invoking url")]
     public function test_():void {
-        var objectArray:Array = json_.value;
-        var linkList:Vector.<IInvokeable> = Link.parse(objectArray);
-        Assert.assertEquals(8, linkList.length);
+        var service:Service = new Service(json_);
+        var values:Vector.<IInvokeable> = service.getValues();
+        Assert.assertEquals(8, values.length);
     }
 
+    // http://localhost:8080/restful/services/
     private var json_:Object = {
         "value": [
             {
@@ -116,6 +117,7 @@ public class ServiceTest {
 
     };
 
+    // 
     private var json_simple_SimpleObjectMenu:Object = {
         "links": [
             {

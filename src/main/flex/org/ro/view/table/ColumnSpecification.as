@@ -1,6 +1,8 @@
 package org.ro.view.table {
 import mx.core.ClassFactory;
 
+import org.ro.core.StringUtils;
+
 public class ColumnSpecification {
 
     private var field:String;
@@ -23,7 +25,7 @@ public class ColumnSpecification {
 
     public function getName():String {
         if (name == null) {
-            return camelCase(field);
+            return StringUtils.camelCase(field);
         } else {
             return name;
         }
@@ -47,12 +49,6 @@ public class ColumnSpecification {
 
     public function getRenderer():ClassFactory {
         return renderer;
-    }
-
-    private function camelCase(s:String):String {
-        var firstChar:String = s.charAt(0).toUpperCase();
-        var result:String = firstChar + s.substr(1,s.length);
-        return result;
     }
 
 }

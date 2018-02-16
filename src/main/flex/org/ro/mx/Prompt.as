@@ -32,7 +32,7 @@ public class Prompt extends TitleWindow {
 
     public function Prompt(action:Action) {
         this.action = action;
-        this.title = action.id;
+        this.title = action.getId();
         this.showCloseButton = true;
         addEventListener(CloseEvent.CLOSE, closeHandler);
 

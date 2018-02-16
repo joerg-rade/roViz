@@ -79,7 +79,7 @@ public class RoMenuBar extends MenuBar {
 
         var link:Link = new Link();
         link.setHref(url + path);
-        link.method = AbstractTransferObject.GET;
+        link.setMethod(AbstractTransferObject.GET);
         link.invoke();
     }
 

@@ -3,18 +3,7 @@ public class Action extends Member {
 
     internal var parameters:Object;
     public var parameterList:Vector.<Parameter>;
-    internal var named:String;
-    internal var describedAs:String;
-    internal var metadataError:String;
     internal var link:Object;
-    internal var bookmarking:Boolean;
-    internal var cssClass:String;
-    internal var cssClassFa:String;
-    internal var cssClassFaPosition:String;
-    internal var hidden:Boolean;
-    internal var namedEscaped:String;
-    internal var position:uint;
-    internal var promptStyle:String;
 
     public function Action(jsonObj:Object = null) {
         memberType = Member.ACTION;
@@ -45,7 +34,7 @@ public class Action extends Member {
         }
         return null;
     }
-    
+
     //Workaround for https://issues.apache.org/jira/browse/ISIS-1850 would break RO Spec 1.0
     private function fixDefault(json:Object):Object {
         var origin:String = JSON.stringify(json);

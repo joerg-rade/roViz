@@ -2,33 +2,47 @@ package org.ro.mx {
 import flash.events.MouseEvent;
 
 import mx.containers.VBox;
-import mx.controls.AdvancedDataGrid;
 import mx.controls.Menu;
-import mx.controls.advancedDataGridClasses.AdvancedDataGridColumn;
+import mx.controls.dataGridClasses.DataGridColumn;
+
+import org.ro.core.ObjectList;
+import org.ro.layout.Layout;
+import org.ro.layout.PropertyLayout;
+import org.ro.view.table.ColumnSpecification;
+import org.ro.view.table.TableBuilder;
+
+import spark.components.DataGrid;
 
 public class RoTab extends VBox implements IDockable {
 
-    internal var dg:AdvancedDataGrid = new AdvancedDataGrid();
+    internal var dg:DataGrid = new DataGrid();
 
-    public function RoTab(dataProvider:Object, title:String, icon:Class) {
+    public function RoTab(dataProvider:ObjectList, title:String, icon:Class) {
         this.init(dataProvider, title, icon);
     }
 
-    private function init(dataProvider:Object, title:String, icon:Class):void {
+    private function init(dataProvider:ObjectList, title:String, icon:Class):void {
         this.id = title;
         this.label = title;
         this.icon = icon;
         dg.percentWidth = 100;
         dg.percentHeight = 100;
         //TODO filter out dnAttributes, add icon, render Objects with LinkButton
-        dg.dataProvider = dataProvider;
+        var csList:Array = colSpec(dataProvider.getLayout());
+        dg = TableBuilder.buildDataGrid(csList);
+        initData(dataProvider);
+
         dg.doubleClickEnabled = true;
         dg.addEventListener(MouseEvent.DOUBLE_CLICK, doubleClickHandler);
-        dg.horizontalScrollPolicy = "auto";
+        //dg.horizontalScrollPolicy = "auto";  // for AdvancedDataGrid only
         dg.addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler);
         this.addChild(dg);
         resizeColumns();
         toolTip = "Double click (label) to close or invoke menu on selected item."
+    }
+
+    private function initData(dataProvider:ObjectList):void {
+        dg.dataProvider = dataProvider.forDataGrid();
     }
 
     private function mouseWheelHandler():void {
@@ -42,7 +56,7 @@ public class RoTab extends VBox implements IDockable {
     private function resizeColumns():void {
         dg.validateNow();
         // forces columns to size themselves properly
-        for each (var column:AdvancedDataGridColumn in dg.columns) {
+        for each (var column:DataGridColumn in dg.columns) {
             column.width = column.width;
         }
     }
@@ -52,8 +66,7 @@ public class RoTab extends VBox implements IDockable {
         if (item == null) {
             doubleClickHandlerMenu(event);
         } else {
-//            FlexGlobals.topLevelApplication.view.dsp.invoke(item)
-            //TODO           Globals.getDsp().invoke(item);
+            // TODO Globals.getDsp().invoke(item);
         }
     }
 
@@ -68,9 +81,30 @@ public class RoTab extends VBox implements IDockable {
         myMenu.labelField = "@label";
         myMenu.show(mouseX, mouseY);
     }
-    
+
     public function getIcon():Class {
         return icon;
+    }
+
+    private function colSpec(layout:Layout):Array {
+        var csList:Array = [];
+        if (layout != null) {
+            var properties:Vector.<PropertyLayout> = layout.getProperties();
+            var field:String;
+            var width:uint;
+            var name:String;
+            var tip:String;
+            var cs:ColumnSpecification;
+            for each(var pl:PropertyLayout in properties) {
+                field = pl.getId();
+                width = pl.getTypicalLength();
+                name = field;
+                tip = pl.getDescribedAs();
+                cs = new ColumnSpecification(field, width, name, tip);
+                csList.push(cs);
+            }
+        }
+        return csList;
     }
 
 }

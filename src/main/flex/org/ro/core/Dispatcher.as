@@ -1,7 +1,5 @@
 package org.ro.core {
 import org.ro.handler.*;
-import org.ro.core.Menu;
-import org.ro.core.ObjectList;
 import org.ro.xhr.XhrLog;
 
 /**
@@ -31,13 +29,15 @@ public class Dispatcher {
         var third:MemberHandler = new MemberHandler();
         var forth:ListHandler = new ListHandler();
         var fifth:ObjectListHandler = new ObjectListHandler();
+        var sixth:LayoutHandler = new LayoutHandler();
         var last:DefaultHandler = new DefaultHandler();
 
         first.successor = second;
         second.successor = third;
         third.successor = forth;
         forth.successor = fifth;
-        fifth.successor = last;
+        fifth.successor = sixth;
+        sixth.successor = last;
 
         delegate = first;
     }

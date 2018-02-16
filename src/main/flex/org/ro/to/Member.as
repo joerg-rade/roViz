@@ -1,15 +1,13 @@
 package org.ro.to {
-import mx.collections.ArrayCollection;
-
 public class Member extends AbstractTransferObject implements IInvokeable {
     public static const ACTION:String = "action";
     public static const PROPERTY:String = "property";
 
-    public var id:String;
+    internal var id:String;
     internal var memberType:String;
     internal var links:Array;
-    public var linkList:Vector.<Link>;
-    public var value:Object;
+    internal var linkList:Vector.<Link>;
+    internal var value:Object;
     internal var format:Object;
     internal var extensions:Object;
     internal var disabledReason:String;
@@ -35,14 +33,6 @@ public class Member extends AbstractTransferObject implements IInvokeable {
         }
     }
 
-    public static function parse(objArray:Object):Vector.<IInvokeable> {
-        var memberList:Vector.<IInvokeable> = new Vector.<IInvokeable>();
-        for each (var v:Object in objArray) {
-            memberList.push(new Member(v));
-        }
-        return memberList;
-    }
-
     public function getHref():String {
         return href;
     }
@@ -55,20 +45,21 @@ public class Member extends AbstractTransferObject implements IInvokeable {
         return method;
     }
 
+    public function setMethod(method:String):void {
+        this.method = method;
+    }
+
     public function getArguments():Object {
         //members do not have arguments - return nothing.
         return null;
     }
 
-    public static function filterProperties(members:Vector.<IInvokeable>):Vector.<IInvokeable>{
-        var result:Vector.<IInvokeable>= new Vector.<IInvokeable>();
-        for each(var m:Member in members) {
-            if (m.memberType == PROPERTY) {
-                result.push(m);
-            }
-        }
-        return result;
+    public function getId():String {
+        return id;
     }
 
+    public function getValue():Object {
+        return value;
+    }
 }
 }

@@ -13,7 +13,7 @@ public class MenuEntry {
         this.id = id;
         this.action = action;
         this.itemId = action.getHref();
-        this.itemTitle = action.id;
+        this.itemTitle = action.getId();
     }
     
 }

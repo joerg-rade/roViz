@@ -1,7 +1,7 @@
 package org.ro.handler {
 import org.ro.core.Globals;
+import org.ro.core.Menu;
 import org.ro.to.IInvokeable;
-import org.ro.to.Member;
 import org.ro.to.Service;
 
 public class MemberHandler extends AbstractHandler implements IHandler {
@@ -14,10 +14,11 @@ public class MemberHandler extends AbstractHandler implements IHandler {
 
     public override function doHandle(jsonObj:Object):void {
         var service:Service = new Service(jsonObj);
-        var memberList:Vector.<IInvokeable> = Member.parse(jsonObj.members);
-        var done:Boolean = getMenu().init(service, memberList);
+        var members:Vector.<IInvokeable> = service.getMembers();
+        var mnu:Menu = getMenu();
+        var done:Boolean = mnu.init(service, members);
         if (done) {
-            Globals.amendMenu(getMenu());
+            Globals.amendMenu(mnu);
         }
     }
 

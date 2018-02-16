@@ -1,9 +1,8 @@
 package org.ro.handler {
-import mx.collections.ArrayCollection;
-
 import org.ro.core.Menu;
 import org.ro.to.IInvokeable;
 import org.ro.to.Link;
+import org.ro.to.Service;
 
 public class ServiceHandler extends AbstractHandler implements IHandler {
     public function ServiceHandler() {
@@ -14,9 +13,10 @@ public class ServiceHandler extends AbstractHandler implements IHandler {
     }
 
     public override function doHandle(jsonObj:Object):void {
-        var svcLinks:Vector.<IInvokeable> = Link.parse(jsonObj.value);
-        setMenu(new Menu(svcLinks.length));
-        for each (var l:Link in svcLinks) {
+        var service:Service = new Service(jsonObj);
+        var values:Vector.<IInvokeable> = service.getValues();
+        setMenu(new Menu(values.length));
+        for each (var l:Link in values) {
             l.invoke();
         }
     }

@@ -6,7 +6,7 @@
 * IntelliJ 2017.3 (Ultimate)
 * Moz://a FireFox 52 ESR
 ** RestClient
-* Adobe FlashDebugger 27
+* Adobe FlashDebugger 28
 * Windows 7
 
 ## GotChas

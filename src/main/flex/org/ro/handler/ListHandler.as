@@ -1,10 +1,8 @@
 package org.ro.handler {
-import mx.collections.ArrayCollection;
-
 import org.ro.core.ObjectList;
 import org.ro.to.IInvokeable;
-
 import org.ro.to.Link;
+import org.ro.to.List;
 
 public class ListHandler extends AbstractHandler implements IHandler {
     public function ListHandler() {
@@ -23,7 +21,9 @@ public class ListHandler extends AbstractHandler implements IHandler {
     }
 
     public override function doHandle(jsonObj:Object):void {
-        var members:Vector.<IInvokeable> = Link.parse(jsonObj.result.value);
+        var list:List = new List(jsonObj);
+//        var members:Vector.<IInvokeable> = Link.parse(jsonObj.result.value);
+        var members:Vector.<IInvokeable> = list.getResult().getValues();
         setObjectList(new ObjectList(members.length));
         for each (var l:Link in members) {
             l.invoke();

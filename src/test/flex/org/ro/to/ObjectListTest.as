@@ -8,23 +8,26 @@ public class ObjectListTest {
     public function ObjectListTest() {
     }
 
-    /**
-     * http://localhost:8080/restful/objects/simple.SimpleObject/0
-     * http://localhost:8080/restful/objects/simple.SimpleObject/1
-     */
     [Test(description="parse result of invoking object urls")]
     public function testListAllInvoke():void {
-        var members0:Vector.<IInvokeable> = Member.parse(json0.members);
-        var layout:Layout = new Layout();
-        layout.parse(jsonLayout);
-        var members1:Vector.<IInvokeable> = Member.parse(json1.members);
-        var objectList:ObjectList = new ObjectList(2);
-        objectList.addObject(members0);
-        objectList.addObject(members1);
-        objectList.setLayout(layout);
-        Assert.assertEquals(2, objectList.length());
+        var ro0:RObject = new RObject(json0);
+        var members0:Vector.<IInvokeable> = ro0.memberList;
+
+        var ro1:RObject = new RObject(json1);
+        var members1:Vector.<IInvokeable> = ro1.memberList;
+
+        var lyt:Layout = new Layout(jsonLayout);
+
+        var ol:ObjectList = new ObjectList(2);
+        ol.addObject(members0);
+        ol.addObject(members1);
+        ol.setLayout(lyt);
+        Assert.assertEquals(2, ol.length());
+
+        Assert.assertNotNull(ol.getLayout().getProperties());
     }
 
+    // http://localhost:8080/restful/objects/simple.SimpleObject/0
     private var json0:Object = {
         "links": [
             {
@@ -220,6 +223,7 @@ public class ObjectListTest {
         }
     };
 
+    // http://localhost:8080/restful/objects/simple.SimpleObject/1
     private var json1:Object = {
         "links": [
             {

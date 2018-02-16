@@ -17,8 +17,8 @@ public class Menu {
 
     public function init(service:Service, invokableList:Vector.<IInvokeable>):Boolean {
         for each (var m:Member in invokableList) {
-            var title:String = service.title;
-            var id:String = service.serviceId;
+            var title:String = service.getTitle();
+            var id:String = service.getServiceId();
             var action:Member = m;
             var me:MenuEntry = new MenuEntry(title, id, action);
             menuItems.push(me);

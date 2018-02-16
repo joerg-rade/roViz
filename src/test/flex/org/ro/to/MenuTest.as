@@ -1,5 +1,4 @@
 package org.ro.to {
-
 import org.flexunit.Assert;
 import org.ro.core.Menu;
 
@@ -11,9 +10,9 @@ public class MenuTest {
     public function testUnique():void {
         //given:
         var s1:Service = new Service(json1);
-        var m1:Vector.<IInvokeable> = Member.parse(json1.members);
+        var m1:Vector.<IInvokeable> = s1.getMembers();
         var s2:Service = new Service(json2);
-        var m2:Vector.<IInvokeable> = Member.parse(json2.members);
+        var m2:Vector.<IInvokeable> = s2.getMembers();
         //when
         var menu:Menu = new Menu(2);
         menu.init(s1, m1);
@@ -23,15 +22,16 @@ public class MenuTest {
         Assert.assertTrue(1 == size);
     }
 
-    [Test(description="parse result of invoking http://localhost:8080/restful/services/simple.SimpleObjectMenu")]
+    [Test(description="parse result of invoking url")]
     public function testParse():void {
         var service:Service = new Service(json);
-        var members:Vector.<IInvokeable> = Member.parse(json.members);
+        var members:Vector.<IInvokeable> = service.getMembers();
         var menu:Menu = new Menu(1);
         menu.init(service, members);
         Assert.assertTrue(menu != null);
     }
 
+    // http://localhost:8080/restful/services/simple.SimpleObjectMenu
     private var json:Object = {
         "links": [
             {
@@ -108,6 +108,7 @@ public class MenuTest {
         }
     };
 
+    // http://localhost:8080/restful/services/isisApplib.LayoutServiceMenu
     private var json1:Object = {
         "links": [
             {
@@ -161,6 +162,7 @@ public class MenuTest {
 
     };
 
+    // http://localhost:8080/restful/services/isisApplib.MetaModelServicesMenu
     private var json2:Object = {
         "links": [
             {
@@ -212,6 +214,6 @@ public class MenuTest {
             }
         }
     };
-    
+
 }
 }

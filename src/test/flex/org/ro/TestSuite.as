@@ -8,6 +8,7 @@ import org.ro.to.ListTest;
 import org.ro.to.MemberTest;
 import org.ro.to.MenuTest;
 import org.ro.to.ObjectListTest;
+import org.ro.to.RObjectTest;
 import org.ro.to.ServiceTest;
 
 [Suite]
@@ -23,6 +24,8 @@ public class TestSuite {
     public var t7:ActionPOSTArgumentTest;
     public var t8:ActionPOSTArgumentFSTest;
     public var t9:ActionPOSTDeleteTest;
-    public var t10:ObjectListTest;    
+    public var t10:ObjectListTest;
+    public var t11:RObjectTest;
+
 }
 }

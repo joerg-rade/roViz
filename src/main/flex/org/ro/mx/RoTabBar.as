@@ -1,8 +1,6 @@
 package org.ro.mx {
-
 import flash.events.MouseEvent;
 
-import mx.collections.ArrayCollection;
 import mx.containers.TabNavigator;
 import mx.controls.Alert;
 import mx.controls.Menu;
@@ -10,6 +8,7 @@ import mx.core.UIComponent;
 import mx.events.MenuEvent;
 
 import org.ro.core.Globals;
+import org.ro.core.ObjectList;
 import org.ro.xhr.RoDataGrid;
 import org.ro.xhr.XhrLogEntry;
 
@@ -25,8 +24,8 @@ public class RoTabBar extends TabNavigator {
         addEventListener(MenuEvent.MENU_HIDE, hideContextMenu);
     }
 
-    public function addTab(list:ArrayCollection, title:String, icon:Class):void {
-        var tab:RoTab = new RoTab(list, title, icon);
+    public function addTab(objectList:ObjectList, title:String, icon:Class):void {
+        var tab:RoTab = new RoTab(objectList, title, icon);
         open(tab);
     }
 

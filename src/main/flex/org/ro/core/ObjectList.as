@@ -21,7 +21,7 @@ public class ObjectList {
     public function addObject(members:Vector.<IInvokeable>):void {
         var object:Object = {};
         for each(var m:Member in members) {
-            object[m.id] = m.value;
+            object[m.getId()] = m.getValue();
         }
         if (list.length <= limit) {
             list.push(object);
@@ -46,6 +46,10 @@ public class ObjectList {
         this.layout = layout;
     }
 
+    public function getLayout():Layout {
+        return layout;
+    }
+
     public function last():Object {
         return list[list.length - 1];
     }
@@ -53,5 +57,6 @@ public class ObjectList {
     public function length():Object {
         return list.length;
     }
+
 }
 }
