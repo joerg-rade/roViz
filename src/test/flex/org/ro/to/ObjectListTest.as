@@ -11,10 +11,10 @@ public class ObjectListTest {
     [Test(description="parse result of invoking object urls")]
     public function testListAllInvoke():void {
         var ro0:RObject = new RObject(json0);
-        var members0:Vector.<IInvokeable> = ro0.memberList;
+        var members0:Vector.<Invokeable> = ro0.memberList;
 
         var ro1:RObject = new RObject(json1);
-        var members1:Vector.<IInvokeable> = ro1.memberList;
+        var members1:Vector.<Invokeable> = ro1.memberList;
 
         var lyt:Layout = new Layout(jsonLayout);
 

@@ -2,7 +2,7 @@ package org.ro.handler {
 import org.ro.core.Globals;
 import org.ro.core.ObjectList;
 import org.ro.mx.ImageRepository;
-import org.ro.to.IInvokeable;
+import org.ro.to.Invokeable;
 import org.ro.to.RObject;
 
 public class ObjectListHandler extends AbstractHandler implements IHandler {
@@ -22,7 +22,7 @@ public class ObjectListHandler extends AbstractHandler implements IHandler {
             ro.getLayoutLink().invoke();
         }
 
-        var objProps:Vector.<IInvokeable> = ro.getProperties();
+        var objProps:Vector.<Invokeable> = ro.getProperties();
         ol.addObject(objProps);
 
         //TODO use DataProvider class

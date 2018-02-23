@@ -12,5 +12,7 @@ public interface IHandler {
     function handle(json:Object):void;
 
     function canHandle(json:Object):Boolean;
+
+    function doHandle(json:Object):void;
 }
 }

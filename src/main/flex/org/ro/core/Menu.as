@@ -1,7 +1,7 @@
 package org.ro.core {
 import flash.utils.Dictionary;
 
-import org.ro.to.IInvokeable;
+import org.ro.to.Invokeable;
 import org.ro.to.Member;
 import org.ro.to.Service;
 
@@ -15,7 +15,7 @@ public class Menu {
         this.limit = limit;
     }
 
-    public function init(service:Service, invokableList:Vector.<IInvokeable>):Boolean {
+    public function init(service:Service, invokableList:Vector.<Invokeable>):Boolean {
         for each (var m:Member in invokableList) {
             var title:String = service.getTitle();
             var id:String = service.getServiceId();

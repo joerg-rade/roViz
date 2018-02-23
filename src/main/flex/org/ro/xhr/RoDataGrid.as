@@ -13,14 +13,14 @@ import mx.events.MenuEvent;
 import org.ro.core.Globals;
 import org.ro.mx.IDockable;
 import org.ro.view.table.ColumnSpecification;
-import org.ro.view.table.IconRenderer;
+import org.ro.view.table.LogIconRenderer;
 import org.ro.view.table.TableBuilder;
 
 import spark.components.DataGrid;
 
 public class RoDataGrid extends VBox implements IDockable {
 
-    private static var cs0:ColumnSpecification = new ColumnSpecification("icon", 2, " ", null, new ClassFactory(IconRenderer));
+    private static var cs0:ColumnSpecification = new ColumnSpecification("icon", 2, " ", null, new ClassFactory(LogIconRenderer));
     private static var cs1:ColumnSpecification = new ColumnSpecification("url", 30, "Url");
     private static var cs2:ColumnSpecification = new ColumnSpecification("method", 3);
     private static var cs3:ColumnSpecification = new ColumnSpecification("start", 7, null, "startDate");
@@ -114,14 +114,14 @@ public class RoDataGrid extends VBox implements IDockable {
                 le = o as XhrLogEntry;
                 le.visible = false;
             }
-            var log:XhrLog = Globals.getDsp().log;
+            var log:RequestLog = Globals.getDsp().log;
             log.reset();
             initData(log.getEntries());
             dg.validateNow();
         }
 
         function showAllLogEntries():void {
-            var log:XhrLog = Globals.getDsp().log;
+            var log:RequestLog = Globals.getDsp().log;
             log.showAll();
             initData(log.getEntries());
             dg.validateNow();

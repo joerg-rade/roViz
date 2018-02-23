@@ -12,18 +12,13 @@ public class FieldSetLayout extends AbstractLayout {
     internal var id:String;
     internal var unreferencedActions:Object;
     internal var unreferencedCollections:Object;
-
-
+    
     public function FieldSetLayout(jsonObj:Object = null) {
         fromObject(jsonObj);
     }
 
     public function build():DisplayObject {
         var result:HBox = new HBox();
-//        for each(var tl:TabLayout in tabGroup) {
-//            result.addChild(tl.build());
-//        }
-        // actions will not be rendered
         return result;
     }
 

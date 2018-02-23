@@ -9,10 +9,10 @@ public class MemberTest {
     [Test(description="parse result of invoking url")]
     public function testParse():void {
         var ro:RObject = new RObject(json);
-        var members:Vector.<IInvokeable> = ro.getMembers();
+        var members:Vector.<Invokeable> = ro.getMembers();
         Assert.assertEquals(10, members.length);
 
-        var properties:Vector.<IInvokeable> = ro.getProperties();
+        var properties:Vector.<Invokeable> = ro.getProperties();
         Assert.assertEquals(4, properties.length);
 
         var objectList:ObjectList = new ObjectList(1);

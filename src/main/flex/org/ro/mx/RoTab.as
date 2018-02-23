@@ -4,11 +4,13 @@ import flash.events.MouseEvent;
 import mx.containers.VBox;
 import mx.controls.Menu;
 import mx.controls.dataGridClasses.DataGridColumn;
+import mx.core.ClassFactory;
 
 import org.ro.core.ObjectList;
 import org.ro.layout.Layout;
 import org.ro.layout.PropertyLayout;
 import org.ro.view.table.ColumnSpecification;
+import org.ro.view.table.IconRenderer;
 import org.ro.view.table.TableBuilder;
 
 import spark.components.DataGrid;
@@ -27,7 +29,7 @@ public class RoTab extends VBox implements IDockable {
         this.icon = icon;
         dg.percentWidth = 100;
         dg.percentHeight = 100;
-        //TODO filter out dnAttributes, add icon, render Objects with LinkButton
+        //TODO render _Object_ with LinkButton
         var csList:Array = colSpec(dataProvider.getLayout());
         dg = TableBuilder.buildDataGrid(csList);
         initData(dataProvider);
@@ -53,9 +55,9 @@ public class RoTab extends VBox implements IDockable {
         }
     }
 
+    /* forces columns to size themselves properly */
     private function resizeColumns():void {
         dg.validateNow();
-        // forces columns to size themselves properly
         for each (var column:DataGridColumn in dg.columns) {
             column.width = column.width;
         }
@@ -89,12 +91,15 @@ public class RoTab extends VBox implements IDockable {
     private function colSpec(layout:Layout):Array {
         var csList:Array = [];
         if (layout != null) {
+            var field:String = "icon";
+            var width:uint = 2;
+            var name:String = " ";
+            var tip:String = null;
+            //TODO take icon from layout (default=box), pass icon:Class instead of new ClassFactory(IconRenderer)
+            var cs:ColumnSpecification = new ColumnSpecification(field, width, name, tip, new ClassFactory(IconRenderer));
+            csList.push(cs);
+
             var properties:Vector.<PropertyLayout> = layout.getProperties();
-            var field:String;
-            var width:uint;
-            var name:String;
-            var tip:String;
-            var cs:ColumnSpecification;
             for each(var pl:PropertyLayout in properties) {
                 field = pl.getId();
                 width = pl.getTypicalLength();

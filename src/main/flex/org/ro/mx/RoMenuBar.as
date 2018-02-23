@@ -9,7 +9,7 @@ import org.ro.core.Dispatcher;
 import org.ro.core.Globals;
 import org.ro.core.Menu;
 import org.ro.core.MenuEntry;
-import org.ro.to.AbstractTransferObject;
+import org.ro.to.Invokeable;
 import org.ro.to.Link;
 import org.ro.to.Member;
 
@@ -79,7 +79,7 @@ public class RoMenuBar extends MenuBar {
 
         var link:Link = new Link();
         link.setHref(url + path);
-        link.setMethod(AbstractTransferObject.GET);
+        link.setMethod(Invokeable.GET);
         link.invoke();
     }
 

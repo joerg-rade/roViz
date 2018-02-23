@@ -2,7 +2,7 @@ package org.ro.to {
 public class Action extends Member {
 
     internal var parameters:Object;
-    public var parameterList:Vector.<Parameter>;
+    internal var parameterList:Vector.<Parameter>;
     internal var link:Object;
 
     public function Action(jsonObj:Object = null) {
@@ -12,7 +12,8 @@ public class Action extends Member {
         init();
     }
 
-    private function init():void {
+    override protected function init():void {
+        super.init();
         parameterList = new Vector.<Parameter>();
         for each(var o:Object in this.parameters) {
             parameterList.push(new Parameter(o));
@@ -33,6 +34,10 @@ public class Action extends Member {
             if (p.id == name) return p;
         }
         return null;
+    }
+
+    public function getParameters():Vector.<Parameter> {
+        return parameterList;
     }
 
     //Workaround for https://issues.apache.org/jira/browse/ISIS-1850 would break RO Spec 1.0

@@ -1,9 +1,9 @@
 package org.ro.to {
-public class Parameter extends AbstractTransferObject {
+public class Parameter extends BaseTO {
     internal var num:int;
     internal var id:String;
     internal var description:String;
-    public var name:String;
+    internal var name:String;
     internal var choices:Object;
     internal var choiceList:Vector.<Link>;
     internal var defaultChoice:Object;
@@ -56,7 +56,10 @@ public class Parameter extends AbstractTransferObject {
         }
         return 0;
     }
-
-
+    
+    public function getName():String {
+        return name;
+    }
+    
 }
 }

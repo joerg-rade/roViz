@@ -8,7 +8,7 @@ import mx.controls.LinkButton;
 import mx.controls.Spacer;
 
 import org.ro.core.Globals;
-import org.ro.xhr.XhrLog;
+import org.ro.xhr.RequestLog;
 import org.ro.xhr.XhrLogEntry;
 
 public class RoStatusBar extends HBox {
@@ -56,7 +56,7 @@ public class RoStatusBar extends HBox {
 
     public static function clickHandler(event:MouseEvent):void {
         var view:RoView = Globals.getView();
-        var log:XhrLog = view.dsp.log;
+        var log:RequestLog = view.dsp.log;
         var list:Vector.<XhrLogEntry> = log.getEntries();
         view.tabs.addGanttTab(list, "Log Entries (" + list.length + ")", ImageRepository.LogIcon);
     }

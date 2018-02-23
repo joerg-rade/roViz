@@ -1,15 +1,15 @@
 package org.ro.view.table {
 import mx.controls.LinkButton;
 
-import org.ro.mx.ImageRepository;
+import org.ro.xhr.XhrLogEntry;
 
 import spark.components.gridClasses.GridItemRenderer;
 
-public class IconRenderer extends GridItemRenderer {
+public class LogIconRenderer extends GridItemRenderer {
 
     private var icon:LinkButton;
 
-    public function IconRenderer() {
+    public function LogIconRenderer() {
         super();
         icon = new LinkButton();
         icon.top = 4;
@@ -20,8 +20,8 @@ public class IconRenderer extends GridItemRenderer {
     }
 
     override public function set data(value:Object):void {
-        var defaultIcon:Class = ImageRepository.ObjectIcon;
-        icon.setStyle("icon", defaultIcon);
+        var logEntry:XhrLogEntry = value as XhrLogEntry;
+        icon.setStyle("icon", logEntry.icon);
     }
 
 }

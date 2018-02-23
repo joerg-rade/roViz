@@ -1,5 +1,5 @@
 package org.ro.to {
-public class Argument extends AbstractTransferObject {
+public class Argument extends BaseTO {
 
     internal var key:String;
     internal var value:Object;

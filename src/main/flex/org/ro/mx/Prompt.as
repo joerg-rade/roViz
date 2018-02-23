@@ -44,10 +44,10 @@ public class Prompt extends TitleWindow {
         form = new Form();
         form.defaultButton = confirmBtn;
 
-        var params:Vector.<Parameter> = action.parameterList;
+        var params:Vector.<Parameter> = action.getParameters();
         for each(var p:Parameter in params) {
             var fi:FormItem = new FormItem();
-            fi.label = p.name;
+            fi.label = p.getName();
             var input:UIComponent;
             if (p.hasChoices()) {
                 var cb:ComboBox = new ComboBox();

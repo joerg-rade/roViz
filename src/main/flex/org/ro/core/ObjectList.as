@@ -3,7 +3,7 @@ package org.ro.core {
 import mx.collections.ArrayCollection;
 
 import org.ro.layout.Layout;
-import org.ro.to.IInvokeable;
+import org.ro.to.Invokeable;
 import org.ro.to.Member;
 
 public class ObjectList {
@@ -18,7 +18,7 @@ public class ObjectList {
         this.list = new Vector.<Object>();
     }
 
-    public function addObject(members:Vector.<IInvokeable>):void {
+    public function addObject(members:Vector.<Invokeable>):void {
         var object:Object = {};
         for each(var m:Member in members) {
             object[m.getId()] = m.getValue();
@@ -26,7 +26,7 @@ public class ObjectList {
         if (list.length <= limit) {
             list.push(object);
         } else {
-            //TODO throw an execpetion
+            //TODO throw an exception
         }
     }
 

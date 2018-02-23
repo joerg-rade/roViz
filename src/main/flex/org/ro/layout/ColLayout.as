@@ -20,16 +20,6 @@ public class ColLayout extends AbstractLayout {
         fromObject(jsonObj);
     }
 
-    public static function parse(cols:Object):Vector.<ColLayout> {
-        var result:Vector.<ColLayout> = new Vector.<ColLayout>();
-        var col:ColLayout;
-        for each(var c:Object in cols) {
-            col = new ColLayout(c);
-            result.push(col);
-        }
-        return result;
-    }
-
     public function build():DisplayObject {
         var result:HBox = new HBox();
         for each(var tl:TabLayout in tabGroup) {

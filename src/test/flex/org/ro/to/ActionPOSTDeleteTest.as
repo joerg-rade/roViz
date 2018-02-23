@@ -6,13 +6,14 @@ public class ActionPOSTDeleteTest {
     public function ActionPOSTDeleteTest() {
     }
 
-    [Test(description="parse result of invoking http://localhost:8080/restful/objects/simple.SimpleObject/40/actions/delete")]
+    [Test(description="parse result of invoking url")]
     public function testParseService():void {
         var actual:Action = new Action(json);
-        var links:Array = actual.links;
+        var links:Vector.<Link> = actual.getLinks();
         Assert.assertEquals(4, links.length);
     }
 
+    // http://localhost:8080/restful/objects/simple.SimpleObject/40/actions/delete
     private var json:Object = {
         "id": "delete",
         "memberType": "action",

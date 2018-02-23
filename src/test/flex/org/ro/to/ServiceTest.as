@@ -10,7 +10,7 @@ public class ServiceTest {
     public function testSimpleObjectMenu():void {
         var service:Service = new Service(json_simple_SimpleObjectMenu);
         Assert.assertEquals("Simple Objects", service.title);
-        var actions:Vector.<IInvokeable> = service.getMembers();
+        var actions:Vector.<Invokeable> = service.getMembers();
         Assert.assertEquals(3, actions.length);
 
         Assert.assertTrue(includesId(actions, "listAll"));
@@ -23,7 +23,7 @@ public class ServiceTest {
         //TODO use object-layout / menu layout instead
     }
 
-    private static function includesId(list:Vector.<IInvokeable>, id:String):Boolean {
+    private static function includesId(list:Vector.<Invokeable>, id:String):Boolean {
         for  each (var m:Member in list) {
             if (m.id == id) {
                 return true;
@@ -35,7 +35,7 @@ public class ServiceTest {
     [Test(description="parse result of invoking url")]
     public function test_():void {
         var service:Service = new Service(json_);
-        var values:Vector.<IInvokeable> = service.getValues();
+        var values:Vector.<Invokeable> = service.getValues();
         Assert.assertEquals(8, values.length);
     }
 

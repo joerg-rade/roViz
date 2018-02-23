@@ -1,9 +1,10 @@
 package org.ro.to {
-public class Result extends AbstractTransferObject {
+import org.ro.to.LinkedTO;
+
+//TODO Design Issue: Does Result qualify as class?
+public class Result extends LinkedTO {
     internal var value:Array;
-    internal var valueList:Vector.<IInvokeable>;
-    internal var links:Array;
-    internal var linkList:Vector.<Link>;
+    internal var valueList:Vector.<Invokeable>;
     internal var extensions:Object;
     internal var extensionsObject:Extensions;
 
@@ -14,24 +15,16 @@ public class Result extends AbstractTransferObject {
         }
     }
 
-    private function init():void {
-        valueList = new Vector.<IInvokeable>();
+    override protected function init():void {
+        valueList = new Vector.<Invokeable>();
         for each(var v:Object in this.value) {
             valueList.push(new Link(v));
-        }
-        linkList = new Vector.<Link>();
-        for each(var l:Object in this.links) {
-            linkList.push(new Link(l));
         }
         extensionsObject = new Extensions(extensions);
     }
 
-    public function getValues():Vector.<IInvokeable> {
+    public function getValues():Vector.<Invokeable> {
         return this.valueList;
-    }
-
-    public function getLinks():Vector.<Link> {
-        return this.linkList;
     }
 
 }

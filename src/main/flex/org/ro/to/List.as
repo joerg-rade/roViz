@@ -1,8 +1,6 @@
 package org.ro.to {
 
-public class List extends AbstractTransferObject {
-    internal var links:Object;
-    internal var linkList:Vector.<Link>;
+public class List extends LinkedTO {
     internal var resulttype:String;
     internal var result:Object;
     internal var resultObject:Result;
@@ -14,14 +12,11 @@ public class List extends AbstractTransferObject {
         }
     }
 
-    private function init():void {
-        linkList = new Vector.<Link>();
-        for each(var l:Object in this.links) {
-            linkList.push(new Link(l));
-        }
+    override protected function init():void {
+        super.init();
         resultObject = new Result(result);
     }
-    
+
     public function getResult():Result {
         return this.resultObject;
     }

@@ -1,12 +1,12 @@
 package org.ro.xhr {
 import org.ro.core.Globals;
 
-public class XhrLog {
+public class RequestLog {
 
     private var log:Vector.<XhrLogEntry>;
     public var logStart:Date = new Date();
 
-    public function XhrLog() {
+    public function RequestLog() {
         log = new Vector.<XhrLogEntry>();
         logStart = new Date();
     }

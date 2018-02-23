@@ -5,7 +5,7 @@ import mx.core.FlexGlobals;
 import org.ro.mx.Dock;
 import org.ro.mx.RoStatusBar;
 import org.ro.mx.RoView;
-import org.ro.xhr.XhrLog;
+import org.ro.xhr.RequestLog;
 
 public class Globals {
 
@@ -37,7 +37,7 @@ public class Globals {
         return getDsp().viewRegistry;
     }
 
-    public function getLog():XhrLog {
+    public function getLog():RequestLog {
         return getDsp().log;
     }
     

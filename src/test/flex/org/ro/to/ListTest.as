@@ -9,7 +9,7 @@ public class ListTest {
     [Test(description="parse result of invoking url")]
     public function testListAllInvoke():void {
         var list:List = new List(json);
-        var linkList:Vector.<IInvokeable> = list.getResult().getValues();
+        var linkList:Vector.<Invokeable> = list.getResult().getValues();
         Assert.assertEquals(3, linkList.length);
     }
 

@@ -10,9 +10,9 @@ public class MenuTest {
     public function testUnique():void {
         //given:
         var s1:Service = new Service(json1);
-        var m1:Vector.<IInvokeable> = s1.getMembers();
+        var m1:Vector.<Invokeable> = s1.getMembers();
         var s2:Service = new Service(json2);
-        var m2:Vector.<IInvokeable> = s2.getMembers();
+        var m2:Vector.<Invokeable> = s2.getMembers();
         //when
         var menu:Menu = new Menu(2);
         menu.init(s1, m1);
@@ -25,7 +25,7 @@ public class MenuTest {
     [Test(description="parse result of invoking url")]
     public function testParse():void {
         var service:Service = new Service(json);
-        var members:Vector.<IInvokeable> = service.getMembers();
+        var members:Vector.<Invokeable> = service.getMembers();
         var menu:Menu = new Menu(1);
         menu.init(service, members);
         Assert.assertTrue(menu != null);

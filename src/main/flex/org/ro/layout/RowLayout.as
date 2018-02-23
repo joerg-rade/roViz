@@ -13,19 +13,7 @@ public class RowLayout extends AbstractLayout {
     public function RowLayout(jsonObj:Object) {
         fromObject(jsonObj);
     }
-
-    // deprecated . use loop in caller and new RowLayout(json) there
-    // eventually add init() here
-    public static function parse(json:Object):Vector.<RowLayout> {
-        var result:Vector.<RowLayout> = new Vector.<RowLayout>();
-        var row:RowLayout;
-        for each(var r:Object in json.row) {
-            row = new RowLayout(r);
-            result.push(row);
-        }
-        return result;
-    }
-
+    
     public function ensureMaxSpan():Boolean {
         var sum:uint = 0;
         for each(var c:ColLayout in columns) {

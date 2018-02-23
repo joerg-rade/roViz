@@ -6,10 +6,10 @@ public class ActionPOSTArgumentFSTest {
     public function ActionPOSTArgumentFSTest() {
     }
 
-    [Test(description="parse result of invoking http://localhost:8080/restful/services/isisApplib.FixtureScriptsDefault/actions/runFixtureScript")]
+    [Test(description="parse result of invoking url")]
     public function testParseService():void {
         var action:Action = new Action(json);
-        var links:Array = action.links;
+        var links:Vector.<Link> = action.getLinks();
         Assert.assertEquals(4, links.length);
 
         var invokeLink:Link = action.getInvokeLink();
@@ -31,6 +31,7 @@ public class ActionPOSTArgumentFSTest {
         Assert.assertTrue(choiceList[0].href == defaultChoice.href);
     }
 
+    // http://localhost:8080/restful/services/isisApplib.FixtureScriptsDefault/actions/runFixtureScript
     private var json:Object = {
         "id": "runFixtureScript",
         "memberType": "action",
