@@ -41,11 +41,19 @@ See: https://intellij-support.jetbrains.com/hc/en-us/community/posts/206750345-F
 
 ## IntelliJ
 * Alt-Ctrl-s
+
+image::./images/Settings.png[Settings]
+
 * Alt-Ctrl-Shift-S
+
+image::./images/Project_Structure.png[Project Structure]
 
 # Design & Implementation
 
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+image::./images/uml-overview.png[Overview]
+
+
 ## Overview
 
 roViz issues XmlHttpRequests asynchronously (multiple in parallel) in order to speed up data transfers.
@@ -57,6 +65,8 @@ After selecting a server connection all service urls are invoked in order to bui
 Note the urls with offsets 61..63. After a think time of 1900ms the user invoked
 SimpleObjects.listAll, which in turn leads to invoking ~listAll/invoke and retrieving of 3 instances of SimpleObject.
 
+image::./images/LogEntriesWithErrors.png[LogEntries when things go wrong]
+
 ## Packages
 
 ### core
@@ -64,17 +74,24 @@ SimpleObjects.listAll, which in turn leads to invoking ~listAll/invoke and retri
 ### handler
 Handlers for HttpResponses. Chain of Responsibility pattern is defined in 'core.Dispatcher'.
 
+image::./images/uml-handler.png[Response Handler]
+
 ### layout
 Classes related to layout parsing and view construction.
+Instances are created from json in the same way as classes in the to package (fromJson()). 
+Views are constructed via build();
 
-### mo
-Meta Objects: unused right now
+image::./images/uml-layout.png[Layout Transfer Objects]
+
 
 ### mx
 Views derived from standard classes, usually from mx.*
 
 ### to
 Transfer Objects - represent JSON structures from responses.
+
+image::./images/uml-to.png[Transfer Objects Overview]
+
 
 ### xhr
 XmlHttpRequest and logging utilities
@@ -104,18 +121,6 @@ und dann schreibt seine Hand in das rinnende Blut,
 auch althergebrachte Methoden sind gut.
 ____
 
-[verse, Google Translate, The Killer is always the Gardener]
-____
-The friend of all flowers and grasses,
-pursued an advanced villain,
-the man just drilled with the laser,
-Holes in people and air.
-
-But the gardener lurking in a shrub,
-killed him with his garden hose,
-and then his hand writes in the running blood,
-even traditional methods are good.
-____
 
 ## Are used Classes supported by Apache Flex?
 mx.containers.TitleWindow (/)
