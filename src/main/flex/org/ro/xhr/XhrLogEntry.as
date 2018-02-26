@@ -5,15 +5,15 @@ import org.ro.mx.ImageRepository;
 public class XhrLogEntry {
     public var icon:Class;
     public var url:String;
-    internal var method:String;
-    internal var start:uint;
-    internal var startDate:Date;
-    internal var endDate:Date;
-    internal var offset:uint;
-    internal var fault:String;
-    internal var requestLength:uint;
-    internal var responseLength:uint;
-    internal var response:String;
+    public var method:String;
+    public var start:uint;
+    public var startDate:Date;
+    public var endDate:Date;
+    public var offset:uint;
+    public var fault:String;
+    public var requestLength:uint;
+    public var responseLength:uint;
+    public var response:String;
     public var duration:int = 0;
     internal var visible:Boolean = true;
 

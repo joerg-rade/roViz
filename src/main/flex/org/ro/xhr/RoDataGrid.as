@@ -36,10 +36,6 @@ public class RoDataGrid extends VBox implements IDockable {
     private var dg:DataGrid;
 
     public function RoDataGrid(dataProvider:Vector.<XhrLogEntry>, title:String, icon:Class) {
-        this.init(dataProvider, title, icon);
-    }
-
-    private function init(dataProvider:Vector.<XhrLogEntry>, title:String, icon:Class):void {
         this.id = title;
         this.label = title;
         this.icon = icon;
@@ -95,6 +91,11 @@ public class RoDataGrid extends VBox implements IDockable {
         var item:Object = dg.selectedItem;
         var text:String = (item as XhrLogEntry).url;
         System.setClipboard(text);
+    }
+
+    // see https://stackoverflow.com/questions/11682914/ctrl-c-ctrl-v-and-ctrl-x-event-listener
+    public function onCrtl():void {
+        //TODO
     }
 
     public function itemClickHandler(event:MenuEvent):void {
