@@ -34,10 +34,6 @@ public class LayoutTest {
         // (2) links[describedBy].href -> 
         // (3) http://localhost:8080/restful/domain-types/isisApplib.FixtureResult/properties/className -> extensions.friendlyName
         // (4) 
-        // Assert.assertEquals("Result class", properties[0].getXXX());
-        // Assert.assertEquals("Fixture script", properties[1].getXXX());
-        // Assert.assertEquals("Result key", properties[2].getXXX());
-        // Assert.assertEquals("Result", properties[3].getXXX());
     }
 
     // http://localhost:8080/restful/objects/simple.SimpleObject/0/object-layout
@@ -826,36 +822,6 @@ public class LayoutTest {
             "x-isis-format": "string"
         },
         "disabledReason": "Non-cloneable view models are read-only; Immutable"
-    }
-    
-    // http://localhost:8080/restful/domain-types/isisApplib.FixtureResult/properties/className
-    private var jsonFs4:Object = {
-        "id": "className",
-        "memberType": "property",
-        "links": [
-            {
-                "rel": "self",
-                "href": "http://localhost:8080/restful/domain-types/isisApplib.FixtureResult/properties/className",
-                "method": "GET",
-                "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/property-description\""
-            },
-            {
-                "rel": "up",
-                "href": "http://localhost:8080/restful/domain-types/isisApplib.FixtureResult",
-                "method": "GET",
-                "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/domain-type\""
-            },
-            {
-                "rel": "urn:org.restfulobjects:rels/return-type",
-                "href": "http://localhost:8080/restful/domain-types/java.lang.String",
-                "method": "GET",
-                "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/domain-type\""
-            }
-        ],
-        "optional": false,
-        "extensions": {
-            "friendlyName": "Result class"
-        }
     }
     
 }

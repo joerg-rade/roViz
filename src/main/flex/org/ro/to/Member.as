@@ -8,7 +8,9 @@ public class Member extends Invokeable {
     internal var value:String;
     internal var format:String; // type information
     internal var extensions:Object;
+    internal var extensionsObject:Extensions;
     internal var disabledReason:String;
+    internal var optional:Object;
 
     public function Member(jsonObj:Object = null) {
         if (jsonObj != null) {
@@ -22,6 +24,7 @@ public class Member extends Invokeable {
         var link:Link = linkList[0];
         href = link.getHref();
         method = link.getMethod();
+        extensionsObject = new Extensions(extensions);
     }
 
     public function getId():String {
@@ -30,6 +33,10 @@ public class Member extends Invokeable {
 
     public function getValue():Object {
         return value;
+    }
+
+    public function getExtension():Extensions {
+        return extensionsObject;
     }
 
 }

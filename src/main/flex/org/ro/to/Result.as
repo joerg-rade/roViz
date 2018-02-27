@@ -1,6 +1,4 @@
 package org.ro.to {
-import org.ro.to.LinkedTO;
-
 //TODO Design Issue: Does Result qualify as class?
 public class Result extends LinkedTO {
     internal var value:Array;

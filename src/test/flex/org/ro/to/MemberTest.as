@@ -8,6 +8,44 @@ public class MemberTest {
 
     [Test(description="parse result of invoking url")]
     public function testParse():void {
+        var m:Member = new Member(json0);
+        var extension:Extensions = m.getExtension();
+        Assert.assertEquals("Result class", extension.getFriendlyName());
+    }
+
+    // http://localhost:8080/restful/domain-types/isisApplib.FixtureResult/properties/className
+    private var json0:Object = {
+        "id": "className",
+        "memberType": "property",
+        "links": [
+            {
+                "rel": "self",
+                "href": "http://localhost:8080/restful/domain-types/isisApplib.FixtureResult/properties/className",
+                "method": "GET",
+                "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/property-description\""
+            },
+            {
+                "rel": "up",
+                "href": "http://localhost:8080/restful/domain-types/isisApplib.FixtureResult",
+                "method": "GET",
+                "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/domain-type\""
+            },
+            {
+                "rel": "urn:org.restfulobjects:rels/return-type",
+                "href": "http://localhost:8080/restful/domain-types/java.lang.String",
+                "method": "GET",
+                "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/domain-type\""
+            }
+        ],
+        "optional": false,
+        "extensions": {
+            "friendlyName": "Result class"
+        }
+    };
+
+
+    [Test(description="parse result of invoking url")]
+    public function testRObjectMembers():void {
         var ro:RObject = new RObject(json);
         var members:Vector.<Invokeable> = ro.getMembers();
         Assert.assertEquals(10, members.length);
@@ -205,8 +243,7 @@ public class MemberTest {
                 ]
             }
         }
-
-    }
+    };
 
 }
 }
