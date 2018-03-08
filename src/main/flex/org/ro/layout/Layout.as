@@ -6,13 +6,61 @@ import mx.containers.VBox;
  * In case of non-menu layout, build a UIComponent.
  */
 public class Layout extends AbstractLayout {
+    private const TAB_GROUP:String = "tabGroup";
 
     internal var row:Object; // which actually is a list of rows
-
-    public var rows:Vector.<RowLayout>;
+    internal var rows:Vector.<RowLayout>;
+    internal var properties:Vector.<PropertyLayout>;
+    internal var propertyLabels:Object;
 
     public function Layout(jsonObj:Object = null) {
         fromObject(jsonObj);
+        init();
+    }
+
+    private function init():void {
+        var props:Array = extractProperties();
+        initProperties(props);
+        initPropertyLabels();
+
+        function initProperties(props:Array):void {
+            properties = new Vector.<PropertyLayout>();
+            var pl:PropertyLayout;
+            for each(var json:Object in props) {
+                pl = new PropertyLayout(json);
+                properties.push(pl);
+            }
+        }
+
+        function initPropertyLabels():void {
+            propertyLabels = {};
+        }
+
+        //TODO refactor train.wreck.s  
+        // var s:Object = findPropertyBy(row, "fieldSet");
+        function extractProperties():Array {
+            var col:Object = row[1].cols[0].col;
+            if (col.hasOwnProperty(TAB_GROUP)) {
+                // special case for json1
+                col = col.tabGroup[0].tab[0].row[0].cols[0].col;
+            }
+            var pArr:Array = col.fieldSet[0].property;
+            return pArr;
+        }
+    }
+
+    public function addPropertyLabel(id:String, friendlyName:String):void {
+        propertyLabels[id] = friendlyName;
+    }
+
+    public function getPropertyLabel(id:String):String {
+        return propertyLabels[id];
+    }
+
+    public function arePropertyLabelsToBeSet():Boolean {
+        var labelSize:uint = propertyLabels.length;
+        var propsSize:uint = getProperties().length;
+        return (labelSize < propsSize);
     }
 
     public function build():VBox {
@@ -25,22 +73,7 @@ public class Layout extends AbstractLayout {
     }
 
     public function getProperties():Vector.<PropertyLayout> {
-        //FIXME this qualifies as train.wreck ... and must be refactored
-//        var s:Object = findPropertyBy(row, "fieldSet");
-        var col:Object = row[1].cols[0].col;
-        if (col.hasOwnProperty("tabGroup")) {
-            // special case for json1
-            col = col.tabGroup[0].tab[0].row[0].cols[0].col;
-        }
-        var pArr:Array = col.fieldSet[0].property;
-
-        var result:Vector.<PropertyLayout> = new Vector.<PropertyLayout>();
-        var pl:PropertyLayout;
-        for each(var json:Object in pArr) {
-            pl = new PropertyLayout(json);
-            result.push(pl);
-        }
-        return result;
+        return properties;
     }
 
     // recurse into attributes/fields/properties and 
@@ -59,25 +92,19 @@ public class Layout extends AbstractLayout {
         function isCollection(o:Object):Boolean {
             if ((o == null) || (o is String)) {
                 return false;
-            } else if ((o is Object) || (o is Array)) {
-                return true;
             } else {
-                return false;
+                return ((o is Object) || (o is Array));
             }
         }
 
         function isNamed(o:Object):Boolean {
             if ((o == null) || (o is String)) {
                 return false;
-            } else if ((o.hasOwnProperty("col")) || (o.hasOwnProperty("tabGroup"))) {
-                return true;
             } else {
-                return false;
+                return ((o.hasOwnProperty("col")) || (o.hasOwnProperty(TAB_GROUP)));
             }
         }
-
     }
-
 
 }
 }

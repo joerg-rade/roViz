@@ -35,7 +35,7 @@ public class ObjectList {
     }
 
     public function isReadyForDisplay():Boolean {
-        return (isFilled() );          //&& areLabelsSet()
+        return (isFilled() && areLabelsSet());      
 
         function isFilled():Boolean {
             return (list.length >= limit);
