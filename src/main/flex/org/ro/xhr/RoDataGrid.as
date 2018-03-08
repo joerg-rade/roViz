@@ -28,8 +28,9 @@ public class RoDataGrid extends VBox implements IDockable {
     private static var cs5:ColumnSpecification = new ColumnSpecification("offset", 4);
     private static var cs6:ColumnSpecification = new ColumnSpecification("duration", 3);
     private static var cs7:ColumnSpecification = new ColumnSpecification("responseLength", 5, "resp.len", "response");
-    private static var cs8:ColumnSpecification = new ColumnSpecification(null, 45, "Chart", null, new ClassFactory(BarRenderer));
-    private static var CS_LIST:Array = [cs0, cs1, cs2, cs3, cs4, cs5, cs6, cs7, cs8];
+    private static var cs8:ColumnSpecification = new ColumnSpecification("cacheHits", 2);
+    private static var cs9:ColumnSpecification = new ColumnSpecification(null, 45, "Chart", null, new ClassFactory(BarRenderer));
+    private static var CS_LIST:Array = [cs0, cs1, cs2, cs3, cs4, cs5, cs6, cs7, cs8, cs9];
 
     private var roContextMenu:Menu;
     private var dataProvider:ArrayCollection;
@@ -47,7 +48,7 @@ public class RoDataGrid extends VBox implements IDockable {
         addEventListener(MenuEvent.MENU_HIDE, hideContextMenu);
         addEventListener(Event.COPY, onCopy);
         this.addChild(dg);
-        Globals.getViewRegistry().add("1", this);
+ //       Globals.instance.getViewRegistry().add("1", this);
     }
 
     private function initData(dataProvider:Vector.<XhrLogEntry>):void {
@@ -115,14 +116,14 @@ public class RoDataGrid extends VBox implements IDockable {
                 le = o as XhrLogEntry;
                 le.visible = false;
             }
-            var log:RequestLog = Globals.getDsp().log;
+            var log:RequestLog = Globals.getInstance().getLog();
             log.reset();
             initData(log.getEntries());
             dg.validateNow();
         }
 
         function showAllLogEntries():void {
-            var log:RequestLog = Globals.getDsp().log;
+            var log:RequestLog = Globals.getInstance().getLog();
             log.showAll();
             initData(log.getEntries());
             dg.validateNow();

@@ -1,6 +1,5 @@
 package org.ro.mx {
-
-import org.ro.core.Dispatcher;
+import org.ro.core.Globals;
 
 import spark.components.HGroup;
 import spark.components.VGroup;
@@ -8,11 +7,10 @@ import spark.components.VGroup;
 public class RoView extends VGroup {
     private const PADDING:int = -20;
 
-    public var dsp:Dispatcher;
-    public var menuBar:RoMenuBar;
-    public var dock:Dock;
-    public var tabs:RoTabBar;
-    public var statusBar:RoStatusBar;
+    private var menuBar:RoMenuBar;
+    private var dock:Dock;
+    private var tabs:RoTabBar;
+    private var statusBar:RoStatusBar;
     private var body:HGroup;
 
     public function RoView() {
@@ -23,11 +21,10 @@ public class RoView extends VGroup {
         paddingRight = PADDING;
         paddingBottom = PADDING;
 
-        this.dsp = new Dispatcher();
-
         initMenu();
         initBody();
         initStatus();
+        new Globals(this);
     }
 
     private function initMenu():void {
@@ -77,5 +74,22 @@ public class RoView extends VGroup {
             this.invalidateDisplayList();
         }
     }
+
+    public function getTabs():RoTabBar {
+        return tabs;
+    }
+
+    public function getMenuBar():RoMenuBar {
+        return menuBar;
+    }
+
+    public function getStatusBar():RoStatusBar {
+        return statusBar;
+    }
+
+    public function getDock():Dock {
+        return dock;
+    }
+
 }
 }

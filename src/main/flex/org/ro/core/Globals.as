@@ -1,44 +1,93 @@
 package org.ro.core {
-import mx.collections.ArrayCollection;
 import mx.core.FlexGlobals;
 
+import org.ro.handler.Dispatcher;
 import org.ro.mx.Dock;
 import org.ro.mx.RoStatusBar;
 import org.ro.mx.RoView;
 import org.ro.xhr.RequestLog;
+import org.ro.mx.RoMenuBar;
 
+/**
+ * - keeps track of connected server,
+ * - the menu,
+ * - object lists, 
+ */
 public class Globals {
+    private static var instance:Globals = null;
+    private var dsp:Dispatcher = new Dispatcher();
+    private var log:RequestLog = new RequestLog();
+    private var view:RoView = null;
+    //TODO make private
+    public var credentials:String;
+    public var user:String;
+    public var url:String;
+    private var list:ObjectList;
 
-    public static function getDsp():Dispatcher {
-        return getView().dsp
+    //TODO make private
+    function Globals(view:RoView = null) {
+        if (instance == null) {
+            this.view = view;
+            instance = this;
+        }
     }
 
-    public static function getStatusBar():RoStatusBar {
-        return getView().statusBar;
+    public static function getInstance():Globals {
+        if (instance == null) {
+            instance = new Globals();
+        }
+        return instance;
     }
 
-    public static function getView():RoView {
-        return FlexGlobals.topLevelApplication.view;
+    public function getDsp():Dispatcher {
+        return dsp;
     }
 
-    public static function addTab(objectList:ObjectList, s:String, ObjectsIcon:Class):void {
-        getView().tabs.addTab(objectList, s, ObjectsIcon);
+    public function getView():RoView {
+        if (view == null) {
+            view = new RoView();
+        }
+        return view;
     }
 
-    public static function amendMenu(menu:Menu):void {
-        getView().menuBar.amend(menu);
+    public function getStatusBar():RoStatusBar {
+        return getView().getStatusBar();
     }
 
-    public static function getDock():Dock {
-        return getView().dock;
+    public function addTab(objectList:ObjectList, s:String, ObjectsIcon:Class):void {
+        getView().getTabs().addTab(objectList, s, ObjectsIcon);
     }
 
-    public static function getViewRegistry():ViewRegistry {
-        return getDsp().viewRegistry;
+    private function getMenuBar():RoMenuBar {
+        return getView().getMenuBar();
+    }
+
+    public function amendMenu(menu:Menu):void {
+        getMenuBar().amend(menu);
+    }
+
+    public function getDock():Dock {
+        return getView().getDock();
     }
 
     public function getLog():RequestLog {
-        return getDsp().log;
+        return log;
+    }
+
+    public function getMenu():Menu {
+        return getMenuBar().getMenu();
+    }
+
+    public function setMenu(menu:Menu):void {
+        getMenuBar().setMenu(menu);
+    }
+
+    public function getList():ObjectList {
+        return list;
+    }
+
+    public function setList(list:ObjectList):void {
+        this.list = list;
     }
     
 }

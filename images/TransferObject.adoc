@@ -6,6 +6,7 @@ abstract class BaseTO {
 } 
 
 abstract class LinkedTO extends BaseTO {
+    links
 } 
 LinkedTO o-> inv.Link : links
 
@@ -21,6 +22,7 @@ class inv.Link extends inv.Invokeable {
     rel:String
     type:String
     args:Object
+    arguments
 }
 inv.Link o-> Argument : arguments
 
@@ -30,16 +32,19 @@ abstract class inv.Member extends inv.Invokeable {
     value:String
     format:String
     disabledReason:String
+    extension
 }
 inv.Member -> Extensions : extension
 
 class inv.Action extends inv.Member {
+    link
+    parameters
 } 
 inv.Action -> inv.Link : link 
 inv.Action o-> Parameter : parameters 
 
 class inv.Property extends inv.Member {
-    hasReasonToLive():Boolean.FALSE
+    maxLength:uint
 } 
 
 
@@ -60,6 +65,7 @@ class Extensions extends BaseTO{
 
 class List extends LinkedTO {
     resulttype:String
+    result
 }
 List o-> Result : result
 
@@ -68,11 +74,14 @@ class Parameter extends BaseTO {
     id:String
     description:String
     name:String
+    choices
+    defaultChoice
 } 
 Parameter -> inv.Link : choices
 Parameter -> inv.Link : defaultChoice
 
 class Result extends LinkedTO {
+    values
 }
 Result o-> inv.Link : values
 
@@ -83,12 +92,15 @@ class RObject extends TitledTO {
 
 class Service extends TitledTO {
     serviceId:String
+    values
 } 
 Service o-> inv.Link : values
 
 abstract class TitledTO extends LinkedTO {
     title:String
+    extension
+    members
 }
 TitledTO -> Extensions : extension
-TitledTO -> inv.Member : members
+TitledTO o-> inv.Member : members
 --

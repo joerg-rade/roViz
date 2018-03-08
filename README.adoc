@@ -38,22 +38,22 @@ UI specific (ie. non domain) actions supported on
 Domain Actions will be made available in ContextMenus as well.
 
 ## TODO's for the PoC
-* Invoke (object-)layout
 * LogEnties tab: extract protocol/host:port into column header
 * add title of the action to the tab title
 * 'collapse' tabs into 'dock'
 * 'revive' tabs from dock
 * drag & drop (eg. object onto docked tab, invoke method / open dialog to select matching actions) 
 * Use layout / object-layout for objects, lists, and menus, honor link type  (application/xml vs. application/json) 
-* Implement PUT, POST, DELETE (alongside GET)
 * Load and render single object 
-* Transpile to Javascript via Maven using https://cwiki.apache.org/confluence/display/FLEX/FlexJS[FlexJS]
+* Transpile to Javascript via Maven using https://royale.apache.org/[Apache Royale]
 (mvn clean install -Dmaven.source=flexjs.xml / integrate into pom.xml)
 
 * Implement Filtered Table 
 
 ## Bugs
 CAUTION: hidden Dock steals a couple of pixels
+
+CAUTION: Hiding the status bar doesn't work yet - it steals a line at the bottom. 
 
 CAUTION: Menu items (Actions) are not ordered
 
@@ -67,7 +67,7 @@ CAUTION: Order is not obeyed with Menu entries
 ## Next 
 * Integrate Calendar View (for ToDo App)
 * Fullblown GanttChart (incl. birds eye view)
-* Measure code coverage
+* Measure code coverage (https://cwiki.apache.org/confluence/display/FLEX/Code+Coverage+Tool)
 * Visualize Geolocations eg. with https://wiki.openstreetmap.org/wiki/Halcyon[Halcyon]
 * Use http://svn.code.sf.net/adobe/cairngorm/code/[Cairngorm FW] to decouple data loading from rendering
 * https://stackoverflow.com/questions/5388290/how-to-display-svg-in-flex/5388543#5388543[SVG limitations and libs]

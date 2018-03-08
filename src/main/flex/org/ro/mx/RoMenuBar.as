@@ -5,7 +5,6 @@ import mx.controls.MenuBar;
 import mx.events.MenuEvent;
 import mx.utils.Base64Encoder;
 
-import org.ro.core.Dispatcher;
 import org.ro.core.Globals;
 import org.ro.core.Menu;
 import org.ro.core.MenuEntry;
@@ -44,12 +43,12 @@ public class RoMenuBar extends MenuBar {
 
     private function toggleDock(event:MenuEvent):void {
         var toggle:Boolean = event.item.@toggled;
-        Globals.getView().showDock(toggle);
+        Globals.getInstance().getView().showDock(toggle);
     }
 
     private function toggleStatus(event:MenuEvent):void {
         var toggle:Boolean = event.item.@status;
-        Globals.getView().showStatus(toggle);
+        Globals.getInstance().getView().showStatus(toggle);
     }
 
     private function handleActionSelection(event:MenuEvent):void {
@@ -69,12 +68,12 @@ public class RoMenuBar extends MenuBar {
         encoder.encode(credentials);
         credentials = encoder.toString();
 
-        var dsp:Dispatcher = Globals.getDsp();
-        dsp.credentials = credentials;
-        dsp.user = user;
-        dsp.url = url;
+        var inst:Globals = Globals.getInstance();
+        inst.credentials = credentials;
+        inst.user = user;
+        inst.url = url;
 
-        var statusBar:RoStatusBar = Globals.getStatusBar();
+        var statusBar:RoStatusBar = inst.getStatusBar();
         statusBar.user.text = user;
 
         var link:Link = new Link();
@@ -139,6 +138,13 @@ public class RoMenuBar extends MenuBar {
                 </topmenu>;
         return menuItems;
     }
+    
+    public function getMenu():Menu {
+        return menu;
+    }
 
+    public function setMenu(menu:Menu):void {
+        this.menu = menu;
+    }
 }
 }

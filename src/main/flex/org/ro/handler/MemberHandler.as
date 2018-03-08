@@ -18,7 +18,7 @@ public class MemberHandler extends AbstractHandler implements IHandler {
         var mnu:Menu = getMenu();
         var done:Boolean = mnu.init(service, members);
         if (done) {
-            Globals.amendMenu(mnu);
+            Globals.getInstance().amendMenu(mnu);
         }
     }
 

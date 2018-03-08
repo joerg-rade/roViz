@@ -41,29 +41,42 @@ public class AbstractHandler implements IHandler {
     public function doHandle(jsonObj:Object):void {
     }
 
+    internal static function getDsp():Dispatcher {
+        return Globals.getInstance().getDsp();
+    }
+
     internal static function getMenu():Menu {
-        return Globals.getView().dsp.menu;
+        return Globals.getInstance().getMenu();
     }
 
     internal static function setMenu(menu:Menu):void {
-        Globals.getDsp().menu = menu;
+        Globals.getInstance().setMenu(menu);
     }
 
     internal static function getObjectList():ObjectList {
-        return Globals.getDsp().list;
+        return Globals.getInstance().getList();
     }
 
     internal static function setObjectList(objectList:ObjectList):void {
-        Globals.getDsp().list = objectList;
+        Globals.getInstance().setList(objectList);
     }
 
     internal static function isEmptyObject(obj:Object):Boolean {
         return JSON.stringify(obj) === '{}';
     }
 
-    public static function asExtensions(jsonObj:Object):Extensions {
+    internal static function asExtensions(jsonObj:Object):Extensions {
         return new Extensions(jsonObj.extensions);
     }
+
+    internal function hasMembers(jsonObj:Object):Boolean {
+        return (jsonObj.members != null);
+    }
+
+    internal function isService(jsonObj:Object):Boolean {
+        return jsonObj.extensions.isService;
+    }
+
 
 }
 }

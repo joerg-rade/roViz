@@ -30,8 +30,19 @@ public class ObjectList {
         }
     }
 
-    public function isFilled():Boolean {
-        return (list.length >= limit);
+    public function hasLayout():Boolean {
+        return layout != null;
+    }
+
+    public function isReadyForDisplay():Boolean {
+        return (isFilled() );          //&& areLabelsSet()
+
+        function isFilled():Boolean {
+            return (list.length >= limit);
+        }
+        function areLabelsSet():Boolean {
+            return hasLayout() && !layout.arePropertyLabelsToBeSet();
+        }
     }
 
     public function forDataGrid():ArrayCollection {

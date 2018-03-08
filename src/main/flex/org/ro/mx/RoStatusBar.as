@@ -1,5 +1,4 @@
 package org.ro.mx {
-
 import flash.events.MouseEvent;
 
 import mx.containers.HBox;
@@ -44,9 +43,13 @@ public class RoStatusBar extends HBox {
 
     public function update(entry:XhrLogEntry):void {
         var href:String = entry.url;
-        //limit length of URL - otherwise this would get a horizontal scrollbar
-        if (href.length > 132) {
-            href = href.substr(0, 132);
+        //limit length of URL - otherwise we get a horizontal scrollbar
+        if (href == null) {
+            trace(entry);
+        } else {
+            if (href.length > 132) {
+                href = href.substr(0, 132);
+            }
         }
         this.url.text = href;
         this.url.toolTip = entry.url;
@@ -55,10 +58,10 @@ public class RoStatusBar extends HBox {
     }
 
     public static function clickHandler(event:MouseEvent):void {
-        var view:RoView = Globals.getView();
-        var log:RequestLog = view.dsp.log;
+        var view:RoView = Globals.getInstance().getView();
+        var log:RequestLog = Globals.getInstance().getLog();
         var list:Vector.<XhrLogEntry> = log.getEntries();
-        view.tabs.addGanttTab(list, "Log Entries (" + list.length + ")", ImageRepository.LogIcon);
+        view.getTabs().addGanttTab(list, "Log Entries (" + list.length + ")", ImageRepository.LogIcon);
     }
 
 }

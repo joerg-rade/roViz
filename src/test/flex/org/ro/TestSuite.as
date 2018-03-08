@@ -1,4 +1,5 @@
 package org.ro {
+import org.ro.handler.ServiceHandlerTest;
 import org.ro.layout.LayoutTest;
 import org.ro.to.ActionGETArgumentTest;
 import org.ro.to.ActionPOSTArgumentFSTest;
@@ -15,17 +16,18 @@ import org.ro.to.ServiceTest;
 [RunWith("org.flexunit.runners.Suite")]
 public class TestSuite {
 
+    public var h1:ServiceHandlerTest;
+    public var l1:LayoutTest;
     public var t1:ActionGETArgumentTest;
-    public var t2:LayoutTest;
-    public var t3:ListTest;
-    public var t4:MenuTest;
-    public var t5:ServiceTest;
+    public var t2:ActionPOSTArgumentFSTest;
+    public var t3:ActionPOSTArgumentTest;
+    public var t4:ActionPOSTDeleteTest;
+    public var t5:ListTest;
     public var t6:MemberTest;
-    public var t7:ActionPOSTArgumentTest;
-    public var t8:ActionPOSTArgumentFSTest;
-    public var t9:ActionPOSTDeleteTest;
-    public var t10:ObjectListTest;
-    public var t11:RObjectTest;
+    public var t7:MenuTest;
+    public var t8:ObjectListTest;
+    public var t19:RObjectTest;
+    public var t10:ServiceTest;
 
 }
 }

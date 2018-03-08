@@ -13,14 +13,15 @@ import mx.managers.PopUpManager;
 
 import org.apache.flex.collections.VectorList;
 import org.ro.core.Globals;
+import org.ro.core.StringUtils;
 import org.ro.to.Action;
 import org.ro.to.Link;
 import org.ro.to.Parameter;
 
 import spark.components.Button;
-import spark.components.DropDownList;
 import spark.components.HGroup;
 import spark.components.TextInput;
+import spark.layouts.HorizontalAlign;
 
 /**
  * Build a dialog, using form and specification from Action.parameters
@@ -32,7 +33,7 @@ public class Prompt extends TitleWindow {
 
     public function Prompt(action:Action) {
         this.action = action;
-        this.title = action.getId();
+        this.title = StringUtils.deCamel(action.getId());
         this.showCloseButton = true;
         addEventListener(CloseEvent.CLOSE, closeHandler);
 
@@ -47,6 +48,8 @@ public class Prompt extends TitleWindow {
         var params:Vector.<Parameter> = action.getParameters();
         for each(var p:Parameter in params) {
             var fi:FormItem = new FormItem();
+            fi.direction = "horizontal";
+            fi.setStyle("horizontalAlign", "left");
             fi.label = p.getName();
             var input:UIComponent;
             if (p.hasChoices()) {
@@ -73,7 +76,7 @@ public class Prompt extends TitleWindow {
 
         addChild(form);
 
-        PopUpManager.addPopUp(this, Globals.getView(), true);
+        PopUpManager.addPopUp(this, Globals.getInstance().getView(), true);
         PopUpManager.centerPopUp(this);
     }
 

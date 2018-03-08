@@ -39,7 +39,8 @@ public class RequestLog {
     }
 
     private static function updateStatus(entry:XhrLogEntry):void {
-        Globals.getStatusBar().update(entry);
+        Globals.getInstance().getStatusBar().update(entry);
+//        Globals.getInstance().getView().validateDisplayList();
     }
 
     public function fault(url:String, fault:String):void {
@@ -48,7 +49,7 @@ public class RequestLog {
         updateStatus(entry);
     }
 
-    private function find(url:String):XhrLogEntry {
+    public function find(url:String):XhrLogEntry {
         for each(var le:XhrLogEntry in log) {
             // assumes urls are unique !
             if (le.url == url) return le;

@@ -1,52 +1,24 @@
 package org.ro.to {
 import org.flexunit.Assert;
+import org.ro.URLS;
 import org.ro.core.ObjectList;
 
 public class MemberTest {
     public function MemberTest() {
     }
 
+    // http://localhost:8080/restful/domain-types/isisApplib.FixtureResult/properties/className
     [Test(description="parse result of invoking url")]
     public function testParse():void {
-        var m:Member = new Member(json0);
+        var m:Member = new Member(URLS.FR_PROPERTY_DESCRIPTION);
         var extension:Extensions = m.getExtension();
         Assert.assertEquals("Result class", extension.getFriendlyName());
     }
 
-    // http://localhost:8080/restful/domain-types/isisApplib.FixtureResult/properties/className
-    private var json0:Object = {
-        "id": "className",
-        "memberType": "property",
-        "links": [
-            {
-                "rel": "self",
-                "href": "http://localhost:8080/restful/domain-types/isisApplib.FixtureResult/properties/className",
-                "method": "GET",
-                "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/property-description\""
-            },
-            {
-                "rel": "up",
-                "href": "http://localhost:8080/restful/domain-types/isisApplib.FixtureResult",
-                "method": "GET",
-                "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/domain-type\""
-            },
-            {
-                "rel": "urn:org.restfulobjects:rels/return-type",
-                "href": "http://localhost:8080/restful/domain-types/java.lang.String",
-                "method": "GET",
-                "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/domain-type\""
-            }
-        ],
-        "optional": false,
-        "extensions": {
-            "friendlyName": "Result class"
-        }
-    };
-
-
+    // http://localhost:8080/restful/objects/simple.SimpleObject/0
     [Test(description="parse result of invoking url")]
     public function testRObjectMembers():void {
-        var ro:RObject = new RObject(json);
+        var ro:RObject = new RObject(URLS.SO_0);
         var members:Vector.<Invokeable> = ro.getMembers();
         Assert.assertEquals(10, members.length);
 
@@ -61,189 +33,6 @@ public class MemberTest {
         Assert.assertTrue(object.datanucleusIdLong == 0);
         Assert.assertTrue(object.datanucleusVersionTimestamp == 1514897074953);
     }
-
-    // http://localhost:8080/restful/objects/simple.SimpleObject/0
-    private var json:Object = {
-        "links": [
-            {
-                "rel": "self",
-                "href": "http://localhost:8080/restful/objects/simple.SimpleObject/0",
-                "method": "GET",
-                "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object\"",
-                "title": "Object: Foo"
-            },
-            {
-                "rel": "describedby",
-                "href": "http://localhost:8080/restful/domain-types/simple.SimpleObject",
-                "method": "GET",
-                "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/domain-type\""
-            },
-            {
-                "rel": "urn:org.apache.isis.restfulobjects:rels/layout",
-                "href": "http://localhost:8080/restful/domain-types/simple.SimpleObject/layout",
-                "method": "GET",
-                "type": "application/xml;profile=\"urn:org.restfulobjects:repr-types/layout-bs3\""
-            },
-            {
-                "rel": "urn:org.restfulobjects:rels/update",
-                "href": "http://localhost:8080/restful/objects/simple.SimpleObject/0",
-                "method": "PUT",
-                "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object\"",
-                "arguments": {}
-            }
-        ],
-        "extensions": {
-            "oid": "simple.SimpleObject:0",
-            "isService": false,
-            "isPersistent": true
-        },
-        "title": "Object: Foo",
-        "domainType": "simple.SimpleObject",
-        "instanceId": "0",
-        "members": {
-            "name": {
-                "id": "name",
-                "memberType": "property",
-                "links": [
-                    {
-                        "rel": "urn:org.restfulobjects:rels/details;property=\"name\"",
-                        "href": "http://localhost:8080/restful/objects/simple.SimpleObject/0/properties/name",
-                        "method": "GET",
-                        "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object-property\""
-                    }
-                ],
-                "value": "Foo",
-                "extensions": {
-                    "x-isis-format": "string"
-                },
-                "disabledReason": "Immutable"
-            },
-            "notes": {
-                "id": "notes",
-                "memberType": "property",
-                "links": [
-                    {
-                        "rel": "urn:org.restfulobjects:rels/details;property=\"notes\"",
-                        "href": "http://localhost:8080/restful/objects/simple.SimpleObject/0/properties/notes",
-                        "method": "GET",
-                        "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object-property\""
-                    }
-                ],
-                "value": null,
-                "extensions": {
-                    "x-isis-format": "string"
-                }
-            },
-            "datanucleusIdLong": {
-                "id": "datanucleusIdLong",
-                "memberType": "property",
-                "links": [
-                    {
-                        "rel": "urn:org.restfulobjects:rels/details;property=\"datanucleusIdLong\"",
-                        "href": "http://localhost:8080/restful/objects/simple.SimpleObject/0/properties/datanucleusIdLong",
-                        "method": "GET",
-                        "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object-property\""
-                    }
-                ],
-                "value": 0,
-                "format": "int",
-                "extensions": {
-                    "x-isis-format": "long"
-                },
-                "disabledReason": "Contributed property"
-            },
-            "datanucleusVersionTimestamp": {
-                "id": "datanucleusVersionTimestamp",
-                "memberType": "property",
-                "links": [
-                    {
-                        "rel": "urn:org.restfulobjects:rels/details;property=\"datanucleusVersionTimestamp\"",
-                        "href": "http://localhost:8080/restful/objects/simple.SimpleObject/0/properties/datanucleusVersionTimestamp",
-                        "method": "GET",
-                        "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object-property\""
-                    }
-                ],
-                "value": 1514897074953,
-                "format": "utc-millisec",
-                "extensions": {
-                    "x-isis-format": "javasqltimestamp"
-                },
-                "disabledReason": "Contributed property"
-            },
-            "downloadLayoutXml": {
-                "id": "downloadLayoutXml",
-                "memberType": "action",
-                "links": [
-                    {
-                        "rel": "urn:org.restfulobjects:rels/details;action=\"downloadLayoutXml\"",
-                        "href": "http://localhost:8080/restful/objects/simple.SimpleObject/0/actions/downloadLayoutXml",
-                        "method": "GET",
-                        "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object-action\""
-                    }
-                ]
-            },
-            "rebuildMetamodel": {
-                "id": "rebuildMetamodel",
-                "memberType": "action",
-                "links": [
-                    {
-                        "rel": "urn:org.restfulobjects:rels/details;action=\"rebuildMetamodel\"",
-                        "href": "http://localhost:8080/restful/objects/simple.SimpleObject/0/actions/rebuildMetamodel",
-                        "method": "GET",
-                        "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object-action\""
-                    }
-                ]
-            },
-            "downloadJdoMetadata": {
-                "id": "downloadJdoMetadata",
-                "memberType": "action",
-                "links": [
-                    {
-                        "rel": "urn:org.restfulobjects:rels/details;action=\"downloadJdoMetadata\"",
-                        "href": "http://localhost:8080/restful/objects/simple.SimpleObject/0/actions/downloadJdoMetadata",
-                        "method": "GET",
-                        "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object-action\""
-                    }
-                ]
-            },
-            "delete": {
-                "id": "delete",
-                "memberType": "action",
-                "links": [
-                    {
-                        "rel": "urn:org.restfulobjects:rels/details;action=\"delete\"",
-                        "href": "http://localhost:8080/restful/objects/simple.SimpleObject/0/actions/delete",
-                        "method": "GET",
-                        "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object-action\""
-                    }
-                ]
-            },
-            "updateName": {
-                "id": "updateName",
-                "memberType": "action",
-                "links": [
-                    {
-                        "rel": "urn:org.restfulobjects:rels/details;action=\"updateName\"",
-                        "href": "http://localhost:8080/restful/objects/simple.SimpleObject/0/actions/updateName",
-                        "method": "GET",
-                        "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object-action\""
-                    }
-                ]
-            },
-            "clearHints": {
-                "id": "clearHints",
-                "memberType": "action",
-                "links": [
-                    {
-                        "rel": "urn:org.restfulobjects:rels/details;action=\"clearHints\"",
-                        "href": "http://localhost:8080/restful/objects/simple.SimpleObject/0/actions/clearHints",
-                        "method": "GET",
-                        "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object-action\""
-                    }
-                ]
-            }
-        }
-    };
 
 }
 }

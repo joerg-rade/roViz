@@ -17,5 +17,22 @@ public class StringUtils {
         return output;
     }
 
+    public static function deCamel(input:String):String {
+        var output:String = "";
+        var c:String;
+        for (var i:uint = 0; i < input.length; i++ )  {
+            c = input.charAt(i);
+            if (i == 0) {
+                output += c.toUpperCase();
+            } else {
+                if (c.toUpperCase() == c) {
+                    c = " " + c;
+                }  
+                output += c;
+            }
+        }
+        return output;
+    }
+
 }
 }

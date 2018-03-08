@@ -23,7 +23,7 @@ public class Dialog extends TitleWindow {
         lbl.text = title;
         addChild(lbl);
 
-        PopUpManager.addPopUp(this, Globals.getView(), true);
+        PopUpManager.addPopUp(this, Globals.getInstance().getView(), true);
         PopUpManager.centerPopUp(this);
     }
 

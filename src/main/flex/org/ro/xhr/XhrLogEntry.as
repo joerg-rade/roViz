@@ -1,6 +1,7 @@
 package org.ro.xhr {
 import org.ro.core.Globals;
 import org.ro.mx.ImageRepository;
+import org.ro.handler.Dispatcher;
 
 public class XhrLogEntry {
     public var icon:Class;
@@ -16,6 +17,7 @@ public class XhrLogEntry {
     public var response:String;
     public var duration:int = 0;
     internal var visible:Boolean = true;
+    public var cacheHits:uint = 0;
 
     public function XhrLogEntry(url:String, method:String, requestLength:uint) {
         this.startDate = new Date();
@@ -28,7 +30,7 @@ public class XhrLogEntry {
 
     internal function calculate():void {
         this.duration = endDate.time - start;
-        var logStartTime:int = Globals.getDsp().log.getLogStartTime();
+        var logStartTime:int = Globals.getInstance().getLog().getLogStartTime();
         this.offset = start - logStartTime;
     }
 
@@ -55,6 +57,15 @@ public class XhrLogEntry {
 
     internal function setVisible(bool:Boolean):void {
         this.visible = bool;
+    }
+
+    public function getResponse():String {
+        return response;
+    }
+
+    public function retrieveResponse():String {
+        cacheHits = cacheHits + 1;
+        return response;
     }
 
 }

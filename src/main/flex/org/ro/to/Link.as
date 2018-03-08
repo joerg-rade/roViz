@@ -15,6 +15,7 @@ public class Link extends Invokeable {
     }
 
     override protected function init():void {
+        super.init();
         argumentList = new Vector.<Argument>();
         for each(var o:Object in this.arguments) {
             argumentList.push(new Argument(o));

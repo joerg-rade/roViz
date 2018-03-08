@@ -4,6 +4,7 @@ import mx.rpc.events.ResultEvent;
 import mx.rpc.http.mxml.HTTPService;
 
 import org.ro.core.Globals;
+import org.ro.handler.Dispatcher;
 import org.ro.to.Invokeable;
 import org.ro.to.Link;
 
@@ -13,14 +14,14 @@ import org.ro.to.Link;
 public class XmlHttpRequest extends HTTPService {
 
     protected function xhrFaultHandler(event:FaultEvent):void {
-        Globals.getDsp().log.fault(url, event.fault.faultString);
+        getLog().fault(url, event.fault.faultString);
     }
 
     protected function xhrResultHandler(event:ResultEvent):void {
         var jsonString:String = event.result.toString();
         var jsonObj:Object = JSON.parse(jsonString);
-        Globals.getDsp().log.end(url, jsonString);
-        Globals.getDsp().handle(jsonObj);
+        getLog().end(url, jsonString.replace("\r\n", ""));
+        getDsp().handle(jsonObj);
     }
 
     public function XmlHttpRequest() {
@@ -32,8 +33,10 @@ public class XmlHttpRequest extends HTTPService {
     public function invoke(inv:Invokeable):void {
         cancel();
         super.url = inv.getHref();
+        if (isCached(url))
+            return;
         super.method = inv.getMethod();
-        var credentials:String = Globals.getDsp().credentials;
+        var credentials:String = Globals.getInstance().credentials;
         super.headers = {Authorization: "Basic " + credentials};
         super.headers["Accept"] = "application/json";
         super.contentType = "application/json";
@@ -46,7 +49,26 @@ public class XmlHttpRequest extends HTTPService {
         } else {
             send();
         }
-        Globals.getDsp().log.start(url, method, len);
+        getLog().start(url, method, len);
+    }
+
+    private function isCached(url:String):Boolean {
+        var le:XhrLogEntry = getLog().find(url);
+        if (le != null && (le.getResponse() != null)) {
+            var jsonStr:String = le.retrieveResponse();
+            var json:Object = JSON.parse(jsonStr);
+            getDsp().handle(json);
+            return true;
+        }
+        return false;
+    }
+
+    private static function getDsp():Dispatcher {
+        return Globals.getInstance().getDsp();
+    }
+
+    private static function getLog():RequestLog {
+        return Globals.getInstance().getLog();
     }
 
 }

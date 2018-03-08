@@ -9,8 +9,7 @@ public class Invokeable extends LinkedTO {
 
     internal var href:String;
     internal var method:String;
-//    internal var arguments:Object;
-
+    
     public function invoke():void {
         var xhr:XmlHttpRequest = new XmlHttpRequest();
         xhr.invoke(this);
@@ -32,8 +31,5 @@ public class Invokeable extends LinkedTO {
         this.method = method;
     }
 
-//    public function getArguments():Object {
-//        return arguments;
-//    }
 }
 }

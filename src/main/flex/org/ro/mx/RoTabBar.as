@@ -72,7 +72,7 @@ public class RoTabBar extends TabNavigator {
             removeTab(null);
         } else if (event.item.@id == "dock") {
             var tab:IDockable = this.getItemAt(selectedIndex) as IDockable;
-            Globals.getDock().addView(tab);
+            Globals.getInstance().getDock().addView(tab);
             //new KitchenSink("Next");
         } else {
             Alert.show(event.toString());

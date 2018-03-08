@@ -103,7 +103,7 @@ public class RoTab extends VBox implements IDockable {
             for each(var pl:PropertyLayout in properties) {
                 field = pl.getId();
                 width = pl.getTypicalLength();
-                name = field;
+                name = layout.getPropertyLabel(field);
                 tip = pl.getDescribedAs();
                 cs = new ColumnSpecification(field, width, name, tip);
                 csList.push(cs);

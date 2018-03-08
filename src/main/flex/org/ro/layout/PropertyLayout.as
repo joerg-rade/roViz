@@ -1,4 +1,6 @@
 package org.ro.layout {
+import org.ro.to.Link;
+
 public class PropertyLayout extends MemberLayout {
 
     internal var action:Object;
@@ -9,12 +11,21 @@ public class PropertyLayout extends MemberLayout {
     internal var unchanging:Object;
 
     public function PropertyLayout(jsonObj:Object = null) {
-        fromObject(jsonObj);
+        if (jsonObj != null) {
+            this.fromObject(jsonObj);
+            linkObject = new Link(jsonObj.link); //TODO
+            //init();
+        }
+    }
+
+    override protected function init():void {
+        //TODO link has an unexpected value of [object Object] - WTF
+        linkObject = new Link(link);
     }
 
     public function getTypicalLength():uint {
         return typicalLength;
     }
-    
+
 }
 }
