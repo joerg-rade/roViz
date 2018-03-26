@@ -1,7 +1,5 @@
 package org.ro.handler {
-
 import org.ro.core.Globals;
-import org.ro.core.Menu;
 import org.ro.core.ObjectList;
 import org.ro.to.Extensions;
 
@@ -41,24 +39,8 @@ public class AbstractHandler implements IHandler {
     public function doHandle(jsonObj:Object):void {
     }
 
-    internal static function getDsp():Dispatcher {
-        return Globals.getInstance().getDsp();
-    }
-
-    internal static function getMenu():Menu {
-        return Globals.getInstance().getMenu();
-    }
-
-    internal static function setMenu(menu:Menu):void {
-        Globals.getInstance().setMenu(menu);
-    }
-
     internal static function getObjectList():ObjectList {
         return Globals.getInstance().getList();
-    }
-
-    internal static function setObjectList(objectList:ObjectList):void {
-        Globals.getInstance().setList(objectList);
     }
 
     internal static function isEmptyObject(obj:Object):Boolean {

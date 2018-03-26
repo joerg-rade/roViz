@@ -14,6 +14,7 @@ public class Extensions extends BaseTO {
     internal var actionType:String;
     internal var xIsisFormat:String; 
     internal var friendlyName:String; 
+    internal var collectionSemantics:String;
 
     public function Extensions(jsonObj:Object = null) {
         if (jsonObj != null) {

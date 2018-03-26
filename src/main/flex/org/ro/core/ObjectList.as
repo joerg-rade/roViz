@@ -1,5 +1,4 @@
 package org.ro.core {
-
 import mx.collections.ArrayCollection;
 
 import org.ro.layout.Layout;
@@ -9,25 +8,36 @@ import org.ro.to.Member;
 public class ObjectList {
 
     private var limit:int;
-    private var list:Vector.<Object>;  //TODO use Vector.<DomainObject>
+    private var list:Vector.<ObjectAdapter>;
     private var layout:Layout;
-
 
     public function ObjectList(limit:int) {
         this.limit = limit;
-        this.list = new Vector.<Object>();
+        this.list = new Vector.<ObjectAdapter>();
     }
 
-    public function addObject(members:Vector.<Invokeable>):void {
-        var object:Object = {};
-        for each(var m:Member in members) {
-            object[m.getId()] = m.getValue();
+    /**
+     * @param properties contains the attributes of the object
+     */
+    public function addObject(properties:Vector.<Invokeable>):void {
+        var object:Object = new Object();
+        var key:String;
+        var value:Object;
+        var type:Class;
+        var attribute:Object;
+        var wrapper:ObjectAdapter;
+        for each(var p:Member in properties) {
+            key = p.getId();
+            value = p.getValue();
+            type = p.getType();
+            //TODO apply typing here ?
+            attribute = new type(value);
+            // or is an empty Object more appropriate?
+            if (value == null) attribute = null;
+            object[key] = attribute;
         }
-        if (list.length <= limit) {
-            list.push(object);
-        } else {
-            //TODO throw an exception
-        }
+        wrapper = new ObjectAdapter(object, null, null, null);
+        list.push(wrapper);
     }
 
     public function hasLayout():Boolean {
@@ -35,11 +45,12 @@ public class ObjectList {
     }
 
     public function isReadyForDisplay():Boolean {
-        return (isFilled() && areLabelsSet());      
+        return (isFilled()); // && areLabelsSet());      
 
         function isFilled():Boolean {
-            return (list.length >= limit);
+            return (length() >= limit);
         }
+
         function areLabelsSet():Boolean {
             return hasLayout() && !layout.arePropertyLabelsToBeSet();
         }
@@ -47,10 +58,10 @@ public class ObjectList {
 
     public function forDataGrid():ArrayCollection {
         var gridList:ArrayCollection = new ArrayCollection();
-        for each (var o:Object in list) {
+        for each (var o:ObjectAdapter in list) {
             gridList.addItem(o);
         }
-        return (gridList);
+        return gridList;
     }
 
     public function setLayout(layout:Layout):void {
@@ -61,11 +72,11 @@ public class ObjectList {
         return layout;
     }
 
-    public function last():Object {
+    public function last():ObjectAdapter {
         return list[list.length - 1];
     }
 
-    public function length():Object {
+    public function length():uint {
         return list.length;
     }
 

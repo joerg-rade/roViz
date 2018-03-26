@@ -85,7 +85,7 @@ class Result extends LinkedTO {
 }
 Result o-> inv.Link : values
 
-class RObject extends TitledTO {
+class TObject extends TitledTO {
     domainType:String
     instanceId:uint
 }

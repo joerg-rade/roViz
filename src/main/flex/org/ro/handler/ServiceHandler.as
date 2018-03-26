@@ -1,4 +1,5 @@
 package org.ro.handler {
+import org.ro.core.Globals;
 import org.ro.core.Menu;
 import org.ro.to.Invokeable;
 import org.ro.to.Link;
@@ -15,7 +16,8 @@ public class ServiceHandler extends AbstractHandler implements IHandler {
     public override function doHandle(jsonObj:Object):void {
         var service:Service = new Service(jsonObj);
         var values:Vector.<Invokeable> = service.getValues();
-        setMenu(new Menu(values.length));
+        var menu:Menu = new Menu(values.length);
+        Globals.getInstance().setMenu(menu);
         for each (var l:Link in values) {
             l.invoke();
         }

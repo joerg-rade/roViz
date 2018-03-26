@@ -19,7 +19,7 @@ public class LayoutHandler extends AbstractHandler implements IHandler {
     }
 
     //FIXME check handler chain
-    // (1) FR_OBJECT                RObjectHandler -> invoke()
+    // (1) FR_OBJECT                TObjectHandler -> invoke()
     // (2) FR_OBJECT_LAYOUT         layoutHandler -> invoke(layout.getProperties()[].getLink()) link can be null?
     // (3) FR_OBJECT_PROPERTY       PropertyHandler -> invoke()
     // (4) FR_PROPERTY_DESCRIPTION  PropertyDescriptionHandler

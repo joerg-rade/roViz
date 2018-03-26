@@ -3,11 +3,11 @@ import org.ro.core.Globals;
 import org.ro.core.ObjectList;
 import org.ro.mx.ImageRepository;
 import org.ro.to.Invokeable;
-import org.ro.to.RObject;
+import org.ro.to.TObject;
 
-public class RObjectHandler extends AbstractHandler implements IHandler {
+public class TObjectHandler extends AbstractHandler implements IHandler {
 
-    public function RObjectHandler() {
+    public function TObjectHandler() {
     }
 
     public override function canHandle(jsonObj:Object):Boolean {
@@ -17,7 +17,7 @@ public class RObjectHandler extends AbstractHandler implements IHandler {
 
     public override function doHandle(jsonObj:Object):void {
         var list:ObjectList = getObjectList();
-        var ro:RObject = new RObject(jsonObj);
+        var ro:TObject = new TObject(jsonObj);
         if (isLayoutToBeSet(list)) {
             ro.getLayoutLink().invoke();
         }

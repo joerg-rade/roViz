@@ -14,14 +14,14 @@ public class TableBuilder {
         grid.selectionMode = "multipleRows";
         grid.columns = new ArrayList();
         var gc:GridColumn;
-        for each(var cs:ColumnSpecification in csList) {
+        for each(var cs:ColDef in csList) {
             gc = buildColumn(cs);
             grid.columns.addItem(gc);
         }
         return grid;
     }
 
-    private static function buildColumn(cs:ColumnSpecification):GridColumn {
+    private static function buildColumn(cs:ColDef):GridColumn {
         var gc:GridColumn = new GridColumn(cs.getName());
         gc.dataField = cs.getField();
         gc.percentWidth = cs.getWidth();

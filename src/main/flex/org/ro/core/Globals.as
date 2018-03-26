@@ -1,17 +1,21 @@
 package org.ro.core {
-import mx.core.FlexGlobals;
-
 import org.ro.handler.Dispatcher;
 import org.ro.mx.Dock;
+import org.ro.mx.RoMenuBar;
 import org.ro.mx.RoStatusBar;
 import org.ro.mx.RoView;
 import org.ro.xhr.RequestLog;
-import org.ro.mx.RoMenuBar;
 
 /**
+ * Pattern: Singleton, Facade
+ * Single Point of Contact between view components and all other classes.
+ * 
+ * View components: RoView, RoStatusbar, RoMenubar, Tabs, Dock etc.
+ * Other classes: handler, transferObjects (to), etc.
+ * 
  * - keeps track of connected server,
  * - the menu,
- * - object lists, 
+ * - object lists,
  */
 public class Globals {
     private static var instance:Globals = null;
@@ -89,6 +93,6 @@ public class Globals {
     public function setList(list:ObjectList):void {
         this.list = list;
     }
-    
+
 }
 }

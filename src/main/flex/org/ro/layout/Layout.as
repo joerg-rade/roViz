@@ -10,18 +10,19 @@ public class Layout extends AbstractLayout {
 
     internal var row:Object; // which actually is a list of rows
     internal var rows:Vector.<RowLayout>;
-    internal var properties:Vector.<PropertyLayout>;
-    internal var propertyLabels:Object;
+    private var properties:Vector.<PropertyLayout>;
+    private var propertyLabels:Object = {};
 
     public function Layout(jsonObj:Object = null) {
-        fromObject(jsonObj);
-        init();
+        if (jsonObj != null) {
+            this.fromObject(jsonObj);
+            init();
+        }
     }
 
     private function init():void {
         var props:Array = extractProperties();
         initProperties(props);
-        initPropertyLabels();
 
         function initProperties(props:Array):void {
             properties = new Vector.<PropertyLayout>();
@@ -30,10 +31,6 @@ public class Layout extends AbstractLayout {
                 pl = new PropertyLayout(json);
                 properties.push(pl);
             }
-        }
-
-        function initPropertyLabels():void {
-            propertyLabels = {};
         }
 
         //TODO refactor train.wreck.s  

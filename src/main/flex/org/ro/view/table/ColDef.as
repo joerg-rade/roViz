@@ -3,7 +3,10 @@ import mx.core.ClassFactory;
 
 import org.ro.core.StringUtils;
 
-public class ColumnSpecification {
+/**
+ * Column specification
+ */
+public class ColDef {
 
     private var field:String;
     private var name:String;
@@ -11,7 +14,11 @@ public class ColumnSpecification {
     private var tip:String;
     private var renderer:ClassFactory;
 
-    public function ColumnSpecification(field:String = null, width:uint = 0, name:String = null, tip:String = null, renderer:ClassFactory = null) {
+    public function ColDef(field:String = null,
+                           width:uint = 0,
+                           name:String = null,
+                           tip:String = null,
+                           renderer:ClassFactory = null) {
         this.field = field;
         this.name = name;
         this.width = width;
@@ -32,11 +39,19 @@ public class ColumnSpecification {
     }
 
     public function getWidth():uint {
-        if (width == 0) {
-            return name.length;
+        var r:uint = 10;
+        if (width > 0) {
+            r = width;
         } else {
-            return width;
+            if (name != null) {
+                r = name.length;
+            } else {
+                if (field != null) {
+                    r = field.length;
+                }
+            }
         }
+        return r;
     }
 
     public function getTip():String {
@@ -44,7 +59,7 @@ public class ColumnSpecification {
     }
 
     public function hasTip():Boolean {
-        return (tip == null);
+        return (tip != null);
     }
 
     public function getRenderer():ClassFactory {

@@ -12,7 +12,7 @@ public class Dispatcher {
         var second:ActionHandler = new ActionHandler();
         var third:MemberHandler = new MemberHandler();
         var forth:ListHandler = new ListHandler();
-        var fifth:RObjectHandler = new RObjectHandler();
+        var fifth:TObjectHandler = new TObjectHandler();
         var sixth:LayoutHandler = new LayoutHandler();
         var seventh:PropertyHandler = new PropertyHandler();
         var eighth:PropertyDescriptionHandler = new PropertyDescriptionHandler();

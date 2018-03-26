@@ -1,6 +1,6 @@
 package org.ro.to {
 /**
- * 'abstract' superclass of RObject and Service
+ * 'abstract' superclass of TObject and Service
  */
 public class TitledTO extends LinkedTO {
     internal var extensions:Object;
@@ -26,16 +26,6 @@ public class TitledTO extends LinkedTO {
     public function getMembers():Vector.<Invokeable> {
         return this.memberList;
     }
-
-    public function getProperties():Vector.<Invokeable> {
-        var result:Vector.<Invokeable> = new Vector.<Invokeable>();
-        for each(var m:Member in memberList) {
-            if (m.memberType == Member.PROPERTY) {
-                result.push(m);
-            }
-        }
-        return result;
-    }
-
+    
 }
 }

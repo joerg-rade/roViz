@@ -9,6 +9,9 @@ public class PropertyDescriptionHandler extends AbstractHandler implements IHand
     }
 
     public override function canHandle(jsonObj:Object):Boolean {
+        if (jsonObj.id == null) {
+            return false;
+        } 
         var ext:Extensions = asExtensions(jsonObj);
         return (ext.getFriendlyName() != null);
     }

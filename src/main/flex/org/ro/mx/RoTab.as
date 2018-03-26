@@ -2,6 +2,7 @@ package org.ro.mx {
 import flash.events.MouseEvent;
 
 import mx.containers.VBox;
+import mx.controls.Alert;
 import mx.controls.Menu;
 import mx.controls.dataGridClasses.DataGridColumn;
 import mx.core.ClassFactory;
@@ -9,7 +10,7 @@ import mx.core.ClassFactory;
 import org.ro.core.ObjectList;
 import org.ro.layout.Layout;
 import org.ro.layout.PropertyLayout;
-import org.ro.view.table.ColumnSpecification;
+import org.ro.view.table.ColDef;
 import org.ro.view.table.IconRenderer;
 import org.ro.view.table.TableBuilder;
 
@@ -69,6 +70,7 @@ public class RoTab extends VBox implements IDockable {
             doubleClickHandlerMenu(event);
         } else {
             // TODO Globals.getDsp().invoke(item);
+            Alert.show("Define Link to be invoked");
         }
     }
 
@@ -96,7 +98,7 @@ public class RoTab extends VBox implements IDockable {
             var name:String = " ";
             var tip:String = null;
             //TODO take icon from layout (default=box), pass icon:Class instead of new ClassFactory(IconRenderer)
-            var cs:ColumnSpecification = new ColumnSpecification(field, width, name, tip, new ClassFactory(IconRenderer));
+            var cs:ColDef = new ColDef(field, width, name, tip, new ClassFactory(IconRenderer));
             csList.push(cs);
 
             var properties:Vector.<PropertyLayout> = layout.getProperties();
@@ -105,7 +107,7 @@ public class RoTab extends VBox implements IDockable {
                 width = pl.getTypicalLength();
                 name = layout.getPropertyLabel(field);
                 tip = pl.getDescribedAs();
-                cs = new ColumnSpecification(field, width, name, tip);
+                cs = new ColDef(field, width, name, tip);
                 csList.push(cs);
             }
         }

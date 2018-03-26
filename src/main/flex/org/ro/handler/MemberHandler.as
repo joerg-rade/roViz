@@ -15,10 +15,11 @@ public class MemberHandler extends AbstractHandler implements IHandler {
     public override function doHandle(jsonObj:Object):void {
         var service:Service = new Service(jsonObj);
         var members:Vector.<Invokeable> = service.getMembers();
-        var mnu:Menu = getMenu();
+        var spock:Globals = Globals.getInstance();
+        var mnu:Menu = spock.getMenu();
         var done:Boolean = mnu.init(service, members);
         if (done) {
-            Globals.getInstance().amendMenu(mnu);
+            spock.amendMenu(mnu);
         }
     }
 

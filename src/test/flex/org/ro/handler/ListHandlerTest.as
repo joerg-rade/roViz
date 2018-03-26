@@ -3,9 +3,10 @@ import org.flexunit.Assert;
 import org.ro.URLS;
 import org.ro.core.Globals;
 import org.ro.core.Menu;
+import org.ro.core.ObjectList;
 
-public class ServiceHandlerTest {
-    public function ServiceHandlerTest() {
+public class ListHandlerTest {
+    public function ListHandlerTest() {
     }
 
     [Test(description="handover json from service ")]
@@ -13,12 +14,13 @@ public class ServiceHandlerTest {
         // given
         var spock:Globals = Globals.getInstance();
         var dsp:Dispatcher = spock.getDsp();
+        var m:Menu = new Menu(0);
+        spock.setMenu(m);
         // when
-        dsp.handle(URLS.RESTFUL_SERVICES);
-        var m1:Menu = spock.getMenu();
+        dsp.handle(URLS.SO_LIST_ALL_INVOKE);
+        var t1:ObjectList = spock.getList();
         // then
-        Assert.assertNotNull(m1);
-        Assert.assertNotNull(m1.getItems());
+        Assert.assertNotNull(t1);
     }
 
 }

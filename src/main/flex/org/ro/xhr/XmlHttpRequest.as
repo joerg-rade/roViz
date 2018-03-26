@@ -44,12 +44,11 @@ public class XmlHttpRequest extends HTTPService {
         if (super.method == Invokeable.POST) {
             var l:Link = inv as Link;
             var body:String = l.getArgumentsAsJsonString();
-            len = body.length;
             send(body);
         } else {
             send();
         }
-        getLog().start(url, method, len);
+        getLog().start(url, method, body);
     }
 
     private function isCached(url:String):Boolean {

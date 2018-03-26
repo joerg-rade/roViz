@@ -1,17 +1,18 @@
 package org.ro.xhr {
 import org.ro.core.Globals;
 import org.ro.mx.ImageRepository;
-import org.ro.handler.Dispatcher;
 
 public class XhrLogEntry {
     public var icon:Class;
     public var url:String;
+    public var urlTitle:String;
     public var method:String;
     public var start:uint;
     public var startDate:Date;
     public var endDate:Date;
     public var offset:uint;
     public var fault:String;
+    public var request:String;    //TODO
     public var requestLength:uint;
     public var responseLength:uint;
     public var response:String;
@@ -19,12 +20,16 @@ public class XhrLogEntry {
     internal var visible:Boolean = true;
     public var cacheHits:uint = 0;
 
-    public function XhrLogEntry(url:String, method:String, requestLength:uint) {
+    public function XhrLogEntry(url:String, method:String, body:String) {
         this.startDate = new Date();
         this.start = startDate.time;
         this.url = url;
+        this.urlTitle = stripHostPort(url);
         this.method = method;
-        this.requestLength = requestLength;
+        this.request = body;
+        if (body != null) {
+            this.requestLength = body.length;
+        }
         this.icon = ImageRepository.YellowIcon;
     }
 
@@ -66,6 +71,20 @@ public class XhrLogEntry {
     public function retrieveResponse():String {
         cacheHits = cacheHits + 1;
         return response;
+    }
+
+    public function stripHostPort(url:String):String {
+        var result:String = url;
+        result = result.replace("http://localhost:8080/restful/", "");
+        return result;
+    }
+    
+    public function printString():String {
+        var result:String = "[";
+        result += "url: "+ url + "\n";
+        result += "arguments: " + request + "\n";
+        result +=  "response: " + response + "]";
+        return result;
     }
 
 }

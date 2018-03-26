@@ -3,7 +3,7 @@ package org.ro.core {
 import flash.utils.Dictionary;
 
 /**
- * Keeps a list of closed/minmized/docked views in order to be able to recreate them.
+ * Keeps a list of closed/minmized/docked views in order to recreate them.
  * When a tab is 'docked' it can be looked up here.
  * And instead of creating a view a second time, it can be taken from here.
  * setVisible(false) ?

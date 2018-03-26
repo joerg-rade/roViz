@@ -6,9 +6,10 @@ public class Member extends Invokeable {
     internal var id:String;
     internal var memberType:String;
     internal var value:String;
+    private var valueObject:Link;
     internal var format:String; // type information
     internal var extensions:Object;
-    private var extension:Extensions;
+    private var extensionObject:Extensions;
     internal var disabledReason:String;
     internal var optional:Object;
 
@@ -24,7 +25,9 @@ public class Member extends Invokeable {
         var link:Link = linkList[0];
         href = link.getHref();
         method = link.getMethod();
-        extension = new Extensions(extensions);
+        extensionObject = new Extensions(extensions);
+        //TODO use format and/or extensions.xIsisFormat on order to type
+        valueObject = new Link(value);
     }
 
     public function getId():String {
@@ -36,7 +39,15 @@ public class Member extends Invokeable {
     }
 
     public function getExtension():Extensions {
-        return extension;
+        return extensionObject;
+    }
+    
+    public function getType():Class {
+        if (format == "int") return Number;
+        if (format == "utc-millisec") return Number;
+        if (format == "string") return String;
+        if (format == "object") return Link;
+        return Object;
     }
 
 }

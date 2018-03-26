@@ -1,5 +1,4 @@
 package org.ro.mx {
-
 import mx.collections.XMLListCollection;
 import mx.controls.MenuBar;
 import mx.events.MenuEvent;
@@ -138,7 +137,7 @@ public class RoMenuBar extends MenuBar {
                 </topmenu>;
         return menuItems;
     }
-    
+
     public function getMenu():Menu {
         return menu;
     }

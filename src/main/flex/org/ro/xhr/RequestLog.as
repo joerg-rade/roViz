@@ -26,8 +26,8 @@ public class RequestLog {
         }
     }
 
-    public function start(url:String, method:String, requestLength:uint):void {
-        var entry:XhrLogEntry = new XhrLogEntry(url, method, requestLength);
+    public function start(url:String, method:String, body:String):void {
+        var entry:XhrLogEntry = new XhrLogEntry(url, method, body);
         log.push(entry);
         updateStatus(entry);
     }

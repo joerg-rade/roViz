@@ -1,29 +1,29 @@
 package org.ro.handler {
 import org.ro.core.Globals;
 import org.ro.core.ObjectList;
-import org.ro.to.Invokeable;
 import org.ro.to.Link;
 import org.ro.to.List;
 
-public class ListHandler extends AbstractHandler implements IHandler {
-    public function ListHandler() {
+public class ListHandler1_16_2 extends AbstractHandler implements IHandler {
+    public function ListHandler1_16_2() {
     }
 
     public override function canHandle(jsonObj:Object):Boolean {
-        var r:Object = jsonObj.result;
-        if (r == null) {
+        var v:Object = jsonObj.value;
+        if ((v == null) || isEmptyObject(v)) {
             return false;
         }
-        var v:Array = r.value;
-        if (v == null) {
+        if (v is Array) {
+            var va:Array = v as Array;
+            return va.length > 0;
+        } else {
             return false;
         }
-        return v.length > 0;
     }
 
     public override function doHandle(jsonObj:Object):void {
         var list:List = new List(jsonObj);
-        var members:Vector.<Invokeable> = list.getResult().getValues();
+        var members:Vector.<Link> = list.getValues();
         var size:uint = members.length;
         var objectList:ObjectList = new ObjectList(size);
         Globals.getInstance().setList(objectList);

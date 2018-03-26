@@ -2,6 +2,7 @@ package org.ro.to {
 import org.flexunit.Assert;
 import org.ro.URLS;
 import org.ro.core.ObjectList;
+import org.ro.core.ObjectAdapter;
 
 public class MemberTest {
     public function MemberTest() {
@@ -17,21 +18,37 @@ public class MemberTest {
 
     // http://localhost:8080/restful/objects/simple.SimpleObject/0
     [Test(description="parse result of invoking url")]
-    public function testRObjectMembers():void {
-        var ro:RObject = new RObject(URLS.SO_0);
-        var members:Vector.<Invokeable> = ro.getMembers();
+    public function testTObjectMembers():void {
+        var to:TObject = new TObject(URLS.SO_0);
+        Assert.assertTrue(to.title == "Object: Foo");
+
+        var members:Vector.<Invokeable> = to.getMembers();
         Assert.assertEquals(10, members.length);
 
-        var properties:Vector.<Invokeable> = ro.getProperties();
+        var properties:Vector.<Invokeable> = to.getProperties();
         Assert.assertEquals(4, properties.length);
 
         var objectList:ObjectList = new ObjectList(1);
         objectList.addObject(properties);
-        var object:Object = objectList.last();
-        Assert.assertTrue(object.name == "Foo");
-        Assert.assertTrue(object.notes == null);
-        Assert.assertTrue(object.datanucleusIdLong == 0);
-        Assert.assertTrue(object.datanucleusVersionTimestamp == 1514897074953);
+
+        // this is kind of untyped again
+        var ro:ObjectAdapter = objectList.last();
+        Assert.assertTrue(ro.getProperty("datanucleusIdLong") == 0);
+        Assert.assertTrue(ro.getProperty("datanucleusVersionTimestamp") == 1514897074953);
+        Assert.assertTrue(ro.getProperty("notes") == null);
+    }
+    
+    private function getValue(object:Object, key:String):Object {
+        for each (var m:Member in object) {
+            var id:String = m.id;
+            if (id == key) {
+                var type:String = m.format;
+                var value:Object = m.value;
+                //TODO cast to type
+                return value;
+            }
+        }
+        return null;
     }
 
 }
