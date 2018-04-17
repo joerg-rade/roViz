@@ -11,7 +11,7 @@ public class Parameter extends BaseTO {
 
     public function Parameter(jsonObj:Object = null) {
         if (jsonObj != null) {
-            this.fromObject(jsonObj);
+            this.fromJSON(jsonObj);
             init();
         }
     }

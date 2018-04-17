@@ -8,7 +8,7 @@ public class Result extends LinkedTO {
 
     public function Result(jsonObj:Object = null) {
         if (jsonObj != null) {
-            this.fromObject(jsonObj);
+            this.fromJSON(jsonObj);
             init();
         }
     }

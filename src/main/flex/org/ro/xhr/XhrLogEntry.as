@@ -49,7 +49,8 @@ public class XhrLogEntry {
     public function setSuccess(response:String):void {
         this.endDate = new Date();
         this.calculate();
-        this.response = response;
+        // TODO format output more nicely, eventually have tooltip render it?
+        this.response = response; //.replace("\r\n", "");
         this.responseLength = response.length;
         this.icon = ImageRepository.GreenIcon;
     }

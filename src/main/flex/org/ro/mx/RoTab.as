@@ -108,6 +108,9 @@ public class RoTab extends VBox implements IDockable {
                 name = layout.getPropertyLabel(field);
                 tip = pl.getDescribedAs();
                 cs = new ColDef(field, width, name, tip);
+                if (name == "Object") {
+                    cs = new ColDef(field, width, name, tip);
+                }
                 csList.push(cs);
             }
         }

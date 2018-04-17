@@ -9,7 +9,7 @@ public class Link extends Invokeable {
 
     public function Link(jsonObj:Object = null) {
         if (jsonObj != null) {
-            this.fromObject(jsonObj);
+            this.fromJSON(jsonObj);
             init();
         }
     }

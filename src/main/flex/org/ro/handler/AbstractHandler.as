@@ -43,10 +43,6 @@ public class AbstractHandler implements IHandler {
         return Globals.getInstance().getList();
     }
 
-    internal static function isEmptyObject(obj:Object):Boolean {
-        return JSON.stringify(obj) === '{}';
-    }
-
     internal static function asExtensions(jsonObj:Object):Extensions {
         return new Extensions(jsonObj.extensions);
     }

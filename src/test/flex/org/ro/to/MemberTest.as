@@ -35,21 +35,8 @@ public class MemberTest {
         var ro:ObjectAdapter = objectList.last();
         Assert.assertTrue(ro.getProperty("datanucleusIdLong") == 0);
         Assert.assertTrue(ro.getProperty("datanucleusVersionTimestamp") == 1514897074953);
-        Assert.assertTrue(ro.getProperty("notes") == null);
+        Assert.assertTrue(ro.getProperty("notes") == "null");
     }
     
-    private function getValue(object:Object, key:String):Object {
-        for each (var m:Member in object) {
-            var id:String = m.id;
-            if (id == key) {
-                var type:String = m.format;
-                var value:Object = m.value;
-                //TODO cast to type
-                return value;
-            }
-        }
-        return null;
-    }
-
 }
 }

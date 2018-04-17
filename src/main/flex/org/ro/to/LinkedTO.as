@@ -5,7 +5,7 @@ package org.ro.to {
  */
 public class LinkedTO extends BaseTO {
     internal var links:Object;
-    internal var linkList:Vector.<Link>;
+    public var linkList:Vector.<Link>;
 
     protected function init():void {
         linkList = new Vector.<Link>();

@@ -13,7 +13,7 @@ public class List1_16_2 extends LinkedTO {
 
     public function List1_16_2(jsonObj:Object = null) {
         if (jsonObj != null) {
-            this.fromObject(jsonObj);
+            this.fromJSON(jsonObj);
             init();
         }
     }

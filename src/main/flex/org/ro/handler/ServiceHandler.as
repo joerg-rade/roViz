@@ -1,5 +1,6 @@
 package org.ro.handler {
 import org.ro.core.Globals;
+import org.ro.core.Utils;
 import org.ro.core.Menu;
 import org.ro.to.Invokeable;
 import org.ro.to.Link;
@@ -10,7 +11,7 @@ public class ServiceHandler extends AbstractHandler implements IHandler {
     }
 
     public override function canHandle(jsonObj:Object):Boolean {
-        return isEmptyObject(jsonObj.extensions);
+        return Utils.isEmptyObject(jsonObj.extensions);
     }
 
     public override function doHandle(jsonObj:Object):void {

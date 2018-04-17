@@ -7,7 +7,7 @@ public class List extends LinkedTO {
 
     public function List(jsonObj:Object = null) {
         if (jsonObj != null) {
-            this.fromObject(jsonObj);
+            this.fromJSON(jsonObj);
             init();
         }
     }

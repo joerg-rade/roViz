@@ -2,7 +2,6 @@ package org.ro.mx {
 import mx.collections.XMLListCollection;
 import mx.controls.MenuBar;
 import mx.events.MenuEvent;
-import mx.utils.Base64Encoder;
 
 import org.ro.core.Globals;
 import org.ro.core.Menu;
@@ -61,16 +60,10 @@ public class RoMenuBar extends MenuBar {
         var pw:String = event.item.@password;
         var path:String = event.item.@path;
 
-        var credentials:String = user + ":" + pw;
-        var encoder:Base64Encoder = new Base64Encoder();
-        encoder.insertNewLines = false;
-        encoder.encode(credentials);
-        credentials = encoder.toString();
-
         var inst:Globals = Globals.getInstance();
-        inst.credentials = credentials;
-        inst.user = user;
-        inst.url = url;
+        inst.setUser(user);
+        inst.setPw(pw);
+        inst.setUrl(url);
 
         var statusBar:RoStatusBar = inst.getStatusBar();
         statusBar.user.text = user;

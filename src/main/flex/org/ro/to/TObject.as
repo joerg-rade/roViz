@@ -1,13 +1,14 @@
 package org.ro.to {
-import org.ro.core.StringUtils;
+import org.ro.core.Adaptable;
+import org.ro.core.Utils;
 
-public class TObject extends TitledTO {
-    internal var domainType:String;
-    internal var instanceId:uint;
+dynamic public class TObject extends TitledTO implements Adaptable {
+    public var domainType:String;
+    public var instanceId:uint;
 
     public function TObject(jsonObj:Object = null) {
         if (jsonObj != null) {
-            this.fromObject(jsonObj);
+            this.fromJSON(jsonObj);
             init();
         }
     }
@@ -20,7 +21,7 @@ public class TObject extends TitledTO {
     public function getLayoutLink():Link {
         for each(var l:Link in linkList) {
             //TODO can be "object-layout" >= 1.16
-            if (StringUtils.endsWith(l.getHref(), "layout")) {
+            if (Utils.endsWith(l.getHref(), "layout")) {
                 return l;
             }
         }

@@ -17,17 +17,17 @@ public class TObjectHandler extends AbstractHandler implements IHandler {
 
     public override function doHandle(jsonObj:Object):void {
         var list:ObjectList = getObjectList();
-        var ro:TObject = new TObject(jsonObj);
+        var to:TObject = new TObject(jsonObj);
         if (isLayoutToBeSet(list)) {
-            ro.getLayoutLink().invoke();
+            to.getLayoutLink().invoke();
         }
 
-        var objProps:Vector.<Invokeable> = ro.getProperties();
+        var objProps:Vector.<Invokeable> = to.getProperties();
         list.addObject(objProps);
 
         //TODO FEATURE Open tab immediately and append entries, have title reflect increasing numbers (n/limit)
         if (list.isReadyForDisplay()) {
-            var title:String = ro.getDomainType() + " (" + list.length() + ")";
+            var title:String = to.getDomainType() + " (" + list.length() + ")";
             Globals.getInstance().addTab(list, title, ImageRepository.ObjectsIcon);
         }
 

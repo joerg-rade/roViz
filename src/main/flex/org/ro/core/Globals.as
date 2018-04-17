@@ -1,4 +1,6 @@
 package org.ro.core {
+import mx.utils.Base64Encoder;
+
 import org.ro.handler.Dispatcher;
 import org.ro.mx.Dock;
 import org.ro.mx.RoMenuBar;
@@ -9,10 +11,10 @@ import org.ro.xhr.RequestLog;
 /**
  * Pattern: Singleton, Facade
  * Single Point of Contact between view components and all other classes.
- * 
+ *
  * View components: RoView, RoStatusbar, RoMenubar, Tabs, Dock etc.
  * Other classes: handler, transferObjects (to), etc.
- * 
+ *
  * - keeps track of connected server,
  * - the menu,
  * - object lists,
@@ -23,9 +25,9 @@ public class Globals {
     private var log:RequestLog = new RequestLog();
     private var view:RoView = null;
     //TODO make private
-    public var credentials:String;
-    public var user:String;
-    public var url:String;
+    private var user:String;
+    private var pw:String;
+    private var url:String;
     private var list:ObjectList;
 
     //TODO make private
@@ -87,11 +89,35 @@ public class Globals {
     }
 
     public function getList():ObjectList {
+        if (list == null) {
+            list = new ObjectList(0);
+        }
         return list;
     }
 
     public function setList(list:ObjectList):void {
         this.list = list;
+    }
+
+    public function setUser(user:String):void {
+        this.user = user;
+    }
+
+    public function setUrl(url:String):void {
+        this.url = url;
+    }
+
+    public function setPw(pw:String):void {
+        this.pw = pw;
+    }
+
+    public function getCredentials():String {
+        var credentials:String = this.user + ":" + this.pw;
+        var encoder:Base64Encoder = new Base64Encoder();
+        encoder.insertNewLines = false;
+        encoder.encode(credentials);
+        credentials = encoder.toString();
+        return credentials;
     }
 
 }

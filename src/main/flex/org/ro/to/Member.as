@@ -6,7 +6,7 @@ public class Member extends Invokeable {
     internal var id:String;
     internal var memberType:String;
     internal var value:String;
-    private var valueObject:Link;
+    private var valueObject:Object;
     internal var format:String; // type information
     internal var extensions:Object;
     private var extensionObject:Extensions;
@@ -15,7 +15,7 @@ public class Member extends Invokeable {
 
     public function Member(jsonObj:Object = null) {
         if (jsonObj != null) {
-            this.fromObject(jsonObj);
+            this.fromJSON(jsonObj);
             init();
         }
     }
@@ -27,7 +27,8 @@ public class Member extends Invokeable {
         method = link.getMethod();
         extensionObject = new Extensions(extensions);
         //TODO use format and/or extensions.xIsisFormat on order to type
-        valueObject = new Link(value);
+        var cls:Class = getType();
+        valueObject = new cls(value);
     }
 
     public function getId():String {
@@ -35,19 +36,29 @@ public class Member extends Invokeable {
     }
 
     public function getValue():Object {
-        return value;
+        return valueObject;
     }
 
     public function getExtension():Extensions {
         return extensionObject;
     }
-    
+
+    public function getMemberType():String {
+        return memberType;
+    }
+
     public function getType():Class {
-        if (format == "int") return Number;
-        if (format == "utc-millisec") return Number;
-        if (format == "string") return String;
+        if (isNumber()) return Number;
+        if (isString()) return String;
         if (format == "object") return Link;
         return Object;
+
+        function isString():Boolean {
+            return (format == "string") || (extensionObject.xIsisFormat == "string");
+        }
+        function isNumber():Boolean {
+            return (format == "int") || (format == "utc-millisec");
+        }
     }
 
 }

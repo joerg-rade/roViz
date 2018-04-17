@@ -20,7 +20,7 @@ public class XmlHttpRequest extends HTTPService {
     protected function xhrResultHandler(event:ResultEvent):void {
         var jsonString:String = event.result.toString();
         var jsonObj:Object = JSON.parse(jsonString);
-        getLog().end(url, jsonString.replace("\r\n", ""));
+        getLog().end(url, jsonString);
         getDsp().handle(jsonObj);
     }
 
@@ -36,7 +36,7 @@ public class XmlHttpRequest extends HTTPService {
         if (isCached(url))
             return;
         super.method = inv.getMethod();
-        var credentials:String = Globals.getInstance().credentials;
+        var credentials:String = Globals.getInstance().getCredentials();
         super.headers = {Authorization: "Basic " + credentials};
         super.headers["Accept"] = "application/json";
         super.contentType = "application/json";

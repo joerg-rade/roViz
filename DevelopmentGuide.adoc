@@ -6,7 +6,7 @@
 * IntelliJ 2017.3 (Ultimate)
 * Moz://a FireFox 52 ESR
 ** RestClient
-* Adobe FlashDebugger 28
+* Adobe FlashDebugger 29
 * Windows 7
 
 ## GotChas
@@ -32,6 +32,7 @@ to <FLEX_SDK>/frameworks/libs/player/<version>. Hereafter it should be possible 
 eventually after 'invalidate cache and restart'. 
 See: https://intellij-support.jetbrains.com/hc/en-us/community/posts/206750345-Flex-plugin-build-configuration-change-target-player-version
 
+* Error "object was null: null" => remove ij $user/temp/**/roviz_* directory.
 
 ## Helpful Resources:
 * https://stackoverflow.com/questions/5536420/intellij-idea-actionscript-project-cannot-connect-debugger-version-of-flash

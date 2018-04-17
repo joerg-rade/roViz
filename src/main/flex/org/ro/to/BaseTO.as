@@ -5,9 +5,9 @@ package org.ro.to {
  */
 public class BaseTO {
 
-    public function fromObject(obj:Object):void {
-        for (var prop:String in obj) {
-            this[prop] = obj[prop];
+    public function fromJSON(jsonObj:Object):void {
+        for (var prop:String in jsonObj) {
+            this[prop] = jsonObj[prop];
         }
     }
 

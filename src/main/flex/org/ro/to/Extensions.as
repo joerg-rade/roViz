@@ -19,7 +19,7 @@ public class Extensions extends BaseTO {
     public function Extensions(jsonObj:Object = null) {
         if (jsonObj != null) {
             var json:Object = fixXIsisFormat(jsonObj);
-            this.fromObject(json);
+            this.fromJSON(json);
         }
     }
 

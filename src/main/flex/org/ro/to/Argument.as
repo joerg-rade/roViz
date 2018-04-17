@@ -6,7 +6,7 @@ public class Argument extends BaseTO {
 
     public function Argument(jsonObj:Object = null) {
         if (jsonObj != null) {
-            this.fromObject(jsonObj);
+            this.fromJSON(jsonObj);
         }
     }
 

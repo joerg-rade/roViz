@@ -13,7 +13,7 @@ import mx.managers.PopUpManager;
 
 import org.apache.flex.collections.VectorList;
 import org.ro.core.Globals;
-import org.ro.core.StringUtils;
+import org.ro.core.Utils;
 import org.ro.to.Action;
 import org.ro.to.Link;
 import org.ro.to.Parameter;
@@ -33,7 +33,7 @@ public class Prompt extends TitleWindow {
 
     public function Prompt(action:Action) {
         this.action = action;
-        this.title = StringUtils.deCamel(action.getId());
+        this.title = Utils.deCamel(action.getId());
         this.showCloseButton = true;
         addEventListener(CloseEvent.CLOSE, closeHandler);
 

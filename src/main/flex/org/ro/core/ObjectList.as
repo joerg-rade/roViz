@@ -4,6 +4,7 @@ import mx.collections.ArrayCollection;
 import org.ro.layout.Layout;
 import org.ro.to.Invokeable;
 import org.ro.to.Member;
+import org.ro.to.TObject;
 
 public class ObjectList {
 
@@ -20,23 +21,24 @@ public class ObjectList {
      * @param properties contains the attributes of the object
      */
     public function addObject(properties:Vector.<Invokeable>):void {
-        var object:Object = new Object();
+        var object:TObject = new TObject();
         var key:String;
         var value:Object;
         var type:Class;
         var attribute:Object;
-        var wrapper:ObjectAdapter;
         for each(var p:Member in properties) {
-            key = p.getId();
-            value = p.getValue();
-            type = p.getType();
-            //TODO apply typing here ?
-            attribute = new type(value);
-            // or is an empty Object more appropriate?
-            if (value == null) attribute = null;
-            object[key] = attribute;
+            // filter out actions - they would lead to "[object Object]"
+            if (p.getMemberType() == "property") {
+                key = p.getId();
+                value = p.getValue();
+                type = p.getType();
+                attribute = new type(value);
+                // or is an empty Object more appropriate?
+                if (value == null) attribute = null;
+                object[key] = attribute;
+            }
         }
-        wrapper = new ObjectAdapter(object, null, null, null);
+        var wrapper:ObjectAdapter = new ObjectAdapter(object, null, null, null);
         list.push(wrapper);
     }
 

@@ -9,9 +9,9 @@ public class TObjectTest {
 
     [Test(description="parse result of invoking object url")]
     public function testParse():void {
-        var ro:TObject = new TObject(URLS.SO_0);
-        Assert.assertNotNull(ro);
-        Assert.assertNotNull(ro.getLayoutLink());
+        var to:TObject = new TObject(URLS.SO_0);
+        Assert.assertNotNull(to);
+        Assert.assertNotNull(to.getLayoutLink());
     }
 
 }

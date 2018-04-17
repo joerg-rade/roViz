@@ -3,14 +3,14 @@ package org.ro.to {
  * 'abstract' superclass of TObject and Service
  */
 public class TitledTO extends LinkedTO {
-    internal var extensions:Object;
-    internal var title:String;
+    public var extensions:Object;
+    public var title:String;
     internal var members:Object;
-    internal var memberList:Vector.<Invokeable>;
+    public var memberList:Vector.<Invokeable>;
 
     public function TitledTO(jsonObj:Object = null) {
         if (jsonObj != null) {
-            this.fromObject(jsonObj);
+            this.fromJSON(jsonObj);
             init();
         }
     }

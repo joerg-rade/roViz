@@ -1,7 +1,7 @@
 package org.ro.view.table {
 import mx.core.ClassFactory;
 
-import org.ro.core.StringUtils;
+import org.ro.core.Utils;
 
 /**
  * Column specification
@@ -32,7 +32,7 @@ public class ColDef {
 
     public function getName():String {
         if (name == null) {
-            return StringUtils.camelCase(field);
+            return Utils.camelCase(field);
         } else {
             return name;
         }

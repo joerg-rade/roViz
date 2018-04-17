@@ -1,4 +1,5 @@
 package org.ro {
+import org.ro.core.ObjectAdapterTest;
 import org.ro.handler.ListHandlerTest;
 import org.ro.handler.PropertyDescriptionHandlerTest;
 import org.ro.handler.ServiceHandlerTest;
@@ -18,6 +19,7 @@ import org.ro.to.ServiceTest;
 [RunWith("org.flexunit.runners.Suite")]
 public class TestSuite {
 
+    public var c1:ObjectAdapterTest;
     public var h1:ServiceHandlerTest;
     public var h2:ListHandlerTest;
     public var h3:PropertyDescriptionHandlerTest;

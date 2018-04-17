@@ -6,7 +6,7 @@ public class Service extends TitledTO {
 
     public function Service(jsonObj:Object = null) {
         if (jsonObj != null) {
-            this.fromObject(jsonObj);
+            this.fromJSON(jsonObj);
             init();
         }
     }

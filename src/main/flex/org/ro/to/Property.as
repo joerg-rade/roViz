@@ -10,7 +10,7 @@ public class Property extends Member {
     public function Property(jsonObj:Object = null) {
         memberType = Member.PROPERTY;
         if (jsonObj != null) {
-            this.fromObject(jsonObj);
+            this.fromJSON(jsonObj);
             init();
         }
     }
