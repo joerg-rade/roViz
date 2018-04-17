@@ -1,5 +1,5 @@
 package org.ro.core {
-public class StringUtils {
+public class Utils {
 
     public static function endsWith(obj:String, qry:String):Boolean {
         var qLen:uint = qry.length;
@@ -32,6 +32,10 @@ public class StringUtils {
             }
         }
         return output;
+    }
+
+    public static function isEmptyObject(obj:Object):Boolean {
+        return JSON.stringify(obj) === '{}';
     }
 
 }
