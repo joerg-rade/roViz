@@ -18,11 +18,12 @@ public class LayoutHandler extends AbstractHandler implements IHandler {
         initPropertyDescription(layout);
     }
 
-    //FIXME check handler chain
-    // (1) FR_OBJECT                TObjectHandler -> invoke()
-    // (2) FR_OBJECT_LAYOUT         layoutHandler -> invoke(layout.getProperties()[].getLink()) link can be null?
-    // (3) FR_OBJECT_PROPERTY       PropertyHandler -> invoke()
-    // (4) FR_PROPERTY_DESCRIPTION  PropertyDescriptionHandler
+    /** handler chain:
+     * (1) FR_OBJECT                TObjectHandler -> invoke()
+     * (2) FR_OBJECT_LAYOUT         layoutHandler -> invoke(layout.getProperties()[].getLink()) link can be null?
+     * (3) FR_OBJECT_PROPERTY       PropertyHandler -> invoke()
+     * (4) FR_PROPERTY_DESCRIPTION  PropertyDescriptionHandler
+     */
     private static function initPropertyDescription(layout:Layout):void {
         if (layout.arePropertyLabelsToBeSet()) {
             var pls:Vector.<PropertyLayout> = layout.getProperties();

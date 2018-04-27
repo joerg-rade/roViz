@@ -12,6 +12,7 @@ import org.ro.layout.Layout;
 import org.ro.layout.PropertyLayout;
 import org.ro.view.table.ColDef;
 import org.ro.view.table.IconRenderer;
+import org.ro.view.table.ObjectIconRenderer;
 import org.ro.view.table.TableBuilder;
 
 import spark.components.DataGrid;
@@ -31,7 +32,8 @@ public class RoTab extends VBox implements IDockable {
         dg.percentWidth = 100;
         dg.percentHeight = 100;
         //TODO render _Object_ with LinkButton
-        var csList:Array = colSpec(dataProvider.getLayout());
+        const layout:Layout = dataProvider.getLayout();
+        var csList:Array = colSpec(layout);
         dg = TableBuilder.buildDataGrid(csList);
         initData(dataProvider);
 
@@ -97,8 +99,9 @@ public class RoTab extends VBox implements IDockable {
             var width:uint = 2;
             var name:String = " ";
             var tip:String = null;
+            var iconFactory:ClassFactory = new ClassFactory(IconRenderer);
             //TODO take icon from layout (default=box), pass icon:Class instead of new ClassFactory(IconRenderer)
-            var cs:ColDef = new ColDef(field, width, name, tip, new ClassFactory(IconRenderer));
+            var cs:ColDef = new ColDef(field, width, name, tip, iconFactory);
             csList.push(cs);
 
             var properties:Vector.<PropertyLayout> = layout.getProperties();
@@ -108,8 +111,9 @@ public class RoTab extends VBox implements IDockable {
                 name = layout.getPropertyLabel(field);
                 tip = pl.getDescribedAs();
                 cs = new ColDef(field, width, name, tip);
-                if (name == "Object") {
-                    cs = new ColDef(field, width, name, tip);
+                if (name == "Result") {
+                    iconFactory = new ClassFactory(ObjectIconRenderer);
+                    cs = new ColDef(field, width, name, tip, iconFactory);
                 }
                 csList.push(cs);
             }

@@ -1,5 +1,5 @@
 package org.ro.view.table {
-import org.ro.core.ObjectAdapter;
+import mx.events.FlexEvent;
 
 public class ObjectIconRenderer extends IconRenderer {
 
@@ -8,13 +8,13 @@ public class ObjectIconRenderer extends IconRenderer {
     }
 
     override public function set data(value:Object):void {
-        var oa:ObjectAdapter = value as ObjectAdapter;
         lb.enabled = false;
-        if (oa != null) {
-            lb.label = oa.title;
+        if (value != null) {
+            lb.label = value.title;
             lb.setStyle("textDecoration", "underline");
-            lb.setStyle("icon", oa.icon);
+            lb.setStyle("icon", value.icon);
         }
+        dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
     }
 
 }

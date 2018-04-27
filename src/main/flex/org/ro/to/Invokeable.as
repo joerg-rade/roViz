@@ -9,7 +9,11 @@ public class Invokeable extends LinkedTO {
 
     internal var href:String;
     internal var method:String;
-    
+
+    override protected function init():void {
+        super.init();
+    }
+
     public function invoke():void {
         var xhr:XmlHttpRequest = new XmlHttpRequest();
         xhr.invoke(this);

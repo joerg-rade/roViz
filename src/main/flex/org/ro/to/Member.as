@@ -1,13 +1,15 @@
 package org.ro.to {
+import org.ro.core.Utils;
+
 public class Member extends Invokeable {
     public static const ACTION:String = "action";
     public static const PROPERTY:String = "property";
 
     internal var id:String;
     internal var memberType:String;
-    internal var value:String;
+    internal var value:Object;
     private var valueObject:Object;
-    internal var format:String; // type information
+    internal var format:String; 
     internal var extensions:Object;
     private var extensionObject:Extensions;
     internal var disabledReason:String;
@@ -56,6 +58,7 @@ public class Member extends Invokeable {
         function isString():Boolean {
             return (format == "string") || (extensionObject.xIsisFormat == "string");
         }
+
         function isNumber():Boolean {
             return (format == "int") || (format == "utc-millisec");
         }

@@ -9,7 +9,7 @@ dynamic public class TObject extends TitledTO implements Adaptable {
     public function TObject(jsonObj:Object = null) {
         if (jsonObj != null) {
             this.fromJSON(jsonObj);
-            init();
+            init();        
         }
     }
 
@@ -19,9 +19,11 @@ dynamic public class TObject extends TitledTO implements Adaptable {
 
     //TODO eventually pull up
     public function getLayoutLink():Link {
+        var href:String;
         for each(var l:Link in linkList) {
+            href = l.getHref();
             //TODO can be "object-layout" >= 1.16
-            if (Utils.endsWith(l.getHref(), "layout")) {
+            if (Utils.endsWith(href, "layout")) {
                 return l;
             }
         }
@@ -41,7 +43,6 @@ dynamic public class TObject extends TitledTO implements Adaptable {
         }
         return result;
     }
-
-
+    
 }
 }

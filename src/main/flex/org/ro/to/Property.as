@@ -1,5 +1,5 @@
 package org.ro.to {
-public class Property extends Member {
+dynamic public class Property extends Member {
     public static const FRIENDLY_NAME:String = "friendlyName";
     public static const DESCRIBED_BY:String = "describedby";
     public static const RETURN_TYPE:String = "urn:org.restfulobjects:rels/return-type";

@@ -13,13 +13,14 @@ public class PropertyLayout extends MemberLayout {
     public function PropertyLayout(jsonObj:Object = null) {
         if (jsonObj != null) {
             this.fromObject(jsonObj);
-            linkObject = new Link(jsonObj.link); //TODO
+            linkObject = new Link(jsonObj.link); //FIXME
             //init();
         }
     }
 
     override protected function init():void {
-        //TODO link has an unexpected value of [object Object] - WTF
+        // super.init();
+        //FIXME link has an unexpected value of [object Object] - WTF
         linkObject = new Link(link);
     }
 

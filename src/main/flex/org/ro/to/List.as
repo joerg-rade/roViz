@@ -21,9 +21,9 @@ public class List extends LinkedTO {
         return this.resultObject;
     }
 
-    public function getLinkList():Vector.<Link> {
+/*    public function getLinkList():Vector.<Link> {
         return this.linkList;
     }
-
+  */
 }
 }

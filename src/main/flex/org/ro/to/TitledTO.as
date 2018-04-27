@@ -18,8 +18,12 @@ public class TitledTO extends LinkedTO {
     override protected function init():void {
         super.init();
         memberList = new Vector.<Invokeable>();
-        for each (var m:Object in members) {
-            memberList.push(new Member(m));
+        var raw:Object;
+        var m:Member;
+        for (var prop:String in members) { 
+            raw = members[prop];    
+            m = new Member(raw)
+            memberList.push(m);     
         }
     }
 

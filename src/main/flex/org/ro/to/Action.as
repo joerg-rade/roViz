@@ -1,4 +1,6 @@
 package org.ro.to {
+import org.ro.core.Utils;
+
 public class Action extends Member {
 
     internal var parameters:Object;
@@ -42,12 +44,9 @@ public class Action extends Member {
 
     //Workaround for https://issues.apache.org/jira/browse/ISIS-1850 would break RO Spec 1.0
     private function fixDefault(json:Object):Object {
-        var origin:String = JSON.stringify(json);
-        if (origin.indexOf("\"default\":") > 0) {
-            var answer:String = origin.replace(/"default":/, "\"defaultChoice\":");
-            return JSON.parse(answer);
-        }
-        return json;
+        const search:String = "\"default\":";
+        const replace:String = "\"defaultChoice\":";
+        return Utils.replace(json, search, replace);
     }
 
 }

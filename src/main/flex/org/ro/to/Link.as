@@ -1,5 +1,7 @@
 package org.ro.to {
-public class Link extends Invokeable {
+import org.ro.core.Adaptable;
+
+public class Link extends Invokeable implements Adaptable {
     internal var title:String; // optional
     internal var rel:String;
     internal var type:String;
@@ -36,6 +38,10 @@ public class Link extends Invokeable {
         var obj:Object = this.arguments;
         var jsonString:String = JSON.stringify(obj);
         return jsonString;
+    }
+    
+    public function getTitle():String {
+        return title;
     }
     
 }

@@ -61,6 +61,15 @@ public class Utils {
         }
         return false;
     }
+    
+    public static function replace(json:Object, oldKey:String, newKey:String):Object {
+        var origin:String = JSON.stringify(json);
+        if (origin.indexOf(oldKey) > 0) {
+            var answer:String = origin.replace(oldKey, newKey);
+            return JSON.parse(answer);
+        }
+        return json;
+    }
 
 }
 }

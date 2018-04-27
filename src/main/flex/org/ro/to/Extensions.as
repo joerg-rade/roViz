@@ -1,4 +1,6 @@
 package org.ro.to {
+import org.ro.core.Utils;
+
 public class Extensions extends BaseTO {
     public static const PRIMARY:String = "primary";
     public static const SECONDARY:String = "secondary";
@@ -35,12 +37,7 @@ public class Extensions extends BaseTO {
     private function fixXIsisFormat(json:Object):Object {
         const search:String = "\"x-isis-format\":" ;
         const replace:String = "\"xIsisFormat\":";
-        var origin:String = JSON.stringify(json);
-        if (origin.indexOf(search) > 0) {
-            var answer:String = origin.replace(search, replace);
-            return JSON.parse(answer);
-        }
-        return json;
+        return Utils.replace(json, search, replace);
     }
 
 }
