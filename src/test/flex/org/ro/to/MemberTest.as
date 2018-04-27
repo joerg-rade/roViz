@@ -32,10 +32,10 @@ public class MemberTest {
         objectList.addObject(properties);
 
         // this is kind of untyped again
-        var ro:ObjectAdapter = objectList.last();
-        Assert.assertTrue(ro.getProperty("datanucleusIdLong") == 0);
-        Assert.assertTrue(ro.getProperty("datanucleusVersionTimestamp") == 1514897074953);
-        Assert.assertTrue(ro.getProperty("notes") == "null");
+        var oa:ObjectAdapter = objectList.last();
+        Assert.assertTrue(oa.datanucleusIdLong == 0);
+        Assert.assertTrue(oa.datanucleusVersionTimestamp == 1514897074953);
+        Assert.assertTrue(oa.notes == "null");
     }
     
 }

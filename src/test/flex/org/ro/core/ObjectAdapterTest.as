@@ -1,7 +1,8 @@
 package org.ro.core {
 import org.flexunit.Assert;
 import org.ro.URLS;
-import org.ro.handler.AbstractHandler;
+import org.ro.mx.ImageRepository;
+import org.ro.to.Invokeable;
 import org.ro.to.TObject;
 
 public class ObjectAdapterTest {
@@ -11,21 +12,35 @@ public class ObjectAdapterTest {
     [Test(description="parse result of invoking object url")]
     public function testObjectBAZ():void {
         // given
-        var jsonStr:Object = URLS.FR_OBJECT_BAZ;
-        var adaptee:Adaptable = new TObject(jsonStr);
+        const jsonStr:Object = URLS.FR_OBJECT_BAZ;
+        const adaptee:TObject = new TObject(jsonStr);
         Assert.assertNotNull(adaptee);
 
-        var title:String = "test title";
-        var type:String = "Link";
+        const title:String = "test title";
+        const type:String = "Link";
         var icon:Class = null;
         // when
-        var oa:ObjectAdapter = new ObjectAdapter(adaptee, title, type, icon);
+        const oa:ObjectAdapter = new ObjectAdapter(adaptee, title, type, icon);
 
         // then
-        var expected:String = "domain-app-demo/persist-all/item-3:  Object: Baz";
-        var actual:String = oa.getProperty("title");
-        Assert.assertEquals(expected, actual);
-    }
+        const expectedTitle:String = "domain-app-demo/persist-all/item-3:  Object: Baz";
+        const actualTitle:String = oa.title;
+        Assert.assertEquals(expectedTitle, actualTitle);
+
+        Assert.assertTrue(oa.hasOwnProperty("domainType"));
+        Assert.assertTrue(oa.hasOwnProperty("instanceId"));
+
+        //Expectations: 
+        // 1: adaptee( TObject) has members (memberList?) mapped onto (dynamic) ObjectAdapter properties
+        Assert.assertFalse(oa.hasOwnProperty("members"));   // only public attributes are 'adapted'
+        Assert.assertTrue(oa.hasOwnProperty("memberList"));
+        const memberList:Vector.<Invokeable> = oa.memberList;
+        Assert.assertTrue(adaptee.getMembers() == memberList);
+
+        // 2: icon is instance of ObjectIconRenderer
+        const iconClass:Class = oa.getIcon();
+        Assert.assertNotNull(iconClass);
+   }
 
 }
 }

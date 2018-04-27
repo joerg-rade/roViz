@@ -17,7 +17,7 @@ import org.ro.to.ServiceTest;
 
 [Suite]
 [RunWith("org.flexunit.runners.Suite")]
-public class TestSuite {
+public class UnitTestSuite {
 
     public var c1:ObjectAdapterTest;
     public var h1:ServiceHandlerTest;
