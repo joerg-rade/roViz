@@ -11,7 +11,7 @@ public class LogIconRenderer extends IconRenderer {
 
     override public function set data(value:Object):void {
         var logEntry:XhrLogEntry = value as XhrLogEntry;
-        lb.setStyle("icon", logEntry.icon);
+        iconButton.setStyle("icon", logEntry.icon);
     }
 
 }

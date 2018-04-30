@@ -92,7 +92,7 @@ public class RoTab extends VBox implements IDockable {
         return icon;
     }
 
-    private function colSpec(layout:Layout):Array {
+    private static function colSpec(layout:Layout):Array {
         var csList:Array = [];
         if (layout != null) {
             var field:String = "icon";

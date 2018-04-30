@@ -7,21 +7,21 @@ import spark.components.gridClasses.GridItemRenderer;
 
 public class IconRenderer extends GridItemRenderer {
 
-    protected var lb:LinkButton;
+    protected var iconButton:LinkButton;
 
     public function IconRenderer() {
         super();
-        lb = new LinkButton();
-        lb.top = 4;
-        lb.left = 4;
-        lb.width = 16;
-        lb.height = 16;
-        this.addElement(lb);
+        iconButton = new LinkButton();
+        iconButton.top = 4;
+        iconButton.left = 4;
+        iconButton.width = 16;
+        iconButton.height = 16;
+        this.addElement(iconButton);
     }
 
     override public function set data(value:Object):void {
         var defaultIcon:Class = ImageRepository.ObjectIcon;
-        lb.setStyle("icon", defaultIcon);
+        iconButton.setStyle("icon", defaultIcon);
     }
 
 }

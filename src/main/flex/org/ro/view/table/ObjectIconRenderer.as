@@ -1,20 +1,28 @@
 package org.ro.view.table {
-import mx.events.FlexEvent;
+import mx.controls.LinkButton;
+
+import org.ro.mx.ImageRepository;
 
 public class ObjectIconRenderer extends IconRenderer {
 
+    private var labelButton:LinkButton;
+
     public function ObjectIconRenderer() {
         super();
+        labelButton = new LinkButton();
+        labelButton.top = 4;
+        labelButton.left = 20;
+        labelButton.height = 16;
+        this.addElement(labelButton);
     }
 
     override public function set data(value:Object):void {
-        lb.enabled = false;
-        if (value != null) {
-            lb.label = value.title;
-            lb.setStyle("textDecoration", "underline");
-            lb.setStyle("icon", value.icon);
-        }
-        dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
+        var defaultIcon:Class = ImageRepository.PencilIcon;
+        iconButton.setStyle("icon", defaultIcon);
+
+        labelButton.label = value.object.label;
+        labelButton.setStyle("textAlign", "left");
+        labelButton.setStyle("textDecoration", "underline");
     }
 
 }
