@@ -1,4 +1,4 @@
-package org.ro.mx {
+package org.ro.view {
 import mx.collections.XMLListCollection;
 import mx.controls.MenuBar;
 import mx.events.MenuEvent;
@@ -110,8 +110,9 @@ public class RoMenuBar extends MenuBar {
                              user="todoapp-admin"
                              password="pass"/>
                     <submenu type="separator"/>
-                    <submenu id="play" label="SEMAT (http://semat.ofbizian.com/:80)"
-                             url="http://semat.ofbizian.com/"
+                    <submenu id="play"
+                             label="SEMAT (http://semat-semat.193b.starter-ca-central-1.openshiftapps.com/:80)"
+                             url="http://semat-semat.193b.starter-ca-central-1.openshiftapps.com"
                              path="/restful/services/"
                              user="user"
                              password="user"/>

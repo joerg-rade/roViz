@@ -1,5 +1,5 @@
 package org.ro.core {
-import org.ro.mx.ImageRepository;
+import org.ro.view.ImageRepository;
 
 /**
  * Wrapps the adapted object and adds an operation that renders the adaptee as a clickable link in the UI.
@@ -57,6 +57,14 @@ dynamic public class ObjectAdapter {
             value = _adaptee[prop];
             this[prop] = value;
         }
+    }
+
+    public function get adaptee():Adaptable {
+        return _adaptee;
+    }
+
+    public function get typeSpec():String {
+        return _type;
     }
 
     public function getIcon():Class {

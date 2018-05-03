@@ -1,6 +1,6 @@
 package org.ro.xhr {
 import org.ro.core.Globals;
-import org.ro.mx.ImageRepository;
+import org.ro.view.ImageRepository;
 
 public class XhrLogEntry {
     public var icon:Class;

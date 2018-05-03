@@ -1,4 +1,4 @@
-package org.ro.mx {
+package org.ro.view {
 import flash.events.MouseEvent;
 
 import mx.containers.VBox;
@@ -10,6 +10,8 @@ import mx.core.ClassFactory;
 import org.ro.core.ObjectList;
 import org.ro.layout.Layout;
 import org.ro.layout.PropertyLayout;
+import org.ro.to.TObject;
+import org.ro.view.dlg.Details;
 import org.ro.view.table.ColDef;
 import org.ro.view.table.IconRenderer;
 import org.ro.view.table.ObjectIconRenderer;
@@ -70,10 +72,19 @@ public class RoTab extends VBox implements IDockable {
         var item:Object = dg.selectedItem;
         if (item == null) {
             doubleClickHandlerMenu(event);
+        } else if (isLink(item)) {
+            //TODO should 'edit' be the default action - 
+            // or is a context menu with actions more consistent?
+            var tObj:TObject = item.adaptee;
+            new Details(tObj);
         } else {
-            // TODO Globals.getDsp().invoke(item);
             Alert.show("Define Link to be invoked");
         }
+    }
+
+    private function isLink(item:*):Boolean {
+        var typeSpec:String = item.object.typeSpec;
+        return (typeSpec == "Link");
     }
 
     protected function doubleClickHandlerMenu(event:MouseEvent):void {

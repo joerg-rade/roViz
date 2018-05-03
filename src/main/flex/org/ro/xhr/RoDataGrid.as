@@ -11,7 +11,7 @@ import mx.core.ClassFactory;
 import mx.events.MenuEvent;
 
 import org.ro.core.Globals;
-import org.ro.mx.IDockable;
+import org.ro.view.IDockable;
 import org.ro.view.table.ColDef;
 import org.ro.view.table.LogIconRenderer;
 import org.ro.view.table.TableBuilder;

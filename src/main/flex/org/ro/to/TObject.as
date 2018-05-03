@@ -34,6 +34,10 @@ dynamic public class TObject extends TitledTO implements Adaptable {
         return this.domainType;
     }
 
+    public function getId():String {
+        return domainType + "/" + instanceId;
+    }
+    
     public function getProperties():Vector.<Invokeable> {
         var result:Vector.<Invokeable> = new Vector.<Invokeable>();
         for each(var m:Member in memberList) {

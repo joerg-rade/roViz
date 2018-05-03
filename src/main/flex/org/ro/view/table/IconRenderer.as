@@ -1,7 +1,7 @@
 package org.ro.view.table {
 import mx.controls.LinkButton;
 
-import org.ro.mx.ImageRepository;
+import org.ro.view.ImageRepository;
 
 import spark.components.gridClasses.GridItemRenderer;
 

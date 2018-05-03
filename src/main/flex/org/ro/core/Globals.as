@@ -2,10 +2,10 @@ package org.ro.core {
 import mx.utils.Base64Encoder;
 
 import org.ro.handler.Dispatcher;
-import org.ro.mx.Dock;
-import org.ro.mx.RoMenuBar;
-import org.ro.mx.RoStatusBar;
-import org.ro.mx.RoView;
+import org.ro.view.Dock;
+import org.ro.view.RoMenuBar;
+import org.ro.view.RoStatusBar;
+import org.ro.view.RoView;
 import org.ro.xhr.RequestLog;
 
 /**

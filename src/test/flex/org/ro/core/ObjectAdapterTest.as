@@ -1,7 +1,7 @@
 package org.ro.core {
 import org.flexunit.Assert;
 import org.ro.URLS;
-import org.ro.mx.ImageRepository;
+import org.ro.view.ImageRepository;
 import org.ro.to.Invokeable;
 import org.ro.to.TObject;
 

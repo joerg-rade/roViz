@@ -14,6 +14,10 @@ public class ListHandler extends AbstractHandler implements IHandler {
         if (r == null) {
             return false;
         }
+        // Prototyping#openRestApi
+        if (r.value == "http:/restful/") {
+            return false;
+        }
         var v:Array = r.value;
         if (v == null) {
             return false;

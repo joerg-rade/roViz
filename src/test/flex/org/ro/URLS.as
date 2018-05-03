@@ -1690,6 +1690,13 @@ public class URLS {
             }
         }
     };
+    
+    /*
+    "httpStatusCode": 500,
+"message": "RESTEASY003210: Could not find resource for full path: http://localhost:8080/restful/services/isisApplib.TranslationServicePoMenu/actions/downloadTranslations/invokearguments",
+     */
+    public const DOWNLOAD_TRANSLATIONS:String = "http://localhost:8080/restful/services/isisApplib.TranslationServicePoMenu/actions/downloadTranslations/invoke\n" +
+            "arguments";
 
 }
 }

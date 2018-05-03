@@ -1,50 +1,33 @@
-package org.ro.mx {
-import flash.events.Event;
+package org.ro.view.dlg {
 import flash.events.MouseEvent;
 
-import mx.containers.Form;
 import mx.containers.FormItem;
-import mx.containers.TitleWindow;
 import mx.controls.ComboBox;
-import mx.core.IVisualElement;
 import mx.core.UIComponent;
-import mx.events.CloseEvent;
-import mx.managers.PopUpManager;
 
 import org.apache.flex.collections.VectorList;
-import org.ro.core.Globals;
 import org.ro.core.Utils;
 import org.ro.to.Action;
 import org.ro.to.Link;
 import org.ro.to.Parameter;
 
-import spark.components.Button;
-import spark.components.HGroup;
 import spark.components.TextInput;
-import spark.layouts.HorizontalAlign;
 
 /**
  * Build a dialog, using form and specification from Action.parameters
  */
-public class Prompt extends TitleWindow {
+public class Prompt extends Dialog {
 
     private var action:Action;
-    private var form:Form;
 
     public function Prompt(action:Action) {
         this.action = action;
         this.title = Utils.deCamel(action.getId());
-        this.showCloseButton = true;
-        addEventListener(CloseEvent.CLOSE, closeHandler);
 
-        var confirmBtn:Button = buildButton("OK", ImageRepository.CheckIcon);
-        confirmBtn.addEventListener(MouseEvent.CLICK, invokeHandler);
-        var cancelBtn:Button = buildButton("Cancel", ImageRepository.TimesIcon);
-        cancelBtn.addEventListener(MouseEvent.CLICK, closeHandler);
+        super();
+    }
 
-        form = new Form();
-        form.defaultButton = confirmBtn;
-
+    override protected function populateForm():void {
         var params:Vector.<Parameter> = action.getParameters();
         for each(var p:Parameter in params) {
             var fi:FormItem = new FormItem();
@@ -66,25 +49,9 @@ public class Prompt extends TitleWindow {
             fi.addElement(input);
             form.addElement(fi);
         }
-
-        var fiBtn:FormItem = new FormItem();
-        var btnBar:HGroup = new HGroup();
-        btnBar.addElement(confirmBtn);
-        btnBar.addElement(cancelBtn);
-        fiBtn.addElement(IVisualElement(btnBar));
-        form.addElement(fiBtn);
-
-        addChild(form);
-
-        PopUpManager.addPopUp(this, Globals.getInstance().getView(), true);
-        PopUpManager.centerPopUp(this);
     }
 
-    private function closeHandler(evt:Event):void {
-        close();
-    }
-
-    private function invokeHandler(evt:MouseEvent):void {
+    override protected function okHandler(evt:MouseEvent):void {
         var l:Link = this.action.getInvokeLink();
         //iterate over FormItems (0,1, but not 2 (buttons)
         var fi:FormItem;
@@ -109,16 +76,6 @@ public class Prompt extends TitleWindow {
         }
         l.invoke();
         close();
-    }
-
-    private function close():void {
-        PopUpManager.removePopUp(this);
-    }
-
-    private function buildButton(label:String, iconClass:Class):Button {
-        var btn:Button = new Button();
-        btn.label = label;
-        return btn;
     }
 
 }
