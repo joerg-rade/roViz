@@ -1,4 +1,4 @@
-package org.ro.view {
+package org.ro.view.tab {
 import flash.events.MouseEvent;
 
 import mx.containers.VBox;
@@ -7,15 +7,20 @@ import mx.controls.Menu;
 import mx.controls.dataGridClasses.DataGridColumn;
 import mx.core.ClassFactory;
 
+import org.ro.core.Globals;
 import org.ro.core.ObjectList;
 import org.ro.layout.Layout;
 import org.ro.layout.PropertyLayout;
+import org.ro.to.Link;
 import org.ro.to.TObject;
-import org.ro.view.dlg.Details;
+import org.ro.view.IDockable;
+import org.ro.view.dlg.Message;
 import org.ro.view.table.ColDef;
 import org.ro.view.table.IconRenderer;
 import org.ro.view.table.ObjectIconRenderer;
 import org.ro.view.table.TableBuilder;
+import org.ro.xhr.RequestLog;
+import org.ro.xhr.XhrLogEntry;
 
 import spark.components.DataGrid;
 
@@ -75,8 +80,19 @@ public class RoTab extends VBox implements IDockable {
         } else if (isLink(item)) {
             //TODO should 'edit' be the default action - 
             // or is a context menu with actions more consistent?
-            var tObj:TObject = item.adaptee;
-            new Details(tObj);
+            var link:Link = item.object.adaptee;
+            var url:String = link.getHref();
+            var log:RequestLog = Globals.getInstance().getLog();
+            var le:XhrLogEntry = log.find(url);
+            if (le == null) {
+                // this is (only?) required for Fixture Objects
+                link.invoke();
+                new Message("Object " + url + " has just been loaded - please retry.");
+            } else {
+                var tObj:TObject = le.getObject();
+                var tab:DetailsTab = new DetailsTab(tObj);
+                Globals.getInstance().getView().getTabs().open(tab);
+            }
         } else {
             Alert.show("Define Link to be invoked");
         }

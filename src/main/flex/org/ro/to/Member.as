@@ -1,6 +1,4 @@
 package org.ro.to {
-import org.ro.core.Utils;
-
 public class Member extends Invokeable {
     public static const ACTION:String = "action";
     public static const PROPERTY:String = "property";
@@ -9,7 +7,7 @@ public class Member extends Invokeable {
     internal var memberType:String;
     internal var value:Object;
     private var valueObject:Object;
-    internal var format:String; 
+    internal var format:String;
     internal var extensions:Object;
     private var extensionObject:Extensions;
     internal var disabledReason:String;

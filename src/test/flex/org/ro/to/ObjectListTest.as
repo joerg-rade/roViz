@@ -1,6 +1,7 @@
 package org.ro.to {
 
 import org.flexunit.Assert;
+import org.ro.core.ObjectAdapter;
 import org.ro.core.ObjectList;
 import org.ro.layout.Layout;
 
@@ -19,8 +20,15 @@ public class ObjectListTest {
         var lyt:Layout = new Layout(jsonLayout);
 
         var ol:ObjectList = new ObjectList(2);
-        ol.addObject(members0);
-        ol.addObject(members1);
+
+        var o0:TObject = TObject.createObject(members0);
+        var oa0:ObjectAdapter = new ObjectAdapter(o0);
+        ol.add(oa0);
+
+        var o1:TObject = TObject.createObject(members1);
+        var oa1:ObjectAdapter = new ObjectAdapter(o1);
+        ol.add(oa1);
+
         ol.setLayout(lyt);
         Assert.assertEquals(2, ol.length());
 

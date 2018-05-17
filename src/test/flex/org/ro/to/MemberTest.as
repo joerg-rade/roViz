@@ -29,7 +29,9 @@ public class MemberTest {
         Assert.assertEquals(4, properties.length);
 
         var objectList:ObjectList = new ObjectList(1);
-        objectList.addObject(properties);
+        var o:TObject = TObject.createObject(properties);
+        var oa1:ObjectAdapter = new ObjectAdapter(o);
+        objectList.add(oa1);
 
         // this is kind of untyped again
         var oa:ObjectAdapter = objectList.last();

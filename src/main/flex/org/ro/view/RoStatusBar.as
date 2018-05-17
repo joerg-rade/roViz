@@ -12,7 +12,7 @@ import org.ro.xhr.RequestLog;
 import org.ro.xhr.XhrLogEntry;
 
 public class RoStatusBar extends HBox {
-    private const STATUS_HEIGHT:int = 16;
+    private const STATUS_HEIGHT:int = 20;
 
     private var statusIcon:LinkButton = new LinkButton();
     public var url:Label = new Label();
@@ -23,6 +23,7 @@ public class RoStatusBar extends HBox {
     public function RoStatusBar() {
         percentWidth = 100;
         height = STATUS_HEIGHT;
+        setStyle("paddingLeft", 4);
         statusIcon.width = 16;
         statusIcon.height = 16;
         statusIcon.enabled = false;

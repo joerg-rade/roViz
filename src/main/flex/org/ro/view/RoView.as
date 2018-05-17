@@ -5,7 +5,7 @@ import spark.components.HGroup;
 import spark.components.VGroup;
 
 public class RoView extends VGroup {
-    private const PADDING:int = -20;
+    private const PADDING:int = -24;
 
     private var menuBar:RoMenuBar;
     private var dock:Dock;
@@ -38,7 +38,7 @@ public class RoView extends VGroup {
         body.percentWidth = 100;
         this.addElement(body);
 
-        initDock();
+ //       initDock();
         initTabs();
     }
 

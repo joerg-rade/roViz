@@ -35,37 +35,19 @@ UI specific (ie. non domain) actions supported on
 * Status Bar
 ** Left click opens LogEntries tab
 
-
-## TODO's
-* add title of the action to the tab title
-* mute 'dock' when empty
-* 'revive' tabs from dock
-* drag & drop (eg. object onto docked tab, invoke method / open dialog to select matching actions) 
-* Use layout / object-layout for objects, lists, and menus, honor link type  (application/xml vs. application/json) 
-* Load and render single object 
-* Transpile to Javascript via Maven using https://royale.apache.org/[Apache Royale]
-(mvn clean install -Dmaven.source=flexjs.xml / integrate into pom.xml)
-* Add domain actions to context menus 
-* Implement Filtered Table 
-
 ## Bugs
 CAUTION: hidden Dock steals a couple of pixels
 
 CAUTION: Hiding the status bar doesn't work yet - it steals a line at the bottom. 
 
-CAUTION: Menu items (Actions) are not ordered
-
 CAUTION: LogEntries are not updated automatically
 
 CAUTION: When there are many Menu entries, a horizontal ScrollBar is added at the bottom
-
-CAUTION: Order is not obeyed with Menu entries
 
 
 ## Next 
 * Integrate Calendar View (for ToDo App)
 * Fullblown GanttChart (incl. birds eye view)
-* Measure code coverage (https://cwiki.apache.org/confluence/display/FLEX/Code+Coverage+Tool)
 * Visualize Geolocations eg. with https://wiki.openstreetmap.org/wiki/Halcyon[Halcyon]
 * https://stackoverflow.com/questions/5388290/how-to-display-svg-in-flex/5388543#5388543[SVG limitations and libs]
 * FlatSpark skins: do not support Menubar icons right now, see: https://cwiki.apache.org/confluence/display/FLEX/Using+FlatSpark+skins

@@ -1,4 +1,6 @@
 package org.ro.handler {
+import org.ro.xhr.XhrLogEntry;
+
 /**
  * Interface for handling asynchronous XHR responses.
  * Due to the fact that XMLHttpRequests are called asynchronously, responses may arrive in random order as well.
@@ -9,7 +11,7 @@ package org.ro.handler {
  */
 public interface IHandler {
 
-    function handle(json:Object):void;
+    function handle(logEntry:XhrLogEntry):void;
 
     function canHandle(json:Object):Boolean;
 

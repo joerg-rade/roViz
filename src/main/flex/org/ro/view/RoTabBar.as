@@ -9,6 +9,7 @@ import mx.events.MenuEvent;
 
 import org.ro.core.Globals;
 import org.ro.core.ObjectList;
+import org.ro.view.tab.RoTab;
 import org.ro.xhr.RoDataGrid;
 import org.ro.xhr.XhrLogEntry;
 
@@ -34,7 +35,7 @@ public class RoTabBar extends TabNavigator {
         open(tab);
     }
 
-    private function open(tab:UIComponent):void {
+    public function open(tab:UIComponent):void {
         this.addChild(tab);
         var index:int = this.getItemIndex(tab);
         this.tabIndex = index;

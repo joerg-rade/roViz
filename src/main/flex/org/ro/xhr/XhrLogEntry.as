@@ -1,5 +1,6 @@
 package org.ro.xhr {
 import org.ro.core.Globals;
+import org.ro.to.TObject;
 import org.ro.view.ImageRepository;
 
 public class XhrLogEntry {
@@ -17,6 +18,7 @@ public class XhrLogEntry {
     public var responseLength:uint;
     public var response:String;
     public var duration:int = 0;
+    public var tObject:TObject;
     internal var visible:Boolean = true;
     public var cacheHits:uint = 0;
 
@@ -69,6 +71,10 @@ public class XhrLogEntry {
         return response;
     }
 
+    public function getObject():TObject {
+        return tObject;
+    }
+
     public function retrieveResponse():String {
         cacheHits = cacheHits + 1;
         return response;
@@ -79,12 +85,12 @@ public class XhrLogEntry {
         result = result.replace("http://localhost:8080/restful/", "");
         return result;
     }
-    
+
     public function printString():String {
         var result:String = "[";
-        result += "url: "+ url + "\n";
+        result += "url: " + url + "\n";
         result += "arguments: " + request + "\n";
-        result +=  "response: " + response + "]";
+        result += "response: " + response + "]";
         return result;
     }
 

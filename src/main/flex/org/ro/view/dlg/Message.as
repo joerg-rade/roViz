@@ -6,10 +6,10 @@ import mx.containers.TitleWindow;
  */
 public class Message extends TitleWindow {
 
-    override public function Message(title:String) {
-        this.title = title;
-
+    override public function Message(text:String) {
         super();
+        //TODO add type (INFO | WARN | ERROR | FATAL), icon, etc.
+        super.title = text;
     }
 
 }

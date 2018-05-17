@@ -4,6 +4,7 @@ import org.ro.URLS;
 import org.ro.core.Globals;
 import org.ro.core.Menu;
 import org.ro.core.ObjectList;
+import org.ro.xhr.XhrLogEntry;
 
 public class ListHandlerTest {
     public function ListHandlerTest() {
@@ -17,7 +18,9 @@ public class ListHandlerTest {
         var m:Menu = new Menu(0);
         spock.setMenu(m);
         // when
-        dsp.handle(URLS.SO_LIST_ALL_INVOKE);
+        var le:XhrLogEntry = new XhrLogEntry("", "GET", null);
+        le.response = JSON.stringify(URLS.SO_LIST_ALL_INVOKE);
+        dsp.handle(le);
         var t1:ObjectList = spock.getList();
         // then
         Assert.assertNotNull(t1);

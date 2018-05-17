@@ -32,10 +32,11 @@ public class RequestLog {
         updateStatus(entry);
     }
 
-    public function end(url:String, response:String):void {
+    public function end(url:String, response:String):XhrLogEntry {
         var entry:XhrLogEntry = find(url);
         entry.setSuccess(response);
         updateStatus(entry);
+        return entry;
     }
 
     private static function updateStatus(entry:XhrLogEntry):void {

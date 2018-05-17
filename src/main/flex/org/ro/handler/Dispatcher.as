@@ -1,4 +1,6 @@
 package org.ro.handler {
+import org.ro.xhr.XhrLogEntry;
+
 /**
  * Delegates responses to handlers.
  */
@@ -7,7 +9,7 @@ public class Dispatcher {
     private var delegate:IHandler;
 
     public function Dispatcher() {
-        //TODO sequence of handlers should follow frequency of invocation in order minimize the time taken by unneeded 'canHandle()'
+        //TODO sequence of handlers should follow frequency of invocation in order minimize the time taken by unneeded calls to 'canHandle()'
         var first:ServiceHandler = new ServiceHandler();
         var second:ActionHandler = new ActionHandler();
         var third:MemberHandler = new MemberHandler();
@@ -31,9 +33,8 @@ public class Dispatcher {
         delegate = first;
     }
 
-    public function handle(jsonObj:Object):void {
-        delegate.handle(jsonObj);
+    public function handle(logEntry:XhrLogEntry):void {
+        delegate.handle(logEntry);
     }
-
 }
 }

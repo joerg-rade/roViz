@@ -22,18 +22,16 @@ public class Prompt extends Dialog {
 
     public function Prompt(action:Action) {
         this.action = action;
-        this.title = Utils.deCamel(action.getId());
+        var id:String = action.getId();
 
         super();
+        super.title = Utils.deCamel(id);
     }
 
     override protected function populateForm():void {
         var params:Vector.<Parameter> = action.getParameters();
         for each(var p:Parameter in params) {
-            var fi:FormItem = new FormItem();
-            fi.direction = "horizontal";
-            fi.setStyle("horizontalAlign", "left");
-            fi.label = p.getName();
+            var fi:FormItem = buildFormItem(p.getName()); 
             var input:UIComponent;
             if (p.hasChoices()) {
                 var cb:ComboBox = new ComboBox();
