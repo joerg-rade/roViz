@@ -98,7 +98,7 @@ public class RoTab extends VBox implements IDockable {
         }
     }
 
-    private function isLink(item:*):Boolean {
+    private static function isLink(item:*):Boolean {
         var typeSpec:String = item.object.typeSpec;
         return (typeSpec == "Link");
     }

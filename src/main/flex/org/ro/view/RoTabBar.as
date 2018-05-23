@@ -47,6 +47,7 @@ public class RoTabBar extends TabNavigator {
                 <root>
                     <menuitem id="close" icon="TimesRedIcon" label="Close"/>
                     <menuitem id="dock" icon="StepBackwardIcon" label="Dock"/>
+                    <menuitem id="redraw" icon="EyeSlashIcon" label="redraw"/>
                 </root>;
         var result:Menu = Menu.createMenu(null, xml, false);
         result.labelField = "@label";
@@ -69,12 +70,14 @@ public class RoTabBar extends TabNavigator {
     }
 
     public function itemClickHandler(event:MenuEvent):void {
+        var tab:Object = this.getItemAt(selectedIndex);
         if (event.item.@id == "close") {
             removeTab(null);
         } else if (event.item.@id == "dock") {
-            var tab:IDockable = this.getItemAt(selectedIndex) as IDockable;
-            Globals.getInstance().getDock().addView(tab);
-            //new KitchenSink("Next");
+            Globals.getInstance().getDock().addView(tab as IDockable);
+        } else if (event.item.@id == "redraw") {
+            //intended to
+            (tab as UIComponent).invalidateDisplayList();
         } else {
             Alert.show(event.toString());
         }

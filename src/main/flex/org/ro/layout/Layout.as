@@ -23,6 +23,7 @@ public class Layout extends AbstractLayout {
     private function init():void {
         var props:Array = extractProperties();
         initProperties(props);
+        initRows(row);
 
         function initProperties(props:Array):void {
             properties = new Vector.<PropertyLayout>();
@@ -43,6 +44,15 @@ public class Layout extends AbstractLayout {
             }
             var pArr:Array = col.fieldSet[0].property;
             return pArr;
+        }
+        
+        function initRows(row:Object):void {
+            rows = new Vector.<RowLayout>();
+            var rl:RowLayout;
+            for each(var json:Object in row) {
+                rl = new RowLayout(json);
+                rows.push(rl);
+            }
         }
     }
 

@@ -95,6 +95,7 @@ public class RoMenuBar extends MenuBarAdapter {
         dataProvider = newMenuItems;
     }
 
+    //DEPRECATED use FileReader.loadMenu("menu.xml")
     public static function getDefaultMenuItems():XML {
         //TODO store encoded with master pw in sqllite, add dialog for appending more entries and input of master pw
         var menuItems:XML =
@@ -129,7 +130,7 @@ public class RoMenuBar extends MenuBarAdapter {
                     </submenu>
                     <submenu id="next" label="KitchenSink"/>
                 </topmenu>;
-        return menuItems;
+        return menuItems
     }
 
     public function getMenu():Menu {
