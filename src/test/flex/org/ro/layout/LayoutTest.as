@@ -1,6 +1,8 @@
 package org.ro.layout {
 
+import mx.containers.HBox;
 import mx.containers.VBox;
+import mx.core.UIComponent;
 
 import org.flexunit.Assert;
 import org.ro.URLS;
@@ -47,8 +49,12 @@ public class LayoutTest {
         // then
         var ui:VBox = lo.build();
         Assert.assertEquals(2, ui.getChildren().length);
-        //  Assert.assertEquals("name", properties[0].getId());
-        //  Assert.assertEquals("notes", properties[1].getId());
+
+        var h1:HBox = ui.getChildren()[1];
+        Assert.assertEquals(2, h1.getChildren().length);
+
+        var h2:HBox = h1.getChildren()[1];
+        Assert.assertEquals(2, h1.getChildren().length);
     }
 
 

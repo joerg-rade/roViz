@@ -10,8 +10,8 @@ import org.ro.core.Globals;
 import org.ro.core.Utils;
 import org.ro.to.Invokeable;
 import org.ro.to.Link;
-import org.ro.xhr.RequestLog;
-import org.ro.xhr.XhrLogEntry;
+import org.ro.xhr.EventLog;
+import org.ro.xhr.LogEntry;
 
 /**
  * This is an integration test that requires SimpleApp running on http://localhost:8080
@@ -23,7 +23,7 @@ import org.ro.xhr.XhrLogEntry;
 public class UrlsTest {
     private var timer:Timer;
     private var spock:Globals = Globals.getInstance();
-    private var log:RequestLog = spock.getLog();
+    private var log:EventLog = spock.getLog();
     private var link:Link;
     private var object:Object;
 
@@ -82,7 +82,7 @@ public class UrlsTest {
 
     public function handleLinkComplete(event:TimerEvent, passThroughData:Object):void {
         var href:String = link.getHref();
-        var logEntry:XhrLogEntry = log.find(href);
+        var logEntry:LogEntry = log.find(href);
         var resp:String = logEntry.getResponse(); 
         var observed:Object = JSON.parse(resp);
         //pass over String to Services

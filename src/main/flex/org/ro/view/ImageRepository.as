@@ -17,6 +17,10 @@ public class ImageRepository {
     [Bindable]
     public static var RedIcon:Class;
 
+    [Embed('../../../../resources/images/info-circle.svg')]
+    [Bindable]
+    public static var BlueIcon:Class;
+
     [Embed('../../../../resources/images/cubes.svg')]
     [Bindable]
     public static var ObjectsIcon:Class;

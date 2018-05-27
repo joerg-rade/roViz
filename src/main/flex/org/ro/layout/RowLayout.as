@@ -11,9 +11,21 @@ public class RowLayout extends AbstractLayout {
     internal var columns:Vector.<ColLayout> = new Vector.<ColLayout>();
 
     public function RowLayout(jsonObj:Object) {
-        fromObject(jsonObj);
+        if (jsonObj != null) {
+            this.fromObject(jsonObj);
+            init();
+        }
     }
-    
+
+    private function init():void {
+        columns = new Vector.<ColLayout>();
+        var l:ColLayout;
+        for each(var json:Object in cols) {
+            l = new ColLayout(json);
+            columns.push(l);
+        }
+    }
+
     public function ensureMaxSpan():Boolean {
         var sum:uint = 0;
         for each(var c:ColLayout in columns) {

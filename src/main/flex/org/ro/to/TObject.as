@@ -1,7 +1,6 @@
 package org.ro.to {
 import org.ro.core.Adaptable;
 import org.ro.core.ObjectAdapter;
-import org.ro.core.Utils;
 
 dynamic public class TObject extends TitledTO implements Adaptable {
     public var domainType:String;
@@ -14,21 +13,8 @@ dynamic public class TObject extends TitledTO implements Adaptable {
         }
     }
 
-    /*    override protected function init():void {
-            super.init();
-        }    */
-
-    //TODO eventually pull up
-    public function getLayoutLink():Link {
-        var href:String;
-        for each(var l:Link in linkList) {
-            href = l.getHref();
-            //TODO can be "object-layout" >= 1.16
-            if (Utils.endsWith(href, "layout")) {
-                return l;
-            }
-        }
-        return null;
+    override protected function init():void {
+        super.init();
     }
 
     public function getDomainType():String {
@@ -50,6 +36,7 @@ dynamic public class TObject extends TitledTO implements Adaptable {
     }
 
     /**
+     * Constructor / factory function using dynamic nature of class.
      * @param members (attributes and functions) of the object
      */
     public static function createObject(members:Vector.<Invokeable>):TObject {

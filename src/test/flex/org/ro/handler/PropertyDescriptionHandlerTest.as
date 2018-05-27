@@ -4,7 +4,7 @@ import org.ro.URLS;
 import org.ro.core.Globals;
 import org.ro.core.ObjectList;
 import org.ro.layout.Layout;
-import org.ro.xhr.XhrLogEntry;
+import org.ro.xhr.LogEntry;
 
 public class PropertyDescriptionHandlerTest {
     public function PropertyDescriptionHandlerTest() {
@@ -20,7 +20,7 @@ public class PropertyDescriptionHandlerTest {
         spock.setList(xpList);
         var dsp:Dispatcher = spock.getDsp();
         // when
-        var le:XhrLogEntry = new XhrLogEntry("", "GET", null);
+        var le:LogEntry = new LogEntry("", "GET", null);
         le.response = JSON.stringify(URLS.FR_PROPERTY_DESCRIPTION);
         dsp.handle(le);
 

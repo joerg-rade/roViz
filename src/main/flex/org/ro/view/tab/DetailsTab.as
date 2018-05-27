@@ -1,6 +1,4 @@
 package org.ro.view.tab {
-import avmplus.extendsXml;
-
 import flash.events.MouseEvent;
 
 import mx.containers.Form;
@@ -8,16 +6,18 @@ import mx.containers.FormItem;
 import mx.controls.Alert;
 import mx.controls.Menu;
 import mx.controls.TextInput;
-import mx.core.IVisualElement;
-import mx.events.CloseEvent;
+import mx.core.UIComponent;
 import mx.events.MenuEvent;
 
+import org.ro.core.Globals;
 import org.ro.core.Utils;
+import org.ro.layout.Layout;
+import org.ro.to.Link;
 import org.ro.to.TObject;
-import org.ro.view.*;
+import org.ro.xhr.EventLog;
+import org.ro.xhr.LogEntry;
 
 import spark.components.Button;
-import spark.components.HGroup;
 
 public class DetailsTab extends BaseTab {
 
@@ -32,8 +32,8 @@ public class DetailsTab extends BaseTab {
         this.tObject = tObject;
         var title:String = tObject.getId();
         if (tObject.extensions != null) {
-               title = tObject.extensions.oid;
-        }   
+            title = tObject.extensions.oid;
+        }
         label = Utils.deCamel(title);
 
         setupForm();
@@ -46,12 +46,12 @@ public class DetailsTab extends BaseTab {
     }
 
     protected function setupForm():void {
-/*        addEventListener(CloseEvent.CLOSE, cancelHandler);
-
-        confirmBtn = buildButton("OK", ImageRepository.CheckIcon);
-        confirmBtn.addEventListener(MouseEvent.CLICK, okHandler);
-        cancelBtn = buildButton("Cancel", ImageRepository.TimesIcon);
-        cancelBtn.addEventListener(MouseEvent.CLICK, cancelHandler);       */
+        /*        addEventListener(CloseEvent.CLOSE, cancelHandler);
+        
+                confirmBtn = buildButton("OK", ImageRepository.CheckIcon);
+                confirmBtn.addEventListener(MouseEvent.CLICK, okHandler);
+                cancelBtn = buildButton("Cancel", ImageRepository.TimesIcon);
+                cancelBtn.addEventListener(MouseEvent.CLICK, cancelHandler);       */
 
         form = new Form();
         form.defaultButton = confirmBtn;
@@ -59,10 +59,10 @@ public class DetailsTab extends BaseTab {
 
     protected function assembleForm():void {
         var fiBtn:FormItem = new FormItem();
-/*        var btnBar:HGroup = new HGroup();
-        btnBar.addElement(confirmBtn);
-        btnBar.addElement(cancelBtn);
-        fiBtn.addElement(IVisualElement(btnBar));  */
+        /*        var btnBar:HGroup = new HGroup();
+                btnBar.addElement(confirmBtn);
+                btnBar.addElement(cancelBtn);
+                fiBtn.addElement(IVisualElement(btnBar));  */
         form.addElement(fiBtn);
 
         addChild(form);
@@ -86,10 +86,21 @@ public class DetailsTab extends BaseTab {
         for (var prop:String in tObject) {
             var fi:FormItem = buildFormItem(prop);
             var input:TextInput = new TextInput();
-            // TODO see Prompt.populate for ComboBox example, including defsultChoice
+            // TODO see Prompt.populate for ComboBox example, including defaultChoice
             input.text = tObject[prop];
             fi.addElement(input);
             form.addElement(fi);
+        }
+        var link:Link = tObject.getLayoutLink();
+        //FIXME can we assume the object-layout is already in cache?
+        if (link != null) {
+            var href:String = link.getHref();
+            var reg:EventLog = Globals.getInstance().getLog();
+            var le:LogEntry = reg.find(href);
+            var js:Object = le.getResponse();
+            var l:Layout = new Layout(js);
+            var ui:UIComponent = l.build();
+            addChild(ui);
         }
     }
 

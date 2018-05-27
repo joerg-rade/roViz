@@ -27,10 +27,10 @@ public class Layout extends AbstractLayout {
 
         function initProperties(props:Array):void {
             properties = new Vector.<PropertyLayout>();
-            var pl:PropertyLayout;
+            var l:PropertyLayout;
             for each(var json:Object in props) {
-                pl = new PropertyLayout(json);
-                properties.push(pl);
+                l = new PropertyLayout(json);
+                properties.push(l);
             }
         }
 
@@ -48,10 +48,10 @@ public class Layout extends AbstractLayout {
         
         function initRows(row:Object):void {
             rows = new Vector.<RowLayout>();
-            var rl:RowLayout;
+            var l:RowLayout;
             for each(var json:Object in row) {
-                rl = new RowLayout(json);
-                rows.push(rl);
+                l = new RowLayout(json);
+                rows.push(l);
             }
         }
     }

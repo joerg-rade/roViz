@@ -1,5 +1,5 @@
 package org.ro.handler {
-import org.ro.xhr.XhrLogEntry;
+import org.ro.xhr.LogEntry;
 
 /**
  * Interface for handling asynchronous XHR responses.
@@ -11,7 +11,7 @@ import org.ro.xhr.XhrLogEntry;
  */
 public interface IHandler {
 
-    function handle(logEntry:XhrLogEntry):void;
+    function handle(logEntry:LogEntry):void;
 
     function canHandle(json:Object):Boolean;
 

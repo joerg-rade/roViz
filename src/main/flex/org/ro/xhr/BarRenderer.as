@@ -1,7 +1,7 @@
 package org.ro.xhr {
 import flash.display.Shape;
 
-import org.ro.xhr.XhrLogEntry;
+import org.ro.xhr.LogEntry;
 
 import spark.components.gridClasses.GridItemRenderer;
 import spark.core.SpriteVisualElement;
@@ -19,7 +19,7 @@ public class BarRenderer extends GridItemRenderer {
     }
 
     override public function set data(value:Object):void {
-        var logEntry: XhrLogEntry = value as XhrLogEntry;
+        var logEntry: LogEntry = value as LogEntry;
         var len:int = logEntry.duration;                          
         var color:uint = getColor(logEntry);
         var offset:int = logEntry.offset;
@@ -37,7 +37,7 @@ public class BarRenderer extends GridItemRenderer {
         return 100;
     }
     
-    private function getColor(logEntry:XhrLogEntry):uint {
+    private function getColor(logEntry:LogEntry):uint {
         var colorCode:String = getColorCode(logEntry);
         if (colorCode === "#C0504D") {
             return 0xC0504D; //red
@@ -48,7 +48,7 @@ public class BarRenderer extends GridItemRenderer {
         }
     }
 
-    private function getColorCode(logEntry:XhrLogEntry):String {
+    private function getColorCode(logEntry:LogEntry):String {
         if (logEntry.fault != null) {
             return "#C0504D"; //red
         } else if (logEntry.duration == 0) {

@@ -1,7 +1,7 @@
 package org.ro.view.table {
 import mx.controls.LinkButton;
 
-import org.ro.xhr.XhrLogEntry;
+import org.ro.xhr.LogEntry;
 
 public class LogIconRenderer extends IconRenderer {
 
@@ -10,7 +10,7 @@ public class LogIconRenderer extends IconRenderer {
     }
 
     override public function set data(value:Object):void {
-        var logEntry:XhrLogEntry = value as XhrLogEntry;
+        var logEntry:LogEntry = value as LogEntry;
         iconButton.setStyle("icon", logEntry.icon);
     }
 

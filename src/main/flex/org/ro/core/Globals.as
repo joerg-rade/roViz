@@ -6,7 +6,7 @@ import org.ro.view.Dock;
 import org.ro.view.RoMenuBar;
 import org.ro.view.RoStatusBar;
 import org.ro.view.RoView;
-import org.ro.xhr.RequestLog;
+import org.ro.xhr.EventLog;
 
 /**
  * Pattern: Singleton, Facade
@@ -22,7 +22,7 @@ import org.ro.xhr.RequestLog;
 public class Globals {
     private static var instance:Globals = null;
     private var dsp:Dispatcher = new Dispatcher();
-    private var log:RequestLog = new RequestLog();
+    private var log:EventLog = new EventLog();
     private var view:RoView = null;
     //TODO make private
     private var user:String;
@@ -76,7 +76,7 @@ public class Globals {
         return getView().getDock();
     }
 
-    public function getLog():RequestLog {
+    public function getLog():EventLog {
         return log;
     }
 

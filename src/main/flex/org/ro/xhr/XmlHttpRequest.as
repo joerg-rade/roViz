@@ -19,7 +19,7 @@ public class XmlHttpRequest extends HTTPService {
 
     protected function xhrResultHandler(event:ResultEvent):void {
         var jsonString:String = event.result.toString();
-        var logEntry:XhrLogEntry = getLog().end(url, jsonString);
+        var logEntry:LogEntry = getLog().end(url, jsonString);
         getDsp().handle(logEntry);
     }
 
@@ -51,7 +51,7 @@ public class XmlHttpRequest extends HTTPService {
     }
 
     private static function isCached(url:String):Boolean {
-        var le:XhrLogEntry = getLog().find(url);
+        var le:LogEntry = getLog().find(url);
         if (le != null && (le.getResponse() != null)) {
             getDsp().handle(le);
             return true;
@@ -63,7 +63,7 @@ public class XmlHttpRequest extends HTTPService {
         return Globals.getInstance().getDsp();
     }
 
-    private static function getLog():RequestLog {
+    private static function getLog():EventLog {
         return Globals.getInstance().getLog();
     }
 

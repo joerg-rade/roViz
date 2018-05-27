@@ -19,8 +19,8 @@ import org.ro.view.table.ColDef;
 import org.ro.view.table.IconRenderer;
 import org.ro.view.table.ObjectIconRenderer;
 import org.ro.view.table.TableBuilder;
-import org.ro.xhr.RequestLog;
-import org.ro.xhr.XhrLogEntry;
+import org.ro.xhr.EventLog;
+import org.ro.xhr.LogEntry;
 
 import spark.components.DataGrid;
 
@@ -29,10 +29,7 @@ public class RoTab extends VBox implements IDockable {
     internal var dg:DataGrid = new DataGrid();
 
     public function RoTab(dataProvider:ObjectList, title:String, icon:Class) {
-        this.init(dataProvider, title, icon);
-    }
-
-    private function init(dataProvider:ObjectList, title:String, icon:Class):void {
+        Globals.getInstance().getLog().add(title);
         this.id = title;
         this.label = title;
         this.icon = icon;
@@ -82,12 +79,12 @@ public class RoTab extends VBox implements IDockable {
             // or is a context menu with actions more consistent?
             var link:Link = item.object.adaptee;
             var url:String = link.getHref();
-            var log:RequestLog = Globals.getInstance().getLog();
-            var le:XhrLogEntry = log.find(url);
+            var log:EventLog = Globals.getInstance().getLog();
+            var le:LogEntry = log.find(url);
             if (le == null) {
                 // this is (only?) required for Fixture Objects
                 link.invoke();
-                new Message("Object " + url + " has just been loaded - please retry.");
+                Alert.show("Object " + url + " has just been loaded - please retry.");
             } else {
                 var tObj:TObject = le.getObject();
                 var tab:DetailsTab = new DetailsTab(tObj);

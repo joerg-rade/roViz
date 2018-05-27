@@ -3,7 +3,7 @@ import org.flexunit.Assert;
 import org.ro.URLS;
 import org.ro.core.Globals;
 import org.ro.core.Menu;
-import org.ro.xhr.XhrLogEntry;
+import org.ro.xhr.LogEntry;
 
 public class ServiceHandlerTest {
     public function ServiceHandlerTest() {
@@ -15,7 +15,7 @@ public class ServiceHandlerTest {
         var spock:Globals = Globals.getInstance();
         var dsp:Dispatcher = spock.getDsp();
         // when
-        var le:XhrLogEntry = new XhrLogEntry("", "GET", null);
+        var le:LogEntry = new LogEntry("", "GET", null);
         le.response = JSON.stringify(URLS.RESTFUL_SERVICES); 
         dsp.handle(le);
         var m1:Menu = spock.getMenu();

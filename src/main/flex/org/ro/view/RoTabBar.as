@@ -11,7 +11,7 @@ import org.ro.core.Globals;
 import org.ro.core.ObjectList;
 import org.ro.view.tab.RoTab;
 import org.ro.xhr.RoDataGrid;
-import org.ro.xhr.XhrLogEntry;
+import org.ro.xhr.LogEntry;
 
 public class RoTabBar extends TabNavigator {
     private var roContextMenu:Menu;
@@ -30,7 +30,7 @@ public class RoTabBar extends TabNavigator {
         open(tab);
     }
 
-    public function addGanttTab(list:Vector.<XhrLogEntry>, title:String, icon:Class):void {
+    public function addGanttTab(list:Vector.<LogEntry>, title:String, icon:Class):void {
         var tab:RoDataGrid = new RoDataGrid(list, title, icon);
         open(tab);
     }

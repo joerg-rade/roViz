@@ -1,4 +1,6 @@
 package org.ro.to {
+import org.ro.core.Utils;
+
 /**
  *  Common 'abstract' superclass of Transfer Objects with 'links'.
  *  No Constructor.
@@ -16,6 +18,18 @@ public class LinkedTO extends BaseTO {
 
     public function getLinks():Vector.<Link> {
         return linkList;
+    }
+
+    public function getLayoutLink():Link {
+        var href:String;
+        for each(var l:Link in linkList) {
+            href = l.getHref();
+            //TODO can be "object-layout" >= 1.16
+            if (Utils.endsWith(href, "layout")) {
+                return l;
+            }
+        }
+        return null;
     }
 
 }

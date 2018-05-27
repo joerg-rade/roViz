@@ -2,7 +2,7 @@ package org.ro.handler {
 import org.ro.core.Globals;
 import org.ro.core.ObjectList;
 import org.ro.to.Extensions;
-import org.ro.xhr.XhrLogEntry;
+import org.ro.xhr.LogEntry;
 
 /**
  *  Common 'abstract' superclass of Response Handlers.
@@ -10,13 +10,13 @@ import org.ro.xhr.XhrLogEntry;
  */
 public class AbstractHandler implements IHandler {
     public var successor:IHandler;
-    protected var logEntry:XhrLogEntry;
+    protected var logEntry:LogEntry;
 
     /**
      * @see https://en.wikipedia.org/wiki/Template_method_pattern
      * @param jsonObj
      */
-    public function handle(logEntry:XhrLogEntry):void {
+    public function handle(logEntry:LogEntry):void {
         this.logEntry = logEntry;
         var jsonStr:String = logEntry.response;
         var jsonObj:Object = JSON.parse(jsonStr);
@@ -46,6 +46,10 @@ public class AbstractHandler implements IHandler {
 
     internal static function getObjectList():ObjectList {
         return Globals.getInstance().getList();
+    }
+
+    internal static function resetObjectList():void {
+        Globals.getInstance().setList(null);
     }
 
     internal static function asExtensions(jsonObj:Object):Extensions {

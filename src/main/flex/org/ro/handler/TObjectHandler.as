@@ -16,9 +16,9 @@ public class TObjectHandler extends AbstractHandler implements IHandler {
     public override function doHandle(jsonObj:Object):void {
         var list:ObjectList = getObjectList();
         var tObj:TObject = new TObject(jsonObj);
-        if (!list.hasLayout()) {
+//        if (!list.hasLayout()) {
             tObj.getLayoutLink().invoke();
-        }
+//        }
 
         var objProps:Vector.<Invokeable> = tObj.getProperties();
         var o:TObject = TObject.createObject(objProps);
@@ -30,6 +30,7 @@ public class TObjectHandler extends AbstractHandler implements IHandler {
         if (list.isReadyForDisplay()) {
             var title:String = tObj.getDomainType() + " (" + list.length() + ")";
             Globals.getInstance().addTab(list, title, ImageRepository.ObjectsIcon);
+//            resetObjectList();
         }
     }
 

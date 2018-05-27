@@ -1,5 +1,5 @@
 package org.ro.handler {
-import org.ro.xhr.XhrLogEntry;
+import org.ro.xhr.LogEntry;
 
 /**
  * Delegates responses to handlers.
@@ -33,7 +33,7 @@ public class Dispatcher {
         delegate = first;
     }
 
-    public function handle(logEntry:XhrLogEntry):void {
+    public function handle(logEntry:LogEntry):void {
         delegate.handle(logEntry);
     }
 }

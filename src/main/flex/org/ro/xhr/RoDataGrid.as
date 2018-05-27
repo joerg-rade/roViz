@@ -36,7 +36,7 @@ public class RoDataGrid extends VBox implements IDockable {
     private var dataProvider:ArrayCollection;
     private var dg:DataGrid;
 
-    public function RoDataGrid(dataProvider:Vector.<XhrLogEntry>, title:String, icon:Class) {
+    public function RoDataGrid(dataProvider:Vector.<LogEntry>, title:String, icon:Class) {
         this.id = title;
         this.label = title;
         this.icon = icon;
@@ -51,13 +51,13 @@ public class RoDataGrid extends VBox implements IDockable {
  //       Globals.instance.getViewRegistry().add("1", this);
     }
 
-    private function initData(dataProvider:Vector.<XhrLogEntry>):void {
+    private function initData(dataProvider:Vector.<LogEntry>):void {
         this.dataProvider = toArrayCollection(dataProvider);
         dg.dataProvider = this.dataProvider;
 
-        function toArrayCollection(vector:Vector.<XhrLogEntry>):ArrayCollection {
+        function toArrayCollection(vector:Vector.<LogEntry>):ArrayCollection {
             var ac:ArrayCollection = new ArrayCollection();
-            for each(var le:XhrLogEntry in vector) {
+            for each(var le:LogEntry in vector) {
                 if (le.visible)
                     ac.addItem(le);
             }
@@ -91,13 +91,13 @@ public class RoDataGrid extends VBox implements IDockable {
 
     public function onCopy(event:Event):void {
         var item:Object = dg.selectedItem;
-        var text:String = (item as XhrLogEntry).url;
+        var text:String = (item as LogEntry).url;
         System.setClipboard(text);
     }
 
     public function fullCopy():void {
         var item:Object = dg.selectedItem;
-        var text:String = (item as XhrLogEntry).printString();
+        var text:String = (item as LogEntry).printString();
         System.setClipboard(text);
     }
 
@@ -122,19 +122,19 @@ public class RoDataGrid extends VBox implements IDockable {
         }
 
         function hideLogEntries(items:Vector.<Object>):void {
-            var le:XhrLogEntry;
+            var le:LogEntry;
             for each (var o:Object in items) {
-                le = o as XhrLogEntry;
+                le = o as LogEntry;
                 le.visible = false;
             }
-            var log:RequestLog = Globals.getInstance().getLog();
+            var log:EventLog = Globals.getInstance().getLog();
             log.reset();
             initData(log.getEntries());
             dg.validateNow();
         }
 
         function showAllLogEntries():void {
-            var log:RequestLog = Globals.getInstance().getLog();
+            var log:EventLog = Globals.getInstance().getLog();
             log.showAll();
             initData(log.getEntries());
             dg.validateNow();
