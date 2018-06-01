@@ -21,7 +21,7 @@ import spark.components.DataGrid;
 public class RoDataGrid extends VBox implements IDockable {
 
     private static var cs0:ColDef = new ColDef("icon", 2, " ", null, new ClassFactory(LogIconRenderer));
-    private static var cs1:ColDef = new ColDef("urlTitle", 30, "Url", "url");
+    private static var cs1:ColDef = new ColDef("urlTitle", 45, "Url", "url");
     private static var cs2:ColDef = new ColDef("method", 3);
     private static var cs3:ColDef = new ColDef("start", 7, null, "startDate");
     private static var cs4:ColDef = new ColDef("requestLength", 3, "req.len", "request");
@@ -29,7 +29,7 @@ public class RoDataGrid extends VBox implements IDockable {
     private static var cs6:ColDef = new ColDef("duration", 3);
     private static var cs7:ColDef = new ColDef("responseLength", 5, "resp.len", "response");
     private static var cs8:ColDef = new ColDef("cacheHits", 2);
-    private static var cs9:ColDef = new ColDef(null, 45, "Chart", null, new ClassFactory(BarRenderer));
+    private static var cs9:ColDef = new ColDef(null, 30, "Chart", null, new ClassFactory(BarRenderer));
     private static var CS_LIST:Array = [cs0, cs1, cs2, cs3, cs4, cs5, cs6, cs7, cs8, cs9];
 
     private var roContextMenu:Menu;
@@ -100,7 +100,7 @@ public class RoDataGrid extends VBox implements IDockable {
         var text:String = (item as LogEntry).printString();
         System.setClipboard(text);
     }
-
+    
     /**
      *  @see https://stackoverflow.com/questions/11682914/ctrl-c-ctrl-v-and-ctrl-x-event-listener
      */

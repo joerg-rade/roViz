@@ -29,7 +29,8 @@ public class ListHandler extends AbstractHandler implements IHandler {
         var list:List = new List(jsonObj);
         var members:Vector.<Invokeable> = list.getResult().getValues();
         var size:uint = members.length;
-        var objectList:ObjectList = new ObjectList(size);
+        var objectList:ObjectList = new ObjectList();
+        objectList.initSize(size);
         Globals.getInstance().setList(objectList);
         for each (var l:Link in members) {
             l.invoke();

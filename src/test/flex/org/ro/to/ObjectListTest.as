@@ -19,7 +19,8 @@ public class ObjectListTest {
 
         var lyt:Layout = new Layout(jsonLayout);
 
-        var ol:ObjectList = new ObjectList(2);
+        var ol:ObjectList = new ObjectList();
+        ol.initSize(2);
 
         var o0:TObject = TObject.createObject(members0);
         var oa0:ObjectAdapter = new ObjectAdapter(o0);

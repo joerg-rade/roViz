@@ -14,7 +14,8 @@ public class PropertyDescriptionHandlerTest {
     public function testService():void {
         // given
         var spock:Globals = Globals.getInstance();
-        var xpList:ObjectList = new ObjectList(1);
+        var xpList:ObjectList = new ObjectList();
+        xpList.initSize(1);
         var xpLayout:Layout = new Layout();
         xpList.setLayout(xpLayout);
         spock.setList(xpList);

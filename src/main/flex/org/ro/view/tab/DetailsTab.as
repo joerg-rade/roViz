@@ -97,7 +97,7 @@ public class DetailsTab extends BaseTab {
             var href:String = link.getHref();
             var reg:EventLog = Globals.getInstance().getLog();
             var le:LogEntry = reg.find(href);
-            var js:Object = le.getResponse();
+            var js:Object = le.retrieveResponse();
             var l:Layout = new Layout(js);
             var ui:UIComponent = l.build();
             addChild(ui);

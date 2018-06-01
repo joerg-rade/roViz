@@ -28,7 +28,8 @@ public class MemberTest {
         var properties:Vector.<Invokeable> = to.getProperties();
         Assert.assertEquals(4, properties.length);
 
-        var objectList:ObjectList = new ObjectList(1);
+        var objectList:ObjectList = new ObjectList();
+        objectList.initSize(1);
         var o:TObject = TObject.createObject(properties);
         var oa1:ObjectAdapter = new ObjectAdapter(o);
         objectList.add(oa1);

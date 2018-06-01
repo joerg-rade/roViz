@@ -89,6 +89,9 @@ public class Globals {
     }
 
     public function getList():ObjectList {
+        if (list == null) {
+            list = new ObjectList();
+        }
         return list;
     }
 

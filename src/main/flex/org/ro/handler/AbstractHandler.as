@@ -1,6 +1,7 @@
 package org.ro.handler {
 import org.ro.core.Globals;
 import org.ro.core.ObjectList;
+import org.ro.core.Utils;
 import org.ro.to.Extensions;
 import org.ro.xhr.LogEntry;
 
@@ -18,8 +19,8 @@ public class AbstractHandler implements IHandler {
      */
     public function handle(logEntry:LogEntry):void {
         this.logEntry = logEntry;
-        var jsonStr:String = logEntry.response;
-        var jsonObj:Object = JSON.parse(jsonStr);
+        var jsonStr:String = logEntry.getResponse();
+        var jsonObj:Object = Utils.toJsonObject(jsonStr);
         if (canHandle(jsonObj)) {
             doHandle(jsonObj);
         } else {
@@ -63,6 +64,6 @@ public class AbstractHandler implements IHandler {
     internal function isService(jsonObj:Object):Boolean {
         return jsonObj.extensions.isService;
     }
-    
+
 }
 }

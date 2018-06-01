@@ -1,4 +1,6 @@
 package org.ro.core {
+import mx.controls.Alert;
+
 public class Utils {
 
     public static function endsWith(obj:String, qry:String):Boolean {
@@ -70,6 +72,45 @@ public class Utils {
         }
         return json;
     }
+
+    public static function getSelfHref(value:Object):String {
+        var links:Array = value.links; // rel==self
+        for each (var l:Object in links) {
+            if (l.rel == "self") {
+                return l.href;
+            }
+        }
+        return null;
+    }
+
+    public static function toJsonObject(jsonStr:String):Object {
+        var jsonObject:Object;
+        try {
+            jsonObject = JSON.parse(jsonStr);
+        }  catch (err:Error) {
+            Alert.show("Error: " + err.toString());
+        }
+        finally {
+            // Code that runs whether an error was thrown. This code can clean 
+            // up after the error, or take steps to keep the application running. 
+        }
+        return jsonObject;
+    }
+
+    public static function toJsonString(jsonObj:Object):String {
+        var jsonStr:String;
+        try {
+            jsonStr = JSON.stringify(jsonObj);
+        }  catch (err:Error) {
+            Alert.show("Error: " + err.toString());
+        }
+        finally {
+            // Code that runs whether an error was thrown. This code can clean 
+            // up after the error, or take steps to keep the application running. 
+        }
+        return jsonStr;
+    }
+
 
 }
 }

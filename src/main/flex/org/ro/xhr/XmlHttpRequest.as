@@ -39,7 +39,6 @@ public class XmlHttpRequest extends HTTPService {
         super.headers = {Authorization: "Basic " + credentials};
         super.headers["Accept"] = "application/json";
         super.contentType = "application/json";
-        var len:uint = 0;
         if (super.method == Invokeable.POST) {
             var l:Link = inv as Link;
             var body:String = l.getArgumentsAsJsonString();
@@ -53,6 +52,7 @@ public class XmlHttpRequest extends HTTPService {
     private static function isCached(url:String):Boolean {
         var le:LogEntry = getLog().find(url);
         if (le != null && (le.getResponse() != null)) {
+//            le.retrieveResponse();
             getDsp().handle(le);
             return true;
         }

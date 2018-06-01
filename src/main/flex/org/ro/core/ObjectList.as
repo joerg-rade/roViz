@@ -10,9 +10,12 @@ public class ObjectList {
     private var list:Vector.<ObjectAdapter>;
     private var layout:Layout;
 
-    public function ObjectList(limit:int) {
-        this.limit = limit;
+    public function ObjectList() {
         this.list = new Vector.<ObjectAdapter>();
+    }
+
+    public function initSize(limit:int):void {
+        this.limit = limit;
     }
 
     public function hasLayout():Boolean {
@@ -58,7 +61,7 @@ public class ObjectList {
     public function add(oa:ObjectAdapter):void {
         if (length() < limit) {
             list.push(oa);
-        }  else {
+        } else {
             Alert.show("extra element");
         }
     }

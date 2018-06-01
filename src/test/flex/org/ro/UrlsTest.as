@@ -58,14 +58,14 @@ public class UrlsTest {
         timer = null;
     }
 
-    protected function handleTimeout(passThroughData:Object):void {
+    protected static function handleTimeout(passThroughData:Object):void {
         Assert.fail("Timeout reached before event");
     }
 
     [Test(async, description="parse result of invoking object url")]
     public function testUrl1():void {
         object = URLS.RESTFUL_SERVICES;
-        var href:String = getSelfHref(object);
+        var href:String = Utils.getSelfHref(object);
         initLink(href);
 
         var asyncHandler:Function = Async.asyncHandler(this, handleLinkComplete, 500, null, handleTimeout);
@@ -83,22 +83,12 @@ public class UrlsTest {
     public function handleLinkComplete(event:TimerEvent, passThroughData:Object):void {
         var href:String = link.getHref();
         var logEntry:LogEntry = log.find(href);
-        var resp:String = logEntry.getResponse(); 
+        var resp:String = logEntry.retrieveResponse(); 
         var observed:Object = JSON.parse(resp);
         //pass over String to Services
         var expected:Object = object;    
         var b:Boolean = Utils.areEqual(expected, observed);
         Assert.assertTrue(b);
-    }
-
-    private function getSelfHref(value:Object):String {
-        var links:Array = value.links; // rel==self
-        for each (var l:Object in links) {
-            if (l.rel == "self") {
-                return l.href;
-            }
-        }
-        return null;
     }
 
 }
