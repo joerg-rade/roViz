@@ -52,7 +52,7 @@ public class XmlHttpRequest extends HTTPService {
     private static function isCached(url:String):Boolean {
         var le:LogEntry = getLog().find(url);
         if (le != null && (le.getResponse() != null)) {
-//            le.retrieveResponse();
+            le.retrieveResponse();
             getDsp().handle(le);
             return true;
         }

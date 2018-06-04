@@ -1,5 +1,6 @@
 package org.ro.view.table {
 import mx.core.ClassFactory;
+import mx.formatters.DateFormatter;
 
 import org.ro.core.Utils;
 
@@ -13,17 +14,20 @@ public class ColDef {
     private var width:uint;
     private var tip:String;
     private var renderer:ClassFactory;
+    private var formatter:DateFormatter;
 
     public function ColDef(field:String = null,
                            width:uint = 0,
                            name:String = null,
                            tip:String = null,
-                           renderer:ClassFactory = null) {
+                           renderer:ClassFactory = null,
+                           formatter:DateFormatter = null) {
         this.field = field;
         this.name = name;
         this.width = width;
         this.tip = tip;
         this.renderer = renderer;
+        this.formatter = formatter;
     }
 
     public function getField():String {
@@ -64,6 +68,10 @@ public class ColDef {
 
     public function getRenderer():ClassFactory {
         return renderer;
+    }
+
+    public function getFormatter():DateFormatter {
+        return formatter;
     }
 
 }

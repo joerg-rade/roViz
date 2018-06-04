@@ -6,6 +6,7 @@ import mx.controls.ComboBox;
 import mx.core.UIComponent;
 
 import org.apache.flex.collections.VectorList;
+import org.ro.core.Globals;
 import org.ro.core.Utils;
 import org.ro.to.Action;
 import org.ro.to.Link;
@@ -26,6 +27,7 @@ public class Prompt extends Dialog {
 
         super();
         super.title = Utils.deCamel(id);
+        Globals.getInstance().getLog().add(super.title);
     }
 
     override protected function populateForm():void {

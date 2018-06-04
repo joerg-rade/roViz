@@ -28,6 +28,7 @@ public class TableBuilder {
         gc.showDataTips = cs.hasTip();
         gc.dataTipField = cs.getTip();
         gc.itemRenderer = cs.getRenderer();
+        gc.formatter = cs.getFormatter();
         return gc;
     }
 
