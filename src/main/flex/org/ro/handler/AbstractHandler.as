@@ -49,10 +49,6 @@ public class AbstractHandler implements IHandler {
         return Globals.getInstance().getList();
     }
 
-    internal static function resetObjectList():void {
-        Globals.getInstance().setList(null);
-    }
-
     internal static function asExtensions(jsonObj:Object):Extensions {
         return new Extensions(jsonObj.extensions);
     }

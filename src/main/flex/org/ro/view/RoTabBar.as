@@ -10,8 +10,8 @@ import mx.events.MenuEvent;
 import org.ro.core.Globals;
 import org.ro.core.ObjectList;
 import org.ro.view.tab.RoTab;
-import org.ro.xhr.RoDataGrid;
 import org.ro.xhr.LogEntry;
+import org.ro.xhr.RoDataGrid;
 
 public class RoTabBar extends TabNavigator {
     private var roContextMenu:Menu;
@@ -65,7 +65,7 @@ public class RoTabBar extends TabNavigator {
         roContextMenu.hide();
     }
 
-    public function removeTab(event:MouseEvent):void {
+    private function removeTab(event:MouseEvent):void {
         this.removeChildAt(selectedIndex);
     }
 
@@ -76,8 +76,10 @@ public class RoTabBar extends TabNavigator {
         } else if (event.item.@id == "dock") {
             Globals.getInstance().getDock().addView(tab as IDockable);
         } else if (event.item.@id == "redraw") {
-            //intended to
-            (tab as UIComponent).invalidateDisplayList();
+            //TODO it's rather a refresh - worth putting it in a separate function?
+            var title:String = (tab as RoTab).id;
+            removeTab(null);
+            Globals.getInstance().displayList(title);
         } else {
             Alert.show(event.toString());
         }

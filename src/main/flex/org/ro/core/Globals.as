@@ -3,6 +3,7 @@ import mx.utils.Base64Encoder;
 
 import org.ro.handler.Dispatcher;
 import org.ro.view.Dock;
+import org.ro.view.ImageRepository;
 import org.ro.view.RoMenuBar;
 import org.ro.view.RoStatusBar;
 import org.ro.view.RoView;
@@ -24,7 +25,6 @@ public class Globals {
     private var dsp:Dispatcher = new Dispatcher();
     private var log:EventLog = new EventLog();
     private var view:RoView = null;
-    //TODO make private
     private var user:String;
     private var pw:String;
     private var url:String;
@@ -62,6 +62,10 @@ public class Globals {
 
     public function addTab(objectList:ObjectList, s:String, ObjectsIcon:Class):void {
         getView().getTabs().addTab(objectList, s, ObjectsIcon);
+    }
+    
+    public function displayList(title:String):void {
+        addTab(getList(), title, ImageRepository.ObjectsIcon);
     }
 
     private function getMenuBar():RoMenuBar {

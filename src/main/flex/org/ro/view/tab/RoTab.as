@@ -14,7 +14,6 @@ import org.ro.layout.PropertyLayout;
 import org.ro.to.Link;
 import org.ro.to.TObject;
 import org.ro.view.IDockable;
-import org.ro.view.dlg.Message;
 import org.ro.view.table.ColDef;
 import org.ro.view.table.IconRenderer;
 import org.ro.view.table.ObjectIconRenderer;

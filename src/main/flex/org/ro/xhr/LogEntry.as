@@ -99,7 +99,23 @@ public class LogEntry {
     public function stripHostPort(url:String):String {
         var result:String = url;
         result = result.replace("http://localhost:8080/restful/", "");
+        result = removeHexCode(result);
         return result;
+        
+        function removeHexCode(input:String):String {
+            var output:String = "";
+            var list:Array = input.split("/");
+            //split string by "/" and remove parts longer than 40chars
+            for each(var s:String in list) {
+                output = output + "/";
+                if (s.length < 40) {
+                    output = output + s;
+                }  else {
+                    output = output + "..."
+                }
+            }
+            return output;
+        }
     }
 
     public function printString():String {
