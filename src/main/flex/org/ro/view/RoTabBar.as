@@ -76,12 +76,22 @@ public class RoTabBar extends TabNavigator {
         } else if (event.item.@id == "dock") {
             Globals.getInstance().getDock().addView(tab as IDockable);
         } else if (event.item.@id == "redraw") {
-            //TODO it's rather a refresh - worth putting it in a separate function?
-            var title:String = (tab as RoTab).id;
-            removeTab(null);
-            Globals.getInstance().displayList(title);
+            reload(tab as RoTab);
         } else {
             Alert.show(event.toString());
+        }
+    }
+
+    /**
+     * Due to the asynchronous way data is retrieved, some information may not be available at the time the tab is created
+     * - notably layout information for linked objects in the FixtureResult list.
+     * This function can be called after all responses have arrived from the server.
+     * @param tab
+     */
+    private function reload(tab:RoTab):void {
+        if (tab != null) {
+            removeTab(null);
+            Globals.getInstance().displayList(tab.id);
         }
     }
 

@@ -52,8 +52,12 @@ limitations under the License.
         [Embed("../resources/images/eye-slash.svg")]
         [Bindable]
         public var EyeSlashIcon:Class;
-        
-       ]]></fx:Script>
+
+        [Embed(source="/../resources/fonts/Chicago.ttf", fontName = "Chicago", fontWeight = "Demibold", mimeType="application/x-font")]
+        public var Chicago:Class;
+
+
+        ]]></fx:Script>
 
     <!--fx:Style source="../resources/css/styles.css"/-->
     <view:RoView id="view"/>

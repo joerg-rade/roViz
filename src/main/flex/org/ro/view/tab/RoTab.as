@@ -83,14 +83,14 @@ public class RoTab extends VBox implements IDockable {
             if (le == null) {
                 // this is (only?) required for Fixture Objects
                 link.invoke();
-                Alert.show("Object " + url + " has just been loaded - please retry.");
+ //FIXME               Alert.show("Object " + url + " has just been loaded - please retry.");
             } else {
                 var tObj:TObject = le.getObject();
                 var tab:DetailsTab = new DetailsTab(tObj);
                 Globals.getInstance().getView().getTabs().open(tab);
             }
         } else {
-            Alert.show("Define Link to be invoked");
+ //FIXME           Alert.show("Define Link to be invoked");
         }
     }
 
