@@ -1,4 +1,4 @@
-package org.ro.xhr {
+package org.ro.view.tab {
 import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.system.System;
@@ -9,17 +9,18 @@ import mx.controls.Alert;
 import mx.controls.Menu;
 import mx.core.ClassFactory;
 import mx.events.MenuEvent;
+import mx.formatters.DateFormatter;
 
 import org.ro.core.Globals;
 import org.ro.view.IDockable;
 import org.ro.view.table.ColDef;
 import org.ro.view.table.LogIconRenderer;
 import org.ro.view.table.TableBuilder;
+import org.ro.xhr.*;
 
 import spark.components.DataGrid;
-import mx.formatters.DateFormatter;
 
-public class RoDataGrid extends VBox implements IDockable {
+public class EventLogTab extends VBox implements IDockable {
     private static var FORMATTER:DateFormatter = new DateFormatter();
     FORMATTER.formatString = "HH:NN:SS.QQQ";
 
@@ -40,7 +41,7 @@ public class RoDataGrid extends VBox implements IDockable {
     private var dataProvider:ArrayCollection;
     private var dg:DataGrid;
 
-    public function RoDataGrid(dataProvider:Vector.<LogEntry>, title:String, icon:Class) {
+    public function EventLogTab(dataProvider:Vector.<LogEntry>, title:String, icon:Class) {
         this.id = title;
         this.label = title;
         this.icon = icon;
@@ -103,7 +104,7 @@ public class RoDataGrid extends VBox implements IDockable {
         var text:String = (item as LogEntry).printString();
         System.setClipboard(text);
     }
-    
+
     /**
      *  @see https://stackoverflow.com/questions/11682914/ctrl-c-ctrl-v-and-ctrl-x-event-listener
      */

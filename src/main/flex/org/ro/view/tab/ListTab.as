@@ -1,11 +1,11 @@
 package org.ro.view.tab {
 import flash.events.MouseEvent;
 
-import mx.containers.VBox;
 import mx.controls.Alert;
 import mx.controls.Menu;
 import mx.controls.dataGridClasses.DataGridColumn;
 import mx.core.ClassFactory;
+import mx.events.FlexEvent;
 
 import org.ro.core.Globals;
 import org.ro.core.ObjectList;
@@ -13,7 +13,6 @@ import org.ro.layout.Layout;
 import org.ro.layout.PropertyLayout;
 import org.ro.to.Link;
 import org.ro.to.TObject;
-import org.ro.view.IDockable;
 import org.ro.view.table.ColDef;
 import org.ro.view.table.IconRenderer;
 import org.ro.view.table.ObjectIconRenderer;
@@ -23,11 +22,11 @@ import org.ro.xhr.LogEntry;
 
 import spark.components.DataGrid;
 
-public class RoTab extends VBox implements IDockable {
+public class ListTab extends BaseTab {
 
     internal var dg:DataGrid = new DataGrid();
 
-    public function RoTab(dataProvider:ObjectList, title:String, icon:Class) {
+    public function ListTab(dataProvider:ObjectList, title:String, icon:Class) {
         Globals.getInstance().getLog().add(title);
         this.id = title;
         this.label = title;
@@ -47,18 +46,11 @@ public class RoTab extends VBox implements IDockable {
         this.addChild(dg);
         resizeColumns();
         toolTip = "Double click (label) to close or invoke menu on selected item."
+//        dg.addEventListener(FlexEvent.CREATION_COMPLETE, creationCompleteHandler);
     }
 
     private function initData(dataProvider:ObjectList):void {
         dg.dataProvider = dataProvider.forDataGrid();
-    }
-
-    private function mouseWheelHandler():void {
-        systemManager.addEventListener("mouseWheel", bumpDelta, true);
-
-        function bumpDelta(event:MouseEvent):void {
-            event.delta *= 20;
-        }
     }
 
     /* forces columns to size themselves properly */
@@ -83,14 +75,14 @@ public class RoTab extends VBox implements IDockable {
             if (le == null) {
                 // this is (only?) required for Fixture Objects
                 link.invoke();
- //FIXME               Alert.show("Object " + url + " has just been loaded - please retry.");
+                //FIXME               Alert.show("Object " + url + " has just been loaded - please retry.");
             } else {
                 var tObj:TObject = le.getObject();
                 var tab:DetailsTab = new DetailsTab(tObj);
                 Globals.getInstance().getView().getTabs().open(tab);
             }
         } else {
- //FIXME           Alert.show("Define Link to be invoked");
+            //FIXME           Alert.show("Define Link to be invoked");
         }
     }
 
@@ -109,10 +101,6 @@ public class RoTab extends VBox implements IDockable {
         var myMenu:Menu = Menu.createMenu(null, myMenuData, false);
         myMenu.labelField = "@label";
         myMenu.show(mouseX, mouseY);
-    }
-
-    public function getIcon():Class {
-        return icon;
     }
 
     private static function colSpec(layout:Layout):Array {
@@ -142,6 +130,18 @@ public class RoTab extends VBox implements IDockable {
             }
         }
         return csList;
+    }
+
+    //@deprecated have view respond to changed data in different way
+    public function creationCompleteHandler(event:FlexEvent):void {
+        var log:EventLog = Globals.getInstance().getLog();
+        var doitAgain:Boolean = !log.isResponsePending();
+        if (doitAgain) {
+            Globals.getInstance().getView().getTabs().reload(this);
+            Alert.show("Tab reloaded.");
+        } else {
+            Alert.show("Not all responses retrieved - refresh via context menu.");
+        }
     }
 
 }

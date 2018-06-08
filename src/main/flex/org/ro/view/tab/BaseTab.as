@@ -14,7 +14,7 @@ public class BaseTab extends VBox implements IDockable {
         this.icon = defaultIcon;
     }
 
-    private function mouseWheelHandler():void {
+    protected function mouseWheelHandler():void {
         systemManager.addEventListener("mouseWheel", bumpDelta, true);
 
         function bumpDelta(event:MouseEvent):void {

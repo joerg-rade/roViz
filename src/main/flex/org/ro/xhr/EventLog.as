@@ -89,5 +89,34 @@ public class EventLog {
         reset();
     }
 
+    public function isResponsePending():Boolean {
+        //iterate over all entries and chek for outstanding responses
+        // url must be unique in list
+        var pending:Vector.<LogEntry> = new Vector.<LogEntry>();
+        for each (var ple:LogEntry in log) {
+            if (ple.updatedAt == null) {
+                pending.push(ple);
+            }
+        }
+        var entriesWithUrl:Vector.<LogEntry>;
+        for each (var pe:LogEntry in pending) {
+            entriesWithUrl = collect(pe.url);
+            if (entriesWithUrl.length > 1) {
+                return true;
+            }
+        }
+        return false;
+
+        function collect(url:String):Vector.<LogEntry> {
+            var answer:Vector.<LogEntry> = new Vector.<LogEntry>();
+            for each(var l:LogEntry in log) {
+                if (l.url == url) {
+                    answer.push(l);
+                }
+            }
+            return answer;
+        }
+    }
+
 }
 }

@@ -20,7 +20,7 @@ public class LogEntry {
     public var response:String;
     public var duration:int = 0;
     public var tObject:TObject;
-    internal var visible:Boolean = true;
+    public var visible:Boolean = true;
     public var cacheHits:uint = 0;
 
     public function LogEntry(url:String, method:String, body:String) {

@@ -9,9 +9,10 @@ import mx.events.MenuEvent;
 
 import org.ro.core.Globals;
 import org.ro.core.ObjectList;
-import org.ro.view.tab.RoTab;
+import org.ro.view.tab.BaseTab;
+import org.ro.view.tab.ListTab;
 import org.ro.xhr.LogEntry;
-import org.ro.xhr.RoDataGrid;
+import org.ro.view.tab.EventLogTab;
 
 public class RoTabBar extends TabNavigator {
     private var roContextMenu:Menu;
@@ -26,12 +27,12 @@ public class RoTabBar extends TabNavigator {
     }
 
     public function addTab(objectList:ObjectList, title:String, icon:Class):void {
-        var tab:RoTab = new RoTab(objectList, title, icon);
+        var tab:ListTab = new ListTab(objectList, title, icon);
         open(tab);
     }
 
     public function addGanttTab(list:Vector.<LogEntry>, title:String, icon:Class):void {
-        var tab:RoDataGrid = new RoDataGrid(list, title, icon);
+        var tab:EventLogTab = new EventLogTab(list, title, icon);
         open(tab);
     }
 
@@ -65,18 +66,18 @@ public class RoTabBar extends TabNavigator {
         roContextMenu.hide();
     }
 
-    private function removeTab(event:MouseEvent):void {
-        this.removeChildAt(selectedIndex);
+    private function removeTab(tab:BaseTab):void {
+        this.removeChild(tab);
     }
 
     public function itemClickHandler(event:MenuEvent):void {
-        var tab:Object = this.getItemAt(selectedIndex);
+        var tab:BaseTab = this.getItemAt(selectedIndex) as BaseTab;
         if (event.item.@id == "close") {
-            removeTab(null);
+            removeTab(tab);
         } else if (event.item.@id == "dock") {
-            Globals.getInstance().getDock().addView(tab as IDockable);
+            Globals.getInstance().getDock().addView(tab);
         } else if (event.item.@id == "redraw") {
-            reload(tab as RoTab);
+            reload(tab);
         } else {
             Alert.show(event.toString());
         }
@@ -88,9 +89,9 @@ public class RoTabBar extends TabNavigator {
      * This function can be called after all responses have arrived from the server.
      * @param tab
      */
-    private function reload(tab:RoTab):void {
+    public function reload(tab:BaseTab):void {
         if (tab != null) {
-            removeTab(null);
+            removeTab(tab);
             Globals.getInstance().displayList(tab.id);
         }
     }
