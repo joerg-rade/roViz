@@ -1,6 +1,5 @@
 package org.ro.core {
 import mx.collections.ArrayCollection;
-import mx.controls.Alert;
 
 import org.ro.layout.Layout;
 
@@ -59,12 +58,11 @@ public class ObjectList {
     }
 
     public function add(oa:ObjectAdapter):void {
-        if (length() < limit) {
-            list.push(oa);
-        } else {
-            Alert.show("extra element");
-        }
+        list.push(oa);
     }
 
+    public function isFull():Boolean {
+        return length() >= limit;
+    }
 }
 }

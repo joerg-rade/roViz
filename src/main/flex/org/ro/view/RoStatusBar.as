@@ -63,7 +63,7 @@ public class RoStatusBar extends HBox {
         var view:RoView = Globals.getInstance().getView();
         var log:EventLog = Globals.getInstance().getLog();
         var list:Vector.<LogEntry> = log.getEntries();
-        view.getTabs().addGanttTab(list, "Log Entries (" + list.length + ")", ImageRepository.LogIcon);
+        view.getTabs().addEventTab(list, "Log Entries (" + list.length + ")", ImageRepository.LogIcon);
     }
 
 }

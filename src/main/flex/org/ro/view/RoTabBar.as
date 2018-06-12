@@ -9,8 +9,11 @@ import mx.events.MenuEvent;
 
 import org.ro.core.Globals;
 import org.ro.core.ObjectList;
+import org.ro.to.TObject;
 import org.ro.view.tab.BaseTab;
+import org.ro.view.tab.DetailsTab;
 import org.ro.view.tab.ListTab;
+import org.ro.view.tab.TreeTab;
 import org.ro.xhr.LogEntry;
 import org.ro.view.tab.EventLogTab;
 
@@ -26,13 +29,23 @@ public class RoTabBar extends TabNavigator {
         addEventListener(MenuEvent.MENU_HIDE, hideContextMenu);
     }
 
-    public function addTab(objectList:ObjectList, title:String, icon:Class):void {
+    public function addListTab(objectList:ObjectList, title:String, icon:Class):void {
         var tab:ListTab = new ListTab(objectList, title, icon);
         open(tab);
     }
 
-    public function addGanttTab(list:Vector.<LogEntry>, title:String, icon:Class):void {
+    public function addEventTab(list:Vector.<LogEntry>, title:String, icon:Class):void {
         var tab:EventLogTab = new EventLogTab(list, title, icon);
+        open(tab);
+    }
+
+    public function addTreeTab(list:Vector.<LogEntry>):void {
+        var tab:TreeTab = new TreeTab(list);
+        open(tab);
+    }
+
+    public function addObjectTab(tObj:TObject):void {
+        var tab:DetailsTab = new DetailsTab(tObj);
         open(tab);
     }
 

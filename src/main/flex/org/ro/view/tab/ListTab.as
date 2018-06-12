@@ -77,6 +77,7 @@ public class ListTab extends BaseTab {
                 link.invoke();
                 //FIXME               Alert.show("Object " + url + " has just been loaded - please retry.");
             } else {
+                //FIXME to be removed  ???
                 var tObj:TObject = le.getObject();
                 var tab:DetailsTab = new DetailsTab(tObj);
                 Globals.getInstance().getView().getTabs().open(tab);

@@ -63,7 +63,7 @@ public class Utils {
         }
         return false;
     }
-    
+
     public static function replace(json:Object, oldKey:String, newKey:String):Object {
         var origin:String = JSON.stringify(json);
         if (origin.indexOf(oldKey) > 0) {
@@ -83,11 +83,29 @@ public class Utils {
         return null;
     }
 
+    public static function getUpHref(response:String):String {
+        var object:Object = JSON.parse(response);
+        var links:Array;
+        var val:Object = object.value;
+        if (val is Array) {
+            links = val as Array;
+        }
+        if (links == null) {
+            links = object.links;
+        }
+        for each (var l:Object in links) {
+            if (l.rel == "up") {
+                return l.href;
+            }
+        }
+        return null;
+    }
+
     public static function toJsonObject(jsonStr:String):Object {
         var jsonObject:Object;
         try {
             jsonObject = JSON.parse(jsonStr);
-        }  catch (err:Error) {
+        } catch (err:Error) {
             Alert.show("Error: " + err.toString());
         }
         finally {
@@ -101,7 +119,7 @@ public class Utils {
         var jsonStr:String;
         try {
             jsonStr = JSON.stringify(jsonObj);
-        }  catch (err:Error) {
+        } catch (err:Error) {
             Alert.show("Error: " + err.toString());
         }
         finally {

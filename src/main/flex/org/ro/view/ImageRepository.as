@@ -49,6 +49,10 @@ public class ImageRepository {
     [Bindable]
     public static var TimesIcon:Class;
 
+    [Embed("../../../../resources/images/tree.svg")]
+    [Bindable]
+    public static var TreeIcon:Class;
+
  //TODO check when App.mxml is the right place for icons ...
     
     public function ImageRepository() {

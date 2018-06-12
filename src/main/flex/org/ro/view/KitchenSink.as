@@ -41,31 +41,12 @@ public class KitchenSink extends TitleWindow {
         tn.addElement(font());
         tn.addElement(calendar());
         tn.addElement(image());
-        tn.addElement(tree());
         tn.addChild(iframe());
 
         PopUpManager.addPopUp(this, Globals.getInstance().getView(), true);
         PopUpManager.centerPopUp(this);
     }
-
-    private function tree():HBox {
-        var t:HBox = new HBox();
-        t.label = "Tree";
-        t.icon = ImageRepository.LogIcon;
-        var st:SampleTree = new SampleTree();
-        var tree:Tree = new Tree();
-        tree.x = 8;
-        tree.y = 40;
-        tree.percentHeight = 100;
-        tree.percentWidth = 100;
-        tree.dataProvider = st.companyData;
-        tree.labelField = "@label";
-
-        t.addChild(tree);
-
-        return t;
-    }
-
+    
     private function rte():RichTextEditor {
         var rte:RichTextEditor = new RichTextEditor();
         rte.percentHeight = 100;

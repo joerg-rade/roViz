@@ -13,10 +13,13 @@ import mx.formatters.DateFormatter;
 
 import org.ro.core.Globals;
 import org.ro.view.IDockable;
+import org.ro.view.RoView;
 import org.ro.view.table.ColDef;
 import org.ro.view.table.LogIconRenderer;
 import org.ro.view.table.TableBuilder;
-import org.ro.xhr.*;
+import org.ro.xhr.BarRenderer;
+import org.ro.xhr.EventLog;
+import org.ro.xhr.LogEntry;
 
 import spark.components.DataGrid;
 
@@ -75,6 +78,7 @@ public class EventLogTab extends VBox implements IDockable {
                     <menuitem id="hide" icon="EyeSlashIcon" label="hide"/>
                     <menuitem id="show" icon="EyeIcon" label="show all"/>
                     <menuitem id="copy" icon="CheckIcon" label="copy"/>
+                    <menuitem id="tree" icon="TreeIcon" label="tree"/>
                 </root>;
         var result:Menu = Menu.createMenu(null, xml, false);
         result.labelField = "@label";
@@ -105,6 +109,14 @@ public class EventLogTab extends VBox implements IDockable {
         System.setClipboard(text);
     }
 
+    private function tree():void {
+        var view:RoView = Globals.getInstance().getView();
+        var log:EventLog = Globals.getInstance().getLog();
+        var list:Vector.<LogEntry> = log.getEntries();
+        view.getTabs().addTreeTab(list);
+
+    }
+
     /**
      *  @see https://stackoverflow.com/questions/11682914/ctrl-c-ctrl-v-and-ctrl-x-event-listener
      */
@@ -121,6 +133,8 @@ public class EventLogTab extends VBox implements IDockable {
             showAllLogEntries();
         } else if (id === "copy") {
             fullCopy();
+        } else if (id === "tree") {
+            tree();
         } else {
             Alert.show(event.toString());
         }

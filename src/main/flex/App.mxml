@@ -53,8 +53,9 @@ limitations under the License.
         [Bindable]
         public var EyeSlashIcon:Class;
 
-        [Embed(source="/../resources/fonts/Chicago.ttf", fontName = "Chicago", fontWeight = "Demibold", mimeType="application/x-font")]
-        public var Chicago:Class;
+        [Embed("../resources/images/tree.svg")]
+        [Bindable]
+        public var TreeIcon:Class;
 
 
         ]]></fx:Script>

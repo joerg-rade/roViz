@@ -2,6 +2,7 @@ package org.ro.core {
 import mx.utils.Base64Encoder;
 
 import org.ro.handler.Dispatcher;
+import org.ro.to.TObject;
 import org.ro.view.Dock;
 import org.ro.view.ImageRepository;
 import org.ro.view.RoMenuBar;
@@ -60,12 +61,16 @@ public class Globals {
         return getView().getStatusBar();
     }
 
-    public function addTab(objectList:ObjectList, s:String, ObjectsIcon:Class):void {
-        getView().getTabs().addTab(objectList, s, ObjectsIcon);
+    public function addListTab(objectList:ObjectList, s:String, ObjectsIcon:Class):void {
+        getView().getTabs().addListTab(objectList, s, ObjectsIcon);
     }
     
     public function displayList(title:String):void {
-        addTab(getList(), title, ImageRepository.ObjectsIcon);
+        addListTab(getList(), title, ImageRepository.ObjectsIcon);
+    }
+
+    public function addObjectTab(tObj:TObject):void {
+        getView().getTabs().addObjectTab(tObj);
     }
 
     private function getMenuBar():RoMenuBar {
