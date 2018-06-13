@@ -43,6 +43,8 @@ public class DetailsTab extends BaseTab {
         roContextMenu = buildContextMenu();
         addEventListener(MouseEvent.RIGHT_CLICK, contextMenuHandler);
         addEventListener(MenuEvent.MENU_HIDE, hideContextMenu);
+
+        Globals.getInstance().getLog().add(title);
     }
 
     protected function setupForm():void {

@@ -27,6 +27,7 @@ public class Prompt extends Dialog {
 
         super();
         super.title = Utils.deCamel(id);
+
         Globals.getInstance().getLog().add(super.title);
     }
 

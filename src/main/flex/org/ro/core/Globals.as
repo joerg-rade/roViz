@@ -65,6 +65,7 @@ public class Globals {
         getView().getTabs().addListTab(objectList, s, ObjectsIcon);
     }
     
+    //convenience method
     public function displayList(title:String):void {
         addListTab(getList(), title, ImageRepository.ObjectsIcon);
     }

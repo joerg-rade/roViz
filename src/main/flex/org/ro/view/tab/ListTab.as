@@ -5,7 +5,6 @@ import mx.controls.Alert;
 import mx.controls.Menu;
 import mx.controls.dataGridClasses.DataGridColumn;
 import mx.core.ClassFactory;
-import mx.events.FlexEvent;
 
 import org.ro.core.Globals;
 import org.ro.core.ObjectList;
@@ -27,13 +26,12 @@ public class ListTab extends BaseTab {
     internal var dg:DataGrid = new DataGrid();
 
     public function ListTab(dataProvider:ObjectList, title:String, icon:Class) {
-        Globals.getInstance().getLog().add(title);
         this.id = title;
         this.label = title;
         this.icon = icon;
         dg.percentWidth = 100;
         dg.percentHeight = 100;
-        //TODO render _Object_ with LinkButton
+        
         const layout:Layout = dataProvider.getLayout();
         var csList:Array = colSpec(layout);
         dg = TableBuilder.buildDataGrid(csList);
@@ -44,9 +42,9 @@ public class ListTab extends BaseTab {
         //dg.horizontalScrollPolicy = "auto";  // for AdvancedDataGrid only
         dg.addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler);
         this.addChild(dg);
-        resizeColumns();
         toolTip = "Double click (label) to close or invoke menu on selected item."
-//        dg.addEventListener(FlexEvent.CREATION_COMPLETE, creationCompleteHandler);
+
+        Globals.getInstance().getLog().add(title);
     }
 
     private function initData(dataProvider:ObjectList):void {
@@ -78,6 +76,7 @@ public class ListTab extends BaseTab {
                 //FIXME               Alert.show("Object " + url + " has just been loaded - please retry.");
             } else {
                 //FIXME to be removed  ???
+                Alert.show("About to open ObjectTab");
                 var tObj:TObject = le.getObject();
                 var tab:DetailsTab = new DetailsTab(tObj);
                 Globals.getInstance().getView().getTabs().open(tab);
@@ -132,18 +131,6 @@ public class ListTab extends BaseTab {
         }
         return csList;
     }
-
-    //@deprecated have view respond to changed data in different way
-    public function creationCompleteHandler(event:FlexEvent):void {
-        var log:EventLog = Globals.getInstance().getLog();
-        var doitAgain:Boolean = !log.isResponsePending();
-        if (doitAgain) {
-            Globals.getInstance().getView().getTabs().reload(this);
-            Alert.show("Tab reloaded.");
-        } else {
-            Alert.show("Not all responses retrieved - refresh via context menu.");
-        }
-    }
-
+    
 }
 }

@@ -22,15 +22,15 @@ public class ObjectList {
     }
 
     public function isReadyForDisplay():Boolean {
-        return (isFilled()); // && areLabelsSet());      
+        return (isFilled());       
 
         function isFilled():Boolean {
             return (length() >= limit);
         }
+    }
 
-        function areLabelsSet():Boolean {
-            return hasLayout() && !layout.arePropertyLabelsToBeSet();
-        }
+    public function areLabelsSet():Boolean {
+        return hasLayout() && !layout.arePropertyLabelsToBeSet();
     }
 
     public function forDataGrid():ArrayCollection {

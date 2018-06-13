@@ -23,18 +23,17 @@ public class TObjectHandler extends AbstractHandler implements IHandler {
         var objProps:Vector.<Invokeable> = tObj.getProperties();
         var o:TObject = TObject.createObject(objProps);
         var oa:ObjectAdapter = new ObjectAdapter(o);
+        var spock:Globals = Globals.getInstance();
         if (list.isFull()) {
- //           Alert.show("extra element");
-            Globals.getInstance().addObjectTab(o);
+            spock.addObjectTab(o);
         } else {
             list.add(oa);
             logEntry.tObject = o;
-        }
-
-        //TODO FEATURE Open tab immediately and append entries, have title reflect increasing numbers (n/limit)
-        if (list.isReadyForDisplay()) {
-            var title:String = tObj.getDomainType() + " (" + list.length() + ")";
-            Globals.getInstance().addListTab(list, title, ImageRepository.ObjectsIcon);
+            //TODO FEATURE Open tab immediately and append entries, have title reflect increasing numbers (n/limit)
+            if (list.isReadyForDisplay()) {
+                var title:String = tObj.getDomainType() + " (" + list.length() + ")";
+                spock.addListTab(list, title, ImageRepository.ObjectsIcon);
+            }
         }
     }
 
