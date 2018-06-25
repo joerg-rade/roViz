@@ -4,7 +4,6 @@ import flash.events.MouseEvent;
 import flash.system.System;
 
 import mx.collections.ArrayCollection;
-import mx.containers.VBox;
 import mx.controls.Alert;
 import mx.controls.Menu;
 import mx.core.ClassFactory;
@@ -12,18 +11,19 @@ import mx.events.MenuEvent;
 import mx.formatters.DateFormatter;
 
 import org.ro.core.Globals;
+import org.ro.core.event.LogEntry;
+import org.ro.view.BarRenderer;
 import org.ro.view.IDockable;
-import org.ro.view.RoView;
+import org.ro.view.ImageRepository;
 import org.ro.view.table.ColDef;
 import org.ro.view.table.LogIconRenderer;
 import org.ro.view.table.TableBuilder;
-import org.ro.xhr.BarRenderer;
-import org.ro.xhr.EventLog;
-import org.ro.xhr.LogEntry;
 
 import spark.components.DataGrid;
 
-public class EventLogTab extends VBox implements IDockable {
+public class EventLogTab extends BaseTab implements IDockable {
+    private var HUB:Globals = Globals.getInstance();
+
     private static var FORMATTER:DateFormatter = new DateFormatter();
     FORMATTER.formatString = "HH:NN:SS.QQQ";
 
@@ -44,13 +44,14 @@ public class EventLogTab extends VBox implements IDockable {
     private var dataProvider:ArrayCollection;
     private var dg:DataGrid;
 
-    public function EventLogTab(dataProvider:Vector.<LogEntry>, title:String, icon:Class) {
+    public function EventLogTab(list:Vector.<LogEntry>) {
+        var title:String = "Log Entries (" + list.length + ")";
         this.id = title;
         this.label = title;
-        this.icon = icon;
+        this.icon = ImageRepository.LogIcon;
         this.horizontalScrollPolicy = "auto";
         dg = TableBuilder.buildDataGrid(CS_LIST);
-        initData(dataProvider);
+        initData(list);
         this.roContextMenu = buildContextMenu();
         addEventListener(MouseEvent.RIGHT_CLICK, contextMenuHandler);
         addEventListener(MenuEvent.MENU_HIDE, hideContextMenu);
@@ -109,14 +110,6 @@ public class EventLogTab extends VBox implements IDockable {
         System.setClipboard(text);
     }
 
-    private function tree():void {
-        var view:RoView = Globals.getInstance().getView();
-        var log:EventLog = Globals.getInstance().getLog();
-        var list:Vector.<LogEntry> = log.getEntries();
-        view.getTabs().addTreeTab(list);
-
-    }
-
     /**
      *  @see https://stackoverflow.com/questions/11682914/ctrl-c-ctrl-v-and-ctrl-x-event-listener
      */
@@ -134,7 +127,7 @@ public class EventLogTab extends VBox implements IDockable {
         } else if (id === "copy") {
             fullCopy();
         } else if (id === "tree") {
-            tree();
+            HUB.addTreeTab();
         } else {
             Alert.show(event.toString());
         }
@@ -145,22 +138,16 @@ public class EventLogTab extends VBox implements IDockable {
                 le = o as LogEntry;
                 le.visible = false;
             }
-            var log:EventLog = Globals.getInstance().getLog();
-            log.reset();
-            initData(log.getEntries());
+            HUB.logReset();
+            initData(HUB.logEntries());
             dg.validateNow();
         }
 
         function showAllLogEntries():void {
-            var log:EventLog = Globals.getInstance().getLog();
-            log.showAll();
-            initData(log.getEntries());
+            HUB.logShowAll();
+            initData(HUB.logEntries());
             dg.validateNow();
         }
-    }
-
-    public function getIcon():Class {
-        return icon;
     }
 
 }

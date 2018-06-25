@@ -1,4 +1,4 @@
-package org.ro.xhr {
+package org.ro.core.event {
 import org.ro.core.Globals;
 import org.ro.to.TObject;
 import org.ro.view.ImageRepository;
@@ -45,7 +45,7 @@ public class LogEntry {
 
     internal function calculate():void {
         this.duration = updatedAt.time - start;
-        var logStartTime:int = Globals.getInstance().getLog().getLogStartTime();
+        var logStartTime:int = Globals.getInstance().logStartTime();
         this.offset = start - logStartTime;
     }
 
@@ -78,22 +78,24 @@ public class LogEntry {
     // region response
     /**
      * This is for access from the views only.
-     * DomainObjects have to use retrieveResponse, 
-     * since we want to have access statistics 
+     * DomainObjects have to use retrieveResponse,
+     * since we want to have access statistics
      * and an cache function.
      * @return
      */
     public function getResponse():String {
         return response;
     }
+
     public function retrieveResponse():String {
         cacheHits = cacheHits + 1;
         return response;
     }
+
     //end region response
-    
-    public function getObject():TObject {
-        return tObject;
+
+    public function setObject(tObject:TObject):void {
+        this.tObject = tObject;
     }
 
     public function stripHostPort(url:String):String {
@@ -101,7 +103,7 @@ public class LogEntry {
         result = result.replace("http://localhost:8080/restful/", "");
         result = removeHexCode(result);
         return result;
-        
+
         function removeHexCode(input:String):String {
             var output:String = "";
             var list:Array = input.split("/");
@@ -110,7 +112,7 @@ public class LogEntry {
                 output = output + "/";
                 if (s.length < 40) {
                     output = output + s;
-                }  else {
+                } else {
                     output = output + "..."
                 }
             }

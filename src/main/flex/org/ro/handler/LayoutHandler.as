@@ -3,7 +3,7 @@ import org.ro.layout.Layout;
 import org.ro.layout.PropertyLayout;
 import org.ro.to.Link;
 
-public class LayoutHandler extends AbstractHandler implements IHandler {
+public class LayoutHandler extends AbstractHandler implements IResponseHandler {
     public function LayoutHandler() {
     }
 

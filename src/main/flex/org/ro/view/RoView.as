@@ -1,5 +1,6 @@
 package org.ro.view {
 import org.ro.core.Globals;
+import org.ro.view.tab.RoTabBar;
 
 import spark.components.HGroup;
 import spark.components.VGroup;

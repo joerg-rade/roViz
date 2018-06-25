@@ -4,8 +4,8 @@ import org.ro.URLS;
 import org.ro.core.Globals;
 import org.ro.core.ObjectList;
 import org.ro.core.Utils;
-import org.ro.xhr.EventLog;
-import org.ro.xhr.LogEntry;
+import org.ro.core.event.EventLog;
+import org.ro.core.event.LogEntry;
 
 public class TObjectHandlerTest {
     private var spock:Globals = Globals.getInstance();

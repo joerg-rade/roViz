@@ -1,5 +1,5 @@
 package org.ro.to {
-import org.ro.xhr.XmlHttpRequest;
+import org.ro.core.event.XmlHttpRequest;
 
 public class Invokeable extends LinkedTO {
     public static const GET:String = "GET";

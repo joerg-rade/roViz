@@ -1,12 +1,13 @@
 package org.ro.handler {
-import org.ro.xhr.LogEntry;
+import org.ro.core.event.LogEntry;
 
 /**
- * Delegates responses to handlers.
+ * Delegates responses to handlers, acts as Facade.
+ * @see: https://en.wikipedia.org/wiki/Chain-of-responsibility_pattern
  */
 public class Dispatcher {
 
-    private var delegate:IHandler;
+    private var delegate:IResponseHandler;
 
     public function Dispatcher() {
         //TODO sequence of handlers should follow frequency of invocation in order minimize the time taken by unneeded calls to 'canHandle()'

@@ -6,7 +6,7 @@ import org.ro.to.Invokeable;
 import org.ro.to.Link;
 import org.ro.to.Service;
 
-public class ServiceHandler extends AbstractHandler implements IHandler {
+public class ServiceHandler extends AbstractHandler implements IResponseHandler {
     public function ServiceHandler() {
     }
 

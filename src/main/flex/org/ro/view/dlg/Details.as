@@ -33,7 +33,7 @@ public class Details extends Dialog {
         for (var prop:String in dObject) {
             var fi:FormItem = buildFormItem(prop);
             var input:TextInput = new TextInput();
-            // TODO see Prompt.populate for ComboBox example, including defsultChoice
+            // TODO see Prompt.populate for ComboBox example, including defaultChoice
             input.text = dObject[prop];
             fi.addElement(input);
             form.addElement(fi);

@@ -1,5 +1,5 @@
 package org.ro.handler {
-import org.ro.xhr.LogEntry;
+import org.ro.core.event.LogEntry;
 
 /**
  * Interface for handling asynchronous XHR responses.
@@ -9,7 +9,7 @@ import org.ro.xhr.LogEntry;
  *
  * @see org.ro.handler.AbstractHandler for more details
  */
-public interface IHandler {
+public interface IResponseHandler {
 
     function handle(logEntry:LogEntry):void;
 

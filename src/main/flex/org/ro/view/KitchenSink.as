@@ -15,8 +15,6 @@ import mx.managers.PopUpManager;
 import org.ro.core.Globals;
 
 //TODO Windows should always be resizeable
-//TODO add FileSystemDataGrid
-//TODO add FileSystemTree
 public class KitchenSink extends TitleWindow {
 
     [Embed(source="/../resources/fonts/Chicago.ttf",

@@ -4,7 +4,7 @@ import org.ro.core.Menu;
 import org.ro.to.Invokeable;
 import org.ro.to.Service;
 
-public class MemberHandler extends AbstractHandler implements IHandler {
+public class MemberHandler extends AbstractHandler implements IResponseHandler {
     public function MemberHandler() {
     }
 

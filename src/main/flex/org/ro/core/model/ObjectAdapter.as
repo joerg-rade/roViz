@@ -1,4 +1,4 @@
-package org.ro.core {
+package org.ro.core.model {
 import org.ro.view.ImageRepository;
 
 /**
@@ -61,10 +61,6 @@ dynamic public class ObjectAdapter {
 
     public function get adaptee():Adaptable {
         return _adaptee;
-    }
-
-    public function get typeSpec():String {
-        return _type;
     }
 
     public function getIcon():Class {

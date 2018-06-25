@@ -6,7 +6,7 @@ import org.ro.to.Extensions;
 import org.ro.to.Invokeable;
 import org.ro.to.Link;
 
-public class ActionHandler extends AbstractHandler implements IHandler {
+public class ActionHandler extends AbstractHandler implements IResponseHandler {
     public function ActionHandler() {
     }
 

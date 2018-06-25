@@ -3,22 +3,22 @@ import org.flexunit.Assert;
 import org.ro.URLS;
 import org.ro.core.Globals;
 import org.ro.core.Menu;
-import org.ro.xhr.LogEntry;
+import org.ro.core.event.LogEntry;
 
 public class ServiceHandlerTest {
+
     public function ServiceHandlerTest() {
     }
 
     [Test(description="handover json from service ")]
     public function testService():void {
         // given
-        var spock:Globals = Globals.getInstance();
-        var dsp:Dispatcher = spock.getDsp();
+        var HUB:Globals = Globals.getInstance();
         // when
         var le:LogEntry = new LogEntry("", "GET", null);
-        le.response = JSON.stringify(URLS.RESTFUL_SERVICES); 
-        dsp.handle(le);
-        var m1:Menu = spock.getMenu();
+        le.response = JSON.stringify(URLS.RESTFUL_SERVICES);
+        HUB.dspHandle(le);
+        var m1:Menu = HUB.getMenu();
         // then
         Assert.assertNotNull(m1);
         Assert.assertNotNull(m1.getItems());

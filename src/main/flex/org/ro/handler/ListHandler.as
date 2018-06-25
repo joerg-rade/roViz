@@ -1,11 +1,11 @@
 package org.ro.handler {
 import org.ro.core.Globals;
-import org.ro.core.ObjectList;
+import org.ro.core.model.ObjectList;
 import org.ro.to.Invokeable;
 import org.ro.to.Link;
 import org.ro.to.List;
 
-public class ListHandler extends AbstractHandler implements IHandler {
+public class ListHandler extends AbstractHandler implements IResponseHandler {
     public function ListHandler() {
     }
 

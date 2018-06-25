@@ -1,7 +1,7 @@
 package org.ro.core {
 import org.flexunit.Assert;
 import org.ro.URLS;
-import org.ro.view.ImageRepository;
+import org.ro.core.model.ObjectAdapter;
 import org.ro.to.Invokeable;
 import org.ro.to.TObject;
 
@@ -40,7 +40,7 @@ public class ObjectAdapterTest {
         // 2: icon is instance of ObjectIconRenderer
         const iconClass:Class = oa.getIcon();
         Assert.assertNotNull(iconClass);
-   }
+    }
 
 }
 }

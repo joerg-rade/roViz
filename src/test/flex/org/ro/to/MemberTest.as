@@ -1,8 +1,8 @@
 package org.ro.to {
 import org.flexunit.Assert;
 import org.ro.URLS;
-import org.ro.core.ObjectList;
-import org.ro.core.ObjectAdapter;
+import org.ro.core.model.ObjectAdapter;
+import org.ro.core.model.ObjectList;
 
 public class MemberTest {
     public function MemberTest() {
@@ -40,6 +40,6 @@ public class MemberTest {
         Assert.assertTrue(oa.datanucleusVersionTimestamp == 1514897074953);
         Assert.assertTrue(oa.notes == "null");
     }
-    
+
 }
 }

@@ -1,11 +1,7 @@
 package org.ro.handler {
 import mx.controls.Alert;
 
-import org.ro.handler.AbstractHandler;
-
-import org.ro.handler.IHandler;
-
-public class DefaultHandler extends AbstractHandler implements IHandler {
+public class DefaultHandler extends AbstractHandler implements IResponseHandler {
 
     public function DefaultHandler() {
     }

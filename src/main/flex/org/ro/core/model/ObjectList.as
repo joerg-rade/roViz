@@ -1,4 +1,4 @@
-package org.ro.core {
+package org.ro.core.model {
 import mx.collections.ArrayCollection;
 
 import org.ro.layout.Layout;
@@ -21,26 +21,15 @@ public class ObjectList {
         return layout != null;
     }
 
-    public function isReadyForDisplay():Boolean {
-        return (isFilled());       
-
-        function isFilled():Boolean {
-            return (length() >= limit);
-        }
-    }
-
-    public function areLabelsSet():Boolean {
-        return hasLayout() && !layout.arePropertyLabelsToBeSet();
-    }
-
-    public function forDataGrid():ArrayCollection {
-        var gridList:ArrayCollection = new ArrayCollection();
+    public function asArrayCollection():ArrayCollection {
+        var ac:ArrayCollection = new ArrayCollection();
         for each (var o:ObjectAdapter in list) {
-            gridList.addItem(o);
+            ac.addItem(o);
         }
-        return gridList;
+        return ac;
     }
 
+    //TODO can/should layout be capsulated more?
     public function setLayout(layout:Layout):void {
         this.layout = layout;
     }

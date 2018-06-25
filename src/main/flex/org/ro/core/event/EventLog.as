@@ -1,14 +1,12 @@
-package org.ro.xhr {
+package org.ro.core.event {
 import org.ro.core.Globals;
 
 public class EventLog {
 
-    private var log:Vector.<LogEntry>;
+    private var log:Vector.<LogEntry> = new Vector.<LogEntry>();
     public var logStart:Date = new Date();
 
     public function EventLog() {
-        log = new Vector.<LogEntry>();
-        logStart = new Date();
     }
 
     /**
@@ -90,7 +88,7 @@ public class EventLog {
     }
 
     public function isResponsePending():Boolean {
-        //iterate over all entries and chek for outstanding responses
+        //iterate over all entries and check for outstanding responses
         // url must be unique in list
         var pending:Vector.<LogEntry> = new Vector.<LogEntry>();
         for each (var ple:LogEntry in log) {

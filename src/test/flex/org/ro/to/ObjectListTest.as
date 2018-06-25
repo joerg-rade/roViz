@@ -1,8 +1,8 @@
 package org.ro.to {
 
 import org.flexunit.Assert;
-import org.ro.core.ObjectAdapter;
-import org.ro.core.ObjectList;
+import org.ro.core.model.ObjectAdapter;
+import org.ro.core.model.ObjectList;
 import org.ro.layout.Layout;
 
 public class ObjectListTest {

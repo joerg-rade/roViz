@@ -8,8 +8,7 @@ import mx.controls.LinkButton;
 import mx.controls.Spacer;
 
 import org.ro.core.Globals;
-import org.ro.xhr.EventLog;
-import org.ro.xhr.LogEntry;
+import org.ro.core.event.LogEntry;
 
 public class RoStatusBar extends HBox {
     private const STATUS_HEIGHT:int = 20;
@@ -43,6 +42,7 @@ public class RoStatusBar extends HBox {
         statusIcon.setStyle("icon", cls);
     }
 
+    // deprecated - move to  ...
     public function update(entry:LogEntry):void {
         var href:String = entry.url;
         //limit length of URL - otherwise we get a horizontal scrollbar
@@ -60,10 +60,7 @@ public class RoStatusBar extends HBox {
     }
 
     public static function clickHandler(event:MouseEvent):void {
-        var view:RoView = Globals.getInstance().getView();
-        var log:EventLog = Globals.getInstance().getLog();
-        var list:Vector.<LogEntry> = log.getEntries();
-        view.getTabs().addEventTab(list, "Log Entries (" + list.length + ")", ImageRepository.LogIcon);
+        Globals.getInstance().addEventTab();
     }
 
 }

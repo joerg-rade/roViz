@@ -4,7 +4,7 @@ import org.ro.core.ObjectList;
 import org.ro.to.Link;
 import org.ro.to.List;
 
-public class ListHandler1_16_2 extends AbstractHandler implements IHandler {
+public class ListHandler1_16_2 extends AbstractHandler implements IResponseHandler {
     public function ListHandler1_16_2() {
     }
 

@@ -7,17 +7,19 @@ import mx.controls.dataGridClasses.DataGridColumn;
 import mx.core.ClassFactory;
 
 import org.ro.core.Globals;
-import org.ro.core.ObjectList;
+import org.ro.core.event.LogEntry;
+import org.ro.core.model.ObjectAdapter;
+import org.ro.core.model.ObjectList;
 import org.ro.layout.Layout;
 import org.ro.layout.PropertyLayout;
+import org.ro.to.Invokeable;
 import org.ro.to.Link;
 import org.ro.to.TObject;
+import org.ro.view.ImageRepository;
 import org.ro.view.table.ColDef;
 import org.ro.view.table.IconRenderer;
 import org.ro.view.table.ObjectIconRenderer;
 import org.ro.view.table.TableBuilder;
-import org.ro.xhr.EventLog;
-import org.ro.xhr.LogEntry;
 
 import spark.components.DataGrid;
 
@@ -25,17 +27,20 @@ public class ListTab extends BaseTab {
 
     internal var dg:DataGrid = new DataGrid();
 
-    public function ListTab(dataProvider:ObjectList, title:String, icon:Class) {
+    public function ListTab(list:ObjectList) {
+        var oa:ObjectAdapter = list.last();
+        var objectType:String = oa.className;
+        var title:String = objectType + " (" + list.length() + ")";
         this.id = title;
         this.label = title;
-        this.icon = icon;
+        this.icon = ImageRepository.ObjectsIcon;
         dg.percentWidth = 100;
         dg.percentHeight = 100;
-        
-        const layout:Layout = dataProvider.getLayout();
+
+        const layout:Layout = list.getLayout();
         var csList:Array = colSpec(layout);
         dg = TableBuilder.buildDataGrid(csList);
-        initData(dataProvider);
+        initData(list);
 
         dg.doubleClickEnabled = true;
         dg.addEventListener(MouseEvent.DOUBLE_CLICK, doubleClickHandler);
@@ -44,11 +49,34 @@ public class ListTab extends BaseTab {
         this.addChild(dg);
         toolTip = "Double click (label) to close or invoke menu on selected item."
 
-        Globals.getInstance().getLog().add(title);
+        HUB.logAdd(title);
     }
 
     private function initData(dataProvider:ObjectList):void {
-        dg.dataProvider = dataProvider.forDataGrid();
+        dg.dataProvider = dataProvider.asArrayCollection();
+//        loadObjects();
+        //FIXME how to load layouts afterwards? pars pro toto?
+    }
+
+    private function loadObjects():void {
+        var tObject:TObject;
+        var objectAdapter:ObjectAdapter;
+        var link:Link;
+        var href:String;
+        var objLink:Link;
+        for each (var oa:ObjectAdapter in dg.dataProvider) {
+            //FIXME nested ObjectAdapter is a WTF. How comes - what is it for???
+            // is it a leftover from the abstract FixtureScriptResult list only?
+            // adaptable(TObject).object(ObjectAdapter).adaptee(Link).getHref(String)
+            tObject = oa.adaptee as TObject;
+            objectAdapter = tObject.object;
+            link = objectAdapter.adaptee as Link;
+            href = link.getHref();
+            objLink = new Link();
+            objLink.setHref(href);
+            objLink.setMethod(Invokeable.GET);
+            objLink.invoke();
+        }
     }
 
     /* forces columns to size themselves properly */
@@ -59,30 +87,29 @@ public class ListTab extends BaseTab {
         }
     }
 
+    //TODO should 'edit' be the default action - 
+    // or is a context menu with actions more consistent?
     protected function doubleClickHandler(event:MouseEvent):void {
         var item:Object = dg.selectedItem;
         if (item == null) {
             doubleClickHandlerMenu(event);
+        } else if (item is ObjectAdapter) {
+            var oa:ObjectAdapter = item as ObjectAdapter;
+            Globals.getInstance().addObjectTab(oa);
         } else if (isLink(item)) {
-            //TODO should 'edit' be the default action - 
-            // or is a context menu with actions more consistent?
+            Alert.show("About to invoke Link");
             var link:Link = item.object.adaptee;
             var url:String = link.getHref();
-            var log:EventLog = Globals.getInstance().getLog();
-            var le:LogEntry = log.find(url);
+            var le:LogEntry = HUB.logFind(url);
             if (le == null) {
                 // this is (only?) required for Fixture Objects
                 link.invoke();
-                //FIXME               Alert.show("Object " + url + " has just been loaded - please retry.");
             } else {
                 //FIXME to be removed  ???
                 Alert.show("About to open ObjectTab");
-                var tObj:TObject = le.getObject();
-                var tab:DetailsTab = new DetailsTab(tObj);
-                Globals.getInstance().getView().getTabs().open(tab);
             }
         } else {
-            //FIXME           Alert.show("Define Link to be invoked");
+            Alert.show("item is neither null nor link nor ObjectAdapter");
         }
     }
 
@@ -131,6 +158,6 @@ public class ListTab extends BaseTab {
         }
         return csList;
     }
-    
+
 }
 }

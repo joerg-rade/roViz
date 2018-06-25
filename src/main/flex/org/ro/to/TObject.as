@@ -1,6 +1,6 @@
 package org.ro.to {
-import org.ro.core.Adaptable;
-import org.ro.core.ObjectAdapter;
+import org.ro.core.model.Adaptable;
+import org.ro.core.model.ObjectAdapter;
 
 dynamic public class TObject extends TitledTO implements Adaptable {
     public var domainType:String;
@@ -15,10 +15,6 @@ dynamic public class TObject extends TitledTO implements Adaptable {
 
     override protected function init():void {
         super.init();
-    }
-
-    public function getDomainType():String {
-        return this.domainType;
     }
 
     public function getId():String {

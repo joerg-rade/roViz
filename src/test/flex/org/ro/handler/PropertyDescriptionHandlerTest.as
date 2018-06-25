@@ -2,30 +2,30 @@ package org.ro.handler {
 import org.flexunit.Assert;
 import org.ro.URLS;
 import org.ro.core.Globals;
-import org.ro.core.ObjectList;
+import org.ro.core.event.LogEntry;
+import org.ro.core.model.ObjectList;
 import org.ro.layout.Layout;
-import org.ro.xhr.LogEntry;
 
 public class PropertyDescriptionHandlerTest {
+
     public function PropertyDescriptionHandlerTest() {
     }
 
     [Test(description="handover json from service ")]
     public function testService():void {
         // given
-        var spock:Globals = Globals.getInstance();
+        var HUB:Globals = Globals.getInstance();
         var xpList:ObjectList = new ObjectList();
         xpList.initSize(1);
         var xpLayout:Layout = new Layout();
         xpList.setLayout(xpLayout);
-        spock.setList(xpList);
-        var dsp:Dispatcher = spock.getDsp();
+        HUB.setList(xpList);
         // when
         var le:LogEntry = new LogEntry("", "GET", null);
         le.response = JSON.stringify(URLS.FR_PROPERTY_DESCRIPTION);
-        dsp.handle(le);
+        HUB.dspHandle(le);
 
-        var obsList:ObjectList = spock.getList();
+        var obsList:ObjectList = HUB.getList();
         // then
         Assert.assertNotNull(obsList);
         Assert.assertTrue(xpList == obsList);

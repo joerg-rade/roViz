@@ -1,7 +1,7 @@
 package org.ro.view.table {
 import mx.controls.LinkButton;
 
-import org.ro.xhr.LogEntry;
+import org.ro.core.event.LogEntry;
 
 public class LogIconRenderer extends IconRenderer {
 

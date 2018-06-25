@@ -28,7 +28,7 @@ public class Prompt extends Dialog {
         super();
         super.title = Utils.deCamel(id);
 
-        Globals.getInstance().getLog().add(super.title);
+        Globals.getInstance().logAdd(super.title);
     }
 
     override protected function populateForm():void {

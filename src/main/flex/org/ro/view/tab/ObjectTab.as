@@ -11,28 +11,31 @@ import mx.events.MenuEvent;
 
 import org.ro.core.Globals;
 import org.ro.core.Utils;
+import org.ro.core.model.ObjectAdapter;
 import org.ro.layout.Layout;
-import org.ro.to.Link;
 import org.ro.to.TObject;
-import org.ro.xhr.EventLog;
-import org.ro.xhr.LogEntry;
+import org.ro.to.Link;
 
 import spark.components.Button;
 
-public class DetailsTab extends BaseTab {
+public class ObjectTab extends BaseTab {
 
     protected var form:Form;
     private var confirmBtn:Button;
     private var cancelBtn:Button;
 
-    private var tObject:TObject;
+    private var object:ObjectAdapter;
     private var roContextMenu:Menu;
 
-    public function DetailsTab(tObject:TObject) {
-        this.tObject = tObject;
-        var title:String = tObject.getId();
-        if (tObject.extensions != null) {
-            title = tObject.extensions.oid;
+    public function ObjectTab(oa:ObjectAdapter) {
+        this.object = oa;
+        var title:String = "";
+        if (oa.hasOwnProperty("name")) {
+            title = oa.name;
+        } else if (oa.hasOwnProperty("className")) {
+            title = oa.className;
+        } else {
+            title = "noNameNorClassname";
         }
         label = Utils.deCamel(title);
 
@@ -44,7 +47,7 @@ public class DetailsTab extends BaseTab {
         addEventListener(MouseEvent.RIGHT_CLICK, contextMenuHandler);
         addEventListener(MenuEvent.MENU_HIDE, hideContextMenu);
 
-        Globals.getInstance().getLog().add(title);
+        Globals.getInstance().logAdd(title);
     }
 
     protected function setupForm():void {
@@ -85,38 +88,20 @@ public class DetailsTab extends BaseTab {
     }
 
     private function populateForm():void {
-        for (var prop:String in tObject) {
+        for (var prop:String in object) {
             var fi:FormItem = buildFormItem(prop);
             var input:TextInput = new TextInput();
             // TODO see Prompt.populate for ComboBox example, including defaultChoice
-            input.text = tObject[prop];
+            input.text = object[prop];
             fi.addElement(input);
             form.addElement(fi);
         }
-        var link:Link = tObject.getLayoutLink();
-        //FIXME can we assume the object-layout is already in cache?
-        if (link != null) {
-            var href:String = link.getHref();
-            var reg:EventLog = Globals.getInstance().getLog();
-            var le:LogEntry = reg.find(href);
-            var js:Object = le.retrieveResponse();
-            var l:Layout = new Layout(js);
-            var ui:UIComponent = l.build();
-            addChild(ui);
-        }
-    }
-
-    public function buildContextMenu():Menu {
-        var xml:XML =
-                <root>
-                    <menuitem id="pin" icon="EyeSlashIcon" label="pin"/>
-                </root>;
-        var result:Menu = Menu.createMenu(null, xml, false);
-        result.labelField = "@label";
-        result.iconField = "@icon";
-        //m.setStyle("color", "0xC0504D");  text can be colored, but not the menu background
-        result.addEventListener(MenuEvent.ITEM_CLICK, itemClickHandler);
-        return result;
+        var to:TObject = object.adaptee as TObject;
+        var link:Link = to.getLayoutLink();
+        var json:Object = Globals.getInstance().logFind(link.getHref());
+        var layout:Layout = new Layout(json);
+        var ui:UIComponent = layout.build();
+        addChild(ui);
     }
 
     public function contextMenuHandler(event:MouseEvent):void {
@@ -129,7 +114,19 @@ public class DetailsTab extends BaseTab {
         roContextMenu.hide();
     }
 
-    public function itemClickHandler(event:MenuEvent):void {
+    public static function buildContextMenu():Menu {
+        var xml:XML =
+                <root>
+                    <menuitem id="pin" icon="EyeSlashIcon" label="pin"/>
+                </root>;
+        var result:Menu = Menu.createMenu(null, xml, false);
+        result.labelField = "@label";
+        result.iconField = "@icon";
+        result.addEventListener(MenuEvent.ITEM_CLICK, itemClickHandler);
+        return result;
+    }
+
+    public static function itemClickHandler(event:MenuEvent):void {
         var id:String = event.item.@id;
         if (id === "pin") {
             Alert.show("pin clicked");

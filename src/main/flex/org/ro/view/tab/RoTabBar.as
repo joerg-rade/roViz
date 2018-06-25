@@ -1,4 +1,4 @@
-package org.ro.view {
+package org.ro.view.tab {
 import flash.events.MouseEvent;
 
 import mx.containers.TabNavigator;
@@ -8,14 +8,10 @@ import mx.core.UIComponent;
 import mx.events.MenuEvent;
 
 import org.ro.core.Globals;
-import org.ro.core.ObjectList;
+import org.ro.core.event.LogEntry;
+import org.ro.core.model.ObjectAdapter;
+import org.ro.core.model.ObjectList;
 import org.ro.to.TObject;
-import org.ro.view.tab.BaseTab;
-import org.ro.view.tab.DetailsTab;
-import org.ro.view.tab.ListTab;
-import org.ro.view.tab.TreeTab;
-import org.ro.xhr.LogEntry;
-import org.ro.view.tab.EventLogTab;
 
 public class RoTabBar extends TabNavigator {
     private var roContextMenu:Menu;
@@ -29,13 +25,13 @@ public class RoTabBar extends TabNavigator {
         addEventListener(MenuEvent.MENU_HIDE, hideContextMenu);
     }
 
-    public function addListTab(objectList:ObjectList, title:String, icon:Class):void {
-        var tab:ListTab = new ListTab(objectList, title, icon);
+    public function addListTab(list:ObjectList):void {
+        var tab:ListTab = new ListTab(list);
         open(tab);
     }
 
-    public function addEventTab(list:Vector.<LogEntry>, title:String, icon:Class):void {
-        var tab:EventLogTab = new EventLogTab(list, title, icon);
+    public function addEventTab(list:Vector.<LogEntry>):void {
+        var tab:EventLogTab = new EventLogTab(list);
         open(tab);
     }
 
@@ -44,8 +40,8 @@ public class RoTabBar extends TabNavigator {
         open(tab);
     }
 
-    public function addObjectTab(tObj:TObject):void {
-        var tab:DetailsTab = new DetailsTab(tObj);
+    public function addObjectTab(oa:ObjectAdapter):void {
+        var tab:ObjectTab = new ObjectTab(oa);
         open(tab);
     }
 
@@ -105,7 +101,7 @@ public class RoTabBar extends TabNavigator {
     public function reload(tab:BaseTab):void {
         if (tab != null) {
             removeTab(tab);
-            Globals.getInstance().displayList(tab.id);
+            Globals.getInstance().displayList();
         }
     }
 

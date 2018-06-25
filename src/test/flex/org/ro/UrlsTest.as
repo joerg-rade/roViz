@@ -2,16 +2,13 @@ package org.ro {
 import flash.events.TimerEvent;
 import flash.utils.Timer;
 
-import mx.utils.ObjectUtil;
-
 import org.flexunit.Assert;
 import org.flexunit.async.Async;
 import org.ro.core.Globals;
 import org.ro.core.Utils;
+import org.ro.core.event.LogEntry;
 import org.ro.to.Invokeable;
 import org.ro.to.Link;
-import org.ro.xhr.EventLog;
-import org.ro.xhr.LogEntry;
 
 /**
  * This is an integration test that requires SimpleApp running on http://localhost:8080
@@ -23,7 +20,7 @@ import org.ro.xhr.LogEntry;
 public class UrlsTest {
     private var timer:Timer;
     private var spock:Globals = Globals.getInstance();
-    private var log:EventLog = spock.getLog();
+    private var HUB:Globals = Globals.getInstance();
     private var link:Link;
     private var object:Object;
 
@@ -82,11 +79,11 @@ public class UrlsTest {
 
     public function handleLinkComplete(event:TimerEvent, passThroughData:Object):void {
         var href:String = link.getHref();
-        var logEntry:LogEntry = log.find(href);
-        var resp:String = logEntry.retrieveResponse(); 
+        var logEntry:LogEntry = HUB.logFind(href);
+        var resp:String = logEntry.retrieveResponse();
         var observed:Object = JSON.parse(resp);
         //pass over String to Services
-        var expected:Object = object;    
+        var expected:Object = object;
         var b:Boolean = Utils.areEqual(expected, observed);
         Assert.assertTrue(b);
     }

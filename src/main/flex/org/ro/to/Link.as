@@ -1,5 +1,5 @@
 package org.ro.to {
-import org.ro.core.Adaptable;
+import org.ro.core.model.Adaptable;
 
 public class Link extends Invokeable implements Adaptable {
     internal var title:String; // optional
@@ -39,10 +39,10 @@ public class Link extends Invokeable implements Adaptable {
         var jsonString:String = JSON.stringify(obj);
         return jsonString;
     }
-    
+
     public function getTitle():String {
         return title;
     }
-    
+
 }
 }

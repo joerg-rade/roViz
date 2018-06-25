@@ -3,9 +3,9 @@ import mx.collections.ArrayCollection;
 import mx.containers.HBox;
 import mx.controls.Tree;
 
+import org.ro.core.event.LogEntry;
+import org.ro.core.event.Node;
 import org.ro.view.ImageRepository;
-import org.ro.xhr.LogEntry;
-import org.ro.xhr.Node;
 
 public class TreeTab extends BaseTab {
 

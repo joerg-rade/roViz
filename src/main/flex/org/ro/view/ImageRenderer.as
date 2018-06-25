@@ -1,12 +1,10 @@
 package org.ro.view {
-import org.ro.mx.*;
-
 import mx.controls.Image;
 
 import spark.components.gridClasses.GridItemRenderer;
 
 public class ImageRenderer extends GridItemRenderer {
-    
+
     private var image:Image;
 
     public function ImageRenderer() {

@@ -2,7 +2,7 @@ package org.ro.handler {
 import org.ro.to.Link;
 import org.ro.to.Property;
 
-public class PropertyHandler extends AbstractHandler implements IHandler {
+public class PropertyHandler extends AbstractHandler implements IResponseHandler {
     public function PropertyHandler() {
     }
 
