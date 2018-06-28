@@ -32,17 +32,15 @@ dynamic public class TObject extends TitledTO implements Adaptable {
     }
 
     /**
-     * Constructor / factory function using dynamic nature of class.
-     * @param members (attributes and functions) of the object
+     * Post-Constructor function using dynamic nature of class.
      */
-    public static function createObject(members:Vector.<Invokeable>):TObject {
-        var o:TObject = new TObject();
+    public function addMembersAsProperties():void {
+        var members:Vector.<Invokeable> = getProperties();
         for each(var m:Member in members) {
             if (m.getMemberType() == Member.PROPERTY) {
-                addAsProperty(o, m);
+                addAsProperty(this, m);
             }
         }
-        return o;
     }
 
     private static function addAsProperty(dynObj:TObject, property:Member):void {
@@ -56,6 +54,7 @@ dynamic public class TObject extends TitledTO implements Adaptable {
         // it is represented as [object Object] 
         if (value == "[object Object]") {
             var link:Link = new Link(value);
+            //here the magic of recursive OA's take place
             attribute = new ObjectAdapter(link, link.getTitle(), "Link");
         }
         var key:String = property.getId();

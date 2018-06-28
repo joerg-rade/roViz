@@ -1,7 +1,6 @@
 package org.ro.handler {
+import org.ro.core.Globals;
 import org.ro.layout.Layout;
-import org.ro.layout.PropertyLayout;
-import org.ro.to.Link;
 
 public class LayoutHandler extends AbstractHandler implements IResponseHandler {
     public function LayoutHandler() {
@@ -14,25 +13,7 @@ public class LayoutHandler extends AbstractHandler implements IResponseHandler {
 
     public override function doHandle(jsonObj:Object):void {
         var layout:Layout = new Layout(jsonObj);
-        getObjectList().setLayout(layout);
-        initPropertyDescription(layout);
-    }
-
-    /** handler chain:
-     * (1) FR_OBJECT                TObjectHandler -> invoke()
-     * (2) FR_OBJECT_LAYOUT         layoutHandler -> invoke(layout.getProperties()[].getLink()) link can be null?
-     * (3) FR_OBJECT_PROPERTY       PropertyHandler -> invoke()
-     * (4) FR_PROPERTY_DESCRIPTION  PropertyDescriptionHandler
-     */
-    private static function initPropertyDescription(layout:Layout):void {
-        if (layout.arePropertyLabelsToBeSet()) {
-            var pls:Vector.<PropertyLayout> = layout.getProperties();
-            var l:Link;
-            for each(var pl:PropertyLayout in pls) {
-                l = pl.getLink();
-                l.invoke();
-            }
-        }
+        Globals.getInstance().setListLayout(layout);
     }
 
 }

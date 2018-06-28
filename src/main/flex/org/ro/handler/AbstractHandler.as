@@ -1,8 +1,6 @@
 package org.ro.handler {
-import org.ro.core.Globals;
 import org.ro.core.Utils;
 import org.ro.core.event.LogEntry;
-import org.ro.core.model.ObjectList;
 import org.ro.to.Extensions;
 
 /**
@@ -43,10 +41,6 @@ public class AbstractHandler implements IResponseHandler {
      * @return
      */
     public function doHandle(jsonObj:Object):void {
-    }
-
-    internal static function getObjectList():ObjectList {
-        return Globals.getInstance().getList();
     }
 
     internal static function asExtensions(jsonObj:Object):Extensions {

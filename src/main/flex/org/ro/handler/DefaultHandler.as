@@ -11,7 +11,8 @@ public class DefaultHandler extends AbstractHandler implements IResponseHandler 
     }
 
     public override function doHandle(jsonObj:Object):void {
-        Alert.show("No Handler found for: " + jsonObj as String);
+        var s:String = JSON.stringify(jsonObj, null, 4);
+        Alert.show(s, "No Handler found for: " + logEntry.url);
     }
 
 }

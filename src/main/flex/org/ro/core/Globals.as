@@ -6,7 +6,7 @@ import org.ro.core.event.LogEntry;
 import org.ro.core.model.ObjectAdapter;
 import org.ro.core.model.ObjectList;
 import org.ro.handler.Dispatcher;
-import org.ro.to.TObject;
+import org.ro.layout.Layout;
 import org.ro.view.Dock;
 import org.ro.view.RoMenuBar;
 import org.ro.view.RoStatusBar;
@@ -33,7 +33,10 @@ public class Globals {
     private var url:String;
     private var list:ObjectList;
 
-    //TODO should be private
+    /**
+     * Should only be called from within this class,
+     * but AS does not support private constructors.
+     */
     function Globals(view:RoView = null) {
         if (instance == null) {
             this.view = view;
@@ -175,6 +178,11 @@ public class Globals {
     public function addTreeTab():void {
         var list:Vector.<LogEntry> = log.getEntries();
         view.getTabs().addTreeTab(list);
+    }
+
+    // delegate to ObjectList
+    public function setListLayout(l:Layout):void {
+        getList().setLayout(l);
     }
 
 }

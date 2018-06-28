@@ -1,7 +1,14 @@
 package org.ro.core.model {
 import mx.collections.ArrayCollection;
 
+import org.ro.core.Globals;
 import org.ro.layout.Layout;
+import org.ro.layout.PropertyLayout;
+import org.ro.to.Extensions;
+import org.ro.to.Invokeable;
+import org.ro.to.Link;
+import org.ro.to.Property;
+import org.ro.to.TObject;
 
 public class ObjectList {
 
@@ -32,6 +39,7 @@ public class ObjectList {
     //TODO can/should layout be capsulated more?
     public function setLayout(layout:Layout):void {
         this.layout = layout;
+        initPropertyDescription();
     }
 
     public function getLayout():Layout {
@@ -46,12 +54,57 @@ public class ObjectList {
         return list.length;
     }
 
+    //TODO public for test only, reduce visibility to internal
     public function add(oa:ObjectAdapter):void {
         list.push(oa);
     }
 
-    public function isFull():Boolean {
+    private function isFull():Boolean {
         return length() >= limit;
     }
+
+    public function handleObject(tObj:TObject):void {
+        if (!hasLayout()) {
+            tObj.getLayoutLink().invoke();
+            //FIXME how is loaded layout assigned to tObj ???
+        }
+
+        // tObj  has links, o doesn't
+        tObj.addMembersAsProperties();
+        var oa:ObjectAdapter = new ObjectAdapter(tObj);
+        if (isFull()) {
+            Globals.getInstance().addObjectTab(oa);
+        } else {
+            add(oa);
+            //TODO FEATURE Open tab immediately and append entries, have title reflect increasing numbers (n/limit)
+            if (isFull()) {
+                Globals.getInstance().addListTab(this);
+            }
+        }
+    }
+
+    /** handler chain:
+     * (1) FR_OBJECT                TObjectHandler -> invoke()
+     * (2) FR_OBJECT_LAYOUT         layoutHandler -> invoke(layout.getProperties()[].getLink()) link can be null?
+     * (3) FR_OBJECT_PROPERTY       PropertyHandler -> invoke()
+     * (4) FR_PROPERTY_DESCRIPTION  PropertyDescriptionHandler
+     */
+    private function initPropertyDescription():void {
+        if (layout.arePropertyLabelsToBeSet()) {
+            var pls:Vector.<PropertyLayout> = layout.getProperties();
+            var l:Link;
+            for each(var pl:PropertyLayout in pls) {
+                l = pl.getLink();
+                l.invoke();
+            }
+        }
+    }
+
+    public function handleProperty(p:Property):void {
+        var e:Extensions = p.getExtension();
+        var friendlyName:String = e.getFriendlyName();
+        this.layout.addPropertyLabel(p.getId(), friendlyName);
+    }
+
 }
 }

@@ -17,7 +17,7 @@ public class PropertyDescriptionHandlerTest {
         var HUB:Globals = Globals.getInstance();
         var xpList:ObjectList = new ObjectList();
         xpList.initSize(1);
-        var xpLayout:Layout = new Layout();
+        var xpLayout:Layout = new Layout(URLS.FR_OBJECT_LAYOUT);
         xpList.setLayout(xpLayout);
         HUB.setList(xpList);
         // when

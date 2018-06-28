@@ -1,9 +1,9 @@
 package org.ro {
-import org.ro.core.ObjectAdapterTest;
+import org.ro.core.model.ObjectAdapterTest;
+import org.ro.core.model.ObjectListTest;
 import org.ro.handler.ListHandlerTest;
 import org.ro.handler.PropertyDescriptionHandlerTest;
 import org.ro.handler.ServiceHandlerTest;
-import org.ro.handler.TObjectHandlerTest;
 import org.ro.layout.LayoutTest;
 import org.ro.to.ActionGETArgumentTest;
 import org.ro.to.ActionPOSTArgumentFSTest;
@@ -12,9 +12,8 @@ import org.ro.to.ActionPOSTDeleteTest;
 import org.ro.to.ListTest;
 import org.ro.to.MemberTest;
 import org.ro.to.MenuTest;
-import org.ro.to.ObjectListTest;
-import org.ro.to.TObjectTest;
 import org.ro.to.ServiceTest;
+import org.ro.to.TObjectTest;
 import org.ro.xhr.EventLogTest;
 
 [Suite]
@@ -25,7 +24,7 @@ public class UnitTestSuite {
     public var h1:ServiceHandlerTest;
     public var h2:ListHandlerTest;
     public var h3:PropertyDescriptionHandlerTest;
-    public var h4:ServiceHandlerTest; 
+    public var h4:ServiceHandlerTest;
 //    public var h5:TObjectHandlerTest;
     public var l1:LayoutTest;
     public var t1:ActionGETArgumentTest;

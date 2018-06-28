@@ -11,10 +11,11 @@ import mx.events.MenuEvent;
 
 import org.ro.core.Globals;
 import org.ro.core.Utils;
+import org.ro.core.event.LogEntry;
 import org.ro.core.model.ObjectAdapter;
 import org.ro.layout.Layout;
-import org.ro.to.TObject;
 import org.ro.to.Link;
+import org.ro.to.TObject;
 
 import spark.components.Button;
 
@@ -98,10 +99,24 @@ public class ObjectTab extends BaseTab {
         }
         var to:TObject = object.adaptee as TObject;
         var link:Link = to.getLayoutLink();
-        var json:Object = Globals.getInstance().logFind(link.getHref());
-        var layout:Layout = new Layout(json);
+        var layout:Layout = null;
+        while (layout == null) {
+            layout = findLayout(link);
+        }
         var ui:UIComponent = layout.build();
         addChild(ui);
+    }
+
+    private function findLayout(link:Link):Layout {
+        var href:String = link.getHref();
+        var le:LogEntry = Globals.getInstance().logFind(href);
+        if (le == null) {
+            link.invoke();
+            return null;
+        }
+        var json:Object = JSON.parse(le.getResponse());
+        var layout:Layout = new Layout(json);
+        return layout;
     }
 
     public function contextMenuHandler(event:MouseEvent):void {

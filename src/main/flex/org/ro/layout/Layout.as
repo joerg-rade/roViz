@@ -25,15 +25,6 @@ public class Layout extends AbstractLayout {
         initProperties(props);
         initRows(row);
 
-        function initProperties(props:Array):void {
-            properties = new Vector.<PropertyLayout>();
-            var l:PropertyLayout;
-            for each(var json:Object in props) {
-                l = new PropertyLayout(json);
-                properties.push(l);
-            }
-        }
-
         //TODO refactor train.wreck.s  
         // var s:Object = findPropertyBy(row, "fieldSet");
         function extractProperties():Array {
@@ -45,17 +36,26 @@ public class Layout extends AbstractLayout {
             var pArr:Array = col.fieldSet[0].property;
             return pArr;
         }
-        
-        function initRows(row:Object):void {
-            rows = new Vector.<RowLayout>();
-            var l:RowLayout;
-            for each(var json:Object in row) {
-                l = new RowLayout(json);
-                rows.push(l);
-            }
+    }
+
+    private function initProperties(props:Array):void {
+        this.properties = new Vector.<PropertyLayout>();
+        var l:PropertyLayout;
+        for each(var json:Object in props) {
+            l = new PropertyLayout(json);
+            this.properties.push(l);
         }
     }
 
+    private function initRows(row:Object):void {
+        this.rows = new Vector.<RowLayout>();
+        var l:RowLayout;
+        for each(var json:Object in row) {
+            l = new RowLayout(json);
+            this.rows.push(l);
+        }
+    }
+    
     public function addPropertyLabel(id:String, friendlyName:String):void {
         propertyLabels[id] = friendlyName;
     }
@@ -66,7 +66,7 @@ public class Layout extends AbstractLayout {
 
     public function arePropertyLabelsToBeSet():Boolean {
         var labelSize:uint = propertyLabels.length;
-        var propsSize:uint = getProperties().length;
+        var propsSize:uint = properties.length;
         return (labelSize < propsSize);
     }
 

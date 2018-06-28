@@ -20,7 +20,6 @@ public class PropertyHandler extends AbstractHandler implements IResponseHandler
         if (l != null) {
             l.invoke();
         }
-        //FIXME implement Handler
     }
 
 }

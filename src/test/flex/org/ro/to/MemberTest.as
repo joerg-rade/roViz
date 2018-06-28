@@ -30,8 +30,8 @@ public class MemberTest {
 
         var objectList:ObjectList = new ObjectList();
         objectList.initSize(1);
-        var o:TObject = TObject.createObject(properties);
-        var oa1:ObjectAdapter = new ObjectAdapter(o);
+        to.addMembersAsProperties();
+        var oa1:ObjectAdapter = new ObjectAdapter(to);
         objectList.add(oa1);
 
         // this is kind of untyped again

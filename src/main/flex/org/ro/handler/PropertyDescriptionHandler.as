@@ -1,6 +1,5 @@
 package org.ro.handler {
-import org.ro.core.model.ObjectList;
-import org.ro.layout.Layout;
+import org.ro.core.Globals;
 import org.ro.to.Extensions;
 import org.ro.to.Property;
 
@@ -18,11 +17,7 @@ public class PropertyDescriptionHandler extends AbstractHandler implements IResp
 
     public override function doHandle(jsonObj:Object):void {
         var p:Property = new Property(jsonObj);
-        var e:Extensions = p.getExtension();
-        var friendlyName:String = e.getFriendlyName();
-        var list:ObjectList = getObjectList();
-        var layout:Layout = list.getLayout();
-        layout.addPropertyLabel(p.getId(), friendlyName);
+        Globals.getInstance().getList().handleProperty(p);
     }
 }
 }
