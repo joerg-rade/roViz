@@ -11,7 +11,7 @@ public class TObjectHandler extends AbstractHandler implements IResponseHandler 
     }
 
     public override function doHandle(jsonObj:Object):void {
-        var list:ObjectList = Globals.getInstance().getList();
+        var list:ObjectList = Globals.getList();
         var tObj:TObject = new TObject(jsonObj);
         list.handleObject(tObj);
     }

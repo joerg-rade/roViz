@@ -45,7 +45,7 @@ public class LogEntry {
 
     internal function calculate():void {
         this.duration = updatedAt.time - start;
-        var logStartTime:int = Globals.getInstance().logStartTime();
+        var logStartTime:int = Globals.logStartTime();
         this.offset = start - logStartTime;
     }
 

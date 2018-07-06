@@ -9,6 +9,7 @@ import mx.events.MenuEvent;
 
 import org.ro.core.Utils;
 import org.ro.to.TObject;
+import org.ro.view.UIUtil;
 
 /**
  * Build a dialog, using form and specification from Object
@@ -31,7 +32,7 @@ public class Details extends Dialog {
 
     override protected function populateForm():void {
         for (var prop:String in dObject) {
-            var fi:FormItem = buildFormItem(prop);
+            var fi:FormItem = UIUtil.buildFormItem(prop);
             var input:TextInput = new TextInput();
             // TODO see Prompt.populate for ComboBox example, including defaultChoice
             input.text = dObject[prop];
@@ -48,7 +49,6 @@ public class Details extends Dialog {
         var result:Menu = Menu.createMenu(null, xml, false);
         result.labelField = "@label";
         result.iconField = "@icon";
-        //m.setStyle("color", "0xC0504D");  text can be colored, but not the menu background
         result.addEventListener(MenuEvent.ITEM_CLICK, itemClickHandler);
         return result;
     }

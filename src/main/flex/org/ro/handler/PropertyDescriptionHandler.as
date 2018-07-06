@@ -17,7 +17,7 @@ public class PropertyDescriptionHandler extends AbstractHandler implements IResp
 
     public override function doHandle(jsonObj:Object):void {
         var p:Property = new Property(jsonObj);
-        Globals.getInstance().getList().handleProperty(p);
+        Globals.getList().handleProperty(p);
     }
 }
 }

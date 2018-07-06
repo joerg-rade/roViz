@@ -19,8 +19,6 @@ import org.ro.to.Link;
  */
 public class UrlsTest {
     private var timer:Timer;
-    private var spock:Globals = Globals.getInstance();
-    private var HUB:Globals = Globals.getInstance();
     private var link:Link;
     private var object:Object;
 
@@ -30,8 +28,7 @@ public class UrlsTest {
     [Before]
     public function setUp():void {
         timer = new Timer(100, 1);
-        spock.setUser("sven");
-        spock.setPw("pass");
+        Globals.login("http://localhost:8080", "sven", "pass");
         /*        urls = {};
                 addUrl(URLS.FR_OBJECT);
                 addUrl(URLS.FR_OBJECT_BAZ);
@@ -79,7 +76,7 @@ public class UrlsTest {
 
     public function handleLinkComplete(event:TimerEvent, passThroughData:Object):void {
         var href:String = link.getHref();
-        var logEntry:LogEntry = HUB.logFind(href);
+        var logEntry:LogEntry = Globals.logFind(href);
         var resp:String = logEntry.retrieveResponse();
         var observed:Object = JSON.parse(resp);
         //pass over String to Services

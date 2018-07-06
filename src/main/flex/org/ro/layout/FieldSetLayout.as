@@ -1,7 +1,10 @@
 package org.ro.layout {
-import flash.display.DisplayObject;
-
+import mx.containers.Form;
+import mx.containers.FormItem;
 import mx.containers.HBox;
+
+import org.ro.to.Property;
+import org.ro.view.UIUtil;
 
 public class FieldSetLayout extends AbstractLayout {
 
@@ -12,13 +15,21 @@ public class FieldSetLayout extends AbstractLayout {
     internal var id:String;
     internal var unreferencedActions:Object;
     internal var unreferencedCollections:Object;
-    
+
     public function FieldSetLayout(jsonObj:Object = null) {
         fromObject(jsonObj);
     }
 
-    public function build():DisplayObject {
+    public function build():HBox {
         var result:HBox = new HBox();
+        UIUtil.decorate(result, getClassName(prototype.constructor));
+        var fi:FormItem;
+        var form:Form = new Form();
+        for each(var p:Property in property) {
+            fi = UIUtil.buildFormItem(p.toString());
+            form.addElement(fi);
+        }
+        result.addChild(form);
         return result;
     }
 

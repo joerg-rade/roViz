@@ -39,14 +39,14 @@ public class RoMenuBar extends MenuBarAdapter {
         }
     }
 
-    private function toggleDock(event:MenuEvent):void {
+    private static function toggleDock(event:MenuEvent):void {
         var toggle:Boolean = event.item.@toggled;
-        Globals.getInstance().getView().showDock(toggle);
+        Globals.toggleDock(toggle);
     }
 
-    private function toggleStatus(event:MenuEvent):void {
+    private static function toggleStatus(event:MenuEvent):void {
         var toggle:Boolean = event.item.@status;
-        Globals.getInstance().getView().showStatus(toggle);
+        Globals.toggleStatus(toggle);
     }
 
     private function handleActionSelection(event:MenuEvent):void {
@@ -60,13 +60,7 @@ public class RoMenuBar extends MenuBarAdapter {
         var pw:String = event.item.@password;
         var path:String = event.item.@path;
 
-        var inst:Globals = Globals.getInstance();
-        inst.setUser(user);
-        inst.setPw(pw);
-        inst.setUrl(url);
-
-        var statusBar:RoStatusBar = inst.getStatusBar();
-        statusBar.user.text = user;
+        Globals.login(url, user, pw);
 
         var link:Link = new Link();
         link.setHref(url + path);

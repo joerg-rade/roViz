@@ -60,7 +60,7 @@ public class RoStatusBar extends HBox {
     }
 
     public static function clickHandler(event:MouseEvent):void {
-        Globals.getInstance().addEventTab();
+        Globals.addEventTab();
     }
 
 }

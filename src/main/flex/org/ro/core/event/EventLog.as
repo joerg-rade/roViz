@@ -1,6 +1,13 @@
 package org.ro.core.event {
 import org.ro.core.Globals;
 
+/**
+ * Keeps a log of remote invocations and the responses. 
+ * Subsequent invocations are served from this cache.
+ * 
+ * @See https://en.wikipedia.org/wiki/Proxy_pattern
+ */
+    //TODO all invocations should go here in the first place 
 public class EventLog {
 
     private var log:Vector.<LogEntry> = new Vector.<LogEntry>();
@@ -10,7 +17,7 @@ public class EventLog {
     }
 
     /**
-     * iterate over entries and set logstart to ts of first visible
+     * iterate over entries and set logstart to timestamp of first visible
      */
     public function reset():void {
         for each (var le:LogEntry in log) {
@@ -45,7 +52,7 @@ public class EventLog {
     }
 
     private static function updateStatus(entry:LogEntry):void {
-        Globals.getInstance().getStatusBar().update(entry);
+        Globals.getStatusBar().update(entry);
     }
 
     public function fault(url:String, fault:String):void {
@@ -64,6 +71,7 @@ public class EventLog {
         for each(var le:LogEntry in log) {
             // assumes urls are unique !
             if (le.url == url) {
+                trace(url);
                 answer = le;
                 break;
             }
@@ -87,6 +95,7 @@ public class EventLog {
         reset();
     }
 
+    //FIXME activate this!!!
     public function isResponsePending():Boolean {
         //iterate over all entries and check for outstanding responses
         // url must be unique in list

@@ -1,5 +1,8 @@
 package org.ro.layout {
+import mx.containers.Box;
 import mx.containers.HBox;
+
+import org.ro.view.UIUtil;
 
 public class RowLayout extends AbstractLayout {
     private static const MAX_SPAN:uint = 12;
@@ -36,8 +39,11 @@ public class RowLayout extends AbstractLayout {
 
     public function build():HBox {
         var result:HBox = new HBox();
+        UIUtil.decorate(result, getClassName(prototype.constructor));
+        var b:Box;
         for each(var c:ColLayout in columns) {
-            result.addChild(c.build());
+            b = c.build();
+            result.addChild(b);
         }
         return result;
     }

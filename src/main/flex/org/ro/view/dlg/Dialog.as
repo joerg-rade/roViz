@@ -11,13 +11,16 @@ import mx.events.CloseEvent;
 import mx.managers.PopUpManager;
 
 import org.ro.core.Globals;
-import org.ro.view.*;
+import org.ro.view.ImageRepository;
+import org.ro.view.UIUtil;
 
 import spark.components.Button;
 import spark.components.HGroup;
 
 /**
- * Build a dialog using form
+ * Build a dialog using form.
+ *
+ * 'abstract' superclass
  */
 public class Dialog extends TitleWindow {
 
@@ -35,9 +38,9 @@ public class Dialog extends TitleWindow {
         this.showCloseButton = true;
         addEventListener(CloseEvent.CLOSE, cancelHandler);
 
-        confirmBtn = buildButton("OK", ImageRepository.CheckIcon);
+        confirmBtn = UIUtil.buildButton("OK", ImageRepository.CheckIcon);
         confirmBtn.addEventListener(MouseEvent.CLICK, okHandler);
-        cancelBtn = buildButton("Cancel", ImageRepository.TimesIcon);
+        cancelBtn = UIUtil.buildButton("Cancel", ImageRepository.TimesIcon);
         cancelBtn.addEventListener(MouseEvent.CLICK, cancelHandler);
 
         form = new Form();
@@ -57,7 +60,7 @@ public class Dialog extends TitleWindow {
 
         addChild(form);
 
-        PopUpManager.addPopUp(this, Globals.getInstance().getView(), true);
+        PopUpManager.addPopUp(this, Globals.getView(), true);
         PopUpManager.centerPopUp(this);
     }
 
@@ -69,22 +72,8 @@ public class Dialog extends TitleWindow {
         Alert.show("OK pressed - no action defined");
     }
 
-    protected static function buildFormItem(label:String):FormItem {
-        var fi:FormItem = new FormItem();
-        fi.direction = "horizontal";
-        fi.setStyle("horizontalAlign", "left");
-        fi.label = label;
-        return fi;
-    }
-
     protected function close():void {
         PopUpManager.removePopUp(this);
-    }
-
-    private static function buildButton(label:String, iconClass:Class):Button {
-        var btn:Button = new Button();
-        btn.label = label;
-        return btn;
     }
 
 }

@@ -31,7 +31,7 @@ public class ListHandler extends AbstractHandler implements IResponseHandler {
         var size:uint = members.length;
         var objectList:ObjectList = new ObjectList();
         objectList.initSize(size);
-        Globals.getInstance().setList(objectList);
+        Globals.setList(objectList);
         for each (var l:Link in members) {
             l.invoke();
         }

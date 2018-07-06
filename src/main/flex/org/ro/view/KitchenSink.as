@@ -41,7 +41,8 @@ public class KitchenSink extends TitleWindow {
         tn.addElement(image());
         tn.addChild(iframe());
 
-        PopUpManager.addPopUp(this, Globals.getInstance().getView(), true);
+//        PopUpManager.addPopUp(this, Globals.getInstance().getView(), true);
+        PopUpManager.addPopUp(this, Globals.getView(), true);
         PopUpManager.centerPopUp(this);
     }
     

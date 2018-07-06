@@ -11,6 +11,7 @@ import org.ro.core.Utils;
 import org.ro.to.Action;
 import org.ro.to.Link;
 import org.ro.to.Parameter;
+import org.ro.view.UIUtil;
 
 import spark.components.TextInput;
 
@@ -28,13 +29,13 @@ public class Prompt extends Dialog {
         super();
         super.title = Utils.deCamel(id);
 
-        Globals.getInstance().logAdd(super.title);
+        Globals.logAdd(super.title);
     }
 
     override protected function populateForm():void {
         var params:Vector.<Parameter> = action.getParameters();
         for each(var p:Parameter in params) {
-            var fi:FormItem = buildFormItem(p.getName()); 
+            var fi:FormItem = UIUtil.buildFormItem(p.getName());
             var input:UIComponent;
             if (p.hasChoices()) {
                 var cb:ComboBox = new ComboBox();

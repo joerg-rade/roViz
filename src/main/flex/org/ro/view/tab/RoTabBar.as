@@ -11,7 +11,6 @@ import org.ro.core.Globals;
 import org.ro.core.event.LogEntry;
 import org.ro.core.model.ObjectAdapter;
 import org.ro.core.model.ObjectList;
-import org.ro.to.TObject;
 
 public class RoTabBar extends TabNavigator {
     private var roContextMenu:Menu;
@@ -62,7 +61,6 @@ public class RoTabBar extends TabNavigator {
         var result:Menu = Menu.createMenu(null, xml, false);
         result.labelField = "@label";
         result.iconField = "@icon";
-        //m.setStyle("color", "0xC0504D");  text can be colored, but not the menu background
         result.addEventListener(MenuEvent.ITEM_CLICK, itemClickHandler);
         return result;
     }
@@ -84,7 +82,7 @@ public class RoTabBar extends TabNavigator {
         if (event.item.@id == "close") {
             removeTab(tab);
         } else if (event.item.@id == "dock") {
-            Globals.getInstance().getDock().addView(tab);
+            Globals.dockView(tab);
         } else if (event.item.@id == "redraw") {
             reload(tab);
         } else {
@@ -101,7 +99,11 @@ public class RoTabBar extends TabNavigator {
     public function reload(tab:BaseTab):void {
         if (tab != null) {
             removeTab(tab);
-            Globals.getInstance().displayList();
+            // this relies on the fact that 
+            // the ObjectList held in Globals 
+            // is the one that needs to be redrawn
+            // This may not be true in all cases.
+            Globals.displayList();
         }
     }
 

@@ -1,5 +1,8 @@
 package org.ro.layout {
+import mx.containers.Box;
 import mx.containers.HBox;
+
+import org.ro.view.UIUtil;
 
 public class TabLayout extends AbstractLayout {
 
@@ -14,11 +17,14 @@ public class TabLayout extends AbstractLayout {
 
     public function build():HBox {
         var result:HBox = new HBox();
+        UIUtil.decorate(result, getClassName(prototype.constructor));
+        var b:Box;
         for each(var rl:RowLayout in rowList) {
-            result.addChild(rl.build());
+            b = rl.build();
+            result.addChild(b);
         }
         return result;
     }
-
+    
 }
 }

@@ -16,6 +16,7 @@ import org.ro.core.model.ObjectAdapter;
 import org.ro.layout.Layout;
 import org.ro.to.Link;
 import org.ro.to.TObject;
+import org.ro.view.UIUtil;
 
 import spark.components.Button;
 
@@ -30,14 +31,7 @@ public class ObjectTab extends BaseTab {
 
     public function ObjectTab(oa:ObjectAdapter) {
         this.object = oa;
-        var title:String = "";
-        if (oa.hasOwnProperty("name")) {
-            title = oa.name;
-        } else if (oa.hasOwnProperty("className")) {
-            title = oa.className;
-        } else {
-            title = "noNameNorClassname";
-        }
+        var title:String = buildTitle();
         label = Utils.deCamel(title);
 
         setupForm();
@@ -48,75 +42,79 @@ public class ObjectTab extends BaseTab {
         addEventListener(MouseEvent.RIGHT_CLICK, contextMenuHandler);
         addEventListener(MenuEvent.MENU_HIDE, hideContextMenu);
 
-        Globals.getInstance().logAdd(title);
+        Globals.logAdd(title);
+    }
+    
+    private function buildTitle():String {
+        var title:String = "";
+        if (oa.hasOwnProperty("name")) {
+            title = oa.name;
+        } else if (oa.hasOwnProperty("className")) {
+            title = oa.className;
+        } else {
+            title = "noNameNorClassname";
+        }
+        return title;
     }
 
     protected function setupForm():void {
-        /*        addEventListener(CloseEvent.CLOSE, cancelHandler);
-        
-                confirmBtn = buildButton("OK", ImageRepository.CheckIcon);
-                confirmBtn.addEventListener(MouseEvent.CLICK, okHandler);
-                cancelBtn = buildButton("Cancel", ImageRepository.TimesIcon);
-                cancelBtn.addEventListener(MouseEvent.CLICK, cancelHandler);       */
-
         form = new Form();
         form.defaultButton = confirmBtn;
     }
 
     protected function assembleForm():void {
         var fiBtn:FormItem = new FormItem();
-        /*        var btnBar:HGroup = new HGroup();
-                btnBar.addElement(confirmBtn);
-                btnBar.addElement(cancelBtn);
-                fiBtn.addElement(IVisualElement(btnBar));  */
         form.addElement(fiBtn);
-
         addChild(form);
     }
 
-    protected static function buildFormItem(label:String):FormItem {
-        var fi:FormItem = new FormItem();
-        fi.direction = "horizontal";
-        fi.setStyle("horizontalAlign", "left");
-        fi.label = label;
-        return fi;
-    }
-
-    private static function buildButton(label:String, iconClass:Class):Button {
-        var btn:Button = new Button();
-        btn.label = label;
-        return btn;
-    }
-
     private function populateForm():void {
-        for (var prop:String in object) {
-            var fi:FormItem = buildFormItem(prop);
+        for (var p:String in object) {
+            var fi:FormItem = UIUtil.buildFormItem(p);
             var input:TextInput = new TextInput();
             // TODO see Prompt.populate for ComboBox example, including defaultChoice
-            input.text = object[prop];
+            input.text = object[p];
             fi.addElement(input);
             form.addElement(fi);
         }
-        var to:TObject = object.adaptee as TObject;
-        var link:Link = to.getLayoutLink();
-        var layout:Layout = null;
-        while (layout == null) {
-            layout = findLayout(link);
+        var t:TObject = object.adaptee as TObject;
+        var layout:Layout = findLayout(t);
+        if (layout == null) {
+            //TODO happens with FixtureResult object
+            trace("layout is null");
+        } else {
+            var ui:UIComponent = layout.build();
+            addChild(ui);
         }
-        var ui:UIComponent = layout.build();
-        addChild(ui);
     }
 
-    private function findLayout(link:Link):Layout {
+    private function findLayout(tObject:TObject):Layout {
+        var link:Link = tObject.getLayoutLink();
         var href:String = link.getHref();
-        var le:LogEntry = Globals.getInstance().logFind(href);
-        if (le == null) {
-            link.invoke();
-            return null;
+        //TODO replace by an event based solution
+        var layout:Layout;
+        const start:uint = new Date().time;
+        var stop:uint = new Date().time;
+        //loop for 3 seconds
+        while (layout == null && (stop - start < 3000)) {
+            layout = findLayout(href);
+            stop = new Date().time;
         }
-        var json:Object = JSON.parse(le.getResponse());
-        var layout:Layout = new Layout(json);
         return layout;
+
+        function findLayout(href:String):Layout {
+            var l:Layout;
+            var le:LogEntry = Globals.logFind(href);
+            if (le == null) {
+                link.invoke();
+            } else if (le.getResponse() == null) {
+                // do nothing, return null
+            } else {
+                var json:Object = JSON.parse(le.getResponse());
+                l = new Layout(json);
+            }
+            return l;
+        }
     }
 
     public function contextMenuHandler(event:MouseEvent):void {

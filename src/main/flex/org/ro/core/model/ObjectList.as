@@ -5,7 +5,6 @@ import org.ro.core.Globals;
 import org.ro.layout.Layout;
 import org.ro.layout.PropertyLayout;
 import org.ro.to.Extensions;
-import org.ro.to.Invokeable;
 import org.ro.to.Link;
 import org.ro.to.Property;
 import org.ro.to.TObject;
@@ -73,12 +72,12 @@ public class ObjectList {
         tObj.addMembersAsProperties();
         var oa:ObjectAdapter = new ObjectAdapter(tObj);
         if (isFull()) {
-            Globals.getInstance().addObjectTab(oa);
+            Globals.addObjectTab(oa);
         } else {
             add(oa);
             //TODO FEATURE Open tab immediately and append entries, have title reflect increasing numbers (n/limit)
             if (isFull()) {
-                Globals.getInstance().addListTab(this);
+                Globals.addListTab(this);
             }
         }
     }

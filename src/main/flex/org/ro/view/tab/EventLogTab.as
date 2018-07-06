@@ -22,7 +22,6 @@ import org.ro.view.table.TableBuilder;
 import spark.components.DataGrid;
 
 public class EventLogTab extends BaseTab implements IDockable {
-    private var HUB:Globals = Globals.getInstance();
 
     private static var FORMATTER:DateFormatter = new DateFormatter();
     FORMATTER.formatString = "HH:NN:SS.QQQ";
@@ -127,7 +126,7 @@ public class EventLogTab extends BaseTab implements IDockable {
         } else if (id === "copy") {
             fullCopy();
         } else if (id === "tree") {
-            HUB.addTreeTab();
+            Globals.addTreeTab();
         } else {
             Alert.show(event.toString());
         }
@@ -138,14 +137,14 @@ public class EventLogTab extends BaseTab implements IDockable {
                 le = o as LogEntry;
                 le.visible = false;
             }
-            HUB.logReset();
-            initData(HUB.logEntries());
+            Globals.logReset();
+            initData(Globals.logEntries());
             dg.validateNow();
         }
 
         function showAllLogEntries():void {
-            HUB.logShowAll();
-            initData(HUB.logEntries());
+            Globals.logShowAll();
+            initData(Globals.logEntries());
             dg.validateNow();
         }
     }

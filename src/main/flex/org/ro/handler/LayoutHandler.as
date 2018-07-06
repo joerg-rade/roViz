@@ -13,7 +13,7 @@ public class LayoutHandler extends AbstractHandler implements IResponseHandler {
 
     public override function doHandle(jsonObj:Object):void {
         var layout:Layout = new Layout(jsonObj);
-        Globals.getInstance().setListLayout(layout);
+        Globals.setListLayout(layout);
     }
 
 }

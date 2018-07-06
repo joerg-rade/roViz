@@ -14,18 +14,17 @@ public class PropertyDescriptionHandlerTest {
     [Test(description="handover json from service ")]
     public function testService():void {
         // given
-        var HUB:Globals = Globals.getInstance();
         var xpList:ObjectList = new ObjectList();
         xpList.initSize(1);
         var xpLayout:Layout = new Layout(URLS.FR_OBJECT_LAYOUT);
         xpList.setLayout(xpLayout);
-        HUB.setList(xpList);
+        Globals.setList(xpList);
         // when
         var le:LogEntry = new LogEntry("", "GET", null);
         le.response = JSON.stringify(URLS.FR_PROPERTY_DESCRIPTION);
-        HUB.dspHandle(le);
+        Globals.dspHandle(le);
 
-        var obsList:ObjectList = HUB.getList();
+        var obsList:ObjectList = Globals.getList();
         // then
         Assert.assertNotNull(obsList);
         Assert.assertTrue(xpList == obsList);

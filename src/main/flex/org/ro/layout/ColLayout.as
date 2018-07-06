@@ -1,7 +1,8 @@
 package org.ro.layout {
-import flash.display.DisplayObject;
-
+import mx.containers.Box;
 import mx.containers.HBox;
+
+import org.ro.view.UIUtil;
 
 public class ColLayout extends AbstractLayout {
 
@@ -34,13 +35,17 @@ public class ColLayout extends AbstractLayout {
         }
     }
 
-    public function build():DisplayObject {
+    public function build():HBox {
         var result:HBox = new HBox();
+        UIUtil.decorate(result, getClassName(prototype.constructor));
+        var b:Box;
         for each(var tl:TabLayout in tabGroup) {
-            result.addChild(tl.build());
+            b = tl.build();
+            result.addChild(b);
         }
         for each(var fsl:FieldSetLayout in fields) {
-            result.addChild(fsl.build());
+            b = fsl.build();
+            result.addChild(b);
         }
         // actions will not be rendered
         return result;

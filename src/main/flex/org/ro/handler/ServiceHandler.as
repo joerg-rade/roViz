@@ -18,7 +18,7 @@ public class ServiceHandler extends AbstractHandler implements IResponseHandler 
         var service:Service = new Service(jsonObj);
         var values:Vector.<Invokeable> = service.getValues();
         var menu:Menu = new Menu(values.length);
-        Globals.getInstance().setMenu(menu);
+        Globals.setMenu(menu);
         for each (var l:Link in values) {
             l.invoke();
         }

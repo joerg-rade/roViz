@@ -12,16 +12,14 @@ import org.ro.to.Link;
  */
 public class XmlHttpRequest extends HTTPService {
 
-    private static var HUB:Globals = Globals.getInstance();
-
     protected function xhrFaultHandler(event:FaultEvent):void {
-        HUB.logFault(url, event.fault.faultString);
+        Globals.logFault(url, event.fault.faultString);
     }
 
     protected function xhrResultHandler(event:ResultEvent):void {
         var jsonString:String = event.result.toString();
-        var logEntry:LogEntry = HUB.logEnd(url, jsonString);
-        HUB.dspHandle(logEntry);
+        var logEntry:LogEntry = Globals.logEnd(url, jsonString);
+        Globals.dspHandle(logEntry);
     }
 
     public function XmlHttpRequest() {
@@ -36,7 +34,7 @@ public class XmlHttpRequest extends HTTPService {
         if (isCached(url))
             return;
         super.method = inv.getMethod();
-        var credentials:String = HUB.getCredentials();
+        var credentials:String = Globals.getCredentials();
         super.headers = {Authorization: "Basic " + credentials};
         super.headers["Accept"] = "application/json";
         super.contentType = "application/json";
@@ -47,18 +45,18 @@ public class XmlHttpRequest extends HTTPService {
         } else {
             send();
         }
-        HUB.logStart(url, method, body);
+        Globals.logStart(url, method, body);
     }
 
     private static function isCached(url:String):Boolean {
-        var le:LogEntry = HUB.logFind(url);
+        var le:LogEntry = Globals.logFind(url);
         if (le != null && (le.getResponse() != null)) {
             le.retrieveResponse();
-            HUB.dspHandle(le);
+            Globals.dspHandle(le);
             return true;
         }
         return false;
     }
-    
+
 }
 }

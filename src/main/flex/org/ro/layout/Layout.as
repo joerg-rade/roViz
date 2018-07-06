@@ -1,5 +1,8 @@
 package org.ro.layout {
+import mx.containers.Box;
 import mx.containers.VBox;
+
+import org.ro.view.UIUtil;
 
 /**
  * Parse layout specification.
@@ -72,9 +75,12 @@ public class Layout extends AbstractLayout {
 
     public function build():VBox {
         var result:VBox = new VBox();
+        UIUtil.decorate(result, getClassName(prototype.constructor));
+        var b:Box;
         //TODO iterate over rows, recurse into columns, etc.
-        for each(var r:RowLayout in rows) {
-            result.addChild(r.build());
+        for each(var rl:RowLayout in rows) {
+            b = rl.build();
+            result.addChild(b);
         }
         return result;
     }

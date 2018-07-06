@@ -1,7 +1,6 @@
 package org.ro.view.tab {
 import flash.events.MouseEvent;
 
-import mx.controls.Alert;
 import mx.controls.Menu;
 import mx.controls.dataGridClasses.DataGridColumn;
 import mx.core.ClassFactory;
@@ -25,6 +24,7 @@ import spark.components.DataGrid;
 
 public class ListTab extends BaseTab {
 
+    private var dirty:Boolean = true;
     internal var dg:DataGrid = new DataGrid();
 
     public function ListTab(list:ObjectList) {
@@ -49,7 +49,7 @@ public class ListTab extends BaseTab {
         this.addChild(dg);
         toolTip = "Double click (label) to close or invoke menu on selected item."
 
-        HUB.logAdd(title);
+        Globals.logAdd(title);
     }
 
     private function initData(dataProvider:ObjectList):void {
@@ -65,7 +65,7 @@ public class ListTab extends BaseTab {
         var href:String;
         var objLink:Link;
         for each (var oa:ObjectAdapter in dg.dataProvider) {
-            //FIXME nested ObjectAdapter is a WTF. How comes - what is it for???
+            // nested ObjectAdapter 
             // is it a leftover from the abstract FixtureScriptResult list only?
             // adaptable(TObject).object(ObjectAdapter).adaptee(Link).getHref(String)
             tObject = oa.adaptee as TObject;
@@ -92,24 +92,26 @@ public class ListTab extends BaseTab {
     protected function doubleClickHandler(event:MouseEvent):void {
         var item:Object = dg.selectedItem;
         if (item == null) {
+            trace("item is null, open menu");
             doubleClickHandlerMenu(event);
         } else if (item is ObjectAdapter) {
+            trace("item is ObjectAdapter, about to open");
             var oa:ObjectAdapter = item as ObjectAdapter;
-            Globals.getInstance().addObjectTab(oa);
+            Globals.addObjectTab(oa);
         } else if (isLink(item)) {
-            Alert.show("About to invoke Link");
+            trace("item is Link, about to invoke");
             var link:Link = item.object.adaptee;
             var url:String = link.getHref();
-            var le:LogEntry = HUB.logFind(url);
+            var le:LogEntry = Globals.logFind(url);
             if (le == null) {
                 // this is (only?) required for Fixture Objects
                 link.invoke();
             } else {
                 //FIXME to be removed  ???
-                Alert.show("About to open ObjectTab");
+                trace("About to open ObjectTab");
             }
         } else {
-            Alert.show("item is neither null nor link nor ObjectAdapter");
+            trace("item is neither null nor link nor ObjectAdapter");
         }
     }
 

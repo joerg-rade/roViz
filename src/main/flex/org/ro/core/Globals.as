@@ -8,6 +8,7 @@ import org.ro.core.model.ObjectList;
 import org.ro.handler.Dispatcher;
 import org.ro.layout.Layout;
 import org.ro.view.Dock;
+import org.ro.view.IDockable;
 import org.ro.view.RoMenuBar;
 import org.ro.view.RoStatusBar;
 import org.ro.view.RoView;
@@ -44,7 +45,7 @@ public class Globals {
         }
     }
 
-    public static function getInstance():Globals {
+    private static function getInstance():Globals {
         if (instance == null) {
             instance = new Globals();
         }
@@ -58,20 +59,27 @@ public class Globals {
         return view;
     }
 
-    public function getStatusBar():RoStatusBar {
+    public static function login(url:String, user:String, pw:String):void {
+        getInstance().user = user;
+        getInstance().pw = pw;
+        getInstance().url = url;
+        getStatusBar().user.text = user;
+    }
+
+    public static function getStatusBar():RoStatusBar {
         return getView().getStatusBar();
     }
 
-    public function addListTab(objectList:ObjectList):void {
+    public static function addListTab(objectList:ObjectList):void {
         getView().getTabs().addListTab(objectList);
     }
 
     //convenience method
-    public function displayList():void {
+    public static function displayList():void {
         addListTab(getList());
     }
 
-    public function addObjectTab(oa:ObjectAdapter):void {
+    public static function addObjectTab(oa:ObjectAdapter):void {
         getView().getTabs().addObjectTab(oa);
     }
 
@@ -79,47 +87,35 @@ public class Globals {
         return getView().getMenuBar();
     }
 
-    public function amendMenu(menu:Menu):void {
-        getMenuBar().amend(menu);
+    public static function amendMenu(menu:Menu):void {
+        getInstance().getMenuBar().amend(menu);
     }
 
-    public function getDock():Dock {
-        return getView().getDock();
+    public static function dockView(tab:IDockable): void {
+        getView().getDock().addView(tab);
     }
 
-    public function getMenu():Menu {
-        return getMenuBar().getMenu();
+    public static function getMenu():Menu {
+        return getInstance().getMenuBar().getMenu();
     }
 
-    public function setMenu(menu:Menu):void {
-        getMenuBar().setMenu(menu);
+    public static function setMenu(menu:Menu):void {
+        getInstance().getMenuBar().setMenu(menu);
     }
 
-    public function getList():ObjectList {
-        if (list == null) {
-            list = new ObjectList();
+    public static function getList():ObjectList {
+        if (getInstance().list == null) {
+            getInstance().list = new ObjectList();
         }
-        return list;
+        return getInstance().list;
     }
 
-    public function setList(list:ObjectList):void {
-        this.list = list;
+    public static function setList(list:ObjectList):void {
+        getInstance().list = list;
     }
 
-    public function setUser(user:String):void {
-        this.user = user;
-    }
-
-    public function setUrl(url:String):void {
-        this.url = url;
-    }
-
-    public function setPw(pw:String):void {
-        this.pw = pw;
-    }
-
-    public function getCredentials():String {
-        var credentials:String = this.user + ":" + this.pw;
+    public static function getCredentials():String {
+        var credentials:String = getInstance().user + ":" + getInstance().pw;
         var encoder:Base64Encoder = new Base64Encoder();
         encoder.insertNewLines = false;
         encoder.encode(credentials);
@@ -128,62 +124,74 @@ public class Globals {
     }
 
     // delegate to EventLog
-    public function logFault(url:String, faultString:String):void {
-        log.fault(url, faultString);
+    public static function logFault(url:String, faultString:String):void {
+        getInstance().log.fault(url, faultString);
     }
 
-    public function logStart(url:String, method:String, body:String):void {
-        log.start(url, method, body);
+    public static function logStart(url:String, method:String, body:String):void {
+        getInstance().log.start(url, method, body);
     }
 
-    public function logEnd(url:String, jsonString:String):LogEntry {
-        return log.end(url, jsonString);
+    public static function logEnd(url:String, jsonString:String):LogEntry {
+        return getInstance().log.end(url, jsonString);
     }
 
-    public function logFind(url:String):LogEntry {
-        return log.find(url);
+    public static function logFind(url:String):LogEntry {
+        return getInstance().log.find(url);
     }
 
-    public function logReset():void {
-        log.reset();
+    public static function logReset():void {
+        getInstance().log.reset();
     }
 
-    public function logEntries():Vector.<LogEntry> {
-        return log.getEntries();
+    public static function logEntries():Vector.<LogEntry> {
+        return getInstance().log.getEntries();
     }
 
-    public function logShowAll():void {
-        log.showAll();
+    public static function logShowAll():void {
+        getInstance().log.showAll();
     }
 
-    public function logStartTime():uint {
-        return log.getLogStartTime();
+    public static function logStartTime():uint {
+        return getInstance().log.getLogStartTime();
     }
 
-    public function logAdd(title:String):void {
-        log.add(title)
+    public static function logAdd(title:String):void {
+        getInstance().log.add(title)
     }
 
     // delegate to HandlerChain
-    public function dspHandle(logEntry:LogEntry):void {
-        dsp.handle(logEntry);
+    public static function dspHandle(logEntry:LogEntry):void {
+        getInstance().dsp.handle(logEntry);
     }
 
     // delegate to Tabs
-    public function addEventTab():void {
-        var list:Vector.<LogEntry> = log.getEntries();
-        view.getTabs().addEventTab(list);
+    public static function addEventTab():void {
+        var list:Vector.<LogEntry> = getInstance().log.getEntries();
+        getView().getTabs().addEventTab(list);
     }
 
-    public function addTreeTab():void {
-        var list:Vector.<LogEntry> = log.getEntries();
-        view.getTabs().addTreeTab(list);
+    public static function addTreeTab():void {
+        var list:Vector.<LogEntry> = getInstance().log.getEntries();
+        getInstance().view.getTabs().addTreeTab(list);
     }
 
     // delegate to ObjectList
-    public function setListLayout(l:Layout):void {
+    public static function setListLayout(l:Layout):void {
         getList().setLayout(l);
     }
 
+    public static function toggleDock(toggle:Boolean):void {
+        getView().showDock(toggle);
+    }
+
+    public static function toggleStatus(toggle:Boolean):void {
+        getView().showStatus(toggle);
+    }
+
+    public static function getView():RoView {
+        return getInstance().getView();
+    }
+    
 }
 }

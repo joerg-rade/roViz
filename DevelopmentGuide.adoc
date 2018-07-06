@@ -34,6 +34,8 @@ See: https://intellij-support.jetbrains.com/hc/en-us/community/posts/206750345-F
 
 * Error "object was null: null" => remove ij $user/temp/**/roviz_* directory.
 
+* No output with trace(): https://github.com/mozilla/shumway/wiki/Trace-Output-with-Flash-Player-Debugger
+
 ## Helpful Resources:
 * https://stackoverflow.com/questions/5536420/intellij-idea-actionscript-project-cannot-connect-debugger-version-of-flash
 * https://intellij-support.jetbrains.com/hc/en-us/community/posts/115000241004-IntelliJ-Flash-Debugger
