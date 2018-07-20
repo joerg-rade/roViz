@@ -1,7 +1,5 @@
 package org.ro.core {
 
-import flash.utils.Dictionary;
-
 /**
  * Keeps a list of closed/minmized/docked views in order to recreate them.
  * When a tab is 'docked' it can be looked up here.
@@ -12,10 +10,10 @@ import flash.utils.Dictionary;
  */
 public class ViewRegistry {
 
-    private var delegate:Dictionary;
+    private var delegate:Object;
 
     public function ViewRegistry() {
-        delegate = new Dictionary();
+        delegate = new Object();
     }
 
     public function add(key:Object, value:Object):void {

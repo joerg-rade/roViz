@@ -4,7 +4,6 @@ import flash.events.MouseEvent;
 import flash.system.System;
 
 import mx.collections.ArrayCollection;
-import mx.controls.Alert;
 import mx.controls.Menu;
 import mx.core.ClassFactory;
 import mx.events.MenuEvent;
@@ -109,11 +108,8 @@ public class EventLogTab extends BaseTab implements IDockable {
         System.setClipboard(text);
     }
 
-    /**
-     *  @see https://stackoverflow.com/questions/11682914/ctrl-c-ctrl-v-and-ctrl-x-event-listener
-     */
     public function onCrtl():void {
-        //TODO
+        //@see https://stackoverflow.com/questions/11682914/ctrl-c-ctrl-v-and-ctrl-x-event-listenerTODO
     }
 
     public function itemClickHandler(event:MenuEvent):void {
@@ -128,7 +124,7 @@ public class EventLogTab extends BaseTab implements IDockable {
         } else if (id === "tree") {
             Globals.addTreeTab();
         } else {
-            Alert.show(event.toString());
+            trace("Unexpected Event: " + event.toString());
         }
 
         function hideLogEntries(items:Vector.<Object>):void {

@@ -1,10 +1,11 @@
 package org.ro.core.event {
 import org.ro.core.Globals;
+import org.ro.core.Utils;
 
 /**
- * Keeps a log of remote invocations and the responses. 
+ * Keeps a log of remote invocations and the responses.
  * Subsequent invocations are served from this cache.
- * 
+ *
  * @See https://en.wikipedia.org/wiki/Proxy_pattern
  */
     //TODO all invocations should go here in the first place 
@@ -34,31 +35,33 @@ public class EventLog {
     public function start(url:String, method:String, body:String):LogEntry {
         var entry:LogEntry = new LogEntry(url, method, body);
         log.push(entry);
-        updateStatus(entry);
+        Globals.updateStatus(entry);
         return entry;
     }
 
     public function add(description:String):void {
         var entry:LogEntry = LogEntry.create(description);
+        entry.createdAt = new Date();
         log.push(entry);
-        updateStatus(entry);
+        Globals.updateStatus(entry);
+    }
+
+    public function update(description:String):void {
+        var entry:LogEntry = find(description);
+        entry.updatedAt = new Date();
     }
 
     public function end(url:String, response:String):LogEntry {
         var entry:LogEntry = find(url);
         entry.setSuccess(response);
-        updateStatus(entry);
+        Globals.updateStatus(entry);
         return entry;
-    }
-
-    private static function updateStatus(entry:LogEntry):void {
-        Globals.getStatusBar().update(entry);
     }
 
     public function fault(url:String, fault:String):void {
         var entry:LogEntry = find(url);
         entry.setError(fault);
-        updateStatus(entry);
+        Globals.updateStatus(entry);
     }
 
     /**
@@ -67,16 +70,58 @@ public class EventLog {
      * @return
      */
     public function find(url:String):LogEntry {
-        var answer:LogEntry = null;
+        if (Utils.endsWith(url, "object-layout") || url.indexOf("/properties/") > 0) {
+            return findSimilar(url);
+        } else {
+            return findExact(url);
+        }
+    }
+
+    internal function findExact(url:String):LogEntry {
         for each(var le:LogEntry in log) {
             // assumes urls are unique !
             if (le.url == url) {
                 trace(url);
-                answer = le;
-                break;
+                return le;
             }
         }
-        return answer;
+        return null;
+    }
+
+    internal function findSimilar(url:String):LogEntry {
+        var argArray:Array = url.split("/");
+        for each(var le:LogEntry in log) {
+            var idxArray:Array = le.url.split("/");
+            if (areSimilar(argArray, idxArray)) {
+                trace(url);
+                return le;
+            }
+        }
+        return null;
+
+        function areSimilar(argArray:Array, idxArray:Array, allowedDiff:uint = 1):Boolean {
+            if (argArray.length != idxArray.length) {
+                return false;
+            }
+            var diffCnt:uint = 0;
+            var len:uint = argArray.length;
+            var ai:String;
+            var n:Number;
+            var isString:Boolean;
+            for (var i:uint; i <= len; i++) {
+                ai = argArray[i];
+                if (ai != idxArray[i]) {
+                    diffCnt += 1;
+                    n = Number(ai);
+                    isString = isNaN(n);
+                    // if the difference is a String, it is not allowed and counts double
+                    if (isString) {
+                        diffCnt += 1;
+                    }
+                }
+            }
+            return diffCnt <= allowedDiff;
+        }
     }
 
     public function getEntries():Vector.<LogEntry> {
@@ -93,36 +138,6 @@ public class EventLog {
             le.setVisible(true);
         }
         reset();
-    }
-
-    //FIXME activate this!!!
-    public function isResponsePending():Boolean {
-        //iterate over all entries and check for outstanding responses
-        // url must be unique in list
-        var pending:Vector.<LogEntry> = new Vector.<LogEntry>();
-        for each (var ple:LogEntry in log) {
-            if (ple.updatedAt == null) {
-                pending.push(ple);
-            }
-        }
-        var entriesWithUrl:Vector.<LogEntry>;
-        for each (var pe:LogEntry in pending) {
-            entriesWithUrl = collect(pe.url);
-            if (entriesWithUrl.length > 1) {
-                return true;
-            }
-        }
-        return false;
-
-        function collect(url:String):Vector.<LogEntry> {
-            var answer:Vector.<LogEntry> = new Vector.<LogEntry>();
-            for each(var l:LogEntry in log) {
-                if (l.url == url) {
-                    answer.push(l);
-                }
-            }
-            return answer;
-        }
     }
 
 }

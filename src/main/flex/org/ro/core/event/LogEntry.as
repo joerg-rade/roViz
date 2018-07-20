@@ -37,7 +37,7 @@ public class LogEntry {
     }
 
     // alternative constructor for UI events (eg. from user interaction)
-    public static function create(description:String):LogEntry {
+    internal static function create(description:String):LogEntry {
         var le:LogEntry = new LogEntry(description, null, null);
         le.icon = ImageRepository.BlueIcon;
         return le;
@@ -49,14 +49,14 @@ public class LogEntry {
         this.offset = start - logStartTime;
     }
 
-    public function setError(fault:String):void {
+    internal function setError(fault:String):void {
         this.updatedAt = new Date();
         this.calculate();
         this.fault = fault;
         this.icon = ImageRepository.RedIcon;
     }
 
-    public function setSuccess(response:String):void {
+    internal function setSuccess(response:String):void {
         this.updatedAt = new Date();
         this.calculate();
         // TODO format output more nicely, eventually have tooltip render it?
@@ -65,7 +65,7 @@ public class LogEntry {
         this.icon = ImageRepository.GreenIcon;
     }
 
-    public function toString():String {
+    internal function toString():String {
         var s:String = url + "/n";
         s = s + method + "/n";
         return s;
@@ -94,11 +94,7 @@ public class LogEntry {
 
     //end region response
 
-    public function setObject(tObject:TObject):void {
-        this.tObject = tObject;
-    }
-
-    public function stripHostPort(url:String):String {
+    private function stripHostPort(url:String):String {
         var result:String = url;
         result = result.replace("http://localhost:8080/restful/", "");
         result = removeHexCode(result);

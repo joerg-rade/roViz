@@ -1,6 +1,4 @@
 package org.ro.core {
-import flash.utils.Dictionary;
-
 import org.ro.to.Invokeable;
 import org.ro.to.Member;
 import org.ro.to.Service;
@@ -39,7 +37,7 @@ public class Menu {
         //private 
         function collectUnique(titles:Array):Array {
             var result:Array = [];
-            var dict:Dictionary = new Dictionary();
+            var dict:Object = new Object();
             for each(var t:String in titles) {
                 if (dict[t] == null) {
                     dict[t] = t;

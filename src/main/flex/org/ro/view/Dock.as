@@ -1,5 +1,4 @@
 package org.ro.view {
-
 import flash.events.MouseEvent;
 
 import mx.controls.Alert;
@@ -30,7 +29,7 @@ public class Dock extends VGroup {
         var image:Image = new Image();
         image.source = new icon();
         image.baseline = -8;
-        this.addElement(image);
+//        this.addElement(image);
     }
 
     public function buildContextMenu():Menu {

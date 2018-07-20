@@ -21,6 +21,7 @@ import org.ro.xhr.EventLogTest;
 public class UnitTestSuite {
 
     public var c1:ObjectAdapterTest;
+    public var c2:EventLogTest;
     public var h1:ServiceHandlerTest;
     public var h2:ListHandlerTest;
     public var h3:PropertyDescriptionHandlerTest;

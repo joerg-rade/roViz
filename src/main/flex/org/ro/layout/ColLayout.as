@@ -1,6 +1,6 @@
 package org.ro.layout {
-import mx.containers.Box;
 import mx.containers.HBox;
+import mx.core.UIComponent;
 
 import org.ro.view.UIUtil;
 
@@ -17,7 +17,8 @@ public class ColLayout extends AbstractLayout {
     internal var tabGroup:Object;
     internal var fieldSet:Object;
 
-    internal var fields:Vector.<FieldSetLayout> = new Vector.<FieldSetLayout>();
+    internal var fieldList:Vector.<FieldSetLayout> = new Vector.<FieldSetLayout>();
+    internal var tabList:Vector.<TabLayout> = new Vector.<TabLayout>();
 
     public function ColLayout(jsonObj:Object = null) {
         if (jsonObj != null) {
@@ -27,23 +28,29 @@ public class ColLayout extends AbstractLayout {
     }
 
     private function init():void {
-        fields = new Vector.<FieldSetLayout>();
+        fieldList = new Vector.<FieldSetLayout>();
         var l:FieldSetLayout;
         for each(var json:Object in fieldSet) {
             l = new FieldSetLayout(json);
-            fields.push(l);
+            fieldList.push(l);
+        }
+        tabList = new Vector.<TabLayout>();
+        var t:TabLayout;
+        for each(var json2:Object in col.tabGroup) {
+            t = new TabLayout(json2);
+            tabList.push(t);
         }
     }
 
     public function build():HBox {
         var result:HBox = new HBox();
         UIUtil.decorate(result, getClassName(prototype.constructor));
-        var b:Box;
-        for each(var tl:TabLayout in tabGroup) {
+        var b:UIComponent;
+        for each(var tl:TabLayout in tabList) {
             b = tl.build();
             result.addChild(b);
         }
-        for each(var fsl:FieldSetLayout in fields) {
+        for each(var fsl:FieldSetLayout in fieldList) {
             b = fsl.build();
             result.addChild(b);
         }

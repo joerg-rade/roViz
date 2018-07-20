@@ -54,7 +54,7 @@ public class TreeTab extends BaseTab {
             for each (var p:Node in nodeList) {
                 thisUrl = p.label;
                 for each (var c:Node in nodeList) {
-                    parentUrl = c.getParentUrl() + "/";    //FIXME where should this be handled?
+                    parentUrl = c.getParentUrl() + "/";
                     if (thisUrl === parentUrl) {
                         p.addChild(c)
                     }

@@ -2,7 +2,6 @@ package org.ro.layout {
 
 import mx.containers.HBox;
 import mx.containers.VBox;
-import mx.core.UIComponent;
 
 import org.flexunit.Assert;
 import org.ro.URLS;
@@ -46,17 +45,19 @@ public class LayoutTest {
     public function testBuildObjectLayout():void {
         //when
         var lo:Layout = new Layout(URLS.SO_OBJECT_LAYOUT);
+        // layout.rows[1].cols[1].col.tabGroup[0]
+        //ensure tabgroup is TabNavigator
+
         // then
         var ui:VBox = lo.build();
         Assert.assertEquals(2, ui.getChildren().length);
 
-        var h1:HBox = ui.getChildren()[1];
-        Assert.assertEquals(2, h1.getChildren().length);
+        var row1:VBox = ui.getChildren()[1];
+        Assert.assertEquals(2, row1.getChildren().length);
 
-        var h2:HBox = h1.getChildren()[1];
-        Assert.assertEquals(2, h1.getChildren().length);
+        var h2:HBox = row1.getChildren()[1];
+        Assert.assertEquals(2, h2.getChildren().length);
     }
-
-
+    
 }
 }

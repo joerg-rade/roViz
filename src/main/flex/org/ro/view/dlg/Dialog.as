@@ -60,7 +60,7 @@ public class Dialog extends TitleWindow {
 
         addChild(form);
 
-        PopUpManager.addPopUp(this, Globals.getView(), true);
+        PopUpManager.addPopUp(this, Globals.getInstance().getView(), true);
         PopUpManager.centerPopUp(this);
     }
 

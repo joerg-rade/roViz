@@ -1,6 +1,6 @@
 package org.ro.layout {
 import mx.containers.Box;
-import mx.containers.HBox;
+import mx.containers.VBox;
 
 import org.ro.view.UIUtil;
 
@@ -11,7 +11,7 @@ public class RowLayout extends AbstractLayout {
     internal var metadataError:String;
     internal var id:String;
 
-    internal var columns:Vector.<ColLayout> = new Vector.<ColLayout>();
+    internal var columnList:Vector.<ColLayout> = new Vector.<ColLayout>();
 
     public function RowLayout(jsonObj:Object) {
         if (jsonObj != null) {
@@ -21,27 +21,27 @@ public class RowLayout extends AbstractLayout {
     }
 
     private function init():void {
-        columns = new Vector.<ColLayout>();
+        columnList = new Vector.<ColLayout>();
         var l:ColLayout;
         for each(var json:Object in cols) {
             l = new ColLayout(json);
-            columns.push(l);
+            columnList.push(l);
         }
     }
 
     public function ensureMaxSpan():Boolean {
         var sum:uint = 0;
-        for each(var c:ColLayout in columns) {
+        for each(var c:ColLayout in columnList) {
             sum = sum + c.span;
         }
         return MAX_SPAN == sum;
     }
 
-    public function build():HBox {
-        var result:HBox = new HBox();
+    public function build():VBox {
+        var result:VBox = new VBox();
         UIUtil.decorate(result, getClassName(prototype.constructor));
         var b:Box;
-        for each(var c:ColLayout in columns) {
+        for each(var c:ColLayout in columnList) {
             b = c.build();
             result.addChild(b);
         }

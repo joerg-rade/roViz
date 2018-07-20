@@ -31,8 +31,7 @@ public class ObjectTab extends BaseTab {
 
     public function ObjectTab(oa:ObjectAdapter) {
         this.object = oa;
-        var title:String = buildTitle();
-        label = Utils.deCamel(title);
+        label = buildTitle();
 
         setupForm();
         populateForm();
@@ -41,19 +40,18 @@ public class ObjectTab extends BaseTab {
         roContextMenu = buildContextMenu();
         addEventListener(MouseEvent.RIGHT_CLICK, contextMenuHandler);
         addEventListener(MenuEvent.MENU_HIDE, hideContextMenu);
-
-        Globals.logAdd(title);
     }
-    
+
     private function buildTitle():String {
         var title:String = "";
-        if (oa.hasOwnProperty("name")) {
-            title = oa.name;
-        } else if (oa.hasOwnProperty("className")) {
-            title = oa.className;
+        if (object.hasOwnProperty("name")) {
+            title = object.name;
+        } else if (object.hasOwnProperty("className")) {
+            title = object.className;
         } else {
             title = "noNameNorClassname";
         }
+        title = Utils.deCamel(title);
         return title;
     }
 
@@ -88,6 +86,7 @@ public class ObjectTab extends BaseTab {
         }
     }
 
+    //TODO move this method to a better place 
     private function findLayout(tObject:TObject):Layout {
         var link:Link = tObject.getLayoutLink();
         var href:String = link.getHref();

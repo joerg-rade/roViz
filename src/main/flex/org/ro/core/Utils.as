@@ -106,7 +106,7 @@ public class Utils {
         try {
             jsonObject = JSON.parse(jsonStr);
         } catch (err:Error) {
-            Alert.show("Error: " + err.toString());
+            Alert.show("Error: " + err.message);
         }
         finally {
             // Code that runs whether an error was thrown. This code can clean 
@@ -120,7 +120,7 @@ public class Utils {
         try {
             jsonStr = JSON.stringify(jsonObj);
         } catch (err:Error) {
-            Alert.show("Error: " + err.toString());
+            Alert.show("Error: " + err.message);
         }
         finally {
             // Code that runs whether an error was thrown. This code can clean 

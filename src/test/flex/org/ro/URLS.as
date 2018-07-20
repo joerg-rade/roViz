@@ -1732,6 +1732,45 @@ public class URLS {
      */
     public const DOWNLOAD_TRANSLATIONS:String = "http://localhost:8080/restful/services/isisApplib.TranslationServicePoMenu/actions/downloadTranslations/invoke\n" +
             "arguments";
+    
+    public const OBJECT_PROPERTY:Object = {
+        "id" : "notes",
+        "memberType" : "property",
+        "links" : [ {
+            "rel" : "self",
+            "href" : "http://localhost:8080/restful/objects/simple.SimpleObject/119/properties/notes",
+            "method" : "GET",
+            "type" : "application/json;profile=\"urn:org.restfulobjects:repr-types/object-property\""
+        }, {
+            "rel" : "up",
+            "href" : "http://localhost:8080/restful/objects/simple.SimpleObject/119",
+            "method" : "GET",
+            "type" : "application/json;profile=\"urn:org.restfulobjects:repr-types/object\"",
+            "title" : "Object: Boo"
+        }, {
+            "rel" : "urn:org.restfulobjects:rels/modify;property=\"notes\"",
+            "href" : "http://localhost:8080/restful/objects/simple.SimpleObject/119/properties/notes",
+            "method" : "PUT",
+            "type" : "application/json;profile=\"urn:org.restfulobjects:repr-types/object-property\"",
+            "arguments" : {
+                "value" : null
+            }
+        }, {
+            "rel" : "urn:org.restfulobjects:rels/clear;property=\"notes\"",
+            "href" : "http://localhost:8080/restful/objects/simple.SimpleObject/119/properties/notes",
+            "method" : "DELETE",
+            "type" : "application/json;profile=\"urn:org.restfulobjects:repr-types/object-property\""
+        }, {
+            "rel" : "describedby",
+            "href" : "http://localhost:8080/restful/domain-types/simple.SimpleObject/properties/notes",
+            "method" : "GET",
+            "type" : "application/json;profile=\"urn:org.restfulobjects:repr-types/property-description\""
+        } ],
+        "value" : null,
+        "extensions" : {
+            "x-isis-format" : "string"
+        }
+    }; 
 
 }
 }

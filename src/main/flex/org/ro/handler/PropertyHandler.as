@@ -8,8 +8,13 @@ public class PropertyHandler extends AbstractHandler implements IResponseHandler
 
     public override function canHandle(jsonObj:Object):Boolean {
         var links:Object = jsonObj.links;
-        if ((links != null) && (links.length == 3)) {
-            return (links[2].rel == Property.DESCRIBED_BY);
+        if (links != null) {
+            if (links.length == 3) {
+                return (links[2].rel == Property.DESCRIBED_BY);
+            }
+            if (links.length == 5) {
+                return (links[4].rel == Property.DESCRIBED_BY);
+            }
         }
         return false;
     }

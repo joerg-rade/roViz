@@ -35,7 +35,7 @@ public class ObjectList {
         return ac;
     }
 
-    //TODO can/should layout be capsulated more?
+    //TODO can/should layout be encapsulated more?
     public function setLayout(layout:Layout):void {
         this.layout = layout;
         initPropertyDescription();
@@ -64,8 +64,8 @@ public class ObjectList {
 
     public function handleObject(tObj:TObject):void {
         if (!hasLayout()) {
+            trace("layout not found, try to invoke");
             tObj.getLayoutLink().invoke();
-            //FIXME how is loaded layout assigned to tObj ???
         }
 
         // tObj  has links, o doesn't
@@ -102,7 +102,11 @@ public class ObjectList {
     public function handleProperty(p:Property):void {
         var e:Extensions = p.getExtension();
         var friendlyName:String = e.getFriendlyName();
-        this.layout.addPropertyLabel(p.getId(), friendlyName);
+        if (layout == null) {
+            //TODO should not happen ...
+            layout = new Layout();
+        }
+        layout.addPropertyLabel(p.getId(), friendlyName);
     }
 
 }

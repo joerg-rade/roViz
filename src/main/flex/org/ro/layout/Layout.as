@@ -12,7 +12,7 @@ public class Layout extends AbstractLayout {
     private const TAB_GROUP:String = "tabGroup";
 
     internal var row:Object; // which actually is a list of rows
-    internal var rows:Vector.<RowLayout>;
+    internal var rowList:Vector.<RowLayout>;
     private var properties:Vector.<PropertyLayout>;
     private var propertyLabels:Object = {};
 
@@ -51,11 +51,11 @@ public class Layout extends AbstractLayout {
     }
 
     private function initRows(row:Object):void {
-        this.rows = new Vector.<RowLayout>();
+        this.rowList = new Vector.<RowLayout>();
         var l:RowLayout;
         for each(var json:Object in row) {
             l = new RowLayout(json);
-            this.rows.push(l);
+            this.rowList.push(l);
         }
     }
     
@@ -78,7 +78,7 @@ public class Layout extends AbstractLayout {
         UIUtil.decorate(result, getClassName(prototype.constructor));
         var b:Box;
         //TODO iterate over rows, recurse into columns, etc.
-        for each(var rl:RowLayout in rows) {
+        for each(var rl:RowLayout in rowList) {
             b = rl.build();
             result.addChild(b);
         }

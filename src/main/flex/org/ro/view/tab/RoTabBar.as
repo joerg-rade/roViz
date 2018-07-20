@@ -2,7 +2,6 @@ package org.ro.view.tab {
 import flash.events.MouseEvent;
 
 import mx.containers.TabNavigator;
-import mx.controls.Alert;
 import mx.controls.Menu;
 import mx.core.UIComponent;
 import mx.events.MenuEvent;
@@ -24,24 +23,28 @@ public class RoTabBar extends TabNavigator {
         addEventListener(MenuEvent.MENU_HIDE, hideContextMenu);
     }
 
-    public function addListTab(list:ObjectList):void {
+    public function addListTab(list:ObjectList):ListTab {
         var tab:ListTab = new ListTab(list);
         open(tab);
+        return tab;
     }
 
-    public function addEventTab(list:Vector.<LogEntry>):void {
+    public function addEventTab(list:Vector.<LogEntry>):EventLogTab {
         var tab:EventLogTab = new EventLogTab(list);
         open(tab);
+        return tab;
     }
 
-    public function addTreeTab(list:Vector.<LogEntry>):void {
+    public function addTreeTab(list:Vector.<LogEntry>):TreeTab {
         var tab:TreeTab = new TreeTab(list);
         open(tab);
+        return tab;
     }
 
-    public function addObjectTab(oa:ObjectAdapter):void {
+    public function addObjectTab(oa:ObjectAdapter):ObjectTab {
         var tab:ObjectTab = new ObjectTab(oa);
         open(tab);
+        return tab;
     }
 
     public function open(tab:UIComponent):void {
@@ -73,8 +76,22 @@ public class RoTabBar extends TabNavigator {
         roContextMenu.hide();
     }
 
-    private function removeTab(tab:BaseTab):void {
-        this.removeChild(tab);
+    public function removeTab(tab:BaseTab):void {
+        var i:uint = getChildIndex(tab);
+        if (i >= 0) {
+            try {
+                this.removeChild(tab);
+            } catch (err:Error) {
+                //FIXME WTF is this happening?
+                trace("Error: " + err.message);
+            }
+            finally {
+                // Code that runs whether an error was thrown. This code can clean 
+                // up after the error, or take steps to keep the application running. 
+            }
+        } else {
+            trace("child not found, while trying to remove");
+        }
     }
 
     public function itemClickHandler(event:MenuEvent):void {
@@ -86,7 +103,7 @@ public class RoTabBar extends TabNavigator {
         } else if (event.item.@id == "redraw") {
             reload(tab);
         } else {
-            Alert.show(event.toString());
+            trace("Unexpected Event: " + event.toString());
         }
     }
 
@@ -104,6 +121,7 @@ public class RoTabBar extends TabNavigator {
             // is the one that needs to be redrawn
             // This may not be true in all cases.
             Globals.displayList();
+            //open(tab);
         }
     }
 

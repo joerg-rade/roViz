@@ -1,5 +1,5 @@
 package org.ro.layout {
-import flash.utils.getQualifiedClassName;
+//import flash.utils.getQualifiedClassName;
 
 public class AbstractLayout {
     internal var cssClass:String;
@@ -15,7 +15,7 @@ public class AbstractLayout {
     }
 
     internal function getClassName(value:*):String {
-        return getQualifiedClassName(value);
+        return "getQualifiedClassName(value)";
     }
 
 }

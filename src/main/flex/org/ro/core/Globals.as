@@ -7,14 +7,13 @@ import org.ro.core.model.ObjectAdapter;
 import org.ro.core.model.ObjectList;
 import org.ro.handler.Dispatcher;
 import org.ro.layout.Layout;
-import org.ro.view.Dock;
 import org.ro.view.IDockable;
 import org.ro.view.RoMenuBar;
-import org.ro.view.RoStatusBar;
 import org.ro.view.RoView;
+import org.ro.view.tab.ObjectTab;
+import org.ro.view.tab.RoTabBar;
 
 /**
- * Pattern: Singleton, Facade
  * Single Point of Contact between view components and all other classes.
  *
  * View components: RoView, RoStatusbar, RoMenubar, Tabs, Dock etc.
@@ -23,12 +22,17 @@ import org.ro.view.RoView;
  * - keeps track of connected server,
  * - the menu,
  * - object lists,
+ *
+ * @See https://en.wikipedia.org/wiki/Facade_pattern
+ * @See https://en.wikipedia.org/wiki/Singleton_pattern
  */
 public class Globals {
     private static var instance:Globals = null;
     private var dsp:Dispatcher = new Dispatcher();
     private var log:EventLog = new EventLog();
     private var view:RoView = null;
+    private var display:DisplayManager = new DisplayManager();
+    //TODO improve refactor into RoSession
     private var user:String;
     private var pw:String;
     private var url:String;
@@ -45,7 +49,7 @@ public class Globals {
         }
     }
 
-    private static function getInstance():Globals {
+    public static function getInstance():Globals {
         if (instance == null) {
             instance = new Globals();
         }
@@ -63,15 +67,16 @@ public class Globals {
         getInstance().user = user;
         getInstance().pw = pw;
         getInstance().url = url;
-        getStatusBar().user.text = user;
+        getInstance().getView().getStatusBar().user.text = user;
     }
 
-    public static function getStatusBar():RoStatusBar {
-        return getView().getStatusBar();
+    public static function updateStatus(le:LogEntry):void {
+        getInstance().getView().getStatusBar().update(le);
     }
 
     public static function addListTab(objectList:ObjectList):void {
-        getView().getTabs().addListTab(objectList);
+        var tabBar:RoTabBar = getInstance().getView().getTabs();
+        getInstance().display.addListTab(tabBar, objectList);
     }
 
     //convenience method
@@ -80,7 +85,11 @@ public class Globals {
     }
 
     public static function addObjectTab(oa:ObjectAdapter):void {
-        getView().getTabs().addObjectTab(oa);
+        //TODO pass in startTime - otherwise log starttime would be finsish time
+        var start:Date = new Date();
+        var tab:ObjectTab = getInstance().getView().getTabs().addObjectTab(oa);
+        logAdd(tab.label);
+        //FIXME
     }
 
     private function getMenuBar():RoMenuBar {
@@ -91,8 +100,8 @@ public class Globals {
         getInstance().getMenuBar().amend(menu);
     }
 
-    public static function dockView(tab:IDockable): void {
-        getView().getDock().addView(tab);
+    public static function dockView(tab:IDockable):void {
+        getInstance().getView().getDock().addView(tab);
     }
 
     public static function getMenu():Menu {
@@ -157,7 +166,13 @@ public class Globals {
     }
 
     public static function logAdd(title:String):void {
-        getInstance().log.add(title)
+        var le:LogEntry = logFind(title);
+        if (le == null) {
+            getInstance().log.add(title);
+        } else {
+            le.cacheHits += 1;
+            getInstance().log.update(title);
+        }
     }
 
     // delegate to HandlerChain
@@ -168,12 +183,12 @@ public class Globals {
     // delegate to Tabs
     public static function addEventTab():void {
         var list:Vector.<LogEntry> = getInstance().log.getEntries();
-        getView().getTabs().addEventTab(list);
+        getInstance().getView().getTabs().addEventTab(list);
     }
 
     public static function addTreeTab():void {
         var list:Vector.<LogEntry> = getInstance().log.getEntries();
-        getInstance().view.getTabs().addTreeTab(list);
+        getInstance().getView().getTabs().addTreeTab(list);
     }
 
     // delegate to ObjectList
@@ -182,16 +197,12 @@ public class Globals {
     }
 
     public static function toggleDock(toggle:Boolean):void {
-        getView().showDock(toggle);
+        getInstance().getView().showDock(toggle);
     }
 
     public static function toggleStatus(toggle:Boolean):void {
-        getView().showStatus(toggle);
+        getInstance().getView().showStatus(toggle);
     }
 
-    public static function getView():RoView {
-        return getInstance().getView();
-    }
-    
 }
 }

@@ -6,14 +6,13 @@ import mx.controls.dataGridClasses.DataGridColumn;
 import mx.core.ClassFactory;
 
 import org.ro.core.Globals;
+import org.ro.core.Utils;
 import org.ro.core.event.LogEntry;
 import org.ro.core.model.ObjectAdapter;
 import org.ro.core.model.ObjectList;
 import org.ro.layout.Layout;
 import org.ro.layout.PropertyLayout;
-import org.ro.to.Invokeable;
 import org.ro.to.Link;
-import org.ro.to.TObject;
 import org.ro.view.ImageRepository;
 import org.ro.view.table.ColDef;
 import org.ro.view.table.IconRenderer;
@@ -24,15 +23,10 @@ import spark.components.DataGrid;
 
 public class ListTab extends BaseTab {
 
-    private var dirty:Boolean = true;
     internal var dg:DataGrid = new DataGrid();
 
     public function ListTab(list:ObjectList) {
-        var oa:ObjectAdapter = list.last();
-        var objectType:String = oa.className;
-        var title:String = objectType + " (" + list.length() + ")";
-        this.id = title;
-        this.label = title;
+        this.label = buildTitle(list);
         this.icon = ImageRepository.ObjectsIcon;
         dg.percentWidth = 100;
         dg.percentHeight = 100;
@@ -48,35 +42,25 @@ public class ListTab extends BaseTab {
         dg.addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler);
         this.addChild(dg);
         toolTip = "Double click (label) to close or invoke menu on selected item."
-
-        Globals.logAdd(title);
     }
+
+    private function buildTitle(list:ObjectList):String {
+        var object:Object = list.last();
+        var title:String = "";
+        if (object.hasOwnProperty("domainType")) {
+            title = object.domainType;
+        } else if (object.hasOwnProperty("name")) {
+            title = object.name;
+        } else {
+            title = "noClassnameNorName";
+        }
+        title = Utils.deCamel(title);
+        return title + " (" + list.length() + ")";
+    }
+
 
     private function initData(dataProvider:ObjectList):void {
         dg.dataProvider = dataProvider.asArrayCollection();
-//        loadObjects();
-        //FIXME how to load layouts afterwards? pars pro toto?
-    }
-
-    private function loadObjects():void {
-        var tObject:TObject;
-        var objectAdapter:ObjectAdapter;
-        var link:Link;
-        var href:String;
-        var objLink:Link;
-        for each (var oa:ObjectAdapter in dg.dataProvider) {
-            // nested ObjectAdapter 
-            // is it a leftover from the abstract FixtureScriptResult list only?
-            // adaptable(TObject).object(ObjectAdapter).adaptee(Link).getHref(String)
-            tObject = oa.adaptee as TObject;
-            objectAdapter = tObject.object;
-            link = objectAdapter.adaptee as Link;
-            href = link.getHref();
-            objLink = new Link();
-            objLink.setHref(href);
-            objLink.setMethod(Invokeable.GET);
-            objLink.invoke();
-        }
     }
 
     /* forces columns to size themselves properly */
@@ -89,6 +73,7 @@ public class ListTab extends BaseTab {
 
     //TODO should 'edit' be the default action - 
     // or is a context menu with actions more consistent?
+    //FIXME needs refactoring, avoid to refer to Globals
     protected function doubleClickHandler(event:MouseEvent):void {
         var item:Object = dg.selectedItem;
         if (item == null) {
@@ -106,9 +91,6 @@ public class ListTab extends BaseTab {
             if (le == null) {
                 // this is (only?) required for Fixture Objects
                 link.invoke();
-            } else {
-                //FIXME to be removed  ???
-                trace("About to open ObjectTab");
             }
         } else {
             trace("item is neither null nor link nor ObjectAdapter");

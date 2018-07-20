@@ -1,10 +1,9 @@
 package org.ro.handler {
-import org.ro.view.dlg.Message;
-import org.ro.view.dlg.Prompt;
 import org.ro.to.Action;
 import org.ro.to.Extensions;
 import org.ro.to.Invokeable;
 import org.ro.to.Link;
+import org.ro.view.dlg.Prompt;
 
 public class ActionHandler extends AbstractHandler implements IResponseHandler {
     public function ActionHandler() {
@@ -26,7 +25,7 @@ public class ActionHandler extends AbstractHandler implements IResponseHandler {
         } else {
             //TODO handle PUT / DELETE
             // eventually in case of a DELETE, a confirmation needs to be shown
-            new Message("Link Method is PUT or DELETE");
+            trace("Link Method is PUT or DELETE");
         }
     }
 }
