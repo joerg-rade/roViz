@@ -2,40 +2,342 @@ package org.ro {
 public class URLS {
 
     public static const RESTFUL:Object = {
-        "links" : [ {
-            "rel" : "self",
-            "href" : "http://localhost:8080/restful/",
-            "method" : "GET",
-            "type" : "application/json;profile=\"urn:org.restfulobjects:repr-types/homepage\""
+        "links": [{
+            "rel": "self",
+            "href": "http://localhost:8080/restful/",
+            "method": "GET",
+            "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/homepage\""
         }, {
-            "rel" : "urn:org.restfulobjects:rels/user",
-            "href" : "http://localhost:8080/restful/user",
-            "method" : "GET",
-            "type" : "application/json;profile=\"urn:org.restfulobjects:repr-types/user\""
+            "rel": "urn:org.restfulobjects:rels/user",
+            "href": "http://localhost:8080/restful/user",
+            "method": "GET",
+            "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/user\""
         }, {
-            "rel" : "urn:org.apache.isis.restfulobjects:rels/menuBars",
-            "href" : "http://localhost:8080/restful/menuBars",
-            "method" : "GET",
-            "type" : "application/json;profile=\"urn:org.restfulobjects:repr-types/layout-menubars\""
+            "rel": "urn:org.apache.isis.restfulobjects:rels/menuBars",
+            "href": "http://localhost:8080/restful/menuBars",
+            "method": "GET",
+            "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/layout-menubars\""
         }, {
-            "rel" : "urn:org.restfulobjects:rels/services",
-            "href" : "http://localhost:8080/restful/services",
-            "method" : "GET",
-            "type" : "application/json;profile=\"urn:org.restfulobjects:repr-types/list\""
+            "rel": "urn:org.restfulobjects:rels/services",
+            "href": "http://localhost:8080/restful/services",
+            "method": "GET",
+            "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/list\""
         }, {
-            "rel" : "urn:org.restfulobjects:rels/version",
-            "href" : "http://localhost:8080/restful/version",
-            "method" : "GET",
-            "type" : "application/json;profile=\"urn:org.restfulobjects:repr-types/version\""
+            "rel": "urn:org.restfulobjects:rels/version",
+            "href": "http://localhost:8080/restful/version",
+            "method": "GET",
+            "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/version\""
         }, {
-            "rel" : "urn:org.restfulobjects:rels/domain-types",
-            "href" : "http://localhost:8080/restful/domain-types",
-            "method" : "GET",
-            "type" : "application/json;profile=\"urn:org.restfulobjects:repr-types/type-list\""
-        } ],
-        "extensions" : { }
+            "rel": "urn:org.restfulobjects:rels/domain-types",
+            "href": "http://localhost:8080/restful/domain-types",
+            "method": "GET",
+            "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/type-list\""
+        }],
+        "extensions": {}
     };
-    
+
+    public static const RESTFUL_USER:Object = {
+        "userName": "sven",
+        "roles": ["iniRealm:admin_role"],
+        "links": [{
+            "rel": "self",
+            "href": "http://localhost:8080/restful/user",
+            "method": "GET",
+            "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/user\""
+        }, {
+            "rel": "up",
+            "href": "http://localhost:8080/restful/",
+            "method": "GET",
+            "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/homepage\""
+        }, {
+            "rel": "urn:org.apache.isis.restfulobjects:rels/logout",
+            "href": "http://localhost:8080/restful/user/logout",
+            "method": "GET",
+            "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/homepage\""
+        }],
+        "extensions": {}
+    };
+
+    public static const RESTFUL_MENUBARS:XML =
+            <mb3:menuBars xmlns:cpt="http://isis.apache.org/applib/layout/component"
+                          xmlns:mb3="http://isis.apache.org/applib/layout/menubars/bootstrap3"
+                          xmlns:lnk="http://isis.apache.org/applib/layout/links">
+                <mb3:primary>
+                    <mb3:menu>
+                        <mb3:named>Simple Objects</mb3:named>
+                        <mb3:section>
+                            <mb3:serviceAction objectType="simple.SimpleObjectMenu" id="create">
+                                <cpt:named>Create</cpt:named>
+                                <cpt:link>
+                                    <lnk:rel>urn:org.restfulobjects:rels/action</lnk:rel>
+                                    <lnk:method>GET</lnk:method>
+                                    <lnk:href>
+                                        http://localhost:8080/restful/objects/simple.SimpleObjectMenu/1/actions/create
+                                    </lnk:href>
+                                    <lnk:type>
+                                        application/json;profile="urn:org.restfulobjects:repr-types/object-action"
+                                    </lnk:type>
+                                </cpt:link>
+                            </mb3:serviceAction>
+                            <mb3:serviceAction objectType="simple.SimpleObjectMenu" id="findByName">
+                                <cpt:named>Find By Name</cpt:named>
+                                <cpt:link>
+                                    <lnk:rel>urn:org.restfulobjects:rels/action</lnk:rel>
+                                    <lnk:method>GET</lnk:method>
+                                    <lnk:href>
+                                        http://localhost:8080/restful/objects/simple.SimpleObjectMenu/1/actions/findByName
+                                    </lnk:href>
+                                    <lnk:type>
+                                        application/json;profile="urn:org.restfulobjects:repr-types/object-action"
+                                    </lnk:type>
+                                </cpt:link>
+                            </mb3:serviceAction>
+                            <mb3:serviceAction objectType="simple.SimpleObjectMenu" id="listAll">
+                                <cpt:named>List All</cpt:named>
+                                <cpt:link>
+                                    <lnk:rel>urn:org.restfulobjects:rels/action</lnk:rel>
+                                    <lnk:method>GET</lnk:method>
+                                    <lnk:href>
+                                        http://localhost:8080/restful/objects/simple.SimpleObjectMenu/1/actions/listAll
+                                    </lnk:href>
+                                    <lnk:type>
+                                        application/json;profile="urn:org.restfulobjects:repr-types/object-action"
+                                    </lnk:type>
+                                </cpt:link>
+                            </mb3:serviceAction>
+                        </mb3:section>
+                    </mb3:menu>
+                    <mb3:menu unreferencedActions="true">
+                        <mb3:named>Other</mb3:named>
+                    </mb3:menu>
+                </mb3:primary>
+                <mb3:secondary>
+                    <mb3:menu>
+                        <mb3:named>Prototyping</mb3:named>
+                        <mb3:section>
+                            <mb3:serviceAction objectType="isisApplib.FixtureScriptsDefault" id="runFixtureScript">
+                                <cpt:named>Run Fixture Script</cpt:named>
+                                <cpt:link>
+                                    <lnk:rel>urn:org.restfulobjects:rels/action</lnk:rel>
+                                    <lnk:method>GET</lnk:method>
+                                    <lnk:href>
+                                        http://localhost:8080/restful/objects/isisApplib.FixtureScriptsDefault/1/actions/runFixtureScript
+                                    </lnk:href>
+                                    <lnk:type>
+                                        application/json;profile="urn:org.restfulobjects:repr-types/object-action"
+                                    </lnk:type>
+                                </cpt:link>
+                            </mb3:serviceAction>
+                            <mb3:serviceAction objectType="isisApplib.FixtureScriptsDefault"
+                                               id="runFixtureScriptWithAutoComplete">
+                                <cpt:named>Run Fixture Script</cpt:named>
+                                <cpt:link>
+                                    <lnk:rel>urn:org.restfulobjects:rels/action</lnk:rel>
+                                    <lnk:method>GET</lnk:method>
+                                    <lnk:href>
+                                        http://localhost:8080/restful/objects/isisApplib.FixtureScriptsDefault/1/actions/runFixtureScriptWithAutoComplete
+                                    </lnk:href>
+                                    <lnk:type>
+                                        application/json;profile="urn:org.restfulobjects:repr-types/object-action"
+                                    </lnk:type>
+                                </cpt:link>
+                            </mb3:serviceAction>
+                            <mb3:serviceAction objectType="isisApplib.FixtureScriptsDefault"
+                                               id="recreateObjectsAndReturnFirst">
+                                <cpt:named>Recreate Objects And Return First</cpt:named>
+                                <cpt:link>
+                                    <lnk:rel>urn:org.restfulobjects:rels/action</lnk:rel>
+                                    <lnk:method>GET</lnk:method>
+                                    <lnk:href>
+                                        http://localhost:8080/restful/objects/isisApplib.FixtureScriptsDefault/1/actions/recreateObjectsAndReturnFirst
+                                    </lnk:href>
+                                    <lnk:type>
+                                        application/json;profile="urn:org.restfulobjects:repr-types/object-action"
+                                    </lnk:type>
+                                </cpt:link>
+                            </mb3:serviceAction>
+                        </mb3:section>
+                        <mb3:section>
+                            <mb3:serviceAction objectType="isisApplib.LayoutServiceMenu" id="downloadLayouts">
+                                <cpt:named>Download Object Layouts (ZIP)</cpt:named>
+                                <cpt:link>
+                                    <lnk:rel>urn:org.restfulobjects:rels/action</lnk:rel>
+                                    <lnk:method>GET</lnk:method>
+                                    <lnk:href>
+                                        http://localhost:8080/restful/objects/isisApplib.LayoutServiceMenu/1/actions/downloadLayouts
+                                    </lnk:href>
+                                    <lnk:type>
+                                        application/json;profile="urn:org.restfulobjects:repr-types/object-action"
+                                    </lnk:type>
+                                </cpt:link>
+                            </mb3:serviceAction>
+                            <mb3:serviceAction objectType="isisApplib.LayoutServiceMenu" id="downloadMenuBarsLayout">
+                                <cpt:named>Download Menu Bars Layout (XML)</cpt:named>
+                                <cpt:link>
+                                    <lnk:rel>urn:org.restfulobjects:rels/action</lnk:rel>
+                                    <lnk:method>GET</lnk:method>
+                                    <lnk:href>
+                                        http://localhost:8080/restful/objects/isisApplib.LayoutServiceMenu/1/actions/downloadMenuBarsLayout
+                                    </lnk:href>
+                                    <lnk:type>
+                                        application/json;profile="urn:org.restfulobjects:repr-types/object-action"
+                                    </lnk:type>
+                                </cpt:link>
+                            </mb3:serviceAction>
+                        </mb3:section>
+                        <mb3:section>
+                            <mb3:serviceAction objectType="isisApplib.MetaModelServicesMenu" id="downloadMetaModel">
+                                <cpt:named>Download Meta Model (CSV)</cpt:named>
+                                <cpt:link>
+                                    <lnk:rel>urn:org.restfulobjects:rels/action</lnk:rel>
+                                    <lnk:method>GET</lnk:method>
+                                    <lnk:href>
+                                        http://localhost:8080/restful/objects/isisApplib.MetaModelServicesMenu/1/actions/downloadMetaModel
+                                    </lnk:href>
+                                    <lnk:type>
+                                        application/json;profile="urn:org.restfulobjects:repr-types/object-action"
+                                    </lnk:type>
+                                </cpt:link>
+                            </mb3:serviceAction>
+                        </mb3:section>
+                        <mb3:section>
+                            <mb3:serviceAction objectType="isisApplib.SwaggerServiceMenu" id="openSwaggerUi">
+                                <cpt:named>Open Swagger Ui</cpt:named>
+                                <cpt:link>
+                                    <lnk:rel>urn:org.restfulobjects:rels/action</lnk:rel>
+                                    <lnk:method>GET</lnk:method>
+                                    <lnk:href>
+                                        http://localhost:8080/restful/objects/isisApplib.SwaggerServiceMenu/1/actions/openSwaggerUi
+                                    </lnk:href>
+                                    <lnk:type>
+                                        application/json;profile="urn:org.restfulobjects:repr-types/object-action"
+                                    </lnk:type>
+                                </cpt:link>
+                            </mb3:serviceAction>
+                            <mb3:serviceAction objectType="isisApplib.SwaggerServiceMenu" id="openRestApi">
+                                <cpt:named>Open Rest Api</cpt:named>
+                                <cpt:link>
+                                    <lnk:rel>urn:org.restfulobjects:rels/action</lnk:rel>
+                                    <lnk:method>GET</lnk:method>
+                                    <lnk:href>
+                                        http://localhost:8080/restful/objects/isisApplib.SwaggerServiceMenu/1/actions/openRestApi
+                                    </lnk:href>
+                                    <lnk:type>
+                                        application/json;profile="urn:org.restfulobjects:repr-types/object-action"
+                                    </lnk:type>
+                                </cpt:link>
+                            </mb3:serviceAction>
+                            <mb3:serviceAction objectType="isisApplib.SwaggerServiceMenu"
+                                               id="downloadSwaggerSchemaDefinition">
+                                <cpt:named>Download Swagger Schema Definition</cpt:named>
+                                <cpt:link>
+                                    <lnk:rel>urn:org.restfulobjects:rels/action</lnk:rel>
+                                    <lnk:method>GET</lnk:method>
+                                    <lnk:href>
+                                        http://localhost:8080/restful/objects/isisApplib.SwaggerServiceMenu/1/actions/downloadSwaggerSchemaDefinition
+                                    </lnk:href>
+                                    <lnk:type>
+                                        application/json;profile="urn:org.restfulobjects:repr-types/object-action"
+                                    </lnk:type>
+                                </cpt:link>
+                            </mb3:serviceAction>
+                        </mb3:section>
+                        <mb3:section>
+                            <mb3:serviceAction objectType="isisApplib.TranslationServicePoMenu"
+                                               id="downloadTranslations">
+                                <cpt:named>Download Translations</cpt:named>
+                                <cpt:link>
+                                    <lnk:rel>urn:org.restfulobjects:rels/action</lnk:rel>
+                                    <lnk:method>GET</lnk:method>
+                                    <lnk:href>
+                                        http://localhost:8080/restful/objects/isisApplib.TranslationServicePoMenu/1/actions/downloadTranslations
+                                    </lnk:href>
+                                    <lnk:type>
+                                        application/json;profile="urn:org.restfulobjects:repr-types/object-action"
+                                    </lnk:type>
+                                </cpt:link>
+                            </mb3:serviceAction>
+                            <mb3:serviceAction objectType="isisApplib.TranslationServicePoMenu"
+                                               id="resetTranslationCache">
+                                <cpt:named>Clear translation cache</cpt:named>
+                                <cpt:link>
+                                    <lnk:rel>urn:org.restfulobjects:rels/action</lnk:rel>
+                                    <lnk:method>GET</lnk:method>
+                                    <lnk:href>
+                                        http://localhost:8080/restful/objects/isisApplib.TranslationServicePoMenu/1/actions/resetTranslationCache
+                                    </lnk:href>
+                                    <lnk:type>
+                                        application/json;profile="urn:org.restfulobjects:repr-types/object-action"
+                                    </lnk:type>
+                                </cpt:link>
+                            </mb3:serviceAction>
+                            <mb3:serviceAction objectType="isisApplib.TranslationServicePoMenu"
+                                               id="switchToReadingTranslations">
+                                <cpt:named>Switch To Reading Translations</cpt:named>
+                                <cpt:link>
+                                    <lnk:rel>urn:org.restfulobjects:rels/action</lnk:rel>
+                                    <lnk:method>GET</lnk:method>
+                                    <lnk:href>
+                                        http://localhost:8080/restful/objects/isisApplib.TranslationServicePoMenu/1/actions/switchToReadingTranslations
+                                    </lnk:href>
+                                    <lnk:type>
+                                        application/json;profile="urn:org.restfulobjects:repr-types/object-action"
+                                    </lnk:type>
+                                </cpt:link>
+                            </mb3:serviceAction>
+                            <mb3:serviceAction objectType="isisApplib.TranslationServicePoMenu"
+                                               id="switchToWritingTranslations">
+                                <cpt:named>Switch To Writing Translations</cpt:named>
+                                <cpt:link>
+                                    <lnk:rel>urn:org.restfulobjects:rels/action</lnk:rel>
+                                    <lnk:method>GET</lnk:method>
+                                    <lnk:href>
+                                        http://localhost:8080/restful/objects/isisApplib.TranslationServicePoMenu/1/actions/switchToWritingTranslations
+                                    </lnk:href>
+                                    <lnk:type>
+                                        application/json;profile="urn:org.restfulobjects:repr-types/object-action"
+                                    </lnk:type>
+                                </cpt:link>
+                            </mb3:serviceAction>
+                        </mb3:section>
+                        <mb3:section>
+                            <mb3:serviceAction objectType="isisApplib.HsqlDbManagerMenu" id="hsqlDbManager">
+                                <cpt:named>HSQL DB Manager</cpt:named>
+                                <cpt:link>
+                                    <lnk:rel>urn:org.restfulobjects:rels/action</lnk:rel>
+                                    <lnk:method>GET</lnk:method>
+                                    <lnk:href>
+                                        http://localhost:8080/restful/objects/isisApplib.HsqlDbManagerMenu/1/actions/hsqlDbManager
+                                    </lnk:href>
+                                    <lnk:type>
+                                        application/json;profile="urn:org.restfulobjects:repr-types/object-action"
+                                    </lnk:type>
+                                </cpt:link>
+                            </mb3:serviceAction>
+                        </mb3:section>
+                    </mb3:menu>
+                </mb3:secondary>
+                <mb3:tertiary>
+                    <mb3:menu>
+                        <mb3:named>Configuration Service Menu</mb3:named>
+                        <mb3:section>
+                            <mb3:serviceAction objectType="isisApplib.ConfigurationServiceMenu" id="configuration">
+                                <cpt:named>Configuration</cpt:named>
+                                <cpt:link>
+                                    <lnk:rel>urn:org.restfulobjects:rels/action</lnk:rel>
+                                    <lnk:method>GET</lnk:method>
+                                    <lnk:href>
+                                        http://localhost:8080/restful/objects/isisApplib.ConfigurationServiceMenu/1/actions/configuration
+                                    </lnk:href>
+                                    <lnk:type>
+                                        application/json;profile="urn:org.restfulobjects:repr-types/object-action"
+                                    </lnk:type>
+                                </cpt:link>
+                            </mb3:serviceAction>
+                        </mb3:section>
+                    </mb3:menu>
+                </mb3:tertiary>
+            </mb3:menuBars>;
     public static const RESTFUL_SERVICES:Object = {
         "value": [
             {
@@ -110,7 +412,30 @@ public class URLS {
                 "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/homepage\""
             }
         ]
+    };
 
+    public static const RESTFUL_VERSION:Object = {
+        "links" : [ {
+            "rel" : "self",
+            "href" : "http://localhost:8080/restful/version",
+            "method" : "GET",
+            "type" : "application/json;profile=\"urn:org.restfulobjects:repr-types/version\""
+        }, {
+            "rel" : "up",
+            "href" : "http://localhost:8080/restful/",
+            "method" : "GET",
+            "type" : "application/json;profile=\"urn:org.restfulobjects:repr-types/homepage\""
+        } ],
+        "specVersion" : "1.0.0",
+        "implVersion" : "UNKNOWN",
+        "optionalCapabilities" : {
+            "blobsClobs" : "yes",
+            "deleteObjects" : "yes",
+            "domainModel" : "formal",
+            "validateOnly" : "yes",
+            "protoPersistentObjects" : "yes"
+        },
+        "extensions" : { }
     };
 
     public static const SO_MENU:Object = {
@@ -1728,49 +2053,52 @@ public class URLS {
 
     /*
     "httpStatusCode": 500,
-"message": "RESTEASY003210: Could not find resource for full path: http://localhost:8080/restful/services/isisApplib.TranslationServicePoMenu/actions/downloadTranslations/invokearguments",
-     */
-    public const DOWNLOAD_TRANSLATIONS:String = "http://localhost:8080/restful/services/isisApplib.TranslationServicePoMenu/actions/downloadTranslations/invoke\n" +
+    "message": "RESTEASY003210: Could not find resource for full path:
+    http://localhost:8080/restful/services/isisApplib.TranslationServicePoMenu/actions/downloadTranslations/invokearguments",
+    */
+    public const DOWNLOAD_TRANSLATIONS:String =
+            "http://localhost:8080/restful/services/isisApplib.TranslationServicePoMenu/actions/downloadTranslations/invoke"
+            +
             "arguments";
-    
+
     public const OBJECT_PROPERTY:Object = {
-        "id" : "notes",
-        "memberType" : "property",
-        "links" : [ {
-            "rel" : "self",
-            "href" : "http://localhost:8080/restful/objects/simple.SimpleObject/119/properties/notes",
-            "method" : "GET",
-            "type" : "application/json;profile=\"urn:org.restfulobjects:repr-types/object-property\""
+        "id": "notes",
+        "memberType": "property",
+        "links": [{
+            "rel": "self",
+            "href": "http://localhost:8080/restful/objects/simple.SimpleObject/119/properties/notes",
+            "method": "GET",
+            "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object-property\""
         }, {
-            "rel" : "up",
-            "href" : "http://localhost:8080/restful/objects/simple.SimpleObject/119",
-            "method" : "GET",
-            "type" : "application/json;profile=\"urn:org.restfulobjects:repr-types/object\"",
-            "title" : "Object: Boo"
+            "rel": "up",
+            "href": "http://localhost:8080/restful/objects/simple.SimpleObject/119",
+            "method": "GET",
+            "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object\"",
+            "title": "Object: Boo"
         }, {
-            "rel" : "urn:org.restfulobjects:rels/modify;property=\"notes\"",
-            "href" : "http://localhost:8080/restful/objects/simple.SimpleObject/119/properties/notes",
-            "method" : "PUT",
-            "type" : "application/json;profile=\"urn:org.restfulobjects:repr-types/object-property\"",
-            "arguments" : {
-                "value" : null
+            "rel": "urn:org.restfulobjects:rels/modify;property=\"notes\"",
+            "href": "http://localhost:8080/restful/objects/simple.SimpleObject/119/properties/notes",
+            "method": "PUT",
+            "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object-property\"",
+            "arguments": {
+                "value": null
             }
         }, {
-            "rel" : "urn:org.restfulobjects:rels/clear;property=\"notes\"",
-            "href" : "http://localhost:8080/restful/objects/simple.SimpleObject/119/properties/notes",
-            "method" : "DELETE",
-            "type" : "application/json;profile=\"urn:org.restfulobjects:repr-types/object-property\""
+            "rel": "urn:org.restfulobjects:rels/clear;property=\"notes\"",
+            "href": "http://localhost:8080/restful/objects/simple.SimpleObject/119/properties/notes",
+            "method": "DELETE",
+            "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/object-property\""
         }, {
-            "rel" : "describedby",
-            "href" : "http://localhost:8080/restful/domain-types/simple.SimpleObject/properties/notes",
-            "method" : "GET",
-            "type" : "application/json;profile=\"urn:org.restfulobjects:repr-types/property-description\""
-        } ],
-        "value" : null,
-        "extensions" : {
-            "x-isis-format" : "string"
+            "rel": "describedby",
+            "href": "http://localhost:8080/restful/domain-types/simple.SimpleObject/properties/notes",
+            "method": "GET",
+            "type": "application/json;profile=\"urn:org.restfulobjects:repr-types/property-description\""
+        }],
+        "value": null,
+        "extensions": {
+            "x-isis-format": "string"
         }
-    }; 
+    };
 
 }
 }

@@ -44,7 +44,7 @@ public class ColLayout extends AbstractLayout {
 
     public function build():HBox {
         var result:HBox = new HBox();
-        UIUtil.decorate(result, getClassName(prototype.constructor));
+        UIUtil.decorate(result, 'ColLayout');
         var b:UIComponent;
         for each(var tl:TabLayout in tabList) {
             b = tl.build();

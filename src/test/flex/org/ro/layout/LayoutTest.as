@@ -56,7 +56,7 @@ public class LayoutTest {
         Assert.assertEquals(2, row1.getChildren().length);
 
         var h2:HBox = row1.getChildren()[1];
-        Assert.assertEquals(2, h2.getChildren().length);
+        Assert.assertEquals(1, h2.getChildren().length);
     }
     
 }

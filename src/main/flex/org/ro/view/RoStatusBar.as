@@ -11,7 +11,6 @@ import org.ro.core.Globals;
 import org.ro.core.event.LogEntry;
 
 public class RoStatusBar extends HBox {
-    private const STATUS_HEIGHT:int = 20;
 
     private var statusIcon:LinkButton = new LinkButton();
     public var url:Label = new Label();
@@ -21,6 +20,7 @@ public class RoStatusBar extends HBox {
 
     public function RoStatusBar() {
         percentWidth = 100;
+        var STATUS_HEIGHT:int = 20;
         height = STATUS_HEIGHT;
         setStyle("paddingLeft", 4);
         statusIcon.width = 16;

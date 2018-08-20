@@ -77,8 +77,9 @@ public class RoTabBar extends TabNavigator {
     }
 
     public function removeTab(tab:BaseTab):void {
-        var i:uint = getChildIndex(tab);
-        if (i >= 0) {
+        var pos:int = getChildIndex(tab);
+        var len:int = numChildren;
+        if (pos >= 0 && pos <= numChildren) {
             try {
                 this.removeChild(tab);
             } catch (err:Error) {

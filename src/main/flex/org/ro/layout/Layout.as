@@ -9,7 +9,6 @@ import org.ro.view.UIUtil;
  * In case of non-menu layout, build a UIComponent.
  */
 public class Layout extends AbstractLayout {
-    private const TAB_GROUP:String = "tabGroup";
 
     internal var row:Object; // which actually is a list of rows
     internal var rowList:Vector.<RowLayout>;
@@ -32,6 +31,7 @@ public class Layout extends AbstractLayout {
         // var s:Object = findPropertyBy(row, "fieldSet");
         function extractProperties():Array {
             var col:Object = row[1].cols[0].col;
+            var TAB_GROUP:String = "tabGroup";
             if (col.hasOwnProperty(TAB_GROUP)) {
                 // special case for json1
                 col = col.tabGroup[0].tab[0].row[0].cols[0].col;
@@ -114,6 +114,7 @@ public class Layout extends AbstractLayout {
             if ((o == null) || (o is String)) {
                 return false;
             } else {
+                var TAB_GROUP:String = "tabGroup";
                 return ((o.hasOwnProperty("col")) || (o.hasOwnProperty(TAB_GROUP)));
             }
         }

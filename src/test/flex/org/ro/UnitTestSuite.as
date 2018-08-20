@@ -17,7 +17,7 @@ import org.ro.to.TObjectTest;
 import org.ro.xhr.EventLogTest;
 
 [Suite]
-[RunWith("org.flexunit.runners.Suite")]
+[RunWith('org.flexunit.runners.Suite')]
 public class UnitTestSuite {
 
     public var c1:ObjectAdapterTest;

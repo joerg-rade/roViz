@@ -8,7 +8,6 @@ public class List1_16_2 extends LinkedTO {
     internal var disabledReason:String;
     internal var extensions:Object;
     internal var value:Object;
-    private var valueList:Vector.<Link>;
     internal var id:String;
 
     public function List1_16_2(jsonObj:Object = null) {
@@ -22,7 +21,7 @@ public class List1_16_2 extends LinkedTO {
         super.init();
         resultObject = new Result(result);
 
-        valueList = new Vector.<Link>();
+        var valueList:Vector.<org.ro.to.Link> = new Vector.<Link>();
         for each (var o:Object in links) {
             valueList.push(new Link(o));
         }

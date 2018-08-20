@@ -39,7 +39,8 @@ public class RowLayout extends AbstractLayout {
 
     public function build():VBox {
         var result:VBox = new VBox();
-        UIUtil.decorate(result, getClassName(prototype.constructor));
+        result.label = "tab: " + id;
+        UIUtil.decorate(result, 'RowLayout');
         var b:Box;
         for each(var c:ColLayout in columnList) {
             b = c.build();
