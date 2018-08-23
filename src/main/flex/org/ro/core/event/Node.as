@@ -1,12 +1,12 @@
 package org.ro.core.event {
-import mx.collections.ArrayCollection;
+import mx.collections.ArrayList;
 
 import org.ro.core.Utils;
 
 public class Node {
 
     private var entry:LogEntry;
-    public var children:ArrayCollection;
+    public var children:ArrayList;
     public var label:String;
 
     public function Node(entry:LogEntry) {
@@ -16,7 +16,7 @@ public class Node {
 
     public function addChild(n:Node):void {
         if (children == null) {
-            children = new ArrayCollection();
+            children = new ArrayList();
         }
         children.addItem(n);
     }

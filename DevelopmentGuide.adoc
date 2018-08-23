@@ -36,6 +36,21 @@ See: https://intellij-support.jetbrains.com/hc/en-us/community/posts/206750345-F
 
 * No output with trace(): https://github.com/mozilla/shumway/wiki/Trace-Output-with-Flash-Player-Debugger
 
+* complaints about crossdomain.xml: add file to ~\webapp\src\main\webapp see 
+https://stackoverflow.com/questions/11035433/do-i-need-a-cross-domain-policy
+----
+<?xml version="1.0"?>
+<!DOCTYPE cross-domain-policy SYSTEM "http://www.adobe.com/xml/dtds/cross-domain-policy.dtd" >
+<cross-domain-policy>
+	<site-control permitted-cross-domain-policies="all"/> 
+	<allow-access-from domain="*" to-ports="*" secure="false"/> 
+	<allow-http-request-headers-from domain="*" headers="*" secure="false"/>
+</cross-domain-policy>
+<!-- This file is not for production because it means no restriction at all !!! -->
+----
+See also: https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwji9smnx4DdAhWPYlAKHUvoALIQFjAAegQIABAC&url=https%3A%2F%2Fwww.owasp.org%2Fimages%2F9%2F9d%2F20140820-Flash_Security_by_Arcus_Security.pdf&usg=AOvVaw01becgI5SiTAeCNpmUGnOc
+
+
 ## Helpful Resources:
 * https://stackoverflow.com/questions/5536420/intellij-idea-actionscript-project-cannot-connect-debugger-version-of-flash
 * https://intellij-support.jetbrains.com/hc/en-us/community/posts/115000241004-IntelliJ-Flash-Debugger

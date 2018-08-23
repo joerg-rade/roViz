@@ -19,10 +19,14 @@ public class AbstractHandler implements IResponseHandler {
         this.logEntry = logEntry;
         var jsonStr:String = logEntry.getResponse();
         var jsonObj:Object = Utils.toJsonObject(jsonStr);
-        if (canHandle(jsonObj)) {
-            doHandle(jsonObj);
+        if (null == jsonObj) {
+            trace("jsonObj == null");
         } else {
-            successor.handle(logEntry);
+            if (canHandle(jsonObj)) {
+                doHandle(jsonObj);
+            } else {
+                successor.handle(logEntry);
+            }
         }
     }
 

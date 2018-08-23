@@ -1,5 +1,5 @@
 package org.ro.core.model {
-import mx.collections.ArrayCollection;
+import mx.collections.ArrayList;
 
 import org.ro.core.Globals;
 import org.ro.layout.Layout;
@@ -27,12 +27,12 @@ public class ObjectList {
         return layout != null;
     }
 
-    public function asArrayCollection():ArrayCollection {
-        var ac:ArrayCollection = new ArrayCollection();
+    public function asArrayList():ArrayList {
+        var al:ArrayList = new ArrayList();
         for each (var o:ObjectAdapter in list) {
-            ac.addItem(o);
+            al.addItem(o);
         }
-        return ac;
+        return al;
     }
 
     //TODO can/should layout be encapsulated more?

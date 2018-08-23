@@ -1,5 +1,5 @@
 package org.ro.view.tab {
-import mx.collections.ArrayCollection;
+import mx.collections.ArrayList;
 import mx.containers.HBox;
 import mx.controls.Tree;
 
@@ -27,17 +27,17 @@ public class TreeTab extends BaseTab {
         this.addChild(details);
     }
 
-    private function initData(logEntries:Vector.<LogEntry>):ArrayCollection {
+    private function initData(logEntries:Vector.<LogEntry>):ArrayList {
         // first pass
-        var nodeList:ArrayCollection = createNodeList();
+        var nodeList:ArrayList = createNodeList();
         // second pass: 
         findAndAssignChildren();
         // finally
-        var rootList:ArrayCollection = findRootNodes();
+        var rootList:ArrayList = findRootNodes();
         return rootList;
 
-        function createNodeList():ArrayCollection {
-            var list:ArrayCollection = new ArrayCollection();
+        function createNodeList():ArrayList {
+            var list:ArrayList = new ArrayList();
             var n:Node;
             for each(var le:LogEntry in logEntries) {
                 if (le.getResponse() != null) {
@@ -62,8 +62,8 @@ public class TreeTab extends BaseTab {
             }
         }
 
-        function findRootNodes():ArrayCollection {
-            var list:ArrayCollection = new ArrayCollection();
+        function findRootNodes():ArrayList {
+            var list:ArrayList = new ArrayList();
             var parentUrl:String;
             for each (var n3:Node in nodeList) {
                 parentUrl = n3.getParentUrl();

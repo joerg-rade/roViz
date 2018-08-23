@@ -14,10 +14,10 @@ public class LogEntry {
     public var lastAccessedAt:Date;
     public var offset:uint;
     public var fault:String;
-    public var request:String;    //TODO
+    public var request:String = "";
     public var requestLength:uint;
     public var responseLength:uint;
-    public var response:String;
+    public var response:String = "";
     public var duration:int = 0;
     public var tObject:TObject;
     public var visible:Boolean = true;
@@ -117,9 +117,10 @@ public class LogEntry {
     }
 
     public function printString():String {
+        //TODO \\n not working yet
         var result:String = "[";
-        result += "url: " + url + "\\n";
-        result += "arguments: " + request + "\\n";
+        result += "url: " + url + " \\n";
+        result += "arguments: " + request + " \\n";
         result += "response: " + response + "]";
         return result;
     }

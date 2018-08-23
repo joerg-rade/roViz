@@ -3,7 +3,7 @@ import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.system.System;
 
-import mx.collections.ArrayCollection;
+import mx.collections.ArrayList;
 import mx.controls.Menu;
 import mx.core.ClassFactory;
 import mx.events.MenuEvent;
@@ -39,7 +39,7 @@ public class EventLogTab extends BaseTab implements IDockable {
     private static var CS_LIST:Array = [cs0, cs1, cs2, cs3, cs3a, cs4, cs5, cs6, cs7, cs8, cs9];
 
     private var roContextMenu:Menu;
-    private var dataProvider:ArrayCollection;
+    private var dataProvider:ArrayList;
     private var dg:DataGrid;
 
     public function EventLogTab(list:Vector.<LogEntry>) {
@@ -58,11 +58,11 @@ public class EventLogTab extends BaseTab implements IDockable {
     }
 
     private function initData(dataProvider:Vector.<LogEntry>):void {
-        this.dataProvider = toArrayCollection(dataProvider);
+        this.dataProvider = toArrayList(dataProvider);
         dg.dataProvider = this.dataProvider;
 
-        function toArrayCollection(vector:Vector.<LogEntry>):ArrayCollection {
-            var ac:ArrayCollection = new ArrayCollection();
+        function toArrayList(vector:Vector.<LogEntry>):ArrayList {
+            var ac:ArrayList = new ArrayList();
             for each(var le:LogEntry in vector) {
                 if (le.visible)
                     ac.addItem(le);
@@ -104,6 +104,7 @@ public class EventLogTab extends BaseTab implements IDockable {
 
     public function fullCopy():void {
         var item:Object = dg.selectedItem;
+        //TODO pending requests (orange) can not be copied yet
         var text:String = (item as LogEntry).printString();
         System.setClipboard(text);
     }

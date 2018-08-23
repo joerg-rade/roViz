@@ -44,7 +44,7 @@ public class ListTab extends BaseTab {
         toolTip = "Double click (label) to close or invoke menu on selected item."
     }
 
-    private function buildTitle(list:ObjectList):String {
+    private static function buildTitle(list:ObjectList):String {
         var object:Object = list.last();
         var title:String = "";
         if (object.hasOwnProperty("domainType")) {
@@ -60,7 +60,7 @@ public class ListTab extends BaseTab {
 
 
     private function initData(dataProvider:ObjectList):void {
-        dg.dataProvider = dataProvider.asArrayCollection();
+        dg.dataProvider = dataProvider.asArrayList();
     }
 
     /* forces columns to size themselves properly */
