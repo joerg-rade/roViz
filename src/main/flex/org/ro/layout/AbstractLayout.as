@@ -1,7 +1,7 @@
 package org.ro.layout {
-//import flash.utils.getQualifiedClassName;
 
 public class AbstractLayout {
+    internal var debugInfo:Object;
     internal var cssClass:String;
 
     public function AbstractLayout(jsonObj:Object = null) {
@@ -12,10 +12,7 @@ public class AbstractLayout {
         for (var prop:String in obj) {
             this[prop] = obj[prop];
         }
-    }
-
-    internal function getClassName(value:*):String {
-        return "getQualifiedClassName(value)";
+        debugInfo = obj;
     }
 
 }

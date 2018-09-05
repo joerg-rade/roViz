@@ -1,5 +1,4 @@
 package org.ro.handler {
-import mx.controls.Alert;
 
 public class DefaultHandler extends AbstractHandler implements IResponseHandler {
 
@@ -11,9 +10,11 @@ public class DefaultHandler extends AbstractHandler implements IResponseHandler 
     }
 
     public override function doHandle(jsonObj:Object):void {
-        var s:String = JSON.stringify(jsonObj, null, 4);
-//        Alert.show(s, "No Handler found for: " + logEntry.url);
-        trace("No Handler found for: " + logEntry.url);
+        if (null == jsonObj) {
+            trace("json null for: " + logEntry.url);
+        } else {
+            trace("No Handler found for: " + logEntry.url);
+        }
     }
 
 }

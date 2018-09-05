@@ -58,7 +58,7 @@ public class Layout extends AbstractLayout {
             this.rowList.push(l);
         }
     }
-    
+
     public function addPropertyLabel(id:String, friendlyName:String):void {
         propertyLabels[id] = friendlyName;
     }
@@ -75,13 +75,20 @@ public class Layout extends AbstractLayout {
 
     public function build():VBox {
         var result:VBox = new VBox();
-        UIUtil.decorate(result, getClassName(prototype.constructor));
+        UIUtil.decorate(result, "Layout", debugInfo);
         var b:Box;
         //TODO iterate over rows, recurse into columns, etc.
+        var rowCount:uint = 0;
         for each(var rl:RowLayout in rowList) {
-            b = rl.build();
-            result.addChild(b);
+            rowCount = rowCount + 1;
+            // the first row contains the object titel and actions (for wicket viewer)
+            // this is handled here differently (tab)
+            if (rowCount > 1) {
+                b = rl.build();
+                result.addChild(b);
+            }
         }
+
         return result;
     }
 
@@ -89,7 +96,7 @@ public class Layout extends AbstractLayout {
         return properties;
     }
 
-    // recurse into attributes/fields/properties and 
+// recurse into attributes/fields/properties and 
     private function findPropertyBy(object:Object, name:String):Object {
         if (object.hasOwnProperty(name)) {
             return object[name];

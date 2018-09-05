@@ -140,11 +140,15 @@ auch althergebrachte Methoden sind gut.
 ____
 
 
-## Are used Classes supported by Apache Flex?
+## Are used Classes supported by Apache Flex/Royale?
 mx.containers.TitleWindow (/)
 mx.events.CloseEvent (Fx3)
 mx.managers.PopUpManager;
 HTTPService  (FX3)
+
+----
+C:\bin\apache-royal-0.9.2\royale-asjs\bin\mxmlc.bat -api-report=api-report.txt -load-config=c:/bin/apache-flex-sdk-4.16.1/frameworks/flex-config.xml src\main\flex\App.mxml
+----
 
 Potential limitations and workarounds regarding PUT, DELETE
 * https://forums.adobe.com/thread/721464[Gary 2012 on lifting of the limitation and as3httpclientlib]

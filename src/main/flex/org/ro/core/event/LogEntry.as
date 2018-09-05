@@ -2,6 +2,7 @@ package org.ro.core.event {
 import org.ro.core.Globals;
 import org.ro.to.TObject;
 import org.ro.view.ImageRepository;
+import org.ro.core.Utils;
 
 public class LogEntry {
     public var icon:Class;
@@ -123,6 +124,12 @@ public class LogEntry {
         result += "arguments: " + request + " \\n";
         result += "response: " + response + "]";
         return result;
+    }
+    
+    public function getJsonObject():Object {
+        var jsonStr:String = getResponse();
+        var jsonObj:Object = Utils.toJsonObject(jsonStr);
+        return jsonObj;
     }
 
 }

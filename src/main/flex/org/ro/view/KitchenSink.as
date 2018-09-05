@@ -16,14 +16,15 @@ import org.ro.core.Globals;
 //TODO Windows should always be resizeable
 public class KitchenSink extends TitleWindow {
 
-    [Embed(source="/../resources/fonts/Chicago.ttf",
+    //TODO The direct embedding of fonts is not supported. Use the fontswf utility and embed the resuting SWF
+    /*[Embed(source="/../resources/fonts/Chicago.ttf",
             fontName="Chicago",
             fontWeight="normal",
             fontStyle="normal",
             mimeType="application/x-font",
             advancedAntiAliasing="true",
-            embedAsCFF="false")]
-    private static const chicago:Class;
+            embedAsCFF="false")]   */
+    private static const chicago:Class = Font;
 
     public function KitchenSink(title:String = null) {
         this.title = title;

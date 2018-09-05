@@ -21,39 +21,39 @@ limitations under the License.
                 xmlns:mx="library://ns.adobe.com/flex/mx"
                 xmlns:view="org.ro.view.*">
     <fx:Script><![CDATA[
-        [Embed('../resources/images/bars.svg')]
+        [Embed('../resources/images/bars.png')]
         [Bindable]
         public var MenuIcon:Class;
 
-        [Embed("../resources/images/times_red.svg")]
+        [Embed("../resources/images/times_red.png")]
         [Bindable]
         public var TimesRedIcon:Class;
 
-        [Embed("../resources/images/times_yellow.svg")]
+        [Embed("../resources/images/times_yellow.png")]
         [Bindable]
         public var TimesYellowIcon:Class;
 
-        [Embed("../resources/images/step-forward.svg")]
+        [Embed("../resources/images/step-forward.png")]
         [Bindable]
         public var StepForwardIcon:Class;
 
-        [Embed("../resources/images/step-backward.svg")]
+        [Embed("../resources/images/step-backward.png")]
         [Bindable]
         public var StepBackwardIcon:Class;
 
-        [Embed("../resources/images/eye.svg")]
+        [Embed("../resources/images/eye.png")]
         [Bindable]
         public var EyeIcon:Class;
 
-        [Embed("../resources/images/check.svg")]
+        [Embed("../resources/images/check.png")]
         [Bindable]
         public var CheckIcon:Class;
 
-        [Embed("../resources/images/eye-slash.svg")]
+        [Embed("../resources/images/eye-slash.png")]
         [Bindable]
         public var EyeSlashIcon:Class;
 
-        [Embed("../resources/images/tree.svg")]
+        [Embed("../resources/images/tree.png")]
         [Bindable]
         public var TreeIcon:Class;
 

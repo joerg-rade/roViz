@@ -83,7 +83,7 @@ public class RoTabBar extends TabNavigator {
             try {
                 this.removeChild(tab);
             } catch (err:Error) {
-                //FIXME WTF is this happening?
+                //FIXME WTF is this happening?  immediate kids vs. grand kids?
                 trace("Error: " + err.message);
             }
             finally {

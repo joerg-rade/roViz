@@ -25,7 +25,6 @@ public class UnitTestSuite {
     public var h1:ServiceHandlerTest;
     public var h2:ListHandlerTest;
     public var h3:PropertyDescriptionHandlerTest;
-    public var h4:ServiceHandlerTest;
 //    public var h5:TObjectHandlerTest;
     public var l1:LayoutTest;
     public var t1:ActionGETArgumentTest;

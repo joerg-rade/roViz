@@ -22,7 +22,7 @@ public class FieldSetLayout extends AbstractLayout {
 
     public function build():HBox {
         var result:HBox = new HBox();
-        UIUtil.decorate(result, getClassName(prototype.constructor));
+        UIUtil.decorate(result, "FieldSetLayout", debugInfo);
         var fi:FormItem;
         var form:Form = new Form();
         for each(var p:Property in property) {

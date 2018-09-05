@@ -44,7 +44,7 @@ public class ColLayout extends AbstractLayout {
 
     public function build():HBox {
         var result:HBox = new HBox();
-        UIUtil.decorate(result, 'ColLayout');
+        UIUtil.decorate(result, "ColLayout", debugInfo);
         var b:UIComponent;
         for each(var tl:TabLayout in tabList) {
             b = tl.build();
@@ -54,7 +54,7 @@ public class ColLayout extends AbstractLayout {
             b = fsl.build();
             result.addChild(b);
         }
-        // actions will not be rendered
+        // actions will not be rendered as buttons
         return result;
     }
 

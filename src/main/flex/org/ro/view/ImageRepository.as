@@ -1,35 +1,36 @@
 package org.ro.view {
 public class ImageRepository {
 
-    [Embed('../../../../resources/images/history.svg')]
+    //FIXME move to App.mxml
+    [Embed('../../../../resources/images/history.png')]
     [Bindable]
     public static var LogIcon:Class;
 
-    [Embed('../../../../resources/images/check-circle.svg')]
+    [Embed('../../../../resources/images/check-circle.png')]
     [Bindable]
     public static var GreenIcon:Class;
 
-    [Embed('../../../../resources/images/question-circle.svg')]
+    [Embed('../../../../resources/images/question-circle.png')]
     [Bindable]
     public static var YellowIcon:Class;
 
-    [Embed('../../../../resources/images/times-circle.svg')]
+    [Embed('../../../../resources/images/times-circle.png')]
     [Bindable]
     public static var RedIcon:Class;
 
-    [Embed('../../../../resources/images/info-circle.svg')]
+    [Embed('../../../../resources/images/info-circle.png')]
     [Bindable]
     public static var BlueIcon:Class;
 
-    [Embed('../../../../resources/images/cubes.svg')]
+    [Embed('../../../../resources/images/cubes.png')]
     [Bindable]
     public static var ObjectsIcon:Class;
 
-    [Embed('../../../../resources/images/cube.svg')]
+    [Embed('../../../../resources/images/cube.png')]
     [Bindable]
     public static var ObjectIcon:Class;
 
-    [Embed("../../../../resources/images/pencil-alt.svg")]
+    [Embed("../../../../resources/images/pencil-alt.png")]
     [Bindable]
     public static var PencilIcon:Class;
 
@@ -37,19 +38,19 @@ public class ImageRepository {
     [Bindable]
     public static var AboutImage:Class;
 
-    [Embed("../../../../resources/images/calendar.svg")]
+    [Embed("../../../../resources/images/calendar.png")]
     [Bindable]
     public static var CalendarIcon:Class;
 
-    [Embed("../../../../resources/images/check.svg")]
+    [Embed("../../../../resources/images/check.png")]
     [Bindable]
     public static var CheckIcon:Class;
 
-    [Embed("../../../../resources/images/times.svg")]
+    [Embed("../../../../resources/images/times.png")]
     [Bindable]
     public static var TimesIcon:Class;
 
-    [Embed("../../../../resources/images/tree.svg")]
+    [Embed("../../../../resources/images/tree.png")]
     [Bindable]
     public static var TreeIcon:Class;
 
