@@ -21,6 +21,12 @@ limitations under the License.
                 xmlns:mx="library://ns.adobe.com/flex/mx"
                 xmlns:view="org.ro.view.*">
     <fx:Script><![CDATA[
+        import mx.managers.ToolTipManager;
+
+        import org.ro.utils.HtmlToolTip;
+
+        ToolTipManager.toolTipClass = HtmlToolTip;
+
         [Embed('../resources/images/bars.png')]
         [Bindable]
         public var MenuIcon:Class;
@@ -56,8 +62,6 @@ limitations under the License.
         [Embed("../resources/images/tree.png")]
         [Bindable]
         public var TreeIcon:Class;
-
-
         ]]></fx:Script>
 
     <!--fx:Style source="../resources/css/styles.css"/-->

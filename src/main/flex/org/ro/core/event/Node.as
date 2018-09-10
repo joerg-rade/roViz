@@ -23,8 +23,8 @@ public class Node {
 
     public function getParentUrl():String {
         var result:String;
-        var response:String = entry.getResponse();
-        if (response != null) {
+        if (entry.hasResponse()) {
+            var response:String = entry.getResponse();
             result = Utils.getUpHref(response);
         }
         return result;

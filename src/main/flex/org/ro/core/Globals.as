@@ -85,11 +85,8 @@ public class Globals {
     }
 
     public static function addObjectTab(oa:ObjectAdapter):void {
-        //TODO pass in startTime - otherwise log starttime would be finsish time
-        var start:Date = new Date();
         var tab:ObjectTab = getInstance().getView().getTabs().addObjectTab(oa);
         logAdd(tab.label);
-        //FIXME
     }
 
     private function getMenuBar():RoMenuBar {

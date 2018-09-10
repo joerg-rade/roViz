@@ -50,7 +50,7 @@ public class XmlHttpRequest extends HTTPService {
 
     private static function isCached(url:String):Boolean {
         var le:LogEntry = Globals.logFind(url);
-        if (le != null && (le.getResponse() != null)) {
+        if ((le != null) && (le.hasResponse())) {
             le.retrieveResponse();
             Globals.dspHandle(le);
             return true;

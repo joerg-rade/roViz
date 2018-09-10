@@ -128,6 +128,12 @@ public class Utils {
         }
         return jsonStr;
     }
-    
+
+    public static function htmlTip(jsonObj:Object):String {
+        var str:String = JSON.stringify(jsonObj, null, 4);
+        var xml:XML = XML(str);
+        return xml;
+    }
+
 }
 }

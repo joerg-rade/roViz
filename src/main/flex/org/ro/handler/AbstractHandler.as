@@ -1,4 +1,5 @@
 package org.ro.handler {
+import org.ro.core.Utils;
 import org.ro.core.event.LogEntry;
 import org.ro.to.Extensions;
 
@@ -16,7 +17,7 @@ public class AbstractHandler implements IResponseHandler {
      */
     public function handle(logEntry:LogEntry):void {
         this.logEntry = logEntry;
-        var jsonObj:Object = logEntry.getJsonObject();
+        var jsonObj:Object = getJsonObject(logEntry);
         if (null == jsonObj) {
             trace("jsonObj == null : " + logEntry.url);
         } else {
@@ -26,6 +27,12 @@ public class AbstractHandler implements IResponseHandler {
                 successor.handle(logEntry);
             }
         }
+    }
+    
+    private function getJsonObject(logEntry:LogEntry):Object {
+        var jsonStr:String = logEntry.getResponse();
+        var jsonObj:Object = Utils.toJsonObject(jsonStr);
+        return jsonObj;
     }
 
     /**

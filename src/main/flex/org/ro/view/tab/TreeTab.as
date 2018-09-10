@@ -40,7 +40,7 @@ public class TreeTab extends BaseTab {
             var list:ArrayList = new ArrayList();
             var n:Node;
             for each(var le:LogEntry in logEntries) {
-                if (le.getResponse() != null) {
+                if (le.hasResponse()) {
                     n = new Node(le);
                     list.addItem(n);
                 }

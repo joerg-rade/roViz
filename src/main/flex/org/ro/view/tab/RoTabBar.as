@@ -77,20 +77,9 @@ public class RoTabBar extends TabNavigator {
     }
 
     public function removeTab(tab:BaseTab):void {
-        var pos:int = getChildIndex(tab);
-        var len:int = numChildren;
-        if (pos >= 0 && pos <= numChildren) {
-            try {
-                this.removeChild(tab);
-            } catch (err:Error) {
-                //FIXME WTF is this happening?  immediate kids vs. grand kids?
-                trace("Error: " + err.message);
-            }
-            finally {
-                // Code that runs whether an error was thrown. This code can clean 
-                // up after the error, or take steps to keep the application running. 
-            }
-        } else {
+        if (this.contains(tab)) {
+            this.removeItem(tab);
+        }  else {
             trace("child not found, while trying to remove");
         }
     }

@@ -86,7 +86,7 @@ public class ObjectTab extends BaseTab {
         }
     }
 
-    //TODO move this method to a better place 
+    //FIXME move this method to a better place 
     private function findLayout(tObject:TObject):Layout {
         var link:Link = tObject.getLayoutLink();
         var href:String = link.getHref();
@@ -106,7 +106,7 @@ public class ObjectTab extends BaseTab {
             var le:LogEntry = Globals.logFind(href);
             if (le == null) {
                 link.invoke();
-            } else if (le.getResponse() == null) {
+            } else if (!le.hasResponse()) {
                 // do nothing, return null
             } else {
                 var json:Object = JSON.parse(le.getResponse());
