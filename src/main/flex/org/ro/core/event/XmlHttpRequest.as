@@ -28,7 +28,7 @@ public class XmlHttpRequest extends HTTPService {
         addEventListener(ResultEvent.RESULT, xhrResultHandler);
     }
 
-    public function invoke(inv:Invokeable):void {
+    public function invoke(inv:Invokeable, obs:ILogEventObserver):void {
         cancel();
         super.url = inv.getHref();
         if (isCached(url))
@@ -45,7 +45,7 @@ public class XmlHttpRequest extends HTTPService {
         } else {
             send();
         }
-        Globals.logStart(url, method, body);
+        Globals.logStart(url, method, body, obs);
     }
 
     private static function isCached(url:String):Boolean {

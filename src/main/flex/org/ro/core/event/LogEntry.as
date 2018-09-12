@@ -22,6 +22,7 @@ public class LogEntry {
     public var tObject:TObject;
     public var visible:Boolean = true;
     public var cacheHits:uint = 0;
+    public var observer:ILogEventObserver;
 
     public function LogEntry(url:String, method:String, body:String) {
         this.createdAt = new Date();
@@ -65,6 +66,12 @@ public class LogEntry {
         this.icon = ImageRepository.GreenIcon;
     }
 
+    public function initListObserver():ListObserver {
+        var lo:ListObserver = new ListObserver(url);
+        this.observer = lo;
+        return lo;
+    }
+
     internal function toString():String {
         var s:String = url + "/n";
         s = s + method + "/n";
@@ -92,6 +99,7 @@ public class LogEntry {
     }
 
     public function retrieveResponse():String {
+        this.lastAccessedAt = new Date();
         cacheHits = cacheHits + 1;
         return response;
     }

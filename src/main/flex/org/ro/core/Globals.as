@@ -2,6 +2,7 @@ package org.ro.core {
 import mx.utils.Base64Encoder;
 
 import org.ro.core.event.EventLog;
+import org.ro.core.event.ILogEventObserver;
 import org.ro.core.event.LogEntry;
 import org.ro.core.model.ObjectAdapter;
 import org.ro.core.model.ObjectList;
@@ -134,8 +135,8 @@ public class Globals {
         getInstance().log.fault(url, faultString);
     }
 
-    public static function logStart(url:String, method:String, body:String):void {
-        getInstance().log.start(url, method, body);
+    public static function logStart(url:String, method:String, body:String, obs:ILogEventObserver = null):void {
+        getInstance().log.start(url, method, body, obs);
     }
 
     public static function logEnd(url:String, jsonString:String):LogEntry {

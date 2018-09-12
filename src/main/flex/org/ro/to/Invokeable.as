@@ -1,4 +1,5 @@
 package org.ro.to {
+import org.ro.core.event.ILogEventObserver;
 import org.ro.core.event.XmlHttpRequest;
 
 public class Invokeable extends LinkedTO {
@@ -14,9 +15,9 @@ public class Invokeable extends LinkedTO {
         super.init();
     }
 
-    public function invoke():void {
+    public function invoke(obs:ILogEventObserver = null):void {
         var xhr:XmlHttpRequest = new XmlHttpRequest();
-        xhr.invoke(this);
+        xhr.invoke(this, obs);
     }
 
     public function getHref():String {

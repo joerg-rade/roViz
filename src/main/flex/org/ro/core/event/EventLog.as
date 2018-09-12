@@ -32,8 +32,9 @@ public class EventLog {
         }
     }
 
-    public function start(url:String, method:String, body:String):LogEntry {
+    public function start(url:String, method:String, body:String, obs:ILogEventObserver):LogEntry {
         var entry:LogEntry = new LogEntry(url, method, body);
+        entry.observer = obs;
         log.push(entry);
         Globals.updateStatus(entry);
         return entry;

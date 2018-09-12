@@ -11,7 +11,7 @@ import org.ro.to.TObject;
 
 public class ObjectList {
 
-    private var limit:int;
+    private var limit:uint;
     private var list:Vector.<ObjectAdapter>;
     private var layout:Layout;
 
@@ -19,7 +19,7 @@ public class ObjectList {
         this.list = new Vector.<ObjectAdapter>();
     }
 
-    public function initSize(limit:int):void {
+    public function initSize(limit:uint):void {
         this.limit = limit;
     }
 

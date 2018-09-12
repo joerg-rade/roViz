@@ -1,5 +1,6 @@
 package org.ro.handler {
 import org.ro.core.Globals;
+import org.ro.core.event.ListObserver;
 import org.ro.core.model.ObjectList;
 import org.ro.to.Invokeable;
 import org.ro.to.Link;
@@ -25,7 +26,7 @@ public class ListHandler extends AbstractHandler implements IResponseHandler {
         return v.length > 0;
     }
 
-    public override function doHandle(jsonObj:Object):void {
+    public /*override*/ function doHandleOld(jsonObj:Object):void {
         var list:List = new List(jsonObj);
         var members:Vector.<Invokeable> = list.getResult().getValues();
         var size:uint = members.length;
@@ -34,6 +35,14 @@ public class ListHandler extends AbstractHandler implements IResponseHandler {
         Globals.setList(objectList);
         for each (var l:Link in members) {
             l.invoke();
+        }
+    }
+    public override function doHandle(jsonObj:Object):void {
+        var list:List = new List(jsonObj);
+        var members:Vector.<Invokeable> = list.getResult().getValues();
+        var lo:ListObserver = logEntry.initListObserver();
+        for each (var l:Link in members) {
+            l.invoke(lo);
         }
     }
 

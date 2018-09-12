@@ -86,7 +86,7 @@ public class ObjectTab extends BaseTab {
         }
     }
 
-    //FIXME move this method to a better place 
+    //FIXME move this to ListObserver 
     private function findLayout(tObject:TObject):Layout {
         var link:Link = tObject.getLayoutLink();
         var href:String = link.getHref();
