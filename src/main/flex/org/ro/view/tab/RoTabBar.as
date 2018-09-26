@@ -91,29 +91,11 @@ public class RoTabBar extends TabNavigator {
         } else if (event.item.@id == "dock") {
             Globals.dockView(tab);
         } else if (event.item.@id == "redraw") {
-            reload(tab);
+//            reload(tab);
         } else {
             trace("Unexpected Event: " + event.toString());
         }
     }
-
-    /**
-     * Due to the asynchronous way data is retrieved, some information may not be available at the time the tab is created
-     * - notably layout information for linked objects in the FixtureResult list.
-     * This function can be called after all responses have arrived from the server.
-     * @param tab
-     */
-    public function reload(tab:BaseTab):void {
-        if (tab != null) {
-            removeTab(tab);
-            // this relies on the fact that 
-            // the ObjectList held in Globals 
-            // is the one that needs to be redrawn
-            // This may not be true in all cases.
-            Globals.displayList();
-            //open(tab);
-        }
-    }
-
+    
 }
 }

@@ -1,6 +1,5 @@
 package org.ro.handler {
 import org.ro.core.Globals;
-import org.ro.core.model.ObjectList;
 import org.ro.to.TObject;
 
 public class TObjectHandler extends AbstractHandler implements IResponseHandler {
@@ -11,9 +10,8 @@ public class TObjectHandler extends AbstractHandler implements IResponseHandler 
     }
 
     public override function doHandle(jsonObj:Object):void {
-        var list:ObjectList = Globals.getList();
         var tObj:TObject = new TObject(jsonObj);
-        list.handleObject(tObj);
+        logEntry.object = tObj;
     }
 
 }

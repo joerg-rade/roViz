@@ -3,6 +3,7 @@ import org.flexunit.Assert;
 import org.ro.URLS;
 import org.ro.core.Globals;
 import org.ro.core.Menu;
+import org.ro.core.event.ListObserver;
 import org.ro.core.event.LogEntry;
 import org.ro.core.model.ObjectList;
 
@@ -20,7 +21,8 @@ public class ListHandlerTest {
         var le:LogEntry = new LogEntry("", "GET", null);
         le.response = JSON.stringify(URLS.SO_LIST_ALL_INVOKE);
         Globals.dspHandle(le);
-        var t1:ObjectList = Globals.getList();
+        var lo:ListObserver = le.observer as ListObserver;
+        var t1:ObjectList = lo.getList();
         // then
         Assert.assertNotNull(t1);
     }

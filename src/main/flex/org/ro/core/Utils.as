@@ -83,6 +83,8 @@ public class Utils {
         return null;
     }
 
+    //TODO unify with getSelfHref, eventually use Builder pattern / fluent Interface 
+    // (.fromString(response).linkNamed(SELF|UP|LAYOUT)
     public static function getUpHref(response:String):String {
         var object:Object = JSON.parse(response);
         var links:Array;

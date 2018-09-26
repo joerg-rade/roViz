@@ -1,5 +1,4 @@
 package org.ro.handler {
-import org.ro.core.Globals;
 import org.ro.to.Extensions;
 import org.ro.to.Property;
 
@@ -17,7 +16,9 @@ public class PropertyDescriptionHandler extends AbstractHandler implements IResp
 
     public override function doHandle(jsonObj:Object):void {
         var p:Property = new Property(jsonObj);
-        Globals.getList().handleProperty(p);
+        logEntry.object = p;
+        //FIXME to be handled by Observers
+        // Globals.getList().handleProperty(p);
     }
 }
 }

@@ -4,48 +4,78 @@ import org.ro.core.Utils;
 import org.ro.core.model.ObjectAdapter;
 import org.ro.core.model.ObjectList;
 import org.ro.layout.Layout;
+import org.ro.to.Link;
+import org.ro.to.TObject;
 
-//TODO how can be determined, which observer should be assigned to LE?
-// where should this take place? I ResponseHandler? In LE?
-//FIXME DisplayManager to be refactored 
+/**
+ * Observers are initially created in ResponseHandler(s) and assigned to the respective LogEntry.
+ * They may be passed on to additional LogEntries, eg. those corresponding to related Object or Layout URLs.
+ */
+/** sequence of operations:
+ * (0) list
+ * (1) FR_OBJECT                TObjectHandler -> invoke()
+ * (2) FR_OBJECT_LAYOUT         layoutHandler -> invoke(layout.getProperties()[].getLink()) link can be null?
+ * (3) FR_OBJECT_PROPERTY       PropertyHandler -> invoke()
+ * (4) FR_PROPERTY_DESCRIPTION  PropertyDescriptionHandler
+ */
 public class ListObserver implements ILogEventObserver {
 
-    private var listUrl:String;
     private var list:ObjectList = new ObjectList();
+    private var log:EventLog = Globals.getLog();
 
-    public function ListObserver(baseUrl:String) {
-        this.listUrl = baseUrl;
+    /* test scope only */
+    public function getList():ObjectList {
+        return list;
+    }
+
+    public function ListObserver() {
     }
 
     public function update(le:LogEntry):void {
         var json:Object = Utils.toJsonObject(le.response);
+        var url:String = le.url;
 
         if (isList(json)) {
-            list = new ObjectList();
-            var size:uint = 0; //FIXME needs to be set
+            var size:uint = json.result.value.length;
             list.initSize(size);
         }
         if (isObject(json)) {
-            var oa:ObjectAdapter = new ObjectAdapter(le.tObject);
-            list.add(oa);
+            if (list.isFull()) {
+                trace("List full, not adding: " + url);
+            } else {
+                //TODO eventually set/get LogEntry.tObject
+                var jsonStr:String = le.response;
+                var jsonObj:Object = Utils.toJsonObject(jsonStr);
+                var tObj:TObject = new TObject(jsonObj);
+                loadLayout(tObj);
+                var oa:ObjectAdapter = new ObjectAdapter(tObj);
+                list.add(oa);
+            }
         }
+
         if (isLayout(json)) {
-            var l:Layout = new Layout(le.tObject);
+            //TODO if le.tObject is already set it should contain Layout
+            var l:Layout = new Layout(json);
             list.setLayout(l);
         }
         //TODO are list & layout the only criteria?
-        if (isLayoutSet()) {
-            Globals.addListTab(list); //open
+        if (list.hasLayout() && list.isFull()) {
+            var le:LogEntry = log.find(url);
+            var b:Boolean = (le != null);
+            if (b) {
+                trace("View already opened: " + url);
+            } else {
+                Globals.addListTab(list); //open
+            }
         }
-    }
-
-    private function isLayoutSet():Boolean {
-        return (list != null) && (list.hasLayout());
     }
 
     //TODO eventually move to LogEntry
     private function isList(json:Object):Boolean {
-        return (json.memberType == "collection");
+        var b:Boolean = false;
+        if (json.resulttype == "list") b = true;
+        if (json.memberType == "collection") b = true;
+        return b;
     }
 
     private function isObject(json:Object):Boolean {
@@ -55,5 +85,15 @@ public class ListObserver implements ILogEventObserver {
     private function isLayout(json:Object):Boolean {
         return json.hasOwnProperty("row");
     }
+
+    private function loadLayout(tObject:TObject):void {
+        var link:Link = tObject.getLayoutLink();
+        var href:String = link.getHref();
+        var le:LogEntry = log.find(href);
+        if (le == null) {
+            link.invoke(this);
+        }
+    }
+
 }
 }

@@ -11,7 +11,7 @@ import mx.events.MenuEvent;
 
 import org.ro.core.Globals;
 import org.ro.core.Utils;
-import org.ro.core.event.LogEntry;
+import org.ro.core.event.EventLog;
 import org.ro.core.model.ObjectAdapter;
 import org.ro.layout.Layout;
 import org.ro.to.Link;
@@ -21,6 +21,7 @@ import org.ro.view.UIUtil;
 import spark.components.Button;
 
 public class ObjectTab extends BaseTab {
+    private var log:EventLog = Globals.getLog();
 
     protected var form:Form;
     private var confirmBtn:Button;
@@ -75,44 +76,17 @@ public class ObjectTab extends BaseTab {
             fi.addElement(input);
             form.addElement(fi);
         }
+        //FIXME refactor: ObjectObserver reponsibility
         var t:TObject = object.adaptee as TObject;
-        var layout:Layout = findLayout(t);
+        var link:Link = t.getLayoutLink();
+        var href:String = link.getHref();
+        var layout:Layout = log.find(href).object as Layout;
         if (layout == null) {
             //TODO happens with FixtureResult object
             trace("layout is null");
         } else {
             var ui:UIComponent = layout.build();
             addChild(ui);
-        }
-    }
-
-    //FIXME move this to ListObserver 
-    private function findLayout(tObject:TObject):Layout {
-        var link:Link = tObject.getLayoutLink();
-        var href:String = link.getHref();
-        //TODO replace by an event based solution
-        var layout:Layout;
-        const start:uint = new Date().time;
-        var stop:uint = new Date().time;
-        //loop for 3 seconds
-        while (layout == null && (stop - start < 3000)) {
-            layout = findLayout(href);
-            stop = new Date().time;
-        }
-        return layout;
-
-        function findLayout(href:String):Layout {
-            var l:Layout;
-            var le:LogEntry = Globals.logFind(href);
-            if (le == null) {
-                link.invoke();
-            } else if (!le.hasResponse()) {
-                // do nothing, return null
-            } else {
-                var json:Object = JSON.parse(le.getResponse());
-                l = new Layout(json);
-            }
-            return l;
         }
     }
 

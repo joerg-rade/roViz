@@ -1,9 +1,10 @@
 package org.ro.core.event {
 import org.ro.core.Globals;
-import org.ro.to.TObject;
 import org.ro.view.ImageRepository;
 
 public class LogEntry {
+    private var log:EventLog = Globals.getLog();
+
     public var icon:Class;
     public var url:String;
     public var urlTitle:String;
@@ -19,7 +20,7 @@ public class LogEntry {
     public var responseLength:uint;
     public var response:String = "";
     public var duration:int = 0;
-    public var tObject:TObject;
+    public var object:Object;
     public var visible:Boolean = true;
     public var cacheHits:uint = 0;
     public var observer:ILogEventObserver;
@@ -46,7 +47,7 @@ public class LogEntry {
 
     internal function calculate():void {
         this.duration = updatedAt.time - start;
-        var logStartTime:int = Globals.logStartTime();
+        var logStartTime:int = log.getLogStartTime();
         this.offset = start - logStartTime;
     }
 
@@ -64,10 +65,13 @@ public class LogEntry {
         this.response = response; //.replace("\r\n", "");
         this.responseLength = response.length;
         this.icon = ImageRepository.GreenIcon;
+        if (null != observer) {
+            observer.update(this);
+        }
     }
 
     public function initListObserver():ListObserver {
-        var lo:ListObserver = new ListObserver(url);
+        var lo:ListObserver = new ListObserver();
         this.observer = lo;
         return lo;
     }

@@ -52,7 +52,7 @@ public class LayoutTest {
         var ui:VBox = lo.build();
         Assert.assertEquals(2, ui.getChildren().length);
 
-        //FIXME expected values depend on 'debugInfo' applied in Layout classes 
+        //TODO IMPROVE expected values depend on 'debugInfo' applied in Layout classes 
         var row1:VBox = ui.getChildren()[1];
         Assert.assertEquals(3, row1.getChildren().length);
 

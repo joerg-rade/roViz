@@ -69,7 +69,10 @@ public class Layout extends AbstractLayout {
 
     public function arePropertyLabelsToBeSet():Boolean {
         var labelSize:uint = propertyLabels.length;
-        var propsSize:uint = properties.length;
+        var propsSize:uint = 0;
+        if (null != properties) {
+            propsSize = properties.length; 
+        }
         return (labelSize < propsSize);
     }
 

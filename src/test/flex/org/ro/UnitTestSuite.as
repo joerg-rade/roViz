@@ -20,13 +20,17 @@ import org.ro.xhr.EventLogTest;
 [RunWith('org.flexunit.runners.Suite')]
 public class UnitTestSuite {
 
+    // core
     public var c1:ObjectAdapterTest;
     public var c2:EventLogTest;
     public var h1:ServiceHandlerTest;
+    // handler
     public var h2:ListHandlerTest;
     public var h3:PropertyDescriptionHandlerTest;
 //    public var h5:TObjectHandlerTest;
+    // layout
     public var l1:LayoutTest;
+    // transferObjects
     public var t1:ActionGETArgumentTest;
     public var t2:ActionPOSTArgumentFSTest;
     public var t3:ActionPOSTArgumentTest;
@@ -37,6 +41,5 @@ public class UnitTestSuite {
     public var t8:ObjectListTest;
     public var t19:TObjectTest;
     public var t10:ServiceTest;
-    public var x1:EventLogTest;
 }
 }

@@ -34,6 +34,7 @@ dynamic public class TObject extends TitledTO implements Adaptable {
     /**
      * Post-Constructor function using dynamic nature of class.
      */
+    //TODO reduce visibility to internal
     public function addMembersAsProperties():void {
         var members:Vector.<Invokeable> = getProperties();
         for each(var m:Member in members) {

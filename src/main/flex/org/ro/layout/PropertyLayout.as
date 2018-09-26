@@ -20,7 +20,7 @@ public class PropertyLayout extends MemberLayout {
 
     override protected function init():void {
         // super.init();
-        //FIXME link has an unexpected value of [object Object] - WTF
+        //TODO link (sometimes) has an unexpected value of [object Object] - WTF
         linkObject = new Link(link);
     }
 

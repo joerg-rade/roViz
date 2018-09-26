@@ -8,6 +8,7 @@ import mx.core.UIComponent;
 import org.apache.flex.collections.VectorList;
 import org.ro.core.Globals;
 import org.ro.core.Utils;
+import org.ro.core.event.EventLog;
 import org.ro.to.Action;
 import org.ro.to.Link;
 import org.ro.to.Parameter;
@@ -19,6 +20,7 @@ import spark.components.TextInput;
  * Build a dialog, using form and specification from Action.parameters
  */
 public class Prompt extends Dialog {
+    private var log:EventLog = Globals.getLog();
 
     private var action:Action;
 
@@ -29,7 +31,7 @@ public class Prompt extends Dialog {
         super();
         super.title = Utils.deCamel(id);
 
-        Globals.logAdd(super.title);
+        log.add(super.title);
     }
 
     override protected function populateForm():void {

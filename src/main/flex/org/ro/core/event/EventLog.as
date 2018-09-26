@@ -32,7 +32,7 @@ public class EventLog {
         }
     }
 
-    public function start(url:String, method:String, body:String, obs:ILogEventObserver):LogEntry {
+    public function start(url:String, method:String, body:String, obs:ILogEventObserver = null):LogEntry {
         var entry:LogEntry = new LogEntry(url, method, body);
         entry.observer = obs;
         log.push(entry);
@@ -47,9 +47,10 @@ public class EventLog {
         Globals.updateStatus(entry);
     }
 
-    public function update(description:String):void {
+    public function update(description:String):LogEntry {
         var entry:LogEntry = find(description);
         entry.updatedAt = new Date();
+        return entry;
     }
 
     public function end(url:String, response:String):LogEntry {
@@ -71,11 +72,13 @@ public class EventLog {
      * @return
      */
     public function find(url:String):LogEntry {
+        var le:LogEntry = null;
         if (Utils.endsWith(url, "object-layout") || url.indexOf("/properties/") > 0) {
-            return findSimilar(url);
+            le = findSimilar(url);
         } else {
-            return findExact(url);
+            le = findExact(url);
         }
+        return le;
     }
 
     internal function findExact(url:String):LogEntry {

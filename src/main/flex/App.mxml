@@ -22,10 +22,12 @@ limitations under the License.
                 xmlns:view="org.ro.view.*">
     <fx:Script><![CDATA[
         import mx.managers.ToolTipManager;
-
         import org.ro.utils.HtmlToolTip;
 
         ToolTipManager.toolTipClass = HtmlToolTip;
+
+        import org.ro.core.event.EventLog;
+        public static var LOG:EventLog = new EventLog();
 
         [Embed('../resources/images/bars.png')]
         [Bindable]

@@ -10,6 +10,7 @@ import mx.events.MenuEvent;
 import mx.formatters.DateFormatter;
 
 import org.ro.core.Globals;
+import org.ro.core.event.EventLog;
 import org.ro.core.event.LogEntry;
 import org.ro.view.BarRenderer;
 import org.ro.view.IDockable;
@@ -21,6 +22,7 @@ import org.ro.view.table.TableBuilder;
 import spark.components.DataGrid;
 
 public class EventLogTab extends BaseTab implements IDockable {
+    private var log:EventLog = Globals.getLog();
 
     private static var FORMATTER:DateFormatter = new DateFormatter();
     FORMATTER.formatString = "HH:NN:SS.QQQ";
@@ -134,14 +136,14 @@ public class EventLogTab extends BaseTab implements IDockable {
                 le = o as LogEntry;
                 le.visible = false;
             }
-            Globals.logReset();
-            initData(Globals.logEntries());
+            log.reset();
+            initData(log.getEntries());
             dg.validateNow();
         }
 
         function showAllLogEntries():void {
-            Globals.logShowAll();
-            initData(Globals.logEntries());
+            log.showAll();
+            initData(log.getEntries());
             dg.validateNow();
         }
     }

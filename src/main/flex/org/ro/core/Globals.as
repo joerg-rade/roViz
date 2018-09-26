@@ -1,16 +1,16 @@
 package org.ro.core {
+import mx.core.FlexGlobals;
 import mx.utils.Base64Encoder;
 
 import org.ro.core.event.EventLog;
-import org.ro.core.event.ILogEventObserver;
 import org.ro.core.event.LogEntry;
 import org.ro.core.model.ObjectAdapter;
 import org.ro.core.model.ObjectList;
 import org.ro.handler.Dispatcher;
-import org.ro.layout.Layout;
 import org.ro.view.IDockable;
 import org.ro.view.RoMenuBar;
 import org.ro.view.RoView;
+import org.ro.view.tab.ListTab;
 import org.ro.view.tab.ObjectTab;
 import org.ro.view.tab.RoTabBar;
 
@@ -29,19 +29,34 @@ import org.ro.view.tab.RoTabBar;
  */
 public class Globals {
     private static var instance:Globals = null;
+    private static var log:EventLog = initLog();
+
     private var dsp:Dispatcher = new Dispatcher();
-    private var log:EventLog = new EventLog();
     private var view:RoView = null;
-    private var display:DisplayManager = new DisplayManager();
-    //TODO improve refactor into RoSession
+    //TODO improve refactor into SessionManager
     private var user:String;
     private var pw:String;
     private var url:String;
-    private var list:ObjectList;
+
+    public static function getLog():EventLog {
+        if (log == null) {
+            log = initLog();
+        }
+        return log;
+    }
+
+    private static function initLog():EventLog {
+        var app:Object = FlexGlobals.topLevelApplication;
+        if (app.hasOwnProperty("LOG")) {
+            return app.LOG;
+        } else {
+            return new EventLog();
+        }
+    }
 
     /**
      * Should only be called from within this class,
-     * but AS does not support private constructors.
+     * but ActionScript does not support private constructors.
      */
     function Globals(view:RoView = null) {
         if (instance == null) {
@@ -75,16 +90,15 @@ public class Globals {
         getInstance().getView().getStatusBar().update(le);
     }
 
+    //TODO refactor into DisplayManager
     public static function addListTab(objectList:ObjectList):void {
         var tabBar:RoTabBar = getInstance().getView().getTabs();
-        getInstance().display.addListTab(tabBar, objectList);
+        var tab:ListTab = tabBar.addListTab(objectList);
+        var title:String = tab.label;
+        logAdd(title);
     }
 
-    //convenience method
-    public static function displayList():void {
-        addListTab(getList());
-    }
-
+    //TODO refactor into DisplayManager
     public static function addObjectTab(oa:ObjectAdapter):void {
         var tab:ObjectTab = getInstance().getView().getTabs().addObjectTab(oa);
         logAdd(tab.label);
@@ -110,17 +124,6 @@ public class Globals {
         getInstance().getMenuBar().setMenu(menu);
     }
 
-    public static function getList():ObjectList {
-        if (getInstance().list == null) {
-            getInstance().list = new ObjectList();
-        }
-        return getInstance().list;
-    }
-
-    public static function setList(list:ObjectList):void {
-        getInstance().list = list;
-    }
-
     public static function getCredentials():String {
         var credentials:String = getInstance().user + ":" + getInstance().pw;
         var encoder:Base64Encoder = new Base64Encoder();
@@ -130,46 +133,13 @@ public class Globals {
         return credentials;
     }
 
-    // delegate to EventLog
-    public static function logFault(url:String, faultString:String):void {
-        getInstance().log.fault(url, faultString);
-    }
-
-    public static function logStart(url:String, method:String, body:String, obs:ILogEventObserver = null):void {
-        getInstance().log.start(url, method, body, obs);
-    }
-
-    public static function logEnd(url:String, jsonString:String):LogEntry {
-        return getInstance().log.end(url, jsonString);
-    }
-
-    public static function logFind(url:String):LogEntry {
-        return getInstance().log.find(url);
-    }
-
-    public static function logReset():void {
-        getInstance().log.reset();
-    }
-
-    public static function logEntries():Vector.<LogEntry> {
-        return getInstance().log.getEntries();
-    }
-
-    public static function logShowAll():void {
-        getInstance().log.showAll();
-    }
-
-    public static function logStartTime():uint {
-        return getInstance().log.getLogStartTime();
-    }
-
-    public static function logAdd(title:String):void {
-        var le:LogEntry = logFind(title);
+    private static function logAdd(title:String):void {
+        var le:LogEntry = log.find(title);
         if (le == null) {
-            getInstance().log.add(title);
+            log.add(title);
         } else {
             le.cacheHits += 1;
-            getInstance().log.update(title);
+            log.update(title);
         }
     }
 
@@ -180,18 +150,13 @@ public class Globals {
 
     // delegate to Tabs
     public static function addEventTab():void {
-        var list:Vector.<LogEntry> = getInstance().log.getEntries();
+        var list:Vector.<LogEntry> = log.getEntries();
         getInstance().getView().getTabs().addEventTab(list);
     }
 
     public static function addTreeTab():void {
-        var list:Vector.<LogEntry> = getInstance().log.getEntries();
+        var list:Vector.<LogEntry> = log.getEntries();
         getInstance().getView().getTabs().addTreeTab(list);
-    }
-
-    // delegate to ObjectList
-    public static function setListLayout(l:Layout):void {
-        getList().setLayout(l);
     }
 
     public static function toggleDock(toggle:Boolean):void {

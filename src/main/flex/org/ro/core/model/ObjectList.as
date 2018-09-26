@@ -1,7 +1,6 @@
 package org.ro.core.model {
 import mx.collections.ArrayList;
 
-import org.ro.core.Globals;
 import org.ro.layout.Layout;
 import org.ro.layout.PropertyLayout;
 import org.ro.to.Extensions;
@@ -55,39 +54,17 @@ public class ObjectList {
 
     //TODO public for test only, reduce visibility to internal
     public function add(oa:ObjectAdapter):void {
+        if (oa.adaptee is TObject) {
+            var tObj:TObject = oa.adaptee as TObject;
+            tObj.addMembersAsProperties();
+        }
         list.push(oa);
     }
 
-    private function isFull():Boolean {
+    public function isFull():Boolean {
         return length() >= limit;
     }
 
-    public function handleObject(tObj:TObject):void {
-        if (!hasLayout()) {
-            trace("layout not found, try to invoke");
-            tObj.getLayoutLink().invoke();
-        }
-
-        // tObj  has links, o doesn't
-        tObj.addMembersAsProperties();
-        var oa:ObjectAdapter = new ObjectAdapter(tObj);
-        if (isFull()) {
-            Globals.addObjectTab(oa);
-        } else {
-            add(oa);
-            //TODO FEATURE Open tab immediately and append entries, have title reflect increasing numbers (n/limit)
-            if (isFull()) {
-                Globals.addListTab(this);
-            }
-        }
-    }
-
-    /** handler chain:
-     * (1) FR_OBJECT                TObjectHandler -> invoke()
-     * (2) FR_OBJECT_LAYOUT         layoutHandler -> invoke(layout.getProperties()[].getLink()) link can be null?
-     * (3) FR_OBJECT_PROPERTY       PropertyHandler -> invoke()
-     * (4) FR_PROPERTY_DESCRIPTION  PropertyDescriptionHandler
-     */
     private function initPropertyDescription():void {
         if (layout.arePropertyLabelsToBeSet()) {
             var pls:Vector.<PropertyLayout> = layout.getProperties();

@@ -7,6 +7,7 @@ import mx.core.ClassFactory;
 
 import org.ro.core.Globals;
 import org.ro.core.Utils;
+import org.ro.core.event.EventLog;
 import org.ro.core.event.LogEntry;
 import org.ro.core.model.ObjectAdapter;
 import org.ro.core.model.ObjectList;
@@ -22,6 +23,7 @@ import org.ro.view.table.TableBuilder;
 import spark.components.DataGrid;
 
 public class ListTab extends BaseTab {
+    private var log:EventLog = Globals.getLog();
 
     internal var dg:DataGrid = new DataGrid();
 
@@ -87,7 +89,7 @@ public class ListTab extends BaseTab {
             trace("item is Link, about to invoke");
             var link:Link = item.object.adaptee;
             var url:String = link.getHref();
-            var le:LogEntry = Globals.logFind(url);
+            var le:LogEntry = log.find(url);
             if (le == null) {
                 // this is (only?) required for Fixture Objects
                 link.invoke();
