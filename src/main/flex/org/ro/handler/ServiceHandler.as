@@ -1,7 +1,7 @@
 package org.ro.handler {
-import org.ro.core.Globals;
-import org.ro.core.Utils;
+import org.ro.core.DisplayManager;
 import org.ro.core.Menu;
+import org.ro.core.Utils;
 import org.ro.to.Invokeable;
 import org.ro.to.Link;
 import org.ro.to.Service;
@@ -18,7 +18,7 @@ public class ServiceHandler extends AbstractHandler implements IResponseHandler 
         var service:Service = new Service(jsonObj);
         var values:Vector.<Invokeable> = service.getValues();
         var menu:Menu = new Menu(values.length);
-        Globals.setMenu(menu);
+        DisplayManager.setMenu(menu);
         for each (var l:Link in values) {
             l.invoke();
         }

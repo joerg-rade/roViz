@@ -9,6 +9,8 @@ import mx.core.ClassFactory;
 import mx.events.MenuEvent;
 import mx.formatters.DateFormatter;
 
+import org.ro.core.DisplayManager;
+
 import org.ro.core.Globals;
 import org.ro.core.event.EventLog;
 import org.ro.core.event.LogEntry;
@@ -125,7 +127,7 @@ public class EventLogTab extends BaseTab implements IDockable {
         } else if (id === "copy") {
             fullCopy();
         } else if (id === "tree") {
-            Globals.addTreeTab();
+            DisplayManager.addTreeTab();
         } else {
             trace("Unexpected Event: " + event.toString());
         }

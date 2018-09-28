@@ -6,7 +6,6 @@ import mx.rpc.http.mxml.HTTPService;
 import org.ro.core.Globals;
 import org.ro.to.Invokeable;
 import org.ro.to.Link;
-import org.ro.core.event.EventLog;
 
 /**
  * The name is somewhat misleading, see: https://en.wikipedia.org/wiki/XMLHttpRequest
@@ -21,7 +20,7 @@ public class XmlHttpRequest extends HTTPService {
     protected function xhrResultHandler(event:ResultEvent):void {
         var jsonString:String = event.result.toString();
         var logEntry:LogEntry = log.end(url, jsonString);
-        Globals.dspHandle(logEntry);
+        Globals.dispatcher.handle(logEntry);
     }
 
     public function XmlHttpRequest() {
@@ -33,13 +32,13 @@ public class XmlHttpRequest extends HTTPService {
     public function invoke(inv:Invokeable, obs:ILogEventObserver):void {
         cancel();
         super.url = inv.getHref();
-        if (isCached(url)) {
+        if (log.isCached(url)) {
             //FIXME need to return something in case of 2nd 'listAll' invocation
             //return;  
             log.update(url);
         }
         super.method = inv.getMethod();
-        var credentials:String = Globals.getCredentials();
+        var credentials:String = Globals.session.getCredentials();
         super.headers = {Authorization: "Basic " + credentials};
         super.headers["Accept"] = "application/json";
         super.contentType = "application/json";
@@ -51,16 +50,6 @@ public class XmlHttpRequest extends HTTPService {
             send();
         }
         log.start(url, method, body, obs);
-    }
-
-    private static function isCached(url:String):Boolean {
-        var le:LogEntry = log.find(url);
-        if ((le != null) && (le.hasResponse())) {
-            le.retrieveResponse();
-            Globals.dspHandle(le);
-            return true;
-        }
-        return false;
     }
 
 }

@@ -1,8 +1,8 @@
 package org.ro.view {
-
 import mx.collections.XMLListCollection;
 import mx.events.MenuEvent;
 
+import org.ro.core.DisplayManager;
 import org.ro.core.Globals;
 import org.ro.core.Menu;
 import org.ro.core.MenuEntry;
@@ -41,12 +41,12 @@ public class RoMenuBar extends MenuBarAdapter {
 
     private static function toggleDock(event:MenuEvent):void {
         var toggle:Boolean = event.item.@toggled;
-        Globals.toggleDock(toggle);
+        DisplayManager.toggleDock(toggle);
     }
 
     private static function toggleStatus(event:MenuEvent):void {
         var toggle:Boolean = event.item.@status;
-        Globals.toggleStatus(toggle);
+        DisplayManager.toggleStatus(toggle);
     }
 
     private function handleActionSelection(event:MenuEvent):void {
@@ -60,7 +60,7 @@ public class RoMenuBar extends MenuBarAdapter {
         var pw:String = event.item.@password;
         var path:String = event.item.@path;
 
-        Globals.login(url, user, pw);
+        Globals.session.login(url, user, pw);
 
         var link:Link = new Link();
         link.setHref(url + path);

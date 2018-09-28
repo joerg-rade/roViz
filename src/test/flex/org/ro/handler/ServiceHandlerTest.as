@@ -1,6 +1,7 @@
 package org.ro.handler {
 import org.flexunit.Assert;
 import org.ro.URLS;
+import org.ro.core.DisplayManager;
 import org.ro.core.Globals;
 import org.ro.core.Menu;
 import org.ro.core.event.LogEntry;
@@ -16,8 +17,8 @@ public class ServiceHandlerTest {
         // when
         var le:LogEntry = new LogEntry("", "GET", null);
         le.response = JSON.stringify(URLS.RESTFUL_SERVICES);
-        Globals.dspHandle(le);
-        var m1:Menu = Globals.getMenu();
+        Globals.dispatcher.handle(le);
+        var m1:Menu = DisplayManager.getMenu();
         // then
         Assert.assertNotNull(m1);
         Assert.assertNotNull(m1.getItems());

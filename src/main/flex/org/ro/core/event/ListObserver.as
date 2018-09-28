@@ -1,4 +1,5 @@
 package org.ro.core.event {
+import org.ro.core.DisplayManager;
 import org.ro.core.Globals;
 import org.ro.core.Utils;
 import org.ro.core.model.ObjectAdapter;
@@ -61,11 +62,11 @@ public class ListObserver implements ILogEventObserver {
         //TODO are list & layout the only criteria?
         if (list.hasLayout() && list.isFull()) {
             var le:LogEntry = log.find(url);
-            var b:Boolean = (le != null);
+            var b:Boolean = (le != null) && (le.isView());
             if (b) {
                 trace("View already opened: " + url);
             } else {
-                Globals.addListTab(list); //open
+                DisplayManager.addListTab(list); //open
             }
         }
     }

@@ -140,6 +140,10 @@ public class LogEntry {
         result += "response: " + response + "]";
         return result;
     }
+    
+    internal function isView():Boolean {
+        return (icon is ImageRepository.BlueIcon);
+    }
 
 }
 }

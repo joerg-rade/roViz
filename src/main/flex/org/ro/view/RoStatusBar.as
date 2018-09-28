@@ -7,7 +7,7 @@ import mx.controls.Label;
 import mx.controls.LinkButton;
 import mx.controls.Spacer;
 
-import org.ro.core.Globals;
+import org.ro.core.DisplayManager;
 import org.ro.core.event.LogEntry;
 
 public class RoStatusBar extends HBox {
@@ -60,7 +60,7 @@ public class RoStatusBar extends HBox {
     }
 
     public static function clickHandler(event:MouseEvent):void {
-        Globals.addEventTab();
+        DisplayManager.addEventTab();
     }
 
 }

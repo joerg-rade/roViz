@@ -5,6 +5,7 @@ import mx.controls.Menu;
 import mx.controls.dataGridClasses.DataGridColumn;
 import mx.core.ClassFactory;
 
+import org.ro.core.DisplayManager;
 import org.ro.core.Globals;
 import org.ro.core.Utils;
 import org.ro.core.event.EventLog;
@@ -84,7 +85,7 @@ public class ListTab extends BaseTab {
         } else if (item is ObjectAdapter) {
             trace("item is ObjectAdapter, about to open");
             var oa:ObjectAdapter = item as ObjectAdapter;
-            Globals.addObjectTab(oa);
+            DisplayManager.addObjectTab(oa);
         } else if (isLink(item)) {
             trace("item is Link, about to invoke");
             var link:Link = item.object.adaptee;

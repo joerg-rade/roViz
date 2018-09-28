@@ -24,7 +24,7 @@ public class PropertyDescriptionHandlerTest {
         var xp:LogEntry = new LogEntry("", "GET", null);
         var json:Object = URLS.FR_PROPERTY_DESCRIPTION;
         xp.response = JSON.stringify(json);
-        Globals.dspHandle(xp);
+        Globals.dispatcher.handle(xp);
         var upHref:String = Utils.getUpHref(xp.response);
         var selfHref:String = Utils.getSelfHref(json);
         var act:LogEntry = log.find(selfHref);

@@ -1,4 +1,5 @@
 package org.ro.core.event {
+import org.ro.core.DisplayManager;
 import org.ro.core.Globals;
 import org.ro.core.Utils;
 
@@ -36,7 +37,7 @@ public class EventLog {
         var entry:LogEntry = new LogEntry(url, method, body);
         entry.observer = obs;
         log.push(entry);
-        Globals.updateStatus(entry);
+        DisplayManager.updateStatus(entry);
         return entry;
     }
 
@@ -44,7 +45,7 @@ public class EventLog {
         var entry:LogEntry = LogEntry.create(description);
         entry.createdAt = new Date();
         log.push(entry);
-        Globals.updateStatus(entry);
+        DisplayManager.updateStatus(entry);
     }
 
     public function update(description:String):LogEntry {
@@ -56,14 +57,14 @@ public class EventLog {
     public function end(url:String, response:String):LogEntry {
         var entry:LogEntry = find(url);
         entry.setSuccess(response);
-        Globals.updateStatus(entry);
+        DisplayManager.updateStatus(entry);
         return entry;
     }
 
     public function fault(url:String, fault:String):void {
         var entry:LogEntry = find(url);
         entry.setError(fault);
-        Globals.updateStatus(entry);
+        DisplayManager.updateStatus(entry);
     }
 
     /**
@@ -144,5 +145,15 @@ public class EventLog {
         reset();
     }
 
+    public function isCached(url:String):Boolean {
+        var le:LogEntry = find(url);
+        if ((le != null) && (le.hasResponse() || le.isView()) ) {
+            le.retrieveResponse();
+            Globals.dispatcher.handle(le);
+            return true;
+        }
+        return false;
+    }
+    
 }
 }

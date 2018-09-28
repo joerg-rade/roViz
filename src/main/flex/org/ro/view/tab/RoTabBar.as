@@ -6,7 +6,7 @@ import mx.controls.Menu;
 import mx.core.UIComponent;
 import mx.events.MenuEvent;
 
-import org.ro.core.Globals;
+import org.ro.core.DisplayManager;
 import org.ro.core.event.LogEntry;
 import org.ro.core.model.ObjectAdapter;
 import org.ro.core.model.ObjectList;
@@ -89,7 +89,7 @@ public class RoTabBar extends TabNavigator {
         if (event.item.@id == "close") {
             removeTab(tab);
         } else if (event.item.@id == "dock") {
-            Globals.dockView(tab);
+            DisplayManager.dockView(tab);
         } else if (event.item.@id == "redraw") {
 //            reload(tab);
         } else {
