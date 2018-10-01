@@ -1,11 +1,12 @@
 package org.ro.core.model {
+import org.ro.core.Utils;
 import org.ro.view.ImageRepository;
 
 /**
  * Wrapps the adapted object and adds an operation that renders the adaptee as a clickable link in the UI.
  * @see: https://en.wikipedia.org/wiki/Adapter_pattern
  */
-dynamic public class ObjectAdapter {
+dynamic public class ObjectAdapter implements Visible {
     private var _adaptee:Adaptable;
     private var _type:String;
     private var _icon:Class;
@@ -69,6 +70,19 @@ dynamic public class ObjectAdapter {
 
     public function get label():String {
         return _label;
+    }
+
+    public function tag():String {
+        var title:String = "";
+        if (this.hasOwnProperty("name")) {
+            title = this.name;
+        } else if (this.hasOwnProperty("className")) {
+            title = this.className;
+        } else {
+            title = "noNameNorClassname";
+        }
+        title = Utils.deCamel(title);
+        return title;
     }
 
 }

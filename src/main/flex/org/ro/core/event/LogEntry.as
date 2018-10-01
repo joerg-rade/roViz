@@ -1,9 +1,8 @@
 package org.ro.core.event {
-import org.ro.core.Globals;
 import org.ro.view.ImageRepository;
 
 public class LogEntry {
-    private var log:EventLog = Globals.getLog();
+    private var log:EventLog = EventLog.getInstance();
 
     public var icon:Class;
     public var url:String;
@@ -140,7 +139,7 @@ public class LogEntry {
         result += "response: " + response + "]";
         return result;
     }
-    
+
     internal function isView():Boolean {
         return (icon is ImageRepository.BlueIcon);
     }

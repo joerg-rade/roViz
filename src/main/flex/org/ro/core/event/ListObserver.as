@@ -1,6 +1,5 @@
 package org.ro.core.event {
 import org.ro.core.DisplayManager;
-import org.ro.core.Globals;
 import org.ro.core.Utils;
 import org.ro.core.model.ObjectAdapter;
 import org.ro.core.model.ObjectList;
@@ -22,7 +21,7 @@ import org.ro.to.TObject;
 public class ListObserver implements ILogEventObserver {
 
     private var list:ObjectList = new ObjectList();
-    private var log:EventLog = Globals.getLog();
+    private var log:EventLog = EventLog.getInstance();
 
     /* test scope only */
     public function getList():ObjectList {
@@ -66,7 +65,8 @@ public class ListObserver implements ILogEventObserver {
             if (b) {
                 trace("View already opened: " + url);
             } else {
-                DisplayManager.addListTab(list); //open
+                //TODO on runFixtureScript this is passed multiple times (but no view opened (which is correct))
+                DisplayManager.addView(list); //open
             }
         }
     }

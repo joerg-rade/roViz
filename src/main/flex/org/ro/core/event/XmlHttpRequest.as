@@ -11,7 +11,7 @@ import org.ro.to.Link;
  * The name is somewhat misleading, see: https://en.wikipedia.org/wiki/XMLHttpRequest
  */
 public class XmlHttpRequest extends HTTPService {
-    private static var log:EventLog = Globals.getLog();
+    private static var log:EventLog = EventLog.getInstance();
 
     protected function xhrFaultHandler(event:FaultEvent):void {
         log.fault(url, event.fault.faultString);
@@ -33,8 +33,6 @@ public class XmlHttpRequest extends HTTPService {
         cancel();
         super.url = inv.getHref();
         if (log.isCached(url)) {
-            //FIXME need to return something in case of 2nd 'listAll' invocation
-            //return;  
             log.update(url);
         }
         super.method = inv.getMethod();

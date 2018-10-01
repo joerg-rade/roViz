@@ -1,6 +1,7 @@
 package org.ro.core.model {
 import mx.collections.ArrayList;
 
+import org.ro.core.Utils;
 import org.ro.layout.Layout;
 import org.ro.layout.PropertyLayout;
 import org.ro.to.Extensions;
@@ -8,7 +9,7 @@ import org.ro.to.Link;
 import org.ro.to.Property;
 import org.ro.to.TObject;
 
-public class ObjectList {
+public class ObjectList implements Visible {
 
     private var limit:uint;
     private var list:Vector.<ObjectAdapter>;
@@ -84,6 +85,20 @@ public class ObjectList {
             layout = new Layout();
         }
         layout.addPropertyLabel(p.getId(), friendlyName);
+    }
+
+    public function tag():String {
+        var object:Object = last();
+        var title:String = "";
+        if (object.hasOwnProperty("domainType")) {
+            title = object.domainType;
+        } else if (object.hasOwnProperty("name")) {
+            title = object.name;
+        } else {
+            title = "noClassnameNorName";
+        }
+        title = Utils.deCamel(title);
+        return title + " (" + length() + ")";
     }
 
 }

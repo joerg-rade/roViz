@@ -6,8 +6,6 @@ import mx.controls.dataGridClasses.DataGridColumn;
 import mx.core.ClassFactory;
 
 import org.ro.core.DisplayManager;
-import org.ro.core.Globals;
-import org.ro.core.Utils;
 import org.ro.core.event.EventLog;
 import org.ro.core.event.LogEntry;
 import org.ro.core.model.ObjectAdapter;
@@ -24,12 +22,12 @@ import org.ro.view.table.TableBuilder;
 import spark.components.DataGrid;
 
 public class ListTab extends BaseTab {
-    private var log:EventLog = Globals.getLog();
+    private var log:EventLog = EventLog.getInstance();
 
     internal var dg:DataGrid = new DataGrid();
 
     public function ListTab(list:ObjectList) {
-        this.label = buildTitle(list);
+        this.label = list.tag();
         this.icon = ImageRepository.ObjectsIcon;
         dg.percentWidth = 100;
         dg.percentHeight = 100;
@@ -46,21 +44,6 @@ public class ListTab extends BaseTab {
         this.addChild(dg);
         toolTip = "Double click (label) to close or invoke menu on selected item."
     }
-
-    private static function buildTitle(list:ObjectList):String {
-        var object:Object = list.last();
-        var title:String = "";
-        if (object.hasOwnProperty("domainType")) {
-            title = object.domainType;
-        } else if (object.hasOwnProperty("name")) {
-            title = object.name;
-        } else {
-            title = "noClassnameNorName";
-        }
-        title = Utils.deCamel(title);
-        return title + " (" + list.length() + ")";
-    }
-
 
     private function initData(dataProvider:ObjectList):void {
         dg.dataProvider = dataProvider.asArrayList();
@@ -85,7 +68,7 @@ public class ListTab extends BaseTab {
         } else if (item is ObjectAdapter) {
             trace("item is ObjectAdapter, about to open");
             var oa:ObjectAdapter = item as ObjectAdapter;
-            DisplayManager.addObjectTab(oa);
+            DisplayManager.addView(oa);
         } else if (isLink(item)) {
             trace("item is Link, about to invoke");
             var link:Link = item.object.adaptee;

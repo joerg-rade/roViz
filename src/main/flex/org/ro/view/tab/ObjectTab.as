@@ -9,7 +9,6 @@ import mx.controls.TextInput;
 import mx.core.UIComponent;
 import mx.events.MenuEvent;
 
-import org.ro.core.Globals;
 import org.ro.core.Utils;
 import org.ro.core.event.EventLog;
 import org.ro.core.model.ObjectAdapter;
@@ -21,7 +20,7 @@ import org.ro.view.UIUtil;
 import spark.components.Button;
 
 public class ObjectTab extends BaseTab {
-    private var log:EventLog = Globals.getLog();
+    private var log:EventLog = EventLog.getInstance();
 
     protected var form:Form;
     private var confirmBtn:Button;
@@ -32,7 +31,7 @@ public class ObjectTab extends BaseTab {
 
     public function ObjectTab(oa:ObjectAdapter) {
         this.object = oa;
-        label = buildTitle();
+        label = oa.tag();
 
         setupForm();
         populateForm();
@@ -41,19 +40,6 @@ public class ObjectTab extends BaseTab {
         roContextMenu = buildContextMenu();
         addEventListener(MouseEvent.RIGHT_CLICK, contextMenuHandler);
         addEventListener(MenuEvent.MENU_HIDE, hideContextMenu);
-    }
-
-    private function buildTitle():String {
-        var title:String = "";
-        if (object.hasOwnProperty("name")) {
-            title = object.name;
-        } else if (object.hasOwnProperty("className")) {
-            title = object.className;
-        } else {
-            title = "noNameNorClassname";
-        }
-        title = Utils.deCamel(title);
-        return title;
     }
 
     protected function setupForm():void {

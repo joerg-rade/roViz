@@ -11,26 +11,20 @@ import org.ro.core.Utils;
  */
     //TODO all invocations should go here in the first place 
 public class EventLog {
+    private static var instance:EventLog = null;
 
     private var log:Vector.<LogEntry> = new Vector.<LogEntry>();
     public var logStart:Date = new Date();
 
-    public function EventLog() {
+    // Should not be called from the outside, but ActionScript does not allow private constructors
+    function EventLog() {
     }
 
-    /**
-     * iterate over entries and set logstart to timestamp of first visible
-     */
-    public function reset():void {
-        for each (var le:LogEntry in log) {
-            if (le.visible) {
-                logStart = le.createdAt;
-                break;
-            }
+    public static function getInstance():EventLog {
+        if (instance == null) {
+            instance = new EventLog();
         }
-        for each (var le2:LogEntry in log) {
-            le2.calculate();
-        }
+        return instance;
     }
 
     public function start(url:String, method:String, body:String, obs:ILogEventObserver = null):LogEntry {
@@ -137,23 +131,16 @@ public class EventLog {
         var first:LogEntry = log[0];
         return first.start;
     }
-
-    public function showAll():void {
-        for each (var le:LogEntry in log) {
-            le.setVisible(true);
-        }
-        reset();
-    }
-
+    
     public function isCached(url:String):Boolean {
         var le:LogEntry = find(url);
-        if ((le != null) && (le.hasResponse() || le.isView()) ) {
+        if ((le != null) && (le.hasResponse() || le.isView())) {
             le.retrieveResponse();
             Globals.dispatcher.handle(le);
             return true;
         }
         return false;
     }
-    
+
 }
 }

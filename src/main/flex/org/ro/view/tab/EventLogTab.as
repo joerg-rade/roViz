@@ -10,9 +10,6 @@ import mx.events.MenuEvent;
 import mx.formatters.DateFormatter;
 
 import org.ro.core.DisplayManager;
-
-import org.ro.core.Globals;
-import org.ro.core.event.EventLog;
 import org.ro.core.event.LogEntry;
 import org.ro.view.BarRenderer;
 import org.ro.view.IDockable;
@@ -24,8 +21,6 @@ import org.ro.view.table.TableBuilder;
 import spark.components.DataGrid;
 
 public class EventLogTab extends BaseTab implements IDockable {
-    private var log:EventLog = Globals.getLog();
-
     private static var FORMATTER:DateFormatter = new DateFormatter();
     FORMATTER.formatString = "HH:NN:SS.QQQ";
 
@@ -78,8 +73,6 @@ public class EventLogTab extends BaseTab implements IDockable {
     public function buildContextMenu():Menu {
         var xml:XML =
                 <root>
-                    <menuitem id="hide" icon="EyeSlashIcon" label="hide"/>
-                    <menuitem id="show" icon="EyeIcon" label="show all"/>
                     <menuitem id="copy" icon="CheckIcon" label="copy"/>
                     <menuitem id="tree" icon="TreeIcon" label="tree"/>
                 </root>;
@@ -120,33 +113,12 @@ public class EventLogTab extends BaseTab implements IDockable {
     public function itemClickHandler(event:MenuEvent):void {
         var items:Vector.<Object> = dg.selectedItems;
         var id:String = event.item.@id;
-        if (id === "hide") {
-            hideLogEntries(items);
-        } else if (id === "show") {
-            showAllLogEntries();
-        } else if (id === "copy") {
+        if (id === "copy") {
             fullCopy();
         } else if (id === "tree") {
             DisplayManager.addTreeTab();
         } else {
             trace("Unexpected Event: " + event.toString());
-        }
-
-        function hideLogEntries(items:Vector.<Object>):void {
-            var le:LogEntry;
-            for each (var o:Object in items) {
-                le = o as LogEntry;
-                le.visible = false;
-            }
-            log.reset();
-            initData(log.getEntries());
-            dg.validateNow();
-        }
-
-        function showAllLogEntries():void {
-            log.showAll();
-            initData(log.getEntries());
-            dg.validateNow();
         }
     }
 

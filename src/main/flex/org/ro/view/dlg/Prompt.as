@@ -6,7 +6,6 @@ import mx.controls.ComboBox;
 import mx.core.UIComponent;
 
 import org.apache.flex.collections.VectorList;
-import org.ro.core.Globals;
 import org.ro.core.Utils;
 import org.ro.core.event.EventLog;
 import org.ro.to.Action;
@@ -20,7 +19,7 @@ import spark.components.TextInput;
  * Build a dialog, using form and specification from Action.parameters
  */
 public class Prompt extends Dialog {
-    private var log:EventLog = Globals.getLog();
+    private var log:EventLog = EventLog.getInstance();
 
     private var action:Action;
 

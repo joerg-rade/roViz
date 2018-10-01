@@ -10,6 +10,7 @@ import org.ro.core.DisplayManager;
 import org.ro.core.event.LogEntry;
 import org.ro.core.model.ObjectAdapter;
 import org.ro.core.model.ObjectList;
+import org.ro.core.model.Visible;
 
 public class RoTabBar extends TabNavigator {
     private var roContextMenu:Menu;
@@ -23,28 +24,26 @@ public class RoTabBar extends TabNavigator {
         addEventListener(MenuEvent.MENU_HIDE, hideContextMenu);
     }
 
-    public function addListTab(list:ObjectList):ListTab {
-        var tab:ListTab = new ListTab(list);
+    public function addView(viewable:Visible):void {
+        var tab:* = null;
+        if (viewable is ObjectAdapter) {
+            var oa:ObjectAdapter = viewable as ObjectAdapter;
+            tab = new ObjectTab(oa);
+        } else if (viewable is ObjectList) {
+            var list:ObjectList = viewable as ObjectList;
+            tab = new ListTab(list);
+        }
         open(tab);
-        return tab;
     }
 
-    public function addEventTab(list:Vector.<LogEntry>):EventLogTab {
+    public function addEventTab(list:Vector.<LogEntry>):void {
         var tab:EventLogTab = new EventLogTab(list);
         open(tab);
-        return tab;
     }
 
-    public function addTreeTab(list:Vector.<LogEntry>):TreeTab {
+    public function addTreeTab(list:Vector.<LogEntry>):void {
         var tab:TreeTab = new TreeTab(list);
         open(tab);
-        return tab;
-    }
-
-    public function addObjectTab(oa:ObjectAdapter):ObjectTab {
-        var tab:ObjectTab = new ObjectTab(oa);
-        open(tab);
-        return tab;
     }
 
     public function open(tab:UIComponent):void {
@@ -59,7 +58,6 @@ public class RoTabBar extends TabNavigator {
                 <root>
                     <menuitem id="close" icon="TimesRedIcon" label="Close"/>
                     <menuitem id="dock" icon="StepBackwardIcon" label="Dock"/>
-                    <menuitem id="redraw" icon="EyeSlashIcon" label="redraw"/>
                 </root>;
         var result:Menu = Menu.createMenu(null, xml, false);
         result.labelField = "@label";
@@ -79,7 +77,7 @@ public class RoTabBar extends TabNavigator {
     public function removeTab(tab:BaseTab):void {
         if (this.contains(tab)) {
             this.removeItem(tab);
-        }  else {
+        } else {
             trace("child not found, while trying to remove");
         }
     }
@@ -90,12 +88,10 @@ public class RoTabBar extends TabNavigator {
             removeTab(tab);
         } else if (event.item.@id == "dock") {
             DisplayManager.dockView(tab);
-        } else if (event.item.@id == "redraw") {
-//            reload(tab);
         } else {
             trace("Unexpected Event: " + event.toString());
         }
     }
-    
+
 }
 }
