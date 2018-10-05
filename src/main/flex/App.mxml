@@ -26,9 +26,6 @@ limitations under the License.
 
         ToolTipManager.toolTipClass = HtmlToolTip;
 
-        import org.ro.core.event.EventLog;
-        public static var LOG:EventLog = new EventLog();
-
         [Embed('../resources/images/bars.png')]
         [Bindable]
         public var MenuIcon:Class;

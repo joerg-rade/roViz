@@ -57,7 +57,7 @@ public class MenuBarAdapter extends MenuBar {
             var item:IMenuBarItemRenderer = menuBarItems[i];
 
             item.setActualSize(item.getExplicitOrMeasuredWidth(), unscaledHeight);
-            item.visible = !hideItems;
+ //           item.visible = !hideItems;
 
             lastX = item.x = lastX + lastW;
             lastW = item.width;

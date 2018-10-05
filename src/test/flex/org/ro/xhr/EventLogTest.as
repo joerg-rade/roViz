@@ -13,7 +13,7 @@ public class EventLogTest {
     [Test(description="logging of events (start/end)")]
     public function testSecondEntry():void {
         // given
-        var log:EventLog = new EventLog();
+        var log:EventLog = EventLog.getInstance();
         const initialSize:int = log.getEntries().length;
         const myFirst:String = "1";
         const myLast:String = "n";

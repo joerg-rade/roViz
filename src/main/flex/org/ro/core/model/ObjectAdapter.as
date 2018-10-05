@@ -73,16 +73,16 @@ dynamic public class ObjectAdapter implements Visible {
     }
 
     public function tag():String {
-        var title:String = "";
+        var tag:String = "";
         if (this.hasOwnProperty("name")) {
-            title = this.name;
+            tag = this.name;
         } else if (this.hasOwnProperty("className")) {
-            title = this.className;
+            tag = this.className;
         } else {
-            title = "noNameNorClassname";
+            tag = "noNameNorClassname";
         }
-        title = Utils.deCamel(title);
-        return title;
+        tag = Utils.deCamel(tag);
+        return tag;
     }
 
 }

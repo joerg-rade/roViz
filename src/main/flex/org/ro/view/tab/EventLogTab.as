@@ -63,8 +63,7 @@ public class EventLogTab extends BaseTab implements IDockable {
         function toArrayList(vector:Vector.<LogEntry>):ArrayList {
             var ac:ArrayList = new ArrayList();
             for each(var le:LogEntry in vector) {
-                if (le.visible)
-                    ac.addItem(le);
+                ac.addItem(le);
             }
             return ac;
         }

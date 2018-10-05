@@ -31,6 +31,10 @@ public class DisplayManager {
         }
     }
 
+    public static function removeView(title:String):void {
+        LOG.close(title);
+    }
+
     // view convenience functions
     private static function getView():RoView {
         return Globals.getInstance().getView();

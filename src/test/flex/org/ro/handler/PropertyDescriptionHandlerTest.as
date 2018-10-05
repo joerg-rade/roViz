@@ -18,7 +18,7 @@ public class PropertyDescriptionHandlerTest {
     [Test(description="handover json from service ")]
     public function testService():void {
         // given
-        var log:EventLog = new EventLog();
+        var log:EventLog = EventLog.getInstance();
         var lo:ListObserver = new ListObserver();
         // when
         var xp:LogEntry = new LogEntry("", "GET", null);

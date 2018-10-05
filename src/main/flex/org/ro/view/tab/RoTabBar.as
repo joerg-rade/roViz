@@ -85,6 +85,8 @@ public class RoTabBar extends TabNavigator {
     public function itemClickHandler(event:MenuEvent):void {
         var tab:BaseTab = this.getItemAt(selectedIndex) as BaseTab;
         if (event.item.@id == "close") {
+            var title:String = tab.label;
+            DisplayManager.removeView(title);
             removeTab(tab);
         } else if (event.item.@id == "dock") {
             DisplayManager.dockView(tab);

@@ -59,7 +59,7 @@ public class ListTab extends BaseTab {
 
     //TODO should 'edit' be the default action - 
     // or is a context menu with actions more consistent?
-    //FIXME needs refactoring, avoid to refer to Globals
+    //FIXME needs refactoring
     protected function doubleClickHandler(event:MouseEvent):void {
         var item:Object = dg.selectedItem;
         if (item == null) {

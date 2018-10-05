@@ -6,6 +6,7 @@ import org.ro.core.Utils;
 /**
  * Keeps a log of remote invocations and the responses.
  * Subsequent invocations are served from this cache.
+ * UI events (Dialogs, Windows, etc.) are logged here as well.
  *
  * @See https://en.wikipedia.org/wiki/Proxy_pattern
  */
@@ -14,7 +15,6 @@ public class EventLog {
     private static var instance:EventLog = null;
 
     private var log:Vector.<LogEntry> = new Vector.<LogEntry>();
-    public var logStart:Date = new Date();
 
     // Should not be called from the outside, but ActionScript does not allow private constructors
     function EventLog() {
@@ -48,6 +48,16 @@ public class EventLog {
         return entry;
     }
 
+    public function close(url:String):void {
+        var entry:LogEntry = findView(url);
+        if (null == entry) {
+            // Happens with 'Log Entries (x)'
+        } else {
+            entry.setClose();
+            DisplayManager.updateStatus(entry);
+        }
+    }
+
     public function end(url:String, response:String):LogEntry {
         var entry:LogEntry = find(url);
         entry.setSuccess(response);
@@ -68,22 +78,44 @@ public class EventLog {
      */
     public function find(url:String):LogEntry {
         var le:LogEntry = null;
-        if (Utils.endsWith(url, "object-layout") || url.indexOf("/properties/") > 0) {
-            le = findSimilar(url);
+        if (!isViewUrl(url)) {
+            if (Utils.endsWith(url, "object-layout") || url.indexOf("/properties/") > 0) {
+                le = findSimilar(url);
+            } else {
+                le = findExact(url);
+            }
         } else {
-            le = findExact(url);
+            le = findView(url);
         }
         return le;
+    }
+
+    internal function isViewUrl(url:String):Boolean {
+        return (url.indexOf("http") < 0);
     }
 
     internal function findExact(url:String):LogEntry {
         for each(var le:LogEntry in log) {
             // assumes urls are unique !
             if (le.url == url) {
-                trace(url);
+                trace("[foundExact] " + url);
                 return le;
             }
         }
+        trace("[NOT foundExact] " + url);
+        return null;
+    }
+
+    internal function findView(url:String):LogEntry {
+        if (isViewUrl(url)) {
+            for each(var le:LogEntry in log) {
+                if ((le.url == url) && (le.isView())) {
+                    trace("[foundView] " + url);
+                    return le;
+                }
+            }
+        }
+        trace("[NOT foundView] " + url);
         return null;
     }
 
@@ -92,10 +124,11 @@ public class EventLog {
         for each(var le:LogEntry in log) {
             var idxArray:Array = le.url.split("/");
             if (areSimilar(argArray, idxArray)) {
-                trace(url);
+                trace("[foundSimilar] " + url);
                 return le;
             }
         }
+        trace("[NOT foundSimilar] " + url);
         return null;
 
         function areSimilar(argArray:Array, idxArray:Array, allowedDiff:uint = 1):Boolean {
@@ -131,7 +164,7 @@ public class EventLog {
         var first:LogEntry = log[0];
         return first.start;
     }
-    
+
     public function isCached(url:String):Boolean {
         var le:LogEntry = find(url);
         if ((le != null) && (le.hasResponse() || le.isView())) {

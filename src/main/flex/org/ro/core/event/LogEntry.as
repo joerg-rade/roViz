@@ -20,7 +20,6 @@ public class LogEntry {
     public var response:String = "";
     public var duration:int = 0;
     public var object:Object;
-    public var visible:Boolean = true;
     public var cacheHits:uint = 0;
     public var observer:ILogEventObserver;
 
@@ -57,6 +56,11 @@ public class LogEntry {
         this.icon = ImageRepository.RedIcon;
     }
 
+    internal function setClose():void {
+        this.updatedAt = new Date();
+        this.icon = ImageRepository.TimesIcon;
+    }
+
     internal function setSuccess(response:String):void {
         this.updatedAt = new Date();
         this.calculate();
@@ -79,10 +83,6 @@ public class LogEntry {
         var s:String = url + "/n";
         s = s + method + "/n";
         return s;
-    }
-
-    internal function setVisible(bool:Boolean):void {
-        this.visible = bool;
     }
 
     // region response
@@ -141,7 +141,12 @@ public class LogEntry {
     }
 
     internal function isView():Boolean {
-        return (icon is ImageRepository.BlueIcon);
+        var isView:Boolean = (icon == ImageRepository.BlueIcon);
+        return isView;
+    }
+
+    internal function isClosedView():Boolean {
+        return (icon is ImageRepository.TimesIcon);
     }
 
 }
